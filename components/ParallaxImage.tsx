@@ -1,21 +1,28 @@
 "use client";
 
 import Image, { type ImageProps } from "next/image";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import type { RefObject } from "react";
+import { useSectionProgress } from "@/lib/useSectionProgress";
 
 type ParallaxImageProps = Omit<ImageProps, "fill" | "style"> & {
+  sectionRef: RefObject<HTMLElement | null>;
   /** Max px the image drifts in either direction as its section scrolls
-   * through the viewport. Kept small on purpose -- this should read as a
-   * subtle depth cue, not a scroll-jack effect. */
+   * through the viewport. */
   strength?: number;
+  /** Extra zoom (e.g. 0.06 = 6%) applied at the peak of a subtle
+   * "breathing" effect when the section is centered in the viewport,
+   * easing back to no zoom toward the edges of its scroll range. */
+  scaleAmount?: number;
+  ease?: number;
 };
 
 /**
  * Fills its (position: relative, overflow: hidden) parent, drifting
- * vertically as that section scrolls through the viewport -- classic
- * parallax. Used for the hero and CTA backgrounds, which share the same
- * source photo; the matching drift is a deliberate visual echo tying the
- * two together.
+ * vertically -- with a subtle zoom "breath" layered on top -- as that
+ * section scrolls through the viewport. Used for the hero and CTA
+ * backgrounds, which share the same source photo; the matching drift is
+ * a deliberate visual echo tying the two together.
  *
  * Deliberately does NOT use next/image's `fill` prop: fill forbids
  * overriding `style.height` (it throws at render time), which is exactly
@@ -26,48 +33,24 @@ type ParallaxImageProps = Omit<ImageProps, "fill" | "style"> & {
  * layout is entirely CSS-driven.
  */
 export default function ParallaxImage({
-  strength = 50,
+  sectionRef,
+  strength = 90,
+  scaleAmount = 0.06,
+  ease = 0.07,
   ...props
 }: ParallaxImageProps) {
   const imgRef = useRef<HTMLImageElement>(null);
 
-  useEffect(() => {
-    const img = imgRef.current;
-    const section = img?.parentElement;
-    if (!img || !section) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let ticking = false;
-
-    function render() {
-      ticking = false;
-      const rect = section!.getBoundingClientRect();
-      const viewportH = window.innerHeight;
-      const sectionCenter = rect.top + rect.height / 2;
-      const range = viewportH / 2 + rect.height / 2;
-      const progress =
-        range > 0
-          ? Math.max(-1, Math.min(1, (sectionCenter - viewportH / 2) / range))
-          : 0;
-      img!.style.transform = `translate3d(0, ${(progress * strength).toFixed(2)}px, 0)`;
-    }
-
-    function requestRender() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(render);
-      }
-    }
-
-    render();
-    window.addEventListener("scroll", requestRender, { passive: true });
-    window.addEventListener("resize", requestRender);
-    return () => {
-      window.removeEventListener("scroll", requestRender);
-      window.removeEventListener("resize", requestRender);
-    };
-  }, [strength]);
+  useSectionProgress(sectionRef, {
+    ease,
+    onProgress: (progress) => {
+      const img = imgRef.current;
+      if (!img) return;
+      const shift = progress * strength;
+      const scale = 1 + (1 - Math.abs(progress)) * scaleAmount;
+      img.style.transform = `translate3d(0, ${shift.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
+    },
+  });
 
   const buffer = strength + 8;
 

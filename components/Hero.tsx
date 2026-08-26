@@ -1,10 +1,17 @@
+"use client";
+
+import { useRef } from "react";
 import Image from "next/image";
 import ParallaxImage from "./ParallaxImage";
+import ParallaxLayer from "./ParallaxLayer";
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+
   return (
-    <header className="hero">
+    <header className="hero" ref={sectionRef}>
       <ParallaxImage
+        sectionRef={sectionRef}
         className="hero__bg"
         src="/assets/hero-bg.png"
         alt=""
@@ -12,10 +19,14 @@ export default function Hero() {
         height={1416}
         priority
         sizes="100vw"
-        strength={50}
+        strength={90}
       />
       <div className="hero__overlay" />
-      <div className="hero__content">
+      <ParallaxLayer
+        sectionRef={sectionRef}
+        strength={-24}
+        className="hero__content"
+      >
         <div className="brand">
           <span className="brand__word">Colvin</span>
           <Image
@@ -28,7 +39,7 @@ export default function Hero() {
           <span className="brand__word">Haven</span>
         </div>
         <p className="hero__tagline">Wellness Architecture &amp; Design</p>
-      </div>
+      </ParallaxLayer>
       <p className="hero__scroll">Scroll for more</p>
     </header>
   );

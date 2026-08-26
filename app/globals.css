@@ -336,7 +336,10 @@ img {
 .quote {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 120px var(--gutter) 120px 600px;
+  /* No top padding: the gallery section above already carries a 120px
+     bottom padding, so adding another 120px here would double the gap
+     above the quote versus below it (CTA has no top padding of its own). */
+  padding: 0 var(--gutter) 120px 600px;
 }
 
 .quote p {

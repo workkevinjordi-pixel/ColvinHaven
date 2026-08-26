@@ -1,15 +1,18 @@
 import Image from "next/image";
+import ParallaxImage from "./ParallaxImage";
 
 export default function Hero() {
   return (
     <header className="hero">
-      <Image
+      <ParallaxImage
         className="hero__bg"
         src="/assets/hero-bg.png"
         alt=""
-        fill
+        width={3018}
+        height={1416}
         priority
         sizes="100vw"
+        strength={50}
       />
       <div className="hero__overlay" />
       <div className="hero__content">

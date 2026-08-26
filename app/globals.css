@@ -369,7 +369,10 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 65%;
+  /* The source design crops this section to show mostly the lower portion
+     of the same photo used in the hero -- bias toward the bottom rather
+     than a centered crop. */
+  object-position: center 82%;
 }
 
 .cta__overlay {
@@ -385,7 +388,9 @@ img {
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
-  padding: 60px var(--gutter);
+  /* Left inset is 80px per the source design (node 59:728), not the
+     standard 112px gutter used elsewhere on the page. */
+  padding: 60px var(--gutter) 60px 80px;
   text-align: left;
 }
 
@@ -400,6 +405,7 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 100px;
   padding: 12px 16px;
   border: 1px solid #fff;
   color: #fff;
@@ -524,6 +530,10 @@ img {
   }
 
   .quote {
+    padding-left: var(--gutter);
+  }
+
+  .cta__content {
     padding-left: var(--gutter);
   }
 

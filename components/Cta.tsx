@@ -1,14 +1,16 @@
-import Image from "next/image";
+import ParallaxImage from "./ParallaxImage";
 
 export default function Cta() {
   return (
     <section className="cta">
-      <Image
+      <ParallaxImage
         className="cta__bg"
         src="/assets/hero-bg.png"
         alt=""
-        fill
+        width={3018}
+        height={1416}
         sizes="100vw"
+        strength={50}
       />
       <div className="cta__overlay" />
       <div className="cta__content">

@@ -211,7 +211,7 @@ img {
 .values__body {
   display: flex;
   align-items: flex-start;
-  gap: 60px;
+  gap: 0;
   flex-wrap: wrap;
 }
 
@@ -219,7 +219,10 @@ img {
   display: flex;
   align-items: center;
   gap: 11px;
-  flex: 0 0 auto;
+  /* Reserves a left column roughly matching the source design's 514/1216
+     text offset, so the body copy starts near the horizontal middle
+     instead of immediately after the label. */
+  flex: 0 0 42%;
 }
 
 .values__dot {
@@ -490,6 +493,10 @@ img {
   .values__body {
     flex-direction: column;
     gap: 24px;
+  }
+
+  .values__tag {
+    flex-basis: auto;
   }
 
   .gallery__row,

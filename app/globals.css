@@ -257,7 +257,10 @@ img {
 .gallery {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 40px var(--gutter) 120px;
+  /* No bottom padding: the quote section right after already carries its
+     own 120px top padding (matching the Figma spec exactly), so adding
+     one here too would double the gap above the quote. */
+  padding: 40px var(--gutter) 0;
   display: flex;
   flex-direction: column;
   gap: 60px;
@@ -336,10 +339,7 @@ img {
 .quote {
   max-width: var(--max-width);
   margin: 0 auto;
-  /* No top padding: the gallery section above already carries a 120px
-     bottom padding, so adding another 120px here would double the gap
-     above the quote versus below it (CTA has no top padding of its own). */
-  padding: 0 var(--gutter) 120px 600px;
+  padding: 120px var(--gutter) 120px 600px;
 }
 
 .quote p {

@@ -179,7 +179,7 @@ img {
 .values {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 120px var(--gutter);
+  padding: 200px var(--gutter);
 }
 
 .values__image-wrap {
@@ -344,7 +344,7 @@ img {
 .quote {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 120px var(--gutter) 120px 600px;
+  padding: 200px var(--gutter) 200px 600px;
 }
 
 .quote p {

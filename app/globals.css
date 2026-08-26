@@ -199,7 +199,7 @@ img {
 .values__heading {
   font-weight: 500;
   font-size: 32px;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 }
 
 .values__divider {
@@ -211,7 +211,7 @@ img {
 .values__body {
   display: flex;
   align-items: flex-start;
-  gap: 0;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
@@ -219,10 +219,7 @@ img {
   display: flex;
   align-items: center;
   gap: 11px;
-  /* Reserves a left column roughly matching the source design's 514/1216
-     text offset, so the body copy starts near the horizontal middle
-     instead of immediately after the label. */
-  flex: 0 0 42%;
+  flex: 0 0 auto;
 }
 
 .values__dot {
@@ -238,7 +235,10 @@ img {
 }
 
 .values__text {
-  flex: 1 1 480px;
+  /* Fixed 702px, per the source design -- justify-content: space-between
+     on .values__body naturally opens up the gap after the tag, rather
+     than the text growing to fill whatever space is left. */
+  flex: 0 1 702px;
 }
 
 .values__text p {
@@ -493,10 +493,6 @@ img {
   .values__body {
     flex-direction: column;
     gap: 24px;
-  }
-
-  .values__tag {
-    flex-basis: auto;
   }
 
   .gallery__row,

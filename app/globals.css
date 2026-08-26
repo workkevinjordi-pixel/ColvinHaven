@@ -381,7 +381,6 @@ img {
 .cta__content {
   position: relative;
   max-width: 711px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

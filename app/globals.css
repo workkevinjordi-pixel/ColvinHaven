@@ -186,7 +186,7 @@ img {
   width: 100%;
   aspect-ratio: 1216 / 739;
   overflow: hidden;
-  margin-bottom: 62px;
+  margin-bottom: 60px;
 }
 
 .values__image {
@@ -257,10 +257,12 @@ img {
 .gallery {
   max-width: var(--max-width);
   margin: 0 auto;
-  /* No bottom padding: the quote section right after already carries its
-     own 120px top padding (matching the Figma spec exactly), so adding
-     one here too would double the gap above the quote. */
-  padding: 40px var(--gutter) 0;
+  /* No top or bottom padding of its own: the values section above already
+     carries a 120px bottom padding, and the quote section below carries
+     its own 120px top padding (matching the Figma spec exactly) -- adding
+     padding here too would break the consistent 120px rhythm every other
+     major section boundary on the page follows. */
+  padding: 0 var(--gutter);
   display: flex;
   flex-direction: column;
   gap: 60px;
@@ -291,7 +293,10 @@ img {
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  gap: 80px;
+  /* Matches the source design (node 59:36) exactly: a wide, editorial
+     spread between the title block and the category/year line, not a
+     tight 80px stack. */
+  gap: 217px;
   text-align: right;
   opacity: 0;
   transform: translateX(12px);

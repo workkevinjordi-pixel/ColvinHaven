@@ -336,14 +336,13 @@ img {
 .quote {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 60px var(--gutter) 60px;
-  padding-left: max(var(--gutter), 33%);
+  padding: 120px var(--gutter) 120px 600px;
 }
 
 .quote p {
-  font-weight: 400;
-  font-size: clamp(24px, 3vw, 40px);
-  line-height: 1.4;
+  font-weight: 300;
+  font-size: 32px;
+  line-height: 56px;
 }
 
 /* ---------- CTA ---------- */

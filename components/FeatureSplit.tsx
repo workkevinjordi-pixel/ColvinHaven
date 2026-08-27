@@ -68,9 +68,12 @@ export default function FeatureSplit() {
       return;
     }
 
-    const mq = window.matchMedia("(min-width: 900px)");
+    // Runs at every viewport width -- havenconstructions.com.au's own
+    // ScrollGallery keeps the same sticky-pin scroll-scrub on mobile as
+    // desktop, just re-scaled (their box shrinks from 800px to 400px,
+    // which happens to match our BASE_WIDTH already).
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!mq.matches || reduceMotion) return;
+    if (reduceMotion) return;
 
     let targetProgress = 0;
     let shownProgress = 0;

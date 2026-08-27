@@ -867,47 +867,17 @@ button:focus-visible,
     --gutter: 32px;
   }
 
-  .feature-split {
-    height: auto;
-  }
-
-  .feature-split__pin {
-    position: static;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    padding: 80px var(--gutter);
-    overflow: visible;
-  }
-
+  /* Everything else about the pinned scroll-scrub (section height, sticky
+     pin, clip-path growth, three-image crossfade) stays identical to
+     desktop, matching havenconstructions.com.au's ScrollGallery -- only
+     the word layout changes, since "Silence"/"Luxury" side-by-side with
+     a 400px image spacer doesn't fit a narrow viewport. */
   .feature-split__words {
-    height: auto;
     flex-direction: column;
-    padding: 0;
     gap: 24px;
   }
 
   .feature-split__spacer {
-    display: none;
-  }
-
-  .feature-split__image-wrap {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    aspect-ratio: 400 / 284.615;
-    order: -1;
-    clip-path: none !important;
-  }
-
-  .feature-split__word--left,
-  .feature-split__word--right {
-    transform: none;
-  }
-
-  .feature-split__image--2,
-  .feature-split__image--3 {
     display: none;
   }
 

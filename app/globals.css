@@ -182,20 +182,6 @@ img {
   padding: 200px var(--gutter);
 }
 
-.values__image-wrap {
-  width: 100%;
-  aspect-ratio: 1216 / 739;
-  overflow: hidden;
-  margin-bottom: 60px;
-}
-
-.values__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 40%;
-}
-
 .values__heading {
   font-weight: 500;
   font-size: 32px;
@@ -211,8 +197,16 @@ img {
 .values__body {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  gap: 200px;
   flex-wrap: wrap;
+}
+
+.values__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 80px;
+  flex: 0 0 auto;
 }
 
 .values__tag {
@@ -234,11 +228,24 @@ img {
   letter-spacing: 0.5px;
 }
 
+.values__photo {
+  width: 525px;
+  height: 555px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.values__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Same natural-scale "cover" crop as the source design, biased toward
+     the lower portion of the photo (deck/bench) rather than centered. */
+  object-position: left 92%;
+}
+
 .values__text {
-  /* Fixed 702px, per the source design -- justify-content: space-between
-     on .values__body naturally opens up the gap after the tag, rather
-     than the text growing to fill whatever space is left. */
-  flex: 0 1 702px;
+  flex: 1 1 0;
 }
 
 .values__text p {

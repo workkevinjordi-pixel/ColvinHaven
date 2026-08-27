@@ -3,21 +3,22 @@ import Image from "next/image";
 export default function Values() {
   return (
     <section className="values">
-      <div className="values__image-wrap">
-        <Image
-          className="values__image"
-          src="/assets/guiding-values.png"
-          alt="Timber and stone interior with garden view"
-          width={1358}
-          height={2000}
-        />
-      </div>
       <h2 className="values__heading">Our guiding values</h2>
       <hr className="values__divider" />
       <div className="values__body">
-        <div className="values__tag">
-          <span className="values__dot" />
-          <span>A WAY OF LIFE</span>
+        <div className="values__aside">
+          <div className="values__tag">
+            <span className="values__dot" />
+            <span>A WAY OF LIFE</span>
+          </div>
+          <div className="values__photo">
+            <Image
+              src="/assets/guiding-values.png"
+              alt="Timber and stone deck with bench, overlooking the garden"
+              width={1358}
+              height={2000}
+            />
+          </div>
         </div>
         <div className="values__text">
           <p>

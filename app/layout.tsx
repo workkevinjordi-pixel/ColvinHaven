@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { Roboto, Roboto_Serif } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
 const roboto = Roboto({
   weight: ["300", "400", "500"],
   subsets: ["latin"],
   variable: "--font-roboto",
-  display: "swap",
-});
-
-const robotoSerif = Roboto_Serif({
-  weight: ["400", "500"],
-  subsets: ["latin"],
-  variable: "--font-roboto-serif",
   display: "swap",
 });
 
@@ -27,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${roboto.variable} ${robotoSerif.variable}`}>
+    <html lang="en" className={roboto.variable}>
       <body>{children}</body>
     </html>
   );

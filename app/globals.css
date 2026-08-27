@@ -1173,6 +1173,10 @@ button:focus-visible,
   --o2-gutter: clamp(24px, 6vw, 120px);
   --o2-serif: var(--font-cormorant), "Times New Roman", Times, serif;
   overflow-x: hidden;
+  /* Sits behind the fixed hero, so the margin exposed as the hero
+     scales down on scroll reads as an intentional dark recede rather
+     than a flash of the page's cream. */
+  background: var(--ink);
 }
 
 /* ---------- shared pieces ---------- */
@@ -1326,44 +1330,72 @@ button:focus-visible,
 
 /* ---------- Hero ---------- */
 
+/* Fixed to the viewport: Option2Shell.tsx drives a parallax on it and
+   the section below (.opt2-below) scrolls up and covers it. A spacer
+   the height of one viewport reserves the scroll room the fixed hero
+   would otherwise not occupy. */
 .opt2-hero {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 140px 24px;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
-  text-align: center;
+  background: var(--ink);
+  transform-origin: center;
+  will-change: transform;
+}
+
+.opt2-hero-spacer {
+  height: 100vh;
+}
+
+.opt2-below {
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
 }
 
 .opt2-hero__bg {
+  position: absolute;
+  left: -6%;
+  top: -10%;
+  width: 112%;
+  height: 120%;
+  max-width: none;
   object-fit: cover;
-  z-index: 0;
+  will-change: transform;
 }
 
 .opt2-hero__overlay {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  background: rgba(29, 25, 15, 0.5);
+  background: #1d190f;
+  opacity: 0.5;
+  will-change: opacity;
 }
 
-.opt2-hero__brand {
+.opt2-hero__content {
   position: absolute;
-  top: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-}
-
-.opt2-hero__center {
-  position: relative;
-  z-index: 2;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  padding: clamp(32px, 5vw, 48px) 24px;
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+.opt2-hero__brand,
+.opt2-hero__nav {
+  flex: 0 0 auto;
+}
+
+.opt2-hero__center {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 40px;
 }
 
@@ -1375,14 +1407,6 @@ button:focus-visible,
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #fff;
-}
-
-.opt2-hero__nav {
-  position: absolute;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
 }
 
 /* ---------- Philosophy ---------- */

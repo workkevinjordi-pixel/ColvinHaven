@@ -13,6 +13,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Reserves the scrollbar's width permanently so locking scroll while
+     the mega menu is open (which removes the scrollbar) never shifts
+     the centered, max-width navbar sideways -- the logo stays put. */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -249,7 +253,8 @@ button:focus-visible,
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar__overlay--visible .navbar__overlay-links a {
@@ -257,8 +262,10 @@ button:focus-visible,
   transform: translateY(0);
 }
 
-.navbar__overlay-links a:hover {
+.navbar__overlay-links a:hover,
+.navbar__overlay-links a:focus-visible {
   color: rgba(29, 25, 15, 0.55);
+  transform: translateX(16px);
 }
 
 @media (max-width: 560px) {
@@ -289,6 +296,11 @@ button:focus-visible,
 
   .navbar__overlay-links a {
     opacity: 1;
+    transform: none;
+  }
+
+  .navbar__overlay-links a:hover,
+  .navbar__overlay-links a:focus-visible {
     transform: none;
   }
 }

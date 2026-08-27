@@ -874,6 +874,8 @@ button:focus-visible,
      a 400px image spacer doesn't fit a narrow viewport. */
   .feature-split__words {
     flex-direction: column;
+    justify-content: space-between;
+    padding: 48px var(--gutter);
     gap: 24px;
   }
 

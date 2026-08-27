@@ -8,88 +8,126 @@ import { Brand, MiniNav } from "./parts";
 const clamp = (v: number, lo: number, hi: number) =>
   Math.max(lo, Math.min(hi, v));
 
+type PanelRefs = {
+  el: HTMLElement | null;
+  overlay: HTMLElement | null;
+  content: HTMLElement | null;
+  bg: HTMLElement | null;
+};
+
 /**
- * Owns the /option2 hero and everything below it so one scroll loop can
- * drive both:
+ * Owns the /option2 hero and the CTA/footer -- the two pinned bookends
+ * of the page -- plus the scrolling stack between them (`children`).
+ * One eased scroll loop drives both handoffs, and they are exact
+ * mirrors of each other:
  *
- *  - a homepage-style parallax on the hero -- the background photo drifts
- *    down and slowly "breathes" a zoom while the headline layer drifts
- *    up, the rate differential reading as depth;
- *  - a Sobha-Privy-Collection-style handoff into Philosophy -- the hero
- *    is fixed to the viewport and the content below rises up and covers
- *    it while the hero eases back (scale down, corners round, overlay
- *    darkens), so the next section feels like a panel drawn over it.
+ *  - Hero: fixed to the viewport; as the stack below rises and covers
+ *    it, it eases back -- scales down, corners round, overlay darkens,
+ *    the headline drifts up and fades, the photo parallaxes.
+ *  - CTA/footer: also fixed; as the stack above scrolls up and off it,
+ *    it does the same transition in reverse -- from receded to forward,
+ *    scaling up into place. Same photo as the hero, driven the same way,
+ *    so the two ends of the page read as one background plane.
  *
- * `prefers-reduced-motion` drops the eased transforms; the hero stays
- * fixed and the section below simply scrolls up over it.
+ * `prefers-reduced-motion` drops the eased transforms (see the media
+ * query in globals.css, which returns the CTA to normal flow).
  */
 export default function Option2Shell({ children }: { children: ReactNode }) {
   const heroRef = useRef<HTMLElement>(null);
-  const bgRef = useRef<HTMLImageElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const heroBgRef = useRef<HTMLImageElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const heroOverlayRef = useRef<HTMLDivElement>(null);
+
   const belowRef = useRef<HTMLDivElement>(null);
 
+  const ctaRef = useRef<HTMLElement>(null);
+  const ctaBgRef = useRef<HTMLDivElement>(null);
+  const ctaContentRef = useRef<HTMLDivElement>(null);
+  const ctaOverlayRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    // Reduced motion: skip the scale/round/parallax easing. The hero
-    // stays fixed and the section below still scrolls up over it -- that
-    // covering is the user's own scroll, not animation, so it's fine to
-    // keep.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
-    let target = 0;
-    let shown = 0;
-    let raf = 0;
-
-    // 0 while the hero owns the viewport; 1 once the section below has
-    // scrolled all the way up over it (its top edge from one viewport
-    // down to the top).
-    const computeCover = () => {
-      const below = belowRef.current;
-      if (!below) return 0;
-      const vh = window.innerHeight;
-      return clamp((vh - below.getBoundingClientRect().top) / vh, 0, 1);
-    };
-
-    const apply = (c: number) => {
-      const hero = heroRef.current;
-      if (hero) {
-        hero.style.transform = `scale(${(1 - c * 0.12).toFixed(4)})`;
-        hero.style.borderRadius = `${(c * 26).toFixed(1)}px`;
-        hero.style.visibility = c >= 0.999 ? "hidden" : "visible";
+    // k: 0 = fully forward (owns the viewport), 1 = fully receded.
+    // dir: which way the content layer drifts as it recedes.
+    const applyPanel = (r: PanelRefs, k: number, dir: -1 | 1) => {
+      if (r.el) {
+        r.el.style.transform = `scale(${(1 - k * 0.12).toFixed(4)})`;
+        r.el.style.borderRadius = `${(k * 26).toFixed(1)}px`;
+        r.el.style.visibility = k >= 0.999 ? "hidden" : "visible";
       }
-      if (overlayRef.current) {
-        overlayRef.current.style.opacity = (0.5 + c * 0.42).toFixed(3);
+      if (r.overlay) {
+        r.overlay.style.opacity = (0.5 + k * 0.42).toFixed(3);
       }
-      if (contentRef.current) {
-        contentRef.current.style.transform = `translate3d(0, ${(c * -7).toFixed(
+      if (r.content) {
+        r.content.style.transform = `translate3d(0, ${(dir * k * 7).toFixed(
           2,
         )}vh, 0)`;
-        contentRef.current.style.opacity = clamp(1 - c * 1.7, 0, 1).toFixed(3);
+        r.content.style.opacity = clamp(1 - k * 1.7, 0, 1).toFixed(3);
       }
-      if (bgRef.current) {
-        bgRef.current.style.transform = `translate3d(0, ${(c * 6).toFixed(
+      if (r.bg) {
+        r.bg.style.transform = `translate3d(0, ${(k * 6).toFixed(
           2,
-        )}%, 0) scale(${(1.03 + c * 0.06).toFixed(4)})`;
+        )}%, 0) scale(${(1.03 + k * 0.06).toFixed(4)})`;
       }
+    };
+
+    const hero: PanelRefs = {
+      el: heroRef.current,
+      overlay: heroOverlayRef.current,
+      content: heroContentRef.current,
+      bg: heroBgRef.current,
+    };
+    const cta: PanelRefs = {
+      el: ctaRef.current,
+      overlay: ctaOverlayRef.current,
+      content: ctaContentRef.current,
+      bg: ctaBgRef.current,
+    };
+
+    let coverT = 0;
+    let coverS = 0;
+    let revealT = 0;
+    let revealS = 0;
+    let raf = 0;
+
+    const measure = () => {
+      const below = belowRef.current;
+      if (!below) return;
+      const vh = window.innerHeight;
+      const rect = below.getBoundingClientRect();
+      // The stack covers the hero as its top edge climbs from one
+      // viewport down to 0...
+      coverT = clamp((vh - rect.top) / vh, 0, 1);
+      // ...and uncovers the CTA as its bottom edge climbs the same way.
+      revealT = clamp((vh - rect.bottom) / vh, 0, 1);
     };
 
     const frame = () => {
       raf = 0;
-      shown += (target - shown) * 0.12;
-      if (Math.abs(target - shown) < 0.0005) shown = target;
-      apply(shown);
-      if (Math.abs(target - shown) > 0.0005) raf = requestAnimationFrame(frame);
+      coverS += (coverT - coverS) * 0.12;
+      revealS += (revealT - revealS) * 0.12;
+      if (Math.abs(coverT - coverS) < 0.0005) coverS = coverT;
+      if (Math.abs(revealT - revealS) < 0.0005) revealS = revealT;
+      applyPanel(hero, coverS, -1);
+      applyPanel(cta, 1 - revealS, 1);
+      if (
+        Math.abs(coverT - coverS) > 0.0005 ||
+        Math.abs(revealT - revealS) > 0.0005
+      ) {
+        raf = requestAnimationFrame(frame);
+      }
     };
 
     const onScroll = () => {
-      target = computeCover();
+      measure();
       if (!raf) raf = requestAnimationFrame(frame);
     };
 
-    apply(0);
+    applyPanel(hero, 0, -1);
+    applyPanel(cta, 1, 1);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
@@ -104,7 +142,7 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
     <>
       <header className="opt2-hero" ref={heroRef}>
         <Image
-          ref={bgRef}
+          ref={heroBgRef}
           className="opt2-hero__bg"
           src="/assets/option2/hero-bg.jpg"
           alt=""
@@ -113,8 +151,8 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
           priority
           sizes="100vw"
         />
-        <div className="opt2-hero__overlay" ref={overlayRef} />
-        <div className="opt2-hero__content" ref={contentRef}>
+        <div className="opt2-hero__overlay" ref={heroOverlayRef} />
+        <div className="opt2-hero__content" ref={heroContentRef}>
           <Brand className="opt2-hero__brand" />
           <div className="opt2-hero__center">
             <h1 className="opt2-hero__headline">
@@ -129,10 +167,45 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
           <MiniNav className="opt2-hero__nav" />
         </div>
       </header>
+
       <div className="opt2-hero-spacer" aria-hidden="true" />
+
       <div className="opt2-below" ref={belowRef}>
         {children}
       </div>
+
+      {/* Anchor target sits on the spacer so "Inquiry" scrolls to where
+          the reveal begins (a fixed section is an unreliable target). */}
+      <div className="opt2-cta-spacer" id="inquiry" aria-hidden="true" />
+
+      <section className="opt2-cta" ref={ctaRef}>
+        <div className="opt2-cta__bgwrap">
+          <div className="opt2-pm__inner" ref={ctaBgRef}>
+            <Image
+              src="/assets/option2/hero-bg.jpg"
+              alt=""
+              fill
+              sizes="100vw"
+            />
+          </div>
+        </div>
+        <div className="opt2-cta__overlay" ref={ctaOverlayRef} />
+        <div className="opt2-cta__content" ref={ctaContentRef}>
+          <div className="opt2-cta__panel">
+            <p className="opt2-cta__text">
+              We work with a select number of clients each year. Those who find
+              us, were meant to.
+            </p>
+            <a href="#inquiry" className="opt2-btn opt2-btn--light">
+              Inquiry
+            </a>
+          </div>
+          <footer className="opt2-footer">
+            <Brand className="opt2-footer__brand" />
+            <MiniNav className="opt2-footer__nav" />
+          </footer>
+        </div>
+      </section>
     </>
   );
 }

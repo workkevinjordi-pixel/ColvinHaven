@@ -3,7 +3,6 @@ import Image from "next/image";
 import Option2Shell from "@/components/option2/Option2Shell";
 import ParallaxMedia from "@/components/option2/ParallaxMedia";
 import Reveal from "@/components/option2/Reveal";
-import { Brand, MiniNav } from "@/components/option2/parts";
 
 export const metadata: Metadata = {
   title: "Colvin Haven — Option 2",
@@ -189,35 +188,6 @@ export default function Option2Page() {
           </div>
         </section>
 
-        {/* ---------- CTA & Footer ---------- */}
-        <section id="inquiry" className="opt2-cta">
-          {/* Same photo as the hero; the matching parallax drift ties the
-              two ends of the page together. */}
-          <ParallaxMedia className="opt2-cta__bgwrap" strength={46}>
-            <Image
-              src="/assets/option2/hero-bg.jpg"
-              alt=""
-              fill
-              sizes="100vw"
-            />
-          </ParallaxMedia>
-          <div className="opt2-cta__overlay" />
-          <div className="opt2-cta__panel">
-            <Reveal>
-              <p className="opt2-cta__text">
-                We work with a select number of clients each year. Those who
-                find us, were meant to.
-              </p>
-            </Reveal>
-            <a href="#inquiry" className="opt2-btn opt2-btn--light">
-              Inquiry
-            </a>
-          </div>
-          <footer className="opt2-footer">
-            <Brand className="opt2-footer__brand" />
-            <MiniNav className="opt2-footer__nav" />
-          </footer>
-        </section>
       </Option2Shell>
     </main>
   );

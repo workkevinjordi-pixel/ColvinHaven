@@ -1375,6 +1375,18 @@ button:focus-visible,
     transform: none !important;
     transition: none !important;
   }
+
+  /* No reverse-handoff: the CTA is just the last section in the flow. */
+  .opt2-cta {
+    position: relative;
+    inset: auto;
+    visibility: visible;
+    min-height: 100vh;
+  }
+
+  .opt2-cta-spacer {
+    display: none;
+  }
 }
 
 /* ---------- Hero ---------- */
@@ -1623,19 +1635,29 @@ button:focus-visible,
 
 /* ---------- CTA & Footer ---------- */
 
+/* Fixed, like the hero, but revealed from underneath: Option2Shell.tsx
+   runs the hero's handoff transition in reverse on it as the stack
+   above scrolls off. The spacer gives that scroll its room. */
 .opt2-cta {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 140px 24px;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
+  visibility: hidden;
+  background: var(--ink);
+  transform-origin: center;
+  will-change: transform;
+}
+
+.opt2-cta-spacer {
+  height: 100vh;
 }
 
 .opt2-cta__bgwrap {
+  position: absolute;
+  inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
 .opt2-cta__bgwrap img {
@@ -1646,12 +1668,24 @@ button:focus-visible,
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgba(29, 25, 15, 0.5);
+  background: #1d190f;
+  opacity: 0.5;
+  will-change: opacity;
+}
+
+.opt2-cta__content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 24px;
+  will-change: transform, opacity;
 }
 
 .opt2-cta__panel {
-  position: relative;
-  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1751,11 +1785,15 @@ button:focus-visible,
     margin-top: 40px;
   }
 
+  .opt2-cta__content {
+    padding: 80px 24px;
+  }
+
   .opt2-footer {
     position: static;
     flex-direction: column;
     gap: 20px;
-    margin-top: 56px;
+    margin-top: 40px;
     padding: 0;
   }
 }

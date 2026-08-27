@@ -1,3 +1,4 @@
+import type { Ref } from "react";
 import Image from "next/image";
 
 const DOT = "/assets/dot-nav.png";
@@ -18,9 +19,15 @@ export function Brand({ className }: { className?: string }) {
   );
 }
 
-export function MiniNav({ className }: { className?: string }) {
+export function MiniNav({
+  className,
+  ref,
+}: {
+  className?: string;
+  ref?: Ref<HTMLElement>;
+}) {
   return (
-    <nav className={`opt2-mininav${className ? ` ${className}` : ""}`}>
+    <nav ref={ref} className={`opt2-mininav${className ? ` ${className}` : ""}`}>
       <a href="#editions">Editions</a>
       <span className="opt2-mininav__dot" aria-hidden="true" />
       <a href="#collective">Collective</a>

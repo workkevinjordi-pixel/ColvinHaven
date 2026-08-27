@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Option2Navbar from "@/components/option2/Option2Navbar";
 import Option2Shell from "@/components/option2/Option2Shell";
 import ParallaxMedia from "@/components/option2/ParallaxMedia";
 import Reveal from "@/components/option2/Reveal";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function Option2Page() {
   return (
     <main className="opt2">
+      <Option2Navbar />
       {/* Option2Shell renders the hero (fixed, parallax) + a spacer, then
           wraps everything below it so the Philosophy section rises up and
           covers the hero on scroll. */}

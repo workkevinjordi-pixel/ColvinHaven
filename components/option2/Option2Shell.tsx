@@ -29,6 +29,8 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
   const contentRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const belowRef = useRef<HTMLDivElement>(null);
+  const heroNavRef = useRef<HTMLElement>(null);
+  const heroCtaRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     // Reduced motion: skip the scale/round/parallax easing. The hero
@@ -73,6 +75,18 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
         bgRef.current.style.transform = `translate3d(0, ${(c * 6).toFixed(
           2,
         )}%, 0) scale(${(1.03 + c * 0.06).toFixed(4)})`;
+      }
+      // The mini-nav and CTA outrun the rest of the hero content upward
+      // as they fade, heading for the navbar that's sliding in up top.
+      if (heroNavRef.current) {
+        heroNavRef.current.style.transform = `translate3d(0, ${(c * -14).toFixed(
+          2,
+        )}vh, 0)`;
+      }
+      if (heroCtaRef.current) {
+        heroCtaRef.current.style.transform = `translate3d(0, ${(c * -9).toFixed(
+          2,
+        )}vh, 0)`;
       }
     };
 
@@ -122,11 +136,15 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
               <br />
               Where silence is luxury.
             </h1>
-            <a href="#inquiry" className="opt2-btn opt2-btn--light">
+            <a
+              ref={heroCtaRef}
+              href="#inquiry"
+              className="opt2-btn opt2-btn--light"
+            >
               Inquiry
             </a>
           </div>
-          <MiniNav className="opt2-hero__nav" />
+          <MiniNav className="opt2-hero__nav" ref={heroNavRef} />
         </div>
       </header>
       <div className="opt2-hero-spacer" aria-hidden="true" />

@@ -86,6 +86,9 @@ export default function Gallery() {
             but at a different scale. Two more are already taking form.
             What comes after that, we are not saying yet.
           </p>
+          <a href="#editions" className="gallery__link">
+            All editions
+          </a>
         </div>
       </div>
 

@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import Image from "next/image";
+import ParallaxMedia from "./ParallaxMedia";
+import Reveal from "./Reveal";
 import { Brand, MiniNav } from "./parts";
 
 const clamp = (v: number, lo: number, hi: number) =>
@@ -16,21 +18,19 @@ type PanelRefs = {
 };
 
 /**
- * Owns the /option2 hero and the CTA/footer -- the two pinned bookends
- * of the page -- plus the scrolling stack between them (`children`).
- * One eased scroll loop drives both handoffs, and they are exact
- * mirrors of each other:
+ * Owns the two "pin, then get covered" moments on /option2, both driven
+ * by one eased scroll loop:
  *
- *  - Hero: fixed to the viewport; as the stack below rises and covers
- *    it, it eases back -- scales down, corners round, overlay darkens,
- *    the headline drifts up and fades, the photo parallaxes.
- *  - CTA/footer: also fixed; as the stack above scrolls up and off it,
- *    it does the same transition in reverse -- from receded to forward,
- *    scaling up into place. Same photo as the hero, driven the same way,
- *    so the two ends of the page read as one background plane.
+ *  - Hero -> Philosophy: the hero is fixed; the stack below rises and
+ *    covers it while it eases back (scale down, round, darken, headline
+ *    drifts up + fades, photo parallax).
+ *  - Quotes -> CTA/footer: Quotes sticks to the viewport while the
+ *    CTA/footer slides straight up over it (a plain opaque panel, no
+ *    scroll of its own perceptible), and Quotes eases back the same way
+ *    underneath it.
  *
- * `prefers-reduced-motion` drops the eased transforms (see the media
- * query in globals.css, which returns the CTA to normal flow).
+ * Both reverse cleanly on the way back up. The Quotes pin is desktop
+ * only; `prefers-reduced-motion` drops the eased transforms entirely.
  */
 export default function Option2Shell({ children }: { children: ReactNode }) {
   const heroRef = useRef<HTMLElement>(null);
@@ -40,10 +40,9 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
 
   const belowRef = useRef<HTMLDivElement>(null);
 
+  const quotesRef = useRef<HTMLElement>(null);
+  const quotesRecedeRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLElement>(null);
-  const ctaBgRef = useRef<HTMLDivElement>(null);
-  const ctaContentRef = useRef<HTMLDivElement>(null);
-  const ctaOverlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -51,16 +50,13 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
     }
 
     // k: 0 = fully forward (owns the viewport), 1 = fully receded.
-    // dir: which way the content layer drifts as it recedes.
     const applyPanel = (r: PanelRefs, k: number, dir: -1 | 1) => {
       if (r.el) {
         r.el.style.transform = `scale(${(1 - k * 0.12).toFixed(4)})`;
         r.el.style.borderRadius = `${(k * 26).toFixed(1)}px`;
         r.el.style.visibility = k >= 0.999 ? "hidden" : "visible";
       }
-      if (r.overlay) {
-        r.overlay.style.opacity = (0.5 + k * 0.42).toFixed(3);
-      }
+      if (r.overlay) r.overlay.style.opacity = (0.5 + k * 0.42).toFixed(3);
       if (r.content) {
         r.content.style.transform = `translate3d(0, ${(dir * k * 7).toFixed(
           2,
@@ -74,48 +70,59 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
       }
     };
 
+    // Quotes has no headline layer / no shell-driven bg -- just the
+    // section box and a dark wash that fades in as the CTA covers it.
+    const applyRecede = (k: number) => {
+      const el = quotesRef.current;
+      if (el) {
+        el.style.transform = `scale(${(1 - k * 0.12).toFixed(4)})`;
+        el.style.borderRadius = `${(k * 26).toFixed(1)}px`;
+      }
+      if (quotesRecedeRef.current) {
+        quotesRecedeRef.current.style.opacity = (k * 0.5).toFixed(3);
+      }
+    };
+
     const hero: PanelRefs = {
       el: heroRef.current,
       overlay: heroOverlayRef.current,
       content: heroContentRef.current,
       bg: heroBgRef.current,
     };
-    const cta: PanelRefs = {
-      el: ctaRef.current,
-      overlay: ctaOverlayRef.current,
-      content: ctaContentRef.current,
-      bg: ctaBgRef.current,
-    };
 
     let coverT = 0;
     let coverS = 0;
-    let revealT = 0;
-    let revealS = 0;
+    let qT = 0;
+    let qS = 0;
     let raf = 0;
 
     const measure = () => {
-      const below = belowRef.current;
-      if (!below) return;
       const vh = window.innerHeight;
-      const rect = below.getBoundingClientRect();
-      // The stack covers the hero as its top edge climbs from one
-      // viewport down to 0...
-      coverT = clamp((vh - rect.top) / vh, 0, 1);
-      // ...and uncovers the CTA as its bottom edge climbs the same way.
-      revealT = clamp((vh - rect.bottom) / vh, 0, 1);
+      const below = belowRef.current;
+      if (below) {
+        coverT = clamp((vh - below.getBoundingClientRect().top) / vh, 0, 1);
+      }
+      // Quotes recede tracks how far the CTA has risen over it -- only
+      // while the desktop sticky pin is in effect.
+      const cta = ctaRef.current;
+      const pinned = window.matchMedia("(min-width: 901px)").matches;
+      qT =
+        pinned && cta
+          ? clamp((vh - cta.getBoundingClientRect().top) / vh, 0, 1)
+          : 0;
     };
 
     const frame = () => {
       raf = 0;
       coverS += (coverT - coverS) * 0.12;
-      revealS += (revealT - revealS) * 0.12;
+      qS += (qT - qS) * 0.12;
       if (Math.abs(coverT - coverS) < 0.0005) coverS = coverT;
-      if (Math.abs(revealT - revealS) < 0.0005) revealS = revealT;
+      if (Math.abs(qT - qS) < 0.0005) qS = qT;
       applyPanel(hero, coverS, -1);
-      applyPanel(cta, 1 - revealS, 1);
+      applyRecede(qS);
       if (
         Math.abs(coverT - coverS) > 0.0005 ||
-        Math.abs(revealT - revealS) > 0.0005
+        Math.abs(qT - qS) > 0.0005
       ) {
         raf = requestAnimationFrame(frame);
       }
@@ -127,7 +134,7 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
     };
 
     applyPanel(hero, 0, -1);
-    applyPanel(cta, 1, 1);
+    applyRecede(0);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
@@ -174,37 +181,64 @@ export default function Option2Shell({ children }: { children: ReactNode }) {
         {children}
       </div>
 
-      {/* Anchor target sits on the spacer so "Inquiry" scrolls to where
-          the reveal begins (a fixed section is an unreliable target). */}
-      <div className="opt2-cta-spacer" id="inquiry" aria-hidden="true" />
+      {/* Quotes pins while the CTA below slides up over it. */}
+      <div id="collective" className="opt2-quotes-pin">
+        <section className="opt2-quotes" ref={quotesRef}>
+          <div className="opt2-quotes__media">
+            <ParallaxMedia strength={40}>
+              <Image
+                src="/assets/option2/quotes.jpg"
+                alt="Daybed on a timber deck against a black wall"
+                fill
+                sizes="(max-width: 900px) 100vw, 52vw"
+              />
+            </ParallaxMedia>
+          </div>
+          <div className="opt2-quotes__body">
+            <Reveal axis="x" className="opt2-quotes__drawing">
+              {/* Plain <img>: decorative inline SVG, next/image would only
+                  pass it through. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/option2/drawing.svg"
+                alt="Line drawing of the residences stepping down the hillside"
+                width={616}
+                height={332}
+              />
+            </Reveal>
+            <Reveal className="opt2-quotes__text-wrap" delay={120}>
+              <p className="opt2-quotes__text">
+                Inside, every space serves your wellbeing. Yoga deck open to the
+                canopy. A training area that flows to the pool. Biohacking spa.
+                Meditation gardens. Gathering spaces that hold the people you
+                love. All of it woven seamlessly into the land — so the boundary
+                between inside and outside dissolves entirely. It&rsquo;s the
+                same core, in every CH home.&rdquo;
+              </p>
+            </Reveal>
+          </div>
+          <div className="opt2-quotes__recede" ref={quotesRecedeRef} aria-hidden="true" />
+        </section>
+      </div>
 
-      <section className="opt2-cta" ref={ctaRef}>
-        <div className="opt2-cta__bgwrap">
-          <div className="opt2-pm__inner" ref={ctaBgRef}>
-            <Image
-              src="/assets/option2/hero-bg.jpg"
-              alt=""
-              fill
-              sizes="100vw"
-            />
-          </div>
+      <section id="inquiry" className="opt2-cta" ref={ctaRef}>
+        <ParallaxMedia className="opt2-cta__bgwrap" strength={46}>
+          <Image src="/assets/option2/hero-bg.jpg" alt="" fill sizes="100vw" />
+        </ParallaxMedia>
+        <div className="opt2-cta__overlay" />
+        <div className="opt2-cta__panel">
+          <p className="opt2-cta__text">
+            We work with a select number of clients each year. Those who find
+            us, were meant to.
+          </p>
+          <a href="#inquiry" className="opt2-btn opt2-btn--light">
+            Inquiry
+          </a>
         </div>
-        <div className="opt2-cta__overlay" ref={ctaOverlayRef} />
-        <div className="opt2-cta__content" ref={ctaContentRef}>
-          <div className="opt2-cta__panel">
-            <p className="opt2-cta__text">
-              We work with a select number of clients each year. Those who find
-              us, were meant to.
-            </p>
-            <a href="#inquiry" className="opt2-btn opt2-btn--light">
-              Inquiry
-            </a>
-          </div>
-          <footer className="opt2-footer">
-            <Brand className="opt2-footer__brand" />
-            <MiniNav className="opt2-footer__nav" />
-          </footer>
-        </div>
+        <footer className="opt2-footer">
+          <Brand className="opt2-footer__brand" />
+          <MiniNav className="opt2-footer__nav" />
+        </footer>
       </section>
     </>
   );

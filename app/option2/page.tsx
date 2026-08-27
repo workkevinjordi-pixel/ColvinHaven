@@ -151,43 +151,6 @@ export default function Option2Page() {
           </div>
         </section>
 
-        {/* ---------- Quotes ---------- */}
-        <section id="collective" className="opt2-quotes">
-          <div className="opt2-quotes__media">
-            <ParallaxMedia strength={40}>
-              <Image
-                src="/assets/option2/quotes.jpg"
-                alt="Daybed on a timber deck against a black wall"
-                fill
-                sizes="(max-width: 900px) 100vw, 52vw"
-              />
-            </ParallaxMedia>
-          </div>
-          <div className="opt2-quotes__body">
-            <Reveal axis="x" className="opt2-quotes__drawing">
-              {/* Plain <img>: it's a decorative inline SVG that next/image
-                  would only pass through anyway. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/option2/drawing.svg"
-                alt="Line drawing of the residences stepping down the hillside"
-                width={616}
-                height={332}
-              />
-            </Reveal>
-            <Reveal className="opt2-quotes__text-wrap" delay={120}>
-              <p className="opt2-quotes__text">
-                Inside, every space serves your wellbeing. Yoga deck open to the
-                canopy. A training area that flows to the pool. Biohacking spa.
-                Meditation gardens. Gathering spaces that hold the people you
-                love. All of it woven seamlessly into the land — so the boundary
-                between inside and outside dissolves entirely. It&rsquo;s the
-                same core, in every CH home.&rdquo;
-              </p>
-            </Reveal>
-          </div>
-        </section>
-
       </Option2Shell>
     </main>
   );

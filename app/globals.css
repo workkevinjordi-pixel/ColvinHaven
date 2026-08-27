@@ -1376,16 +1376,19 @@ button:focus-visible,
     transition: none !important;
   }
 
-  /* No reverse-handoff: the CTA is just the last section in the flow. */
-  .opt2-cta {
-    position: relative;
-    inset: auto;
-    visibility: visible;
+  /* No pin/cover -- Quotes and the CTA are just sections in the flow. */
+  .opt2-quotes-pin {
+    height: auto;
+  }
+
+  .opt2-quotes {
+    position: static;
+    height: auto;
     min-height: 100vh;
   }
 
-  .opt2-cta-spacer {
-    display: none;
+  .opt2-cta {
+    margin-top: 0;
   }
 }
 
@@ -1578,11 +1581,35 @@ button:focus-visible,
 
 /* ---------- Quotes ---------- */
 
+/* Pinned to the viewport (desktop) while the CTA/footer slides up over
+   it; the pin wrapper carries the extra scroll runway. */
+.opt2-quotes-pin {
+  position: relative;
+  z-index: 1;
+  height: 200vh;
+  background: var(--bg);
+}
+
 .opt2-quotes {
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: stretch;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background: var(--bg);
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Dark wash the shell fades in as the CTA covers this section. */
+.opt2-quotes__recede {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: #1d190f;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .opt2-quotes__media {
@@ -1598,12 +1625,12 @@ button:focus-visible,
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  padding: clamp(48px, 6vw, 96px) var(--o2-gutter) clamp(48px, 6vw, 96px)
+  padding: clamp(40px, 5vw, 72px) var(--o2-gutter) clamp(40px, 5vw, 72px)
     clamp(32px, 5vw, 72px);
 }
 
 .opt2-quotes__drawing {
-  width: min(100%, 616px);
+  width: min(100%, 520px);
   align-self: flex-end;
 }
 
@@ -1635,29 +1662,24 @@ button:focus-visible,
 
 /* ---------- CTA & Footer ---------- */
 
-/* Fixed, like the hero, but revealed from underneath: Option2Shell.tsx
-   runs the hero's handoff transition in reverse on it as the stack
-   above scrolls off. The spacer gives that scroll its room. */
+/* A plain opaque section that slides straight up over the pinned Quotes
+   (negative margin pulls it into the pin's scroll runway; z-index keeps
+   it on top). */
 .opt2-cta {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
+  position: relative;
+  z-index: 2;
+  margin-top: -100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 140px 24px;
   overflow: hidden;
-  visibility: hidden;
-  background: var(--ink);
-  transform-origin: center;
-  will-change: transform;
-}
-
-.opt2-cta-spacer {
-  height: 100vh;
 }
 
 .opt2-cta__bgwrap {
-  position: absolute;
-  inset: 0;
   z-index: 0;
-  overflow: hidden;
 }
 
 .opt2-cta__bgwrap img {
@@ -1668,24 +1690,12 @@ button:focus-visible,
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: #1d190f;
-  opacity: 0.5;
-  will-change: opacity;
-}
-
-.opt2-cta__content {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 140px 24px;
-  will-change: transform, opacity;
+  background: rgba(29, 25, 15, 0.5);
 }
 
 .opt2-cta__panel {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1766,9 +1776,17 @@ button:focus-visible,
     flex-direction: column;
   }
 
+  /* No pin/cover on mobile -- plain stack. */
+  .opt2-quotes-pin {
+    height: auto;
+  }
+
   .opt2-quotes {
-    flex-direction: column;
+    position: static;
+    height: auto;
     min-height: 0;
+    overflow: visible;
+    flex-direction: column;
   }
 
   .opt2-quotes__media {
@@ -1785,8 +1803,9 @@ button:focus-visible,
     margin-top: 40px;
   }
 
-  .opt2-cta__content {
-    padding: 80px 24px;
+  .opt2-cta {
+    margin-top: 0;
+    padding: 96px 24px;
   }
 
   .opt2-footer {

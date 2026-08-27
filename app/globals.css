@@ -21,11 +21,31 @@ body {
   color: var(--ink);
   background: var(--bg);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 img {
   display: block;
   max-width: 100%;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
 }
 
 /* ---------- Shared ---------- */
@@ -353,11 +373,13 @@ img {
   font-size: 16px;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.2s ease;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .gallery__link:hover {
   background: rgba(29, 25, 15, 0.06);
+  transform: translateY(-1px);
 }
 
 .gallery__grid {
@@ -385,6 +407,26 @@ img {
   width: 100%;
   aspect-ratio: 5 / 6;
   overflow: hidden;
+}
+
+.gallery__card-media img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery__card:hover .gallery__card-media img,
+.gallery__card:focus-within .gallery__card-media img {
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery__card-media img {
+    transition: none;
+  }
+
+  .gallery__card:hover .gallery__card-media img,
+  .gallery__card:focus-within .gallery__card-media img {
+    transform: none;
+  }
 }
 
 .gallery__card--tall .gallery__card-media {
@@ -528,10 +570,20 @@ img {
   font-size: 16px;
   text-decoration: none;
   white-space: nowrap;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cta__button:hover {
   background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery__link:hover,
+  .cta__button:hover {
+    transform: none;
+  }
 }
 
 /* ---------- Footer ---------- */
@@ -556,14 +608,27 @@ img {
 }
 
 .footer__nav a {
+  position: relative;
   color: #fff;
   font-weight: 300;
   font-size: 16px;
   text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.footer__nav a:hover {
-  text-decoration: underline;
+.footer__nav a:hover,
+.footer__nav a:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer__nav a {
+    transition: none;
+  }
 }
 
 /* ---------- Responsive ---------- */

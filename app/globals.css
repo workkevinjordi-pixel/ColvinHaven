@@ -723,7 +723,6 @@ button:focus-visible,
 .cta {
   position: relative;
   min-height: 554px;
-  margin: 0 var(--gutter);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -754,9 +753,7 @@ button:focus-visible,
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
-  /* Left inset is 80px per the source design (node 59:728), not the
-     standard 112px gutter used elsewhere on the page. */
-  padding: 60px var(--gutter) 60px 80px;
+  padding: 60px var(--gutter);
   text-align: left;
 }
 
@@ -925,10 +922,6 @@ button:focus-visible,
   }
 
   .quote {
-    padding-left: var(--gutter);
-  }
-
-  .cta__content {
     padding-left: var(--gutter);
   }
 

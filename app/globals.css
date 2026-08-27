@@ -1,5 +1,6 @@
 :root {
   --ink: #1d190f;
+  --bg: #f0ebe3;
   --max-width: 1440px;
   --gutter: 112px;
 }
@@ -18,7 +19,7 @@ body {
   font-family: var(--font-roboto), sans-serif;
   font-weight: 300;
   color: var(--ink);
-  background: #fff;
+  background: var(--bg);
   overflow-x: hidden;
 }
 
@@ -107,7 +108,7 @@ img {
 .feature-split {
   position: relative;
   height: 250vh;
-  background: #fff;
+  background: var(--bg);
 }
 
 .feature-split__pin {

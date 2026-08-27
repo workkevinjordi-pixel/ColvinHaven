@@ -1375,21 +1375,6 @@ button:focus-visible,
     transform: none !important;
     transition: none !important;
   }
-
-  /* No pin/cover -- Quotes and the CTA are just sections in the flow. */
-  .opt2-quotes-pin {
-    height: auto;
-  }
-
-  .opt2-quotes {
-    position: static;
-    height: auto;
-    min-height: 100vh;
-  }
-
-  .opt2-cta {
-    margin-top: 0;
-  }
 }
 
 /* ---------- Hero ---------- */
@@ -1581,35 +1566,11 @@ button:focus-visible,
 
 /* ---------- Quotes ---------- */
 
-/* Pinned to the viewport (desktop) while the CTA/footer slides up over
-   it; the pin wrapper carries the extra scroll runway. */
-.opt2-quotes-pin {
-  position: relative;
-  z-index: 1;
-  height: 200vh;
-  background: var(--bg);
-}
-
 .opt2-quotes {
-  position: sticky;
-  top: 0;
   display: flex;
   align-items: stretch;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   background: var(--bg);
-  transform-origin: center;
-  will-change: transform;
-}
-
-/* Dark wash the shell fades in as the CTA covers this section. */
-.opt2-quotes__recede {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  background: #1d190f;
-  opacity: 0;
-  pointer-events: none;
 }
 
 .opt2-quotes__media {
@@ -1625,12 +1586,12 @@ button:focus-visible,
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  padding: clamp(40px, 5vw, 72px) var(--o2-gutter) clamp(40px, 5vw, 72px)
+  padding: clamp(48px, 6vw, 96px) var(--o2-gutter) clamp(48px, 6vw, 96px)
     clamp(32px, 5vw, 72px);
 }
 
 .opt2-quotes__drawing {
-  width: min(100%, 520px);
+  width: min(100%, 616px);
   align-self: flex-end;
 }
 
@@ -1662,13 +1623,8 @@ button:focus-visible,
 
 /* ---------- CTA & Footer ---------- */
 
-/* A plain opaque section that slides straight up over the pinned Quotes
-   (negative margin pulls it into the pin's scroll runway; z-index keeps
-   it on top). */
 .opt2-cta {
   position: relative;
-  z-index: 2;
-  margin-top: -100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1776,17 +1732,9 @@ button:focus-visible,
     flex-direction: column;
   }
 
-  /* No pin/cover on mobile -- plain stack. */
-  .opt2-quotes-pin {
-    height: auto;
-  }
-
   .opt2-quotes {
-    position: static;
-    height: auto;
-    min-height: 0;
-    overflow: visible;
     flex-direction: column;
+    min-height: 0;
   }
 
   .opt2-quotes__media {
@@ -1803,16 +1751,11 @@ button:focus-visible,
     margin-top: 40px;
   }
 
-  .opt2-cta {
-    margin-top: 0;
-    padding: 96px 24px;
-  }
-
   .opt2-footer {
     position: static;
     flex-direction: column;
     gap: 20px;
-    margin-top: 40px;
+    margin-top: 56px;
     padding: 0;
   }
 }

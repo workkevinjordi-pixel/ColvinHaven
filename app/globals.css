@@ -720,6 +720,7 @@ button:focus-visible,
 .cta {
   position: relative;
   min-height: 554px;
+  margin: 0 var(--gutter);
   display: flex;
   align-items: center;
   overflow: hidden;

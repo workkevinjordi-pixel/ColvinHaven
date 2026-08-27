@@ -55,7 +55,7 @@ export default function Navbar() {
 
           <div className="navbar__actions">
             <a href="#inquiry" className="navbar__cta">
-              Enquire
+              Inquiry
             </a>
 
             <button

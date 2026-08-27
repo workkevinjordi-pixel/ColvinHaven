@@ -196,18 +196,20 @@ img {
 }
 
 .values__body {
-  display: flex;
-  align-items: flex-start;
-  gap: 200px;
-  flex-wrap: wrap;
+  position: relative;
 }
 
+/* Pinned to the top-left corner rather than a flex sibling, so the body
+   text's start position (below) is fixed regardless of how wide the tag
+   label happens to be. */
 .values__aside {
+  position: absolute;
+  left: 0;
+  top: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 80px;
-  flex: 0 0 auto;
 }
 
 .values__tag {
@@ -231,7 +233,9 @@ img {
 }
 
 .values__text {
-  flex: 1 1 0;
+  /* Fixed inset matching the quote/CTA sections' own fixed-padding
+     approach, rather than a flex gap computed off the tag's width. */
+  padding-left: 720px;
 }
 
 .values__text p {
@@ -525,8 +529,17 @@ img {
   }
 
   .values__body {
+    display: flex;
     flex-direction: column;
     gap: 24px;
+  }
+
+  .values__aside {
+    position: static;
+  }
+
+  .values__text {
+    padding-left: 0;
   }
 
   .gallery__grid {

@@ -279,9 +279,45 @@ img {
   padding: 0 var(--gutter) 200px;
 }
 
-.drawing__frame img {
+.drawing__svg svg {
+  display: block;
   width: 100%;
   height: auto;
+}
+
+/* Base (not-yet-revealed) state for every traced shape in the SVG -- set
+   on the source file at build time via a preprocessing script, one
+   per-path animation-delay staggered across ~1.4s. No `animation`
+   property here on purpose: applying it only in the --visible state
+   below means removing that class (scrolling back out) fully cancels
+   the animation and snaps back to this hidden state, so it replays
+   cleanly on re-entry instead of getting stuck at its finished frame. */
+.drawing__svg .draw-path {
+  opacity: 0;
+  transform: scale(0.94);
+  transform-origin: center;
+}
+
+.drawing__svg--visible .draw-path {
+  animation: draw-reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes draw-reveal {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawing__svg .draw-path {
+    opacity: 1;
+    transform: none;
+  }
+
+  .drawing__svg--visible .draw-path {
+    animation: none;
+  }
 }
 
 /* ---------- Gallery ---------- */

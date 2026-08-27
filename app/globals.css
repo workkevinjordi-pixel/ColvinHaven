@@ -249,6 +249,22 @@ img {
   margin-bottom: 0;
 }
 
+/* ---------- Drawing ---------- */
+
+.drawing {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  /* No top padding: relies on the values section's 200px bottom padding
+     above it, same "one side owns the gap" rhythm every other section
+     boundary on the page follows. */
+  padding: 0 var(--gutter) 200px;
+}
+
+.drawing__frame img {
+  width: 100%;
+  height: auto;
+}
+
 /* ---------- Gallery ---------- */
 
 /* Masonry grid recreating havenconstructions.com.au's BlockCardProjects:

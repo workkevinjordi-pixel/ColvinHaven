@@ -575,14 +575,16 @@ button:focus-visible,
   visibility: hidden;
 }
 
-/* Comes after .feature-split__words in the DOM and is positioned, so it
-   always paints on top of the (static) text — no z-index required.
-   Sized to fill the pin from the start: growth is done with clip-path,
-   never a CSS transform scale, so images are always rasterized at full
-   resolution and just progressively unmasked (no upscale blur). */
+/* Sits above .feature-split__words -- it comes later in the DOM, and the
+   z-index makes that explicit -- so growing the clip-path progressively
+   hides the words behind the image. Sized to fill the pin from the
+   start: growth is done with clip-path, never a CSS transform scale, so
+   images are always rasterized at full resolution and just progressively
+   unmasked (no upscale blur). */
 .feature-split__image-wrap {
   position: absolute;
   inset: 0;
+  z-index: 1;
   clip-path: inset(34% 36%);
   will-change: clip-path;
 }

@@ -111,19 +111,18 @@ export default function FeatureSplit() {
       const insetY = Math.max(0, (viewportHeight - box.h) / 2);
       imageWrap!.style.clipPath = `inset(${insetY.toFixed(2)}px ${insetX.toFixed(2)}px)`;
 
-      // Seamless crossfade across the three framing keyframes: img1 -> img2 -> img3.
-      // clip-path reveals a full-resolution image rather than upscaling a small
-      // one, so there's no blur budget to manage here -- windows are just paced
-      // for an even, three-way visual split, with img3 settling in time to be
-      // the one shown during the full-bleed hold at the end.
+      // Crossfade across the three framing keyframes: img1 -> img2 -> img3.
+      // Lower layers stay fully opaque and each next image just fades in
+      // on top, so the framed region is always 100% opaque -- the growing
+      // image cleanly occludes the words (and the page behind it) instead
+      // of letting them bleed through a semi-transparent stack. clip-path
+      // reveals a full-resolution image rather than upscaling a small one,
+      // so there's no blur budget to manage here.
       const risingA = smoothstep(0.2, 0.4, t);
       const risingB = smoothstep(0.6, 0.8, t);
-      const o1 = 1 - risingA;
-      const o2 = risingA - risingB;
-      const o3 = risingB;
-      img1!.style.opacity = o1.toFixed(4);
-      img2!.style.opacity = o2.toFixed(4);
-      img3!.style.opacity = o3.toFixed(4);
+      img1!.style.opacity = "1";
+      img2!.style.opacity = risingA.toFixed(4);
+      img3!.style.opacity = risingB.toFixed(4);
 
       // Converging entrance, in the spirit of havenconstructions.com.au's
       // ScrollGallery: the flanking words slide inward from an offset and

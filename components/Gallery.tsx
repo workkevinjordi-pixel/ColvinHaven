@@ -39,7 +39,10 @@ const featureCard: Card = {
 
 function ProjectCard({ card, tall = false }: { card: Card; tall?: boolean }) {
   return (
-    <article className={`gallery__card${tall ? " gallery__card--tall" : ""}`}>
+    <article
+      className={`gallery__card${tall ? " gallery__card--tall" : ""}`}
+      tabIndex={0}
+    >
       <div className="gallery__card-media">
         <Image
           src={card.src}

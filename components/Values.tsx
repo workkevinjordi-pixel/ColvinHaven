@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Values() {
   return (
     <section className="values">
@@ -10,14 +8,6 @@ export default function Values() {
           <div className="values__tag">
             <span className="values__dot" />
             <span>A WAY OF LIFE</span>
-          </div>
-          <div className="values__photo">
-            <Image
-              src="/assets/guiding-values.png"
-              alt="Timber and stone deck with bench, overlooking the garden"
-              width={1358}
-              height={2000}
-            />
           </div>
         </div>
         <div className="values__text">

@@ -21,6 +21,7 @@ body {
   color: var(--ink);
   background: var(--bg);
   overflow-x: hidden;
+  letter-spacing: 0.04em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -80,6 +81,7 @@ button:focus-visible,
   font-size: 32px;
   color: #fff;
   white-space: nowrap;
+  letter-spacing: normal;
 }
 
 .brand__dot {
@@ -375,6 +377,7 @@ button:focus-visible,
   font-family: "Times New Roman", Times, serif;
   font-weight: 400;
   font-size: clamp(28px, 4vw, 48px);
+  letter-spacing: normal;
   white-space: nowrap;
   flex: 0 0 auto;
   will-change: transform;
@@ -432,6 +435,7 @@ button:focus-visible,
   font-family: "Times New Roman", Times, serif;
   font-weight: 400;
   font-size: 32px;
+  letter-spacing: normal;
   margin-bottom: 24px;
 }
 
@@ -657,6 +661,7 @@ button:focus-visible,
   font-family: "Times New Roman", Times, serif;
   font-weight: 400;
   font-size: 32px;
+  letter-spacing: normal;
 }
 
 .gallery__location,

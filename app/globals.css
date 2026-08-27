@@ -144,6 +144,37 @@ button:focus-visible,
   color: inherit;
 }
 
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navbar__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border: 1px solid currentColor;
+  color: inherit;
+  font-weight: 300;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar__cta:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.navbar--scrolled .navbar__cta:hover,
+.navbar--open .navbar__cta:hover {
+  background: rgba(29, 25, 15, 0.06);
+}
+
 .navbar__burger {
   display: flex;
   flex-direction: column;
@@ -243,10 +274,15 @@ button:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .navbar,
   .navbar__inner,
+  .navbar__cta,
   .navbar__burger-line,
   .navbar__overlay,
   .navbar__overlay-links a {
     transition: none;
+  }
+
+  .navbar__cta:hover {
+    transform: none;
   }
 
   .navbar__overlay-links a {

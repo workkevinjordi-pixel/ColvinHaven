@@ -6,7 +6,6 @@ import Image from "next/image";
 const LINKS = [
   { href: "#editions", label: "Editions" },
   { href: "#collective", label: "Collective" },
-  { href: "#inquiry", label: "Enquire" },
 ];
 
 export default function Navbar() {
@@ -54,17 +53,23 @@ export default function Navbar() {
             <span className="brand__word">Haven</span>
           </a>
 
-          <button
-            type="button"
-            className="navbar__burger"
-            aria-expanded={open}
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className="navbar__burger-line" />
-            <span className="navbar__burger-line" />
-            <span className="navbar__burger-line" />
-          </button>
+          <div className="navbar__actions">
+            <a href="#inquiry" className="navbar__cta">
+              Enquire
+            </a>
+
+            <button
+              type="button"
+              className="navbar__burger"
+              aria-expanded={open}
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <span className="navbar__burger-line" />
+              <span className="navbar__burger-line" />
+              <span className="navbar__burger-line" />
+            </button>
+          </div>
         </div>
       </header>
 

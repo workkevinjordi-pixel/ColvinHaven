@@ -261,6 +261,11 @@ img {
 
 /* ---------- Gallery ---------- */
 
+/* Masonry grid recreating havenconstructions.com.au's BlockCardProjects:
+   two smaller cards stacked in a narrower left column, one tall featured
+   card in a wider right column offset by a gutter -- a 5fr/1fr/6fr split
+   of their 12-column grid, with the empty middle column acting as the
+   gutter between the two groups. */
 .gallery {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -270,68 +275,41 @@ img {
      padding here too would break the consistent 120px rhythm every other
      major section boundary on the page follows. */
   padding: 0 var(--gutter);
+}
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: 5fr 1fr 6fr;
+  align-items: center;
+}
+
+.gallery__stack {
+  grid-column: 1;
   display: flex;
   flex-direction: column;
-  gap: 60px;
 }
 
-.gallery__row {
-  display: flex;
-  align-items: center;
-  gap: 60px;
+.gallery__stack .gallery__card + .gallery__card {
+  margin-top: 80px;
 }
 
-.gallery__row--end {
-  justify-content: flex-end;
+.gallery__feature {
+  grid-column: 3;
 }
 
-.gallery__image {
-  width: 711px;
-  max-width: 100%;
-  height: auto;
-  aspect-ratio: 711 / 349;
-  object-fit: cover;
-  flex: 0 1 auto;
+.gallery__card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 6;
+  overflow: hidden;
+}
+
+.gallery__card--tall .gallery__card-media {
+  aspect-ratio: 682 / 1057;
 }
 
 .gallery__caption {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  /* Matches the source design (node 59:36) exactly: a wide, editorial
-     spread between the title block and the category/year line, not a
-     tight 80px stack. */
-  gap: 217px;
-  text-align: right;
-  opacity: 0;
-  transform: translateX(12px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.gallery__caption--left {
-  align-items: flex-start;
-  text-align: left;
-  transform: translateX(-12px);
-}
-
-.gallery__row:hover .gallery__caption,
-.gallery__row:focus-within .gallery__caption {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.gallery__caption-top {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: flex-end;
-  width: 100%;
-}
-
-.gallery__caption--left .gallery__caption-top {
-  align-items: flex-start;
+  margin-top: 16px;
 }
 
 .gallery__title {
@@ -344,6 +322,10 @@ img {
   font-weight: 300;
   font-size: 16px;
   line-height: 24px;
+}
+
+.gallery__meta {
+  margin-top: 16px;
 }
 
 /* ---------- Quote ---------- */
@@ -548,26 +530,18 @@ img {
     gap: 24px;
   }
 
-  .gallery__row,
-  .gallery__row--end {
-    flex-direction: column;
-    align-items: flex-start;
+  .gallery__grid {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
   }
 
-  .gallery__row--end .gallery__image {
-    order: -1;
+  .gallery__stack,
+  .gallery__feature {
+    grid-column: 1;
   }
 
-  .gallery__caption {
-    align-items: flex-start;
-    text-align: left;
-    gap: 24px;
-    opacity: 1;
-    transform: none;
-  }
-
-  .gallery__caption-top {
-    align-items: flex-start;
+  .gallery__stack .gallery__card + .gallery__card {
+    margin-top: 40px;
   }
 
   .quote {

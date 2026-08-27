@@ -1041,16 +1041,24 @@ button:focus-visible,
      pin, clip-path growth, three-image crossfade) stays identical to
      desktop, matching havenconstructions.com.au's ScrollGallery -- only
      the word layout changes, since "Silence"/"Luxury" side-by-side with
-     a 400px image spacer doesn't fit a narrow viewport. */
+     a 400px image spacer doesn't fit a narrow viewport. The words stack
+     and centre as a group (not pinned to the pin's top/bottom edges) so
+     the image -- which the scrub keeps centred the whole time -- stays
+     visually centred with it from the first frame to the last. */
   .feature-split__words {
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     padding: 48px var(--gutter);
     gap: 24px;
   }
 
+  /* Now reserves the image's *height* rather than its width, holding the
+     centred Silence/Luxury clear of the initial frame until the growing
+     image covers them. */
   .feature-split__spacer {
-    display: none;
+    display: block;
+    width: auto;
+    height: 300px;
   }
 
   .values__body {

@@ -254,11 +254,15 @@ img {
   max-width: var(--max-width);
   margin: 0 auto;
   /* No top or bottom padding of its own: the values section above already
-     carries a 120px bottom padding, and the quote section below carries
-     its own 120px top padding (matching the Figma spec exactly) -- adding
-     padding here too would break the consistent 120px rhythm every other
-     major section boundary on the page follows. */
+     carries a 200px bottom padding, and the quote section below carries
+     its own 200px top padding, so adding padding here too would break the
+     consistent rhythm every other major section boundary on the page
+     follows. */
   padding: 0 var(--gutter);
+}
+
+.gallery__intro {
+  margin-bottom: 80px;
 }
 
 .gallery__grid {
@@ -273,7 +277,7 @@ img {
   flex-direction: column;
 }
 
-.gallery__stack .gallery__card + .gallery__card {
+.gallery__stack > * + * {
   margin-top: 80px;
 }
 
@@ -533,7 +537,7 @@ img {
     grid-column: 1;
   }
 
-  .gallery__stack .gallery__card + .gallery__card {
+  .gallery__stack > * + * {
     margin-top: 40px;
   }
 

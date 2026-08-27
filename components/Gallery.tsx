@@ -74,7 +74,7 @@ export default function Gallery() {
         <div className="values__aside">
           <div className="values__tag">
             <span className="values__dot" />
-            <span>Beyond the every building</span>
+            <span>BEYOND THE EVERY BUILDING</span>
           </div>
         </div>
         <div className="values__text">

@@ -30,6 +30,25 @@ img {
 
 /* ---------- Shared ---------- */
 
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.scroll-fade--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-fade {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .brand {
   display: flex;
   align-items: center;

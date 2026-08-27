@@ -372,6 +372,7 @@ button:focus-visible,
 }
 
 .feature-split__word {
+  font-family: var(--font-roboto-serif), serif;
   font-weight: 500;
   font-size: clamp(28px, 4vw, 48px);
   white-space: nowrap;
@@ -428,6 +429,7 @@ button:focus-visible,
 }
 
 .values__heading {
+  font-family: var(--font-roboto-serif), serif;
   font-weight: 500;
   font-size: 32px;
   margin-bottom: 24px;
@@ -652,6 +654,7 @@ button:focus-visible,
 }
 
 .gallery__title {
+  font-family: var(--font-roboto-serif), serif;
   font-weight: 400;
   font-size: 32px;
 }

@@ -4,7 +4,7 @@ export default function Values() {
   return (
     <section className="values" id="collective">
       <ScrollFade>
-        <h2 className="values__heading">Our guiding values</h2>
+        <h2 className="values__heading">Our Guiding Values</h2>
         <hr className="values__divider" />
         <div className="values__body">
           <div className="values__aside">

@@ -347,10 +347,44 @@ img {
   padding: 200px var(--gutter) 200px 600px;
 }
 
-.quote p {
+.quote__blockquote {
   font-weight: 300;
   font-size: 24px;
   line-height: 48px;
+}
+
+/* Opening quote mark pops in on its own -- scaled from nothing, rotated,
+   sliding up into place -- then the text fades/rises in just after.
+   Recreates havenconstructions.com.au's BlockQuote entrance. */
+.quote__mark {
+  display: inline-block;
+  font-size: 48px;
+  line-height: 1;
+  vertical-align: -8px;
+  margin-right: 4px;
+  opacity: 0;
+  transform: translateY(50%) rotate(-30deg) scale(0);
+  transition:
+    opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.quote__text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s ease 0.15s,
+    transform 0.7s ease 0.15s;
+}
+
+.quote--visible .quote__mark {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg) scale(1);
+}
+
+.quote--visible .quote__text {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ---------- CTA ---------- */
@@ -550,6 +584,13 @@ img {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .quote__mark,
+  .quote__text {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
   .feature-split {
     height: auto;
   }

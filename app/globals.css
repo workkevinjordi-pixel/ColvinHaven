@@ -86,6 +86,175 @@ button:focus-visible,
   border-radius: 50%;
 }
 
+/* ---------- Navbar ---------- */
+
+/* Transparent over the hero, matching colvinhaven.com's "dynamic" header:
+   solidifies with a blurred background and dropshadow once scrolled past
+   the hero, regardless of what section sits behind it further down the
+   page. Opening the menu forces the same solid/ink treatment so the
+   burger-to-close icon stays legible against the overlay panel. */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  color: #fff;
+  background: transparent;
+  transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar--scrolled,
+.navbar--open {
+  background: rgba(240, 235, 227, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--ink);
+  box-shadow: 0 1px 0 rgba(29, 25, 15, 0.08);
+}
+
+.navbar--open {
+  box-shadow: none;
+}
+
+.navbar__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px var(--gutter);
+  transition: padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar--scrolled .navbar__inner {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.navbar__brand {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar__brand .brand__word {
+  font-size: 20px;
+  color: inherit;
+}
+
+.navbar__burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26px;
+  height: 16px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+.navbar__burger-line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar--open .navbar__burger-line:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.navbar--open .navbar__burger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar--open .navbar__burger-line:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* Fullscreen mega menu -- sits just under the navbar in the stacking
+   order so the burger (now an X) stays clickable above it. */
+.navbar__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.5s;
+}
+
+.navbar__overlay--visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
+}
+
+.navbar__overlay-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.navbar__overlay-links a {
+  font-size: clamp(32px, 6vw, 64px);
+  font-weight: 300;
+  color: var(--ink);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+}
+
+.navbar__overlay--visible .navbar__overlay-links a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navbar__overlay-links a:hover {
+  color: rgba(29, 25, 15, 0.55);
+}
+
+@media (max-width: 560px) {
+  .navbar__inner {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .navbar--scrolled .navbar__inner {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .navbar__inner,
+  .navbar__burger-line,
+  .navbar__overlay,
+  .navbar__overlay-links a {
+    transition: none;
+  }
+
+  .navbar__overlay-links a {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ---------- Hero ---------- */
 
 .hero {

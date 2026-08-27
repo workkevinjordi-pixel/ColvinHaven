@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import FeatureSplit from "@/components/FeatureSplit";
 import Values from "@/components/Values";
@@ -10,6 +11,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      <Navbar />
       <Hero />
       <FeatureSplit />
       <Values />

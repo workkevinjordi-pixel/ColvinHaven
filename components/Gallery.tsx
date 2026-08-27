@@ -66,7 +66,7 @@ export default function Gallery() {
   const sectionRef = useRef<HTMLElement>(null);
 
   return (
-    <section className="gallery" ref={sectionRef}>
+    <section className="gallery" id="editions" ref={sectionRef}>
       {/* Reuses the guiding-values section's exact heading/divider/tag/text
           classes -- same structure, different copy, per request. */}
       <ScrollFade>

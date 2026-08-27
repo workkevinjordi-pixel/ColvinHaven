@@ -2,7 +2,7 @@ import ScrollFade from "./ScrollFade";
 
 export default function Values() {
   return (
-    <section className="values">
+    <section className="values" id="collective">
       <ScrollFade>
         <h2 className="values__heading">Our guiding values</h2>
         <hr className="values__divider" />

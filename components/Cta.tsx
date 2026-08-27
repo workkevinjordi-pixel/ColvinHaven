@@ -8,7 +8,7 @@ export default function Cta() {
   const sectionRef = useRef<HTMLElement>(null);
 
   return (
-    <section className="cta" ref={sectionRef}>
+    <section className="cta" id="inquiry" ref={sectionRef}>
       <ParallaxImage
         sectionRef={sectionRef}
         className="cta__bg"

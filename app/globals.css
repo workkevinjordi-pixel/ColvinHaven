@@ -425,7 +425,7 @@ img {
 .quote {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 200px var(--gutter) 200px 600px;
+  padding: 200px var(--gutter) 240px 600px;
 }
 
 .quote__blockquote {

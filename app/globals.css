@@ -359,6 +359,104 @@ button:focus-visible,
   color: #fff;
 }
 
+/* ---------- Splash ---------- */
+
+/* One-time intro overlay -- shown once per session, then dismissed by
+   SplashScreen.tsx. Opaque cream so it fully hides the page while it
+   plays; sits above the fixed navbar (z-index 100). */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  opacity: 1;
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.splash--leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+/* Wordmark: the two words rise and settle, the brush dot springs in
+   just behind them, then a hairline draws out underneath. */
+.splash__word {
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: splash-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+.splash__dot {
+  opacity: 0;
+  transform: scale(0.3) rotate(-25deg);
+  animation: splash-dot 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s forwards;
+}
+
+.splash__rule {
+  display: block;
+  width: 0;
+  height: 1px;
+  background: rgba(29, 25, 15, 0.5);
+  animation: splash-rule 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+}
+
+.splash__tagline {
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: splash-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+}
+
+@keyframes splash-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes splash-dot {
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes splash-rule {
+  to {
+    width: 140px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash__word,
+  .splash__dot,
+  .splash__rule,
+  .splash__tagline {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .splash__rule {
+    width: 140px;
+  }
+}
+
 /* ---------- Silence / Luxury ---------- */
 
 .feature-split {

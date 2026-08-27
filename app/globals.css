@@ -1328,6 +1328,55 @@ button:focus-visible,
   text-transform: uppercase;
 }
 
+/* ---------- Scroll motion: parallax media + reversible reveal ---------- */
+
+/* ParallaxMedia.tsx -- fills its (position: relative) frame; the inner
+   element is a touch taller so the drift always has headroom. */
+.opt2-pm {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.opt2-pm__inner {
+  position: absolute;
+  inset: -7% 0;
+  will-change: transform;
+}
+
+/* Reveal.tsx -- content wiped away until it scrolls in, folded back when
+   it leaves. `is-in` is toggled by the IntersectionObserver. */
+.opt2-reveal {
+  transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.75s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.opt2-reveal--y {
+  clip-path: inset(0 0 101% 0);
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.opt2-reveal--x {
+  clip-path: inset(0 101% 0 0);
+  opacity: 0;
+}
+
+.opt2-reveal.is-in {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opt2-reveal {
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* ---------- Hero ---------- */
 
 /* Fixed to the viewport: Option2Shell.tsx drives a parallax on it and
@@ -1416,7 +1465,7 @@ button:focus-visible,
   padding-bottom: 0;
 }
 
-.opt2-philosophy .opt2-prose {
+.opt2-philosophy > .opt2-reveal + .opt2-reveal {
   margin-top: 32px;
 }
 
@@ -1464,9 +1513,13 @@ button:focus-visible,
   gap: clamp(24px, 4vw, 60px);
 }
 
-.opt2-inspiration__caption {
+.opt2-inspiration__caption-wrap {
   flex: 0 0 auto;
   width: 298px;
+  align-self: flex-end;
+}
+
+.opt2-inspiration__caption {
   font-family: var(--o2-serif);
   font-weight: 300;
   font-size: 16px;
@@ -1491,7 +1544,7 @@ button:focus-visible,
   background: var(--bg);
 }
 
-.opt2-editions .opt2-prose {
+.opt2-editions > .opt2-reveal + .opt2-reveal {
   margin-top: 32px;
 }
 
@@ -1538,15 +1591,28 @@ button:focus-visible,
 }
 
 .opt2-quotes__drawing {
-  display: block;
   width: min(100%, 616px);
-  height: auto;
   align-self: flex-end;
 }
 
-.opt2-quotes__text {
+.opt2-quotes__drawing img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Slower, more deliberate wipe -- it reads as the drawing being sketched
+   in across the hillside. */
+.opt2-quotes__drawing.opt2-reveal {
+  transition: clip-path 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s ease;
+}
+
+.opt2-quotes__text-wrap {
   max-width: 485px;
   margin-top: auto;
+}
+
+.opt2-quotes__text {
   font-family: var(--o2-serif);
   font-weight: 300;
   font-size: 24px;
@@ -1568,9 +1634,12 @@ button:focus-visible,
   overflow: hidden;
 }
 
-.opt2-cta__bg {
-  object-fit: cover;
+.opt2-cta__bgwrap {
   z-index: 0;
+}
+
+.opt2-cta__bgwrap img {
+  object-fit: cover;
 }
 
 .opt2-cta__overlay {
@@ -1654,7 +1723,7 @@ button:focus-visible,
     align-items: stretch;
   }
 
-  .opt2-inspiration__caption {
+  .opt2-inspiration__caption-wrap {
     order: 2;
     width: 100%;
   }
@@ -1678,7 +1747,7 @@ button:focus-visible,
     align-self: center;
   }
 
-  .opt2-quotes__text {
+  .opt2-quotes__text-wrap {
     margin-top: 40px;
   }
 

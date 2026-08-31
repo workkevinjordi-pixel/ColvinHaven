@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Roboto, Cormorant_Garamond, Fraunces } from "next/font/google";
+import {
+  Roboto,
+  Cormorant_Garamond,
+  Fraunces,
+  Bricolage_Grotesque,
+} from "next/font/google";
 import "./globals.css";
 import SplashScreen from "@/components/SplashScreen";
 
@@ -30,6 +35,15 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
+// Used only by the /option6 layout variant (see the "Option 6" block in
+// globals.css) as its chunky poster display face.
+const bricolage = Bricolage_Grotesque({
+  weight: ["400", "600", "800"],
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Colvin Haven — Wellness Architecture & Design",
   description: "Wellness architecture and design studio.",
@@ -43,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${roboto.variable} ${cormorant.variable} ${fraunces.variable}`}
+      className={`${roboto.variable} ${cormorant.variable} ${fraunces.variable} ${bricolage.variable}`}
     >
       <body>
         {/* Without JS the timed dismiss never runs, so keep the overlay

@@ -3845,15 +3845,15 @@ button:focus-visible,
   --o6-ink: #191919;
   --o6-muted: #8b8b87;
   --o6-line: #e4e3df;
-  --o6-rail: 210px;
-  --o6-gutter: clamp(16px, 3.4vw, 44px);
+  --o6-rail: 188px;
+  --o6-gutter: clamp(16px, 3.4vw, 40px);
   --o6-sans: var(--font-roboto), "Helvetica Neue", Arial, sans-serif;
   background: var(--o6-bg);
   color: var(--o6-ink);
   overflow-x: hidden;
   font-family: var(--o6-sans);
-  font-size: 13px;
-  line-height: 1.62;
+  font-size: 12px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -3884,9 +3884,9 @@ button:focus-visible,
 }
 
 .opt6-wordmark {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -3894,12 +3894,12 @@ button:focus-visible,
 .opt6-side__nav {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  margin-top: 40px;
+  gap: 2px;
+  margin-top: 44px;
 }
 
 .opt6-side__nav a {
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.02em;
   text-decoration: none;
   color: var(--o6-ink);
@@ -3912,7 +3912,7 @@ button:focus-visible,
 
 .opt6-side__meta {
   margin-top: auto;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.02em;
   color: var(--o6-muted);
 }
@@ -3975,20 +3975,19 @@ button:focus-visible,
 .opt6-hero__media {
   position: relative;
   width: 100%;
-  height: 86vh;
-  min-height: 460px;
+  height: 92vh;
+  min-height: 520px;
 }
 
 .opt6-hero__row {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  padding: 10px var(--o6-gutter);
-  border-bottom: 1px solid var(--o6-line);
+  padding: 8px var(--o6-gutter) 0;
 }
 
 .opt6-hero__cap {
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.03em;
   color: var(--o6-muted);
 }
@@ -4006,10 +4005,10 @@ button:focus-visible,
 
 .opt6-label {
   display: flex;
-  gap: 14px;
-  font-size: 12px;
+  gap: 12px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -4019,36 +4018,36 @@ button:focus-visible,
 }
 
 .opt6-block__body {
-  margin-top: clamp(28px, 4vw, 48px);
-  max-width: 760px;
+  margin-top: clamp(24px, 3.4vw, 44px);
+  max-width: 660px;
 }
 
 .opt6-lead {
-  font-size: clamp(15px, 1.7vw, 19px);
-  line-height: 1.58;
+  font-size: clamp(13px, 1.3vw, 16px);
+  line-height: 1.6;
   letter-spacing: 0.005em;
 }
 
 .opt6-cols {
-  margin-top: 26px;
+  margin-top: 24px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 28px;
   color: var(--o6-muted);
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 12px;
+  line-height: 1.68;
 }
 
 .opt6-quote {
-  font-size: clamp(16px, 2vw, 23px);
-  line-height: 1.5;
+  font-size: clamp(14px, 1.5vw, 17px);
+  line-height: 1.58;
   letter-spacing: 0.005em;
 }
 
 .opt6-textlink {
   display: inline-block;
-  margin-top: 34px;
-  font-size: 12px;
+  margin-top: 32px;
+  font-size: 11px;
   letter-spacing: 0.04em;
   text-decoration: none;
   color: var(--o6-ink);
@@ -4073,10 +4072,10 @@ button:focus-visible,
 /* ---------- Editions grid ---------- */
 
 .opt6-grid {
-  margin-top: clamp(40px, 6vw, 80px);
+  margin-top: clamp(36px, 5vw, 72px);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: clamp(18px, 2.6vw, 40px) clamp(16px, 2.4vw, 36px);
+  gap: 4px;
 }
 
 .opt6-item__media {
@@ -4091,8 +4090,9 @@ button:focus-visible,
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin-top: 10px;
-  font-size: 12px;
+  margin-top: 8px;
+  margin-bottom: clamp(12px, 2vw, 24px);
+  font-size: 11px;
 }
 
 .opt6-item__sub {
@@ -4111,10 +4111,10 @@ button:focus-visible,
 }
 
 .opt6-duo__pair {
-  margin-top: clamp(28px, 4vw, 48px);
+  margin-top: clamp(24px, 3.4vw, 44px);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(16px, 2.4vw, 36px);
+  gap: 4px;
 }
 
 .opt6-duo__fig .opt6-item__media {
@@ -4122,8 +4122,8 @@ button:focus-visible,
 }
 
 .opt6-duo__fig .opt6-item__cap {
-  font-size: 13px;
-  letter-spacing: 0.04em;
+  font-size: 11px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -4168,8 +4168,8 @@ button:focus-visible,
 
 .opt6-reveal {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .opt6-reveal.is-in {

@@ -51,7 +51,7 @@ export default function Option6Page() {
               alt="A black-clad house set among planted trees"
               fill
               priority
-              sizes="(min-width: 1024px) calc(100vw - 210px), 100vw"
+              sizes="(min-width: 1024px) calc(100vw - 188px), 100vw"
               style={{ objectFit: "cover" }}
             />
           </div>

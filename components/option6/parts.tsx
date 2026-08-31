@@ -1,5 +1,5 @@
-/** Chunky wordmark with a square mark between the words (the rectangular
- *  answer to a round dot). Inherits currentColor. */
+/** Letter-spaced serif wordmark with a small brass diamond between the
+ *  words. Inherits currentColor so it reads on light or dark. */
 export function Opt6Wordmark({ className }: { className?: string }) {
   return (
     <span className={`opt6-wordmark${className ? ` ${className}` : ""}`}>
@@ -10,9 +10,7 @@ export function Opt6Wordmark({ className }: { className?: string }) {
   );
 }
 
-/** Small hard-edged rectangular label — used everywhere Titik Dua would
- *  reach for a round sticker/badge. */
-export function Opt6Tag({
+export function Opt6Eyebrow({
   children,
   className,
 }: {
@@ -20,23 +18,6 @@ export function Opt6Tag({
   className?: string;
 }) {
   return (
-    <span className={`opt6-tag${className ? ` ${className}` : ""}`}>
-      {children}
-    </span>
-  );
-}
-
-/** Pure-CSS horizontal ticker. Two identical tracks scroll left for a
- *  seamless loop; the animation is disabled under prefers-reduced-motion
- *  (see globals.css). */
-export function Opt6Marquee({ text }: { text: string }) {
-  const run = `${text} · ${text} · ${text} · ${text} · `;
-  return (
-    <div className="opt6-marquee" aria-hidden="true">
-      <div className="opt6-marquee__track">
-        <span>{run}</span>
-        <span>{run}</span>
-      </div>
-    </div>
+    <p className={`opt6-eyebrow${className ? ` ${className}` : ""}`}>{children}</p>
   );
 }

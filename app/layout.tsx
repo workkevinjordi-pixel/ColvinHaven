@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto, Cormorant_Garamond } from "next/font/google";
+import { Roboto, Cormorant_Garamond, Fraunces } from "next/font/google";
 import "./globals.css";
 import SplashScreen from "@/components/SplashScreen";
 
@@ -20,6 +20,16 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
+// Used only by the /option3 layout variant (see the "Option 3" block in
+// globals.css) as its editorial display face.
+const fraunces = Fraunces({
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Colvin Haven — Wellness Architecture & Design",
   description: "Wellness architecture and design studio.",
@@ -31,7 +41,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${roboto.variable} ${cormorant.variable}`}>
+    <html
+      lang="en"
+      className={`${roboto.variable} ${cormorant.variable} ${fraunces.variable}`}
+    >
       <body>
         {/* Without JS the timed dismiss never runs, so keep the overlay
             from permanently covering the site. */}

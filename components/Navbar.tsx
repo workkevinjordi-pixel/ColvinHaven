@@ -41,16 +41,8 @@ export default function Navbar() {
         className={`navbar${scrolled ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}`}
       >
         <div className="navbar__inner">
-          <a href="#" className="navbar__brand brand" aria-label="Colvin Haven">
-            <span className="brand__word">Colvin</span>
-            <Image
-              className="brand__dot"
-              src="/assets/dot-nav.png"
-              alt=""
-              width={20}
-              height={20}
-            />
-            <span className="brand__word">Haven</span>
+          <a href="#" className="navbar__index" aria-label="Colvin Haven">
+            II/VII
           </a>
 
           <div className="navbar__actions">

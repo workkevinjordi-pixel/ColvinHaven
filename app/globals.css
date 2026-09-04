@@ -140,14 +140,14 @@ button:focus-visible,
   padding-bottom: 20px;
 }
 
-.navbar__brand {
+.navbar__index {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  font-size: 24px;
+  letter-spacing: 3.6px;
   text-decoration: none;
   color: inherit;
-}
-
-.navbar__brand .brand__word {
-  font-size: 20px;
-  color: inherit;
+  white-space: nowrap;
 }
 
 .navbar__actions {

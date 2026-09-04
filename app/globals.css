@@ -965,7 +965,7 @@ button:focus-visible,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 40px var(--gutter);
+  padding: 40px 60px;
   flex-wrap: wrap;
   gap: 24px;
 }

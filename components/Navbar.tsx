@@ -60,14 +60,18 @@ export default function Navbar() {
 
             <button
               type="button"
-              className="navbar__burger"
+              className={`navbar__dot-trigger${open ? " navbar__dot-trigger--open" : ""}`}
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
             >
-              <span className="navbar__burger-line" />
-              <span className="navbar__burger-line" />
-              <span className="navbar__burger-line" />
+              <Image
+                className="navbar__dot-trigger-img"
+                src="/assets/dot-nav.png"
+                alt=""
+                width={40}
+                height={40}
+              />
             </button>
           </div>
         </div>

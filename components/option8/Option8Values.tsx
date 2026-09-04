@@ -4,7 +4,7 @@ import ScrollFade from "../ScrollFade";
 // the main site's Values section which breaks it into three.
 export default function Option8Values() {
   return (
-    <section className="values" id="collective">
+    <section className="values values--after-drawing" id="collective">
       <ScrollFade>
         <h2 className="values__heading">Our guiding values</h2>
         <hr className="values__divider" />

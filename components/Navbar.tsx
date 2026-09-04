@@ -46,10 +46,6 @@ export default function Navbar() {
           </a>
 
           <div className="navbar__actions">
-            <a href="#inquiry" className="navbar__cta">
-              Inquiry
-            </a>
-
             <button
               type="button"
               className={`navbar__dot-trigger${open ? " navbar__dot-trigger--open" : ""}`}

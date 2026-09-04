@@ -29,7 +29,6 @@ export default function Hero() {
         <p className="hero__title">Colvin Haven</p>
         <p className="hero__tagline">Architectural Editions</p>
       </ParallaxLayer>
-      <p className="hero__scroll">Scroll for more</p>
     </header>
   );
 }

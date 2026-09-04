@@ -126,8 +126,10 @@ button:focus-visible,
 }
 
 .navbar__inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
+  /* Full-bleed, not constrained to --max-width like the rest of the
+     site's sections -- the hero it overlays is full-bleed too, so this
+     padding is what actually pins the index/dot 60px from the true
+     viewport edge on screens wider than --max-width. */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -968,8 +970,10 @@ button:focus-visible,
   gap: 24px;
 }
 
-.brand--footer .brand__word {
+.footer__mark {
+  font-weight: 300;
   font-size: 24px;
+  color: #fff;
 }
 
 .footer__nav {

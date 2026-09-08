@@ -851,9 +851,11 @@ button:focus-visible,
    the source file at build time via a preprocessing script, one
    per-path animation-delay per group (<g id="primary|architecture|
    vegetation">): primary+architecture (the buildings and the ground
-   they sit on) are staggered across 2-3400ms, vegetation across a later
-   2800-5800ms window that overlaps their tail end, so the buildings
+   they sit on) are staggered across 1-1700ms, vegetation across a later
+   1400-2900ms window that overlaps their tail end, so the buildings
    clearly lead and the planting fills in after -- not simultaneously.
+   (Halved from 2-3400ms / 2800-5800ms -- 50% faster overall, same
+   choreography ratio.)
 
    Each path's source file has pathLength="1" (a deliberate authoring
    choice for this exact technique), so a single dasharray/dashoffset of
@@ -867,13 +869,13 @@ button:focus-visible,
 .drawing__svg .draw-path {
   fill-opacity: 0;
   stroke: currentColor;
-  stroke-width: 1;
+  stroke-width: 0.75;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
 
 .drawing__svg--visible .draw-path {
-  animation: draw-stroke 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: draw-stroke 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes draw-stroke {

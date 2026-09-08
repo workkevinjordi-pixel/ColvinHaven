@@ -103,6 +103,39 @@ button:focus-visible,
   margin-bottom: 24px;
 }
 
+/* Row variant for a .section-heading with a subtitle beside it (News'
+   "What's Cooking – A taste of what's happening") -- the heading's own
+   margin-bottom moves to the row so heading and subtitle stay vertically
+   centered on the same line. */
+.statement-section__heading-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.statement-section__heading-row .section-heading {
+  margin-bottom: 0;
+}
+
+.statement-section__subtitle {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .statement-section__heading-row {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .statement-section__subtitle {
+    white-space: normal;
+  }
+}
+
 /* Full-bleed alternating narrow/wide image strip, rendered by the
    Filmstrip component. Bleeds 309px past the standard 1216px content
    column on both sides (1216 + 309*2 = 1834), matching both Figma frames

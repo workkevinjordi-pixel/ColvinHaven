@@ -34,6 +34,7 @@ export default function NewsPage() {
       <div className="news-first-section">
         <StatementSection
           heading="What’s Cooking"
+          subtitle="A taste of what’s happening"
           tag="THE CH JOURNAL"
           paragraphs={LOREM}
         />

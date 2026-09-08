@@ -898,16 +898,74 @@ button:focus-visible,
   margin-bottom: 0;
 }
 
-/* ---------- Drawing ---------- */
+/* ---------- Drawing (scroll-scrubbed, homepage only -- see ScrollDrawing) ---------- */
 
-.drawing {
+/* Tall runway: how far the user has to scroll to take the drawing from
+   0 to fully drawn. Comfortably longer than one viewport so the pin
+   below has room to hold still while it works, short of feeling like a
+   chore -- tuned by eye, not derived from anything. */
+.drawing-scroll {
+  position: relative;
+  height: 220vh;
+  background: var(--bg);
+}
+
+.drawing-scroll__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.drawing-scroll__frame {
+  width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  /* No top padding: relies on the section above it for that gap, same
-     "one side owns the gap" rhythm every other section boundary on the
-     page follows. Bottom padding kept small on purpose -- the section
-     after this one should read as directly following the drawing. */
-  padding: 0 var(--gutter) 40px;
+  padding: 0 var(--gutter);
+}
+
+.drawing-scroll__svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Paths use fill/stroke="currentColor" with no color of their own --
+     this is what they resolve against. */
+  color: var(--ink);
+}
+
+/* Base (not-yet-drawn) state for every traced shape. No CSS `animation`
+   here at all -- ScrollDrawing sets stroke-dashoffset/fill-opacity
+   directly per frame from scroll progress, using the same two-phase
+   curve the CSS keyframe version (.drawing__svg, still used by
+   option4/5/6) animates on a timer: each path spends the first 65% of
+   its own [delay, delay+1200ms] window tracing its outline, then the
+   remaining 35% filling in solid. Each path's source file has
+   pathLength="1" (a deliberate authoring choice for this technique), so
+   a single dasharray/dashoffset of 0-1 traces any path regardless of
+   its real length. */
+.drawing-scroll__svg .draw-path {
+  fill-opacity: 0;
+  stroke: currentColor;
+  stroke-width: 0.75;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No scroll-jacked runway for these users -- collapses to a normal,
+     non-pinned block showing the finished drawing (ScrollDrawing's own
+     reduced-motion branch sets every path fully drawn on mount). */
+  .drawing-scroll {
+    height: auto;
+  }
+
+  .drawing-scroll__pin {
+    position: static;
+    height: auto;
+    padding: 80px 0;
+  }
 }
 
 .drawing__svg svg {

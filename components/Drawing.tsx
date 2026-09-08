@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import AnimatedDrawing from "./AnimatedDrawing";
+import ScrollDrawing from "./ScrollDrawing";
 
 export default function Drawing() {
   const svgPath = path.join(
@@ -9,11 +9,5 @@ export default function Drawing() {
   );
   const svgMarkup = fs.readFileSync(svgPath, "utf-8");
 
-  return (
-    <section className="drawing">
-      <div className="drawing__frame">
-        <AnimatedDrawing svgMarkup={svgMarkup} />
-      </div>
-    </section>
-  );
+  return <ScrollDrawing svgMarkup={svgMarkup} />;
 }

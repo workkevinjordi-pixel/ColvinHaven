@@ -33,9 +33,6 @@ export default function Cta() {
             We work with a select number of clients each year. Those who
             find us, were meant to.
           </p>
-          <a href="#inquiry" className="cta__button">
-            Inquiry
-          </a>
         </ParallaxLayer>
       </div>
     </section>

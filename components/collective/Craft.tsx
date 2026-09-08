@@ -25,7 +25,7 @@ export default function Craft() {
             <div className="craft__row-image">
               <Image
                 src="/assets/collective/craft-detail.png"
-                alt="An Indonesian craftsman working on a slatted timber wall panel"
+                alt="A timber A-frame hoist unloading materials from a delivery truck on site"
                 fill
                 sizes="(min-width: 900px) 790px, 100vw"
                 style={{ objectFit: "cover" }}

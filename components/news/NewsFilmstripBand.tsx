@@ -1,10 +1,8 @@
 import ScrollFade from "../ScrollFade";
 import Filmstrip, { type FilmstripImage } from "../Filmstrip";
 
-// Alternating narrow/wide filmstrip, matching the Figma "Editions" frame
-// (node 203:131): Image / edition 1 / Image / edition 2 / Image. Figma
-// reuses the same two placeholder photos across all five slots -- kept
-// as-is here rather than inventing new crops.
+// Same two photos as the Editions/Collective filmstrips (Figma reuses
+// them here too, node 205:546).
 const REEL: FilmstripImage[] = [
   { src: "/assets/editions/tsuki-hero.png", alt: "", wide: false },
   { src: "/assets/editions/tsuki-edition-1.png", alt: "", wide: true },
@@ -14,14 +12,14 @@ const REEL: FilmstripImage[] = [
 ];
 
 /**
- * Top-of-page intro: faded roman-numeral eyebrow, a lede paragraph (still
- * Figma's own Lorem Ipsum placeholder -- swap in real copy when it's
- * ready), an outline CTA, and a filmstrip that bleeds past the standard
- * content column on both sides.
+ * Mid-page eyebrow + lede + filmstrip band (Figma node 205:540) -- the
+ * same .centered-statement pattern Editions' intro uses, minus its CTA
+ * button (this Figma instance has none), in its own .news-filmstrip-band
+ * wrapper rather than .editions-intro's fixed-navbar-clearance padding.
  */
-export default function EditionsIntro() {
+export default function NewsFilmstripBand() {
   return (
-    <section className="editions-intro">
+    <div className="news-filmstrip-band">
       <ScrollFade className="centered-statement">
         <p className="centered-statement__eyebrow">II/VII</p>
         <p className="centered-statement__lead">
@@ -33,12 +31,8 @@ export default function EditionsIntro() {
           nulla pariatur. Excepteur sint occaecat cupidatat non proident,
           sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <a href="#editions" className="centered-statement__cta">
-          Explore II/VII
-        </a>
       </ScrollFade>
-
       <Filmstrip images={REEL} />
-    </section>
+    </div>
   );
 }

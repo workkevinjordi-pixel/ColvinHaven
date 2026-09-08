@@ -41,12 +41,16 @@ export default function CollectivePage() {
       <Craft />
       <div className="collective-band-section">
         <PhotoBand
-          src="/assets/collective/palm-trees-1.png"
-          alt="Palm fronds being unloaded from a delivery truck on site"
+          src="/assets/collective/kitchen-courtyard.png"
+          alt="A wood-paneled kitchen and dining nook opening onto a stone-clad courtyard"
         />
       </div>
-      <Inspiration />
-      <div className="collective-band-section">
+      {/* Figma now nests Inspiration and the filmstrip in one shared
+          w-1834 group with a tight 24px gap between them, rather than
+          two independently-spaced sections -- .collective-inspiration
+          scopes StatementSection's bottom padding down to match. */}
+      <div className="collective-inspiration">
+        <Inspiration />
         <Filmstrip images={REEL} />
       </div>
       <Cta />

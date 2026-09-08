@@ -6,6 +6,11 @@ import Image from "next/image";
 const LINKS = [
   { href: "/editions", label: "Editions" },
   { href: "/collective", label: "Collective" },
+  { href: "/news", label: "News" },
+  // Same-page anchor: every page that renders this Navbar also renders
+  // the shared Cta section (id="inquiry") further down, so this scrolls
+  // there directly instead of linking to a separate contact page.
+  { href: "#inquiry", label: "Write to Us" },
 ];
 
 type NavbarProps = {
@@ -53,7 +58,9 @@ export default function Navbar({ solid = false }: NavbarProps) {
         className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}`}
       >
         <div className="navbar__inner">
-          <a href="#" className="navbar__index" aria-label="Colvin Haven">
+          {/* The "II/VII" index mark doubles as the entry point to News --
+              per direct instruction, this is how that page gets reached. */}
+          <a href="/news" className="navbar__index" aria-label="News">
             II/VII
           </a>
 

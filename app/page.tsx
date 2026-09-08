@@ -1,22 +1,26 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import FeatureSplit from "@/components/FeatureSplit";
-import Values from "@/components/Values";
 import Drawing from "@/components/Drawing";
-import Gallery from "@/components/Gallery";
+import Option8Values from "@/components/option8/Option8Values";
+import Option8Gallery from "@/components/option8/Option8Gallery";
 import Quote from "@/components/Quote";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 
+// Section order and copy follow the Figma "Homepage" frame (node 173:113)
+// exactly: Hero -> Drawing -> Values -> Gallery -> Quote -> Cta -> Footer.
+// That frame has no FeatureSplit ("Silence" / "Luxury") section, and its
+// guiding-values / gallery blocks differ slightly from the prior main site's
+// (single paragraph, no gallery intro heading) -- see Option8Values and
+// Option8Gallery.
 export default function Home() {
   return (
     <>
       <Navbar />
       <Hero />
-      <FeatureSplit />
-      <Values />
       <Drawing />
-      <Gallery />
+      <Option8Values />
+      <Option8Gallery />
       <Quote />
       <Cta />
       <Footer />

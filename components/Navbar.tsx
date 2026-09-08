@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const LINKS = [
+  { href: "/", label: "Discover" },
   { href: "/editions", label: "Editions" },
   { href: "/collective", label: "Collective" },
-  { href: "/news", label: "News" },
-  // Same-page anchor: every page that renders this Navbar also renders
-  // the shared Cta section (id="inquiry") further down, so this scrolls
-  // there directly instead of linking to a separate contact page.
-  { href: "#inquiry", label: "Write to Us" },
+  { href: "/write-to-us", label: "Write to us" },
+  // Same News destination as the navbar's own "II/VII" corner mark --
+  // rendered in that mark's roman-numeral type via navbar__overlay-link--roman
+  // instead of the plain style the other four items use.
+  { href: "/news", label: "II/VII", roman: true },
 ];
 
 type NavbarProps = {
@@ -90,6 +91,7 @@ export default function Navbar({ solid = false }: NavbarProps) {
             <a
               key={link.href}
               href={link.href}
+              className={link.roman ? "navbar__overlay-link--roman" : undefined}
               style={{ transitionDelay: open ? `${0.1 + i * 0.06}s` : "0s" }}
               onClick={() => setOpen(false)}
             >

@@ -8,7 +8,7 @@ import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Colvin Haven — News",
+  title: "Colvin Haven — What’s Cooking",
   description: "News and publications from Colvin Haven.",
 };
 
@@ -18,20 +18,26 @@ const LOREM = [
 ];
 
 // Follows the Figma "News" frame (node 205:468) section order: Navbar ->
-// "News" statement -> filmstrip band -> Sora profile -> "Publications"
-// statement -> publications grid -> Inquiry CTA -> Footer. Cta and
-// Footer are reused as-is. Both statement sections' body copy is still
-// Figma's own Lorem Ipsum placeholder -- swap in real copy when it's
-// ready; only the tag/heading text is real.
+// "What's Cooking" statement -> filmstrip band -> Sora profile ->
+// "Publications" statement -> publications grid -> Inquiry CTA ->
+// Footer. Cta and Footer are reused as-is. Both statement sections' body
+// copy is still Figma's own Lorem Ipsum placeholder -- swap in real copy
+// when it's ready; only the tag/heading text is real.
 export default function NewsPage() {
   return (
     <>
       <Navbar solid />
-      <StatementSection
-        heading="News"
-        tag="WHAT’S NEW ON OUR SIDE"
-        paragraphs={LOREM}
-      />
+      {/* .statement-section's shared 80px top padding is right for every
+          other usage (always follows another section), but this is the
+          page's first section -- needs the same fixed-navbar clearance
+          .editions-intro/.collective-intro/.write-to-us use. */}
+      <div className="news-first-section">
+        <StatementSection
+          heading="What’s Cooking"
+          tag="THE CH JOURNAL"
+          paragraphs={LOREM}
+        />
+      </div>
       <NewsFilmstripBand />
       <SoraProfile />
       <StatementSection

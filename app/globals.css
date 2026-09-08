@@ -354,13 +354,18 @@ button:focus-visible,
 
 /* Fullscreen mega menu -- sits just under the navbar in the stacking
    order so the burger (now an X) stays clickable above it. */
+/* Split-panel layout matching colvinhaven.com's own mega menu: a left
+   content panel (brand + link list, left-aligned) beside a full-height
+   photo panel -- sizing (panel proportion, compact list type instead of
+   the old giant centered display type, tight item rhythm with a bigger
+   gap before the last item) follows their reference; copy, typefaces
+   and the roman-numeral treatment stay ours. */
 .navbar__overlay {
   position: fixed;
   inset: 0;
   z-index: 90;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
   background: var(--bg);
   color: var(--ink);
   opacity: 0;
@@ -376,16 +381,47 @@ button:focus-visible,
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
 }
 
+.navbar__overlay-panel {
+  flex: 0 0 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px var(--gutter);
+}
+
+.navbar__overlay-brand {
+  font-family: var(--font-roboto), sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar__overlay--visible .navbar__overlay-brand {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .navbar__overlay-links {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 24px;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.navbar__overlay-links-secondary {
+  margin-top: 56px;
 }
 
 .navbar__overlay-links a {
-  font-size: clamp(32px, 6vw, 64px);
-  font-weight: 300;
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--ink);
   text-decoration: none;
   opacity: 0;
@@ -411,10 +447,27 @@ button:focus-visible,
 
 /* Keeps the "II/VII" mega-menu entry in the same roman-numeral type as
    the navbar's own corner mark (Cormorant Garamond Light, tracked out),
-   instead of the plain sans the other four menu items use. */
+   instead of the plain uppercase sans the other four menu items use. */
 .navbar__overlay-link--roman {
   font-family: var(--font-cormorant), serif;
+  text-transform: none;
   letter-spacing: 0.12em;
+}
+
+.navbar__overlay-media {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+@media (max-width: 900px) {
+  .navbar__overlay-panel {
+    flex-basis: 100%;
+    padding: 60px var(--gutter);
+  }
+
+  .navbar__overlay-media {
+    display: none;
+  }
 }
 
 @media (max-width: 560px) {
@@ -427,6 +480,23 @@ button:focus-visible,
     padding-top: 16px;
     padding-bottom: 16px;
   }
+
+  .navbar__overlay-panel {
+    padding: 40px 24px;
+  }
+
+  .navbar__overlay-brand {
+    font-size: 26px;
+    margin-bottom: 32px;
+  }
+
+  .navbar__overlay-links a {
+    font-size: 18px;
+  }
+
+  .navbar__overlay-links-secondary {
+    margin-top: 40px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -434,10 +504,12 @@ button:focus-visible,
   .navbar__inner,
   .navbar__dot-trigger,
   .navbar__overlay,
+  .navbar__overlay-brand,
   .navbar__overlay-links a {
     transition: none;
   }
 
+  .navbar__overlay-brand,
   .navbar__overlay-links a {
     opacity: 1;
     transform: none;

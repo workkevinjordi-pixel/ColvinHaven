@@ -670,9 +670,10 @@ button:focus-visible,
 
 /* Base (not-yet-revealed) state for every traced shape in the SVG -- set
    on the source file at build time via a preprocessing script, one
-   per-path animation-delay staggered across ~2.8s (slowed 50% from the
-   original ~1.4s for a more elegant reveal). No `animation` property
-   here on purpose: applying it only in the --visible state below means
+   per-path animation-delay staggered across ~5.6s (slowed another 50%
+   from the previous ~2.8s, so ~4x the original ~1.4s, for an even more
+   deliberate, hand-drawn pace). No `animation` property here on
+   purpose: applying it only in the --visible state below means
    removing that class (scrolling back out) fully cancels the animation
    and snaps back to this hidden state, so it replays cleanly on
    re-entry instead of getting stuck at its finished frame. */
@@ -683,7 +684,7 @@ button:focus-visible,
 }
 
 .drawing__svg--visible .draw-path {
-  animation: draw-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: draw-reveal 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes draw-reveal {

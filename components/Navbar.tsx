@@ -8,7 +8,19 @@ const LINKS = [
   { href: "#collective", label: "Collective" },
 ];
 
-export default function Navbar() {
+type NavbarProps = {
+  /**
+   * Forces the solid/ink "scrolled" treatment from the first frame,
+   * instead of the transparent-white-on-photo default. Used by pages
+   * (like /editions) whose top section is the page's own light --bg
+   * rather than a full-bleed dark hero image -- without this, the
+   * default transparent navbar would render illegible white-on-cream
+   * until the visitor scrolled past 60px.
+   */
+  solid?: boolean;
+};
+
+export default function Navbar({ solid = false }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -38,7 +50,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`navbar${scrolled ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}`}
+        className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}`}
       >
         <div className="navbar__inner">
           <a href="#" className="navbar__index" aria-label="Colvin Haven">

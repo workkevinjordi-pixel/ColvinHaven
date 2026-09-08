@@ -4461,3 +4461,277 @@ button:focus-visible,
     display: none;
   }
 }
+
+/* ==========================================================================
+   /editions page (Figma "Editions" frame, node 173:1455)
+   Uses the shared Navbar/Cta/Footer components as-is (those sections are
+   pixel-identical in the source frame) plus the .values__* body pattern
+   for the CH Collections statement. Everything else below is scoped to
+   this page with an `editions-`/`edition-spotlight__` prefix, matching
+   how every other page variant in this file is organized.
+   ========================================================================== */
+
+/* ---------- Intro ---------- */
+
+.editions-intro {
+  /* Top padding is deliberately more generous than the Figma frame's own
+     80px -- that value assumed the page started at the very top of the
+     canvas, but the live site's navbar is `position: fixed`, so content
+     here needs real clearance to avoid sliding under it. */
+  padding: 200px 0 80px;
+}
+
+.editions-intro__text {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.editions-intro__eyebrow {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  font-size: 32px;
+  letter-spacing: 4.8px;
+  opacity: 0.6;
+}
+
+.editions-intro__lead {
+  max-width: 549px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+}
+
+.editions-intro__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-weight: 300;
+  font-size: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.editions-intro__cta:hover {
+  background: rgba(29, 25, 15, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Bleeds 309px past the standard 1216px content column on both sides --
+   1216 + 309*2 = 1834, matching the Figma filmstrip's own width exactly. */
+.editions-intro__reel {
+  margin-top: 24px;
+  width: calc(100% + 618px);
+  max-width: 1834px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  gap: 24px;
+}
+
+.editions-intro__reel-item {
+  position: relative;
+  flex: 0 0 284px;
+  height: 473px;
+  overflow: hidden;
+}
+
+.editions-intro__reel-item--wide {
+  flex-basis: 443px;
+}
+
+/* ---------- CH Collections ---------- */
+
+.ch-collections {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 80px var(--gutter) 200px;
+}
+
+.ch-collections__heading {
+  font-weight: 500;
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+.ch-collections__text p {
+  margin-bottom: 40px;
+}
+
+.ch-collections__text p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Edition spotlight ---------- */
+
+.edition-spotlight {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter) 120px;
+}
+
+.edition-spotlight__index {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  font-size: 32px;
+  letter-spacing: 4.8px;
+  margin-bottom: 23px;
+}
+
+.edition-spotlight__divider {
+  border: none;
+  border-top: 1px solid var(--ink);
+  margin-bottom: 28px;
+}
+
+.edition-spotlight__body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.edition-spotlight__lede {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.edition-spotlight__hero-image {
+  position: relative;
+  width: 100%;
+  height: 473px;
+}
+
+.edition-spotlight__title-block {
+  max-width: 651px;
+}
+
+.edition-spotlight__title {
+  font-family: var(--font-roboto), sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.edition-spotlight__title-block p {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+  margin-bottom: 16px;
+}
+
+.edition-spotlight__title-block p:last-child {
+  margin-bottom: 0;
+}
+
+.edition-spotlight__row {
+  display: flex;
+  gap: 23px;
+  align-items: flex-start;
+}
+
+.edition-spotlight__row-main {
+  flex: 0 0 790px;
+}
+
+.edition-spotlight__row-side {
+  flex: 1 1 403px;
+}
+
+.edition-spotlight__row-image {
+  position: relative;
+  width: 100%;
+  height: 473px;
+  margin-bottom: 24px;
+}
+
+.edition-spotlight__row-main .edition-spotlight__row-text {
+  max-width: 651px;
+}
+
+.edition-spotlight__row-text p,
+.edition-spotlight__row-side > p {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+  margin-bottom: 16px;
+}
+
+.edition-spotlight__row-text p:last-child,
+.edition-spotlight__row-side > p:last-child {
+  margin-bottom: 0;
+}
+
+.edition-spotlight__banner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1500 / 611;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editions-intro__cta:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .editions-intro__reel {
+    max-width: none;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0 var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .editions-intro__reel-item {
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 900px) {
+  .edition-spotlight__row {
+    flex-direction: column;
+  }
+
+  .edition-spotlight__row-main,
+  .edition-spotlight__row-side {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .edition-spotlight__row-main .edition-spotlight__row-text {
+    max-width: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .editions-intro {
+    padding-top: 160px;
+  }
+
+  .editions-intro__reel-item {
+    flex-basis: 220px;
+    height: 360px;
+  }
+
+  .editions-intro__reel-item--wide {
+    flex-basis: 340px;
+  }
+
+  .edition-spotlight__hero-image,
+  .edition-spotlight__row-image {
+    height: 320px;
+  }
+}

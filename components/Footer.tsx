@@ -5,8 +5,8 @@ export default function Footer() {
         CH
       </p>
       <nav className="footer__nav">
-        <a href="#editions">Editions</a>
-        <a href="#collective">Collective</a>
+        <a href="/editions">Editions</a>
+        <a href="/collective">Collective</a>
       </nav>
     </footer>
   );

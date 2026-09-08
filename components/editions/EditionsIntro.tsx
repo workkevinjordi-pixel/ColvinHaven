@@ -1,16 +1,16 @@
-import Image from "next/image";
 import ScrollFade from "../ScrollFade";
+import Filmstrip, { type FilmstripImage } from "../Filmstrip";
 
 // Alternating narrow/wide filmstrip, matching the Figma "Editions" frame
 // (node 203:131): Image / edition 1 / Image / edition 2 / Image. Figma
 // reuses the same two placeholder photos across all five slots -- kept
 // as-is here rather than inventing new crops.
-const REEL = [
-  { src: "/assets/editions/tsuki-hero.png", wide: false },
-  { src: "/assets/editions/tsuki-edition-1.png", wide: true },
-  { src: "/assets/editions/tsuki-hero.png", wide: false },
-  { src: "/assets/editions/tsuki-edition-1.png", wide: true },
-  { src: "/assets/editions/tsuki-hero.png", wide: false },
+const REEL: FilmstripImage[] = [
+  { src: "/assets/editions/tsuki-hero.png", alt: "", wide: false },
+  { src: "/assets/editions/tsuki-edition-1.png", alt: "", wide: true },
+  { src: "/assets/editions/tsuki-hero.png", alt: "", wide: false },
+  { src: "/assets/editions/tsuki-edition-1.png", alt: "", wide: true },
+  { src: "/assets/editions/tsuki-hero.png", alt: "", wide: false },
 ];
 
 /**
@@ -38,22 +38,7 @@ export default function EditionsIntro() {
         </a>
       </ScrollFade>
 
-      <div className="editions-intro__reel">
-        {REEL.map((item, i) => (
-          <div
-            key={i}
-            className={`editions-intro__reel-item${item.wide ? " editions-intro__reel-item--wide" : ""}`}
-          >
-            <Image
-              src={item.src}
-              alt=""
-              fill
-              sizes={item.wide ? "443px" : "284px"}
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-        ))}
-      </div>
+      <Filmstrip images={REEL} />
     </section>
   );
 }

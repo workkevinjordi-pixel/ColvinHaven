@@ -4,14 +4,15 @@ import ScrollFade from "../ScrollFade";
  * Reuses the main site's guiding-values body pattern (.values__body /
  * __aside / __text, same as Gallery's "Our Edition" intro) for the
  * label-tag + paragraph layout -- only the heading style differs here
- * (Roboto Medium, not the site's serif section heading), so it gets its
- * own heading class instead of .values__heading.
+ * (.section-heading's Roboto Medium, not the site's serif section
+ * heading). .statement-section is the same wrapper the Collective page's
+ * Inspiration section uses -- identical treatment, different copy.
  */
 export default function ChCollections() {
   return (
-    <section className="ch-collections" id="collective">
+    <section className="statement-section">
       <ScrollFade>
-        <h2 className="ch-collections__heading">CH Collections</h2>
+        <h2 className="section-heading">CH Collections</h2>
         <hr className="values__divider" />
         <div className="values__body">
           <div className="values__aside">
@@ -20,7 +21,7 @@ export default function ChCollections() {
               <span>WARM WELCOME TO OUR COLLECTIONS</span>
             </div>
           </div>
-          <div className="values__text ch-collections__text">
+          <div className="values__text statement-section__text">
             <p>
               Every CH home is a singular commission — one family, one
               landscape, one house that will never be built again.

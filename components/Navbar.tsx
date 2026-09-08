@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const LINKS = [
-  { href: "#editions", label: "Editions" },
-  { href: "#collective", label: "Collective" },
+  { href: "/editions", label: "Editions" },
+  { href: "/collective", label: "Collective" },
 ];
 
 type NavbarProps = {

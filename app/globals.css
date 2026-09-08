@@ -842,38 +842,61 @@ button:focus-visible,
   display: block;
   width: 100%;
   height: auto;
+  /* Paths use fill/stroke="currentColor" with no color of their own --
+     this is what they resolve against. */
+  color: var(--ink);
 }
 
-/* Base (not-yet-revealed) state for every traced shape in the SVG -- set
-   on the source file at build time via a preprocessing script, one
-   per-path animation-delay staggered across ~5.6s (slowed another 50%
-   from the previous ~2.8s, so ~4x the original ~1.4s, for an even more
-   deliberate, hand-drawn pace). No `animation` property here on
-   purpose: applying it only in the --visible state below means
-   removing that class (scrolling back out) fully cancels the animation
-   and snaps back to this hidden state, so it replays cleanly on
-   re-entry instead of getting stuck at its finished frame. */
+/* Base (not-yet-drawn) state for every traced shape in the SVG -- set on
+   the source file at build time via a preprocessing script, one
+   per-path animation-delay per group (<g id="primary|architecture|
+   vegetation">): primary+architecture (the buildings and the ground
+   they sit on) are staggered across 2-3400ms, vegetation across a later
+   2800-5800ms window that overlaps their tail end, so the buildings
+   clearly lead and the planting fills in after -- not simultaneously.
+
+   Each path's source file has pathLength="1" (a deliberate authoring
+   choice for this exact technique), so a single dasharray/dashoffset of
+   0-1 traces any path regardless of its real length: the outline draws
+   itself in first, then the shape inks in solid, like a pen followed by
+   a brush. No `animation` property here on purpose: applying it only in
+   the --visible state below means removing that class (scrolling back
+   out) fully cancels the animation and snaps back to this hidden state,
+   so it replays cleanly on re-entry instead of getting stuck at its
+   finished frame. */
 .drawing__svg .draw-path {
-  opacity: 0;
-  transform: scale(0.94);
-  transform-origin: center;
+  fill-opacity: 0;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
 }
 
 .drawing__svg--visible .draw-path {
-  animation: draw-reveal 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: draw-stroke 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes draw-reveal {
-  to {
-    opacity: 1;
-    transform: scale(1);
+@keyframes draw-stroke {
+  0% {
+    stroke-dashoffset: 1;
+    fill-opacity: 0;
+  }
+  65% {
+    stroke-dashoffset: 0;
+    fill-opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .drawing__svg .draw-path {
-    opacity: 1;
-    transform: none;
+    fill-opacity: 1;
+    stroke: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
   }
 
   .drawing__svg--visible .draw-path {

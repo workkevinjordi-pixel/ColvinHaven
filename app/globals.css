@@ -4879,6 +4879,17 @@ button:focus-visible,
   padding-bottom: 80px;
 }
 
+/* The filmstrip is the last thing in this wrapper, immediately
+   followed by the full-bleed Cta banner (which owns no top padding of
+   its own -- it's a photo banner, meant to sit flush at its own top
+   edge). Without this, the filmstrip's images run straight into Cta's
+   dark background with no breathing room at all. Matches the same
+   120px rhythm .collective-band-section already uses elsewhere on this
+   page for a bare full-width element. */
+.collective-inspiration {
+  padding-bottom: 120px;
+}
+
 /* ---------- Foundation ---------- */
 
 .foundation {

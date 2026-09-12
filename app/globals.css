@@ -570,7 +570,11 @@ button:focus-visible,
   justify-content: center;
   background: var(--ink);
   opacity: 1;
-  transition: opacity 0.9s ease;
+  /* ease-in-out, not the site's usual punchy ease-out curve -- that one
+     front-loads almost the entire opacity drop into the first couple of
+     seconds, which reads as a quick reveal that then just sits there.
+     This spreads the dissolve evenly across the full 6s instead. */
+  transition: opacity 6s ease-in-out;
 }
 
 .splash--leaving {

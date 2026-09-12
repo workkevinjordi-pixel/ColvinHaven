@@ -4,13 +4,13 @@ import { useEffect, useLayoutEffect, useState } from "react";
 
 const SESSION_KEY = "ch-splash-seen";
 
-// No asset-loading progress to track anymore -- just a short, deliberate
-// hold on the solid color, then a straight opacity crossfade reveals the
-// real Hero section (already rendering underneath the whole time)
-// through it. Both intentionally brief: this is meant to read as a
-// seamless reveal, not a loading screen.
-const HOLD_MS = 400;
-const EXIT_MS = 900;
+// No asset-loading progress to track anymore -- just a deliberate hold
+// on the solid color, then a slow opacity crossfade reveals the real
+// Hero section (already rendering underneath the whole time) through
+// it. Stretched out on purpose (a 6s dissolve, not a snappy 0.9s one) so
+// the reveal reads as smooth and unhurried rather than a quick reveal.
+const HOLD_MS = 600;
+const EXIT_MS = 6000;
 
 // Runs before paint on the client so a returning visit (splash already
 // seen this session) never flashes the overlay; falls back to useEffect

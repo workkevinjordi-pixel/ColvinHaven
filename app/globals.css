@@ -74,24 +74,6 @@ button:focus-visible,
   }
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.brand__word {
-  font-weight: 300;
-  font-size: 32px;
-  color: #fff;
-  white-space: nowrap;
-  letter-spacing: normal;
-}
-
-.brand__dot {
-  border-radius: 50%;
-}
-
 /* Roboto Medium 32px section heading, used by every "labeled statement"
    block across the site (CH Collections, Foundation, Craft, Inspiration)
    -- distinct from .values__heading's serif treatment, which is reserved
@@ -574,10 +556,11 @@ button:focus-visible,
 /* ---------- Splash ---------- */
 
 /* One-time loading screen -- shown once per session, then dismissed by
-   SplashScreen.tsx. A cream field carrying the wordmark, with the brush
-   dot between the words doubling as the load meter: it fills bottom-to-
-   top from 0% to 100% (capped at 5s) then the panel lifts to reveal the
-   hero. Sits above the fixed navbar (z-index 100). */
+   SplashScreen.tsx. A solid field with a small centered roman-numeral
+   mark, matching the Hero section's own "II/VII" state underneath (which
+   renders the whole time this sits on top of it) -- so the whole thing
+   reads as a single seamless solid-to-hero-photo crossfade rather than a
+   loading screen. Sits above the fixed navbar (z-index 100). */
 .splash {
   position: fixed;
   inset: 0;
@@ -585,157 +568,28 @@ button:focus-visible,
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg);
-  transform: translateY(0);
-  will-change: transform;
+  background: var(--ink);
+  opacity: 1;
+  transition: opacity 0.9s ease;
 }
 
-/* The curtain lift. The inner block drifts up a touch faster and fades,
-   so the wordmark leads the panel off-screen rather than riding it. */
 .splash--leaving {
-  transform: translateY(-100%);
-  transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+  opacity: 0;
   pointer-events: none;
 }
 
-.splash--leaving .splash__inner {
-  opacity: 0;
-  transform: translateY(-40px);
-  transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.splash__inner {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-}
-
-.splash__brand {
-  gap: 22px;
-}
-
-/* Words rise and settle; ink, not the wordmark's usual white, since the
-   field is cream here. */
-.splash__word {
-  color: var(--ink);
-  opacity: 0;
-  transform: translateY(14px);
-  animation: splash-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Load meter. Track = the dot at low opacity (the target outline).
-   Clip = bottom-anchored, its height driven 0%->100% from JS, clipping
-   the solid fill dot which stays pinned full-size at the bottom so it
-   is revealed rising rather than squashed. */
-.splash__dot {
-  position: relative;
-  display: block;
-  width: 96px;
-  height: 96px;
-  flex: 0 0 auto;
-  opacity: 0;
-  animation: splash-fade 0.6s ease 0.12s forwards;
-}
-
-.splash__dot-track,
-.splash__dot-fill {
-  position: absolute;
-  left: 0;
-  width: 96px;
-  height: 96px;
-  max-width: none;
-}
-
-.splash__dot-track {
-  top: 0;
-  opacity: 0.16;
-}
-
-.splash__dot-clip {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 96px;
-  height: 0;
-  overflow: hidden;
-}
-
-.splash__dot-fill {
-  bottom: 0;
-}
-
-.splash__rule {
-  display: block;
-  width: 0;
-  height: 1px;
-  background: rgba(29, 25, 15, 0.45);
-  opacity: 0;
-  animation: splash-rule 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
-}
-
-.splash__count {
-  display: flex;
-  align-items: baseline;
+.splash__index {
+  font-family: var(--font-cormorant), serif;
   font-weight: 300;
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: rgba(29, 25, 15, 0.5);
-  font-variant-numeric: tabular-nums;
-  opacity: 0;
-  animation: splash-fade 0.6s ease 0.45s forwards;
-}
-
-.splash__count-num {
-  min-width: 3ch;
-  text-align: right;
-}
-
-@keyframes splash-rise {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes splash-fade {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes splash-rule {
-  to {
-    opacity: 1;
-    width: 148px;
-  }
+  font-size: 14px;
+  letter-spacing: 3.6px;
+  color: #fff;
+  opacity: 0.7;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .splash__word,
-  .splash__dot,
-  .splash__rule,
-  .splash__count {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
-  .splash__rule {
-    width: 148px;
-  }
-
-  /* No curtain slide -- just fade the panel out. */
-  .splash--leaving {
-    transform: none;
-    opacity: 0;
+  .splash {
     transition: opacity 0.3s linear;
-  }
-
-  .splash--leaving .splash__inner {
-    transform: none;
-    transition: none;
   }
 }
 

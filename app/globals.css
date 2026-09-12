@@ -4873,10 +4873,12 @@ button:focus-visible,
 /* Figma groups Inspiration and the filmstrip into one w-1834 block with
    a tight 24px gap between them -- StatementSection's shared 200px
    bottom padding (right for Editions/News, where it's the section's own
-   trailing gap) is too generous here, since the filmstrip's own 24px
-   top margin (.filmstrip) already follows right after. */
+   trailing gap) is too generous here. Zeroed out entirely (not just
+   reduced) so the filmstrip's own 24px top margin (.filmstrip) is the
+   *only* gap -- the filmstrip reads as part of Inspiration, not a
+   separate section with roughly-equal space on both sides of it. */
 .collective-inspiration .statement-section {
-  padding-bottom: 80px;
+  padding-bottom: 0;
 }
 
 /* The filmstrip is the last thing in this wrapper, immediately

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
-import StatementSection from "@/components/StatementSection";
+import WhatsCooking from "@/components/news/WhatsCooking";
 import NewsFilmstripBand from "@/components/news/NewsFilmstripBand";
 import SoraProfile from "@/components/news/SoraProfile";
-import PublicationsGrid from "@/components/news/PublicationsGrid";
-import Cta from "@/components/Cta";
+import PublicationsSection from "@/components/news/PublicationsSection";
+import EnvironmentalActions from "@/components/news/EnvironmentalActions";
+import SocialAction from "@/components/news/SocialAction";
+import PullQuote from "@/components/news/PullQuote";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -12,17 +14,13 @@ export const metadata: Metadata = {
   description: "News and publications from Colvin Haven.",
 };
 
-const LOREM = [
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-];
-
-// Follows the Figma "News" frame (node 205:468) section order: Navbar ->
-// "What's Cooking" statement -> filmstrip band -> Sora profile ->
-// "Publications" statement -> publications grid -> Inquiry CTA ->
-// Footer. Cta and Footer are reused as-is. Both statement sections' body
-// copy is still Figma's own Lorem Ipsum placeholder -- swap in real copy
-// when it's ready; only the tag/heading text is real.
+// Follows the updated Figma "News" frame (node 205:468) section order:
+// Navbar -> "What's Cooking" (now a 4-item checklist, not a tag +
+// paragraph) -> filmstrip band -> Sora profile -> Publications (now one
+// article card, not two) -> Environmental Actions (new) -> Social
+// Action + photo band (new) -> pull quote (new) -> Footer. The Inquiry
+// Cta banner that used to close the page is gone from this design --
+// Social Action's photo band and the pull quote take its place.
 export default function NewsPage() {
   return (
     <>
@@ -32,22 +30,14 @@ export default function NewsPage() {
           page's first section -- needs the same fixed-navbar clearance
           .editions-intro/.collective-intro/.write-to-us use. */}
       <div className="news-first-section">
-        <StatementSection
-          heading="What’s Cooking"
-          subtitle="A taste of what’s happening"
-          tag="THE CH JOURNAL"
-          paragraphs={LOREM}
-        />
+        <WhatsCooking />
       </div>
       <NewsFilmstripBand />
       <SoraProfile />
-      <StatementSection
-        heading="Publications"
-        tag="WHAT’S NEW ON OUR SIDE"
-        paragraphs={LOREM}
-      />
-      <PublicationsGrid />
-      <Cta />
+      <PublicationsSection />
+      <EnvironmentalActions />
+      <SocialAction />
+      <PullQuote />
       <Footer />
     </>
   );

@@ -262,28 +262,33 @@ button:focus-visible,
     color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.navbar--scrolled,
-.navbar--open {
+.navbar--scrolled {
   background: rgba(240, 235, 227, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: var(--ink);
-  box-shadow: 0 1px 0 rgba(29, 25, 15, 0.08);
 }
 
+/* No background/blur here (unlike --scrolled) -- the mega menu panel
+   underneath already carries its own solid ground, so the thin strip
+   stays fully transparent and reads as one seamless surface with it
+   rather than a separate bar sitting on top. */
 .navbar--open {
-  box-shadow: none;
+  background: transparent;
+  color: var(--ink);
 }
 
 .navbar__inner {
   /* Full-bleed, not constrained to --max-width like the rest of the
      site's sections -- the hero it overlays is full-bleed too, so this
-     padding is what actually pins the index/dot 60px from the true
-     viewport edge on screens wider than --max-width. */
+     padding is what actually pins the index/dot at the true viewport
+     edge on screens wider than --max-width. Uses --gutter (112px, 32px
+     below 900px), same as .navbar__overlay-panel, so the "II/VII" mark
+     lines up exactly with the mega menu's link list underneath it. */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32px 60px;
+  padding: 32px var(--gutter);
   transition: padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -373,8 +378,9 @@ button:focus-visible,
 
 .navbar__overlay-brand {
   font-family: var(--font-roboto), sans-serif;
-  font-weight: 500;
+  font-weight: 300;
   font-size: 32px;
+  text-transform: uppercase;
   margin-bottom: 48px;
   opacity: 0;
   transform: translateY(16px);
@@ -397,7 +403,7 @@ button:focus-visible,
 .navbar__overlay-links a {
   display: inline-block;
   font-size: 22px;
-  font-weight: 500;
+  font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--ink);
@@ -520,7 +526,7 @@ button:focus-visible,
 
 .hero__title {
   font-weight: 300;
-  font-size: 24px;
+  font-size: 32px;
   color: #fff;
   letter-spacing: 3.6px;
   text-transform: uppercase;
@@ -529,7 +535,7 @@ button:focus-visible,
 
 .hero__tagline {
   font-weight: 300;
-  font-size: 12px;
+  font-size: 16px;
   color: #fff;
   letter-spacing: 1.2px;
   text-transform: uppercase;

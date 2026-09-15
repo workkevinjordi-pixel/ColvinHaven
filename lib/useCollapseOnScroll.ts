@@ -3,12 +3,16 @@
 import type { RefObject } from "react";
 import { useSectionProgress } from "./useSectionProgress";
 
-// How much an element shrinks/fades at the extremes of its scroll range
+// How much an element shrinks/drifts at the extremes of its scroll range
 // (fully collapsed once it's scrolled a full viewport away from center,
 // in either direction). Applied to |progress|, so entering from below
 // and exiting off the top both read as the same "collapsing" motion.
-const COLLAPSE_SCALE = 0.22;
-const COLLAPSE_TRANSLATE = 48;
+// Kept deliberately small -- opacity alone already carries the
+// collapsing-away read; scale/translate are just a faint accent on top
+// of that, not the effect itself. Earlier values here (0.22 / 48px) read
+// as an over-eager zoom-and-shove instead of a subtle parallax.
+const COLLAPSE_SCALE = 0.05;
+const COLLAPSE_TRANSLATE = 14;
 
 /**
  * Shrinks, fades, and nudges an element as it scrolls away from the
@@ -24,7 +28,10 @@ const COLLAPSE_TRANSLATE = 48;
  */
 export function useCollapseOnScroll(ref: RefObject<HTMLElement | null>) {
   useSectionProgress(ref, {
-    ease: 0.09,
+    // A touch snappier than the drift-parallax default (0.07) -- with
+    // the motion this subtle, too much lag just reads as unresponsive
+    // rather than smooth.
+    ease: 0.12,
     onProgress: (progress) => {
       const el = ref.current;
       if (!el) return;

@@ -30,7 +30,12 @@ export default function Footer() {
   // none of them -- default to excluding "/" there, so the footer still
   // reads as Editions + Collective rather than growing a third link.
   const excludeHref = current?.href ?? "/";
-  const links = FOOTER_LINKS.filter((link) => link.href !== excludeHref);
+  // "Discover" ("/") always comes second when it's one of the two shown
+  // -- e.g. "Editions, Discover", never "Discover, Editions" -- rather
+  // than just keeping FOOTER_LINKS' own declaration order.
+  const links = FOOTER_LINKS.filter((link) => link.href !== excludeHref).sort(
+    (a, b) => (a.href === "/" ? 1 : 0) - (b.href === "/" ? 1 : 0),
+  );
 
   return (
     <footer className="footer">

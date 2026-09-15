@@ -6,10 +6,22 @@ const SESSION_KEY = "ch-splash-seen";
 
 // A deliberate hold on the solid color, then an opacity crossfade
 // reveals the real Hero section (already rendering underneath the whole
-// time) through it. Total ~4s -- smooth and unhurried, but no longer a
-// multi-second wait.
-const HOLD_MS = 400;
-const EXIT_MS = 3600;
+// time) through it. ~7.1s total -- slow and unhurried.
+const HOLD_MS = 600;
+const EXIT_MS = 6500;
+
+// How long the "II/VII" mark takes to slide from center to the navbar's
+// corner, as a fraction of EXIT_MS -- NOT a fixed duration. It used to
+// be a flat 1.3s regardless of EXIT_MS, so lengthening the fade just
+// left the mark sitting motionless in its final spot for the remaining
+// several seconds: satisfying briefly, dead air after. Tying it to the
+// fade means the mark is still gliding into place for most of the
+// reveal, settling only shortly before the ink finishes dissolving --
+// one continuous motion instead of "moves, then waits."
+// .splash__index's own transition-duration (in CSS) is computed from
+// this at render time via an inline style, so the two can't drift out
+// of sync with each other.
+const MOVE_FRACTION = 0.82;
 
 // Runs before paint on the client so a returning visit (splash already
 // seen this session) never flashes the overlay; falls back to useEffect
@@ -119,6 +131,12 @@ export default function SplashScreen() {
     const target = document.querySelector<HTMLElement>(".navbar__index");
     if (!el || !target) return;
 
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const moveMs = reduceMotion ? 0 : Math.round(EXIT_MS * MOVE_FRACTION);
+    el.style.transitionDuration = `${moveMs}ms`;
+
     const from = el.getBoundingClientRect();
     const to = target.getBoundingClientRect();
     el.style.transform = `translate(${to.left - from.left}px, ${to.top - from.top}px)`;
@@ -129,6 +147,12 @@ export default function SplashScreen() {
   return (
     <div
       className={`splash${phase === "leaving" ? " splash--leaving" : ""}`}
+      // Computed from EXIT_MS rather than left as a hardcoded CSS
+      // duration -- a hardcoded one is exactly what silently drifted
+      // out of sync the last two times EXIT_MS changed (still fading
+      // over the previous duration while the constant said otherwise).
+      // One source of truth now.
+      style={{ transitionDuration: `${EXIT_MS}ms` }}
       aria-hidden="true"
     >
       <span className="splash__index" ref={indexRef}>

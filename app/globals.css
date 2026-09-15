@@ -573,8 +573,11 @@ button:focus-visible,
   /* ease-in-out, not the site's usual punchy ease-out curve -- that one
      front-loads almost the entire opacity drop into the first second or
      so, which reads as a quick reveal that then just sits there. This
-     spreads the dissolve evenly across the full duration instead. */
-  transition: opacity 3.6s ease-in-out;
+     spreads the dissolve evenly across the full duration instead.
+     No duration here on purpose -- SplashScreen sets transition-duration
+     inline from its own EXIT_MS constant, the single source of truth. */
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
 }
 
 .splash--leaving {
@@ -594,7 +597,12 @@ button:focus-visible,
   font-size: 24px;
   letter-spacing: 3.6px;
   color: #fff;
-  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* No duration here on purpose -- SplashScreen sets transition-duration
+     inline, computed as a fraction of the fade's own EXIT_MS, so the
+     mark's travel time always scales with the overall reveal instead of
+     drifting out of sync with a separately hardcoded value. */
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -5334,12 +5342,17 @@ button:focus-visible,
 
 /* ---------- Publications (single-card variant) ---------- */
 
-/* Replicates .values__text's padding-left positioning only -- not the
-   class itself, since .values__text p / .statement-section__text p
-   would cascade onto ArticleCard's own paragraphs (date, description)
-   and override its spacing (margin-bottom: 8px vs. their 24px). */
-.news-publications__content {
-  padding-left: 720px;
+/* A plain flex row (tag pinned left, ArticleCard's fixed 790px pushed
+   to the right edge via justify-content), matching Figma exactly --
+   NOT .values__body/aside/text: that pattern positions its "text" slot
+   via a fixed 720px padding-left on a plain block, which doesn't give
+   ArticleCard's `flex: 0 0 790px` a flex container to take effect in
+   (it needs `display: flex` on its parent). */
+.news-publications__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
 }
 
 /* ---------- Environmental Actions ---------- */
@@ -5392,8 +5405,9 @@ button:focus-visible,
     gap: 24px;
   }
 
-  .news-publications__content {
-    padding-left: 0;
+  .news-publications__row {
+    flex-direction: column;
+    gap: 24px;
   }
 
   .news-envaction__row {

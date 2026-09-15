@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto, Cormorant_Garamond, Fraunces } from "next/font/google";
 import "./globals.css";
-import SplashScreen from "@/components/SplashScreen";
 
 const roboto = Roboto({
   weight: ["300", "400", "500"],
@@ -45,15 +44,7 @@ export default function RootLayout({
       lang="en"
       className={`${roboto.variable} ${cormorant.variable} ${fraunces.variable}`}
     >
-      <body>
-        {/* Without JS the timed dismiss never runs, so keep the overlay
-            from permanently covering the site. */}
-        <noscript>
-          <style>{`.splash{display:none!important}`}</style>
-        </noscript>
-        <SplashScreen />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

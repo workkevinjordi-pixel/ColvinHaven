@@ -35,8 +35,8 @@ const PUBLICATIONS: Publication[] = [
       "https://www.wallpaper.com/architecture/residential/umah-tsuki-colvin-haven-bali-indonesia",
     coverSrc: "/assets/collective/publications/wallpaper-cover.png",
     coverAlt: "Wallpaper* magazine cover featuring Umah Tsuki",
-    coverWidth: 109,
-    coverHeight: 154,
+    coverWidth: 542,
+    coverHeight: 767,
   },
   {
     date: "8/30/24",
@@ -50,8 +50,8 @@ const PUBLICATIONS: Publication[] = [
     readMoreHref: "https://design-anthology.com/story/issue-39/home/bali",
     coverSrc: "/assets/collective/publications/design-anthology-cover.png",
     coverAlt: "Design Anthology issue 39 cover",
-    coverWidth: 109,
-    coverHeight: 154,
+    coverWidth: 542,
+    coverHeight: 767,
   },
 ];
 
@@ -83,7 +83,7 @@ function PublicationSlide({ pub }: { pub: Publication }) {
           alt={pub.coverAlt}
           width={pub.coverWidth}
           height={pub.coverHeight}
-          sizes="(min-width: 900px) 340px, 55vw"
+          sizes="(min-width: 900px) 400px, 55vw"
           className="collective-publications__cover-img"
         />
       </div>

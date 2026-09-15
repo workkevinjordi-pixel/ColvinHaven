@@ -4933,10 +4933,13 @@ button:focus-visible,
 
 .collective-publications__cover {
   position: relative;
-  flex: 0 0 clamp(220px, 26vw, 340px);
-  width: clamp(220px, 26vw, 340px);
-  /* Matches the cover images' own 109x154 aspect ratio. */
-  aspect-ratio: 109 / 154;
+  /* Capped at 400px -- the source covers are 542x767, so this never
+     upscales them (the earlier 340px cap was fine resolution-wise, but
+     shrunk them more than the actual asset size called for). */
+  flex: 0 0 clamp(220px, 28vw, 400px);
+  width: clamp(220px, 28vw, 400px);
+  /* Matches the cover images' own 542x767 aspect ratio. */
+  aspect-ratio: 542 / 767;
   overflow: hidden;
 }
 

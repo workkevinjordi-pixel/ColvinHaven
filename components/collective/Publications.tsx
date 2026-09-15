@@ -2,14 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { useSectionProgress } from "@/lib/useSectionProgress";
-
-// How much each slide shrinks/fades at the extremes of its scroll range
-// (fully collapsed once it's scrolled a full viewport away from center,
-// in either direction). Applied to |progress|, so entering from below
-// and exiting off the top both read as the same "collapsing" motion.
-const COLLAPSE_SCALE = 0.22;
-const COLLAPSE_TRANSLATE = 48;
+import { useCollapseOnScroll } from "@/lib/useCollapseOnScroll";
 
 type Publication = {
   date: string;
@@ -57,23 +50,7 @@ const PUBLICATIONS: Publication[] = [
 
 function PublicationSlide({ pub }: { pub: Publication }) {
   const slideRef = useRef<HTMLDivElement>(null);
-
-  // -1 (approaching from below) .. 0 (centered) .. 1 (scrolled past,
-  // above the viewport). Shrinking and fading out toward either extreme
-  // is what gives scrolling past a slide its "collapsing away" feel,
-  // rather than the content just sliding off screen unchanged.
-  useSectionProgress(slideRef, {
-    ease: 0.09,
-    onProgress: (progress) => {
-      const el = slideRef.current;
-      if (!el) return;
-      const intensity = Math.min(1, Math.abs(progress));
-      const scale = 1 - intensity * COLLAPSE_SCALE;
-      const translate = progress > 0 ? -intensity * COLLAPSE_TRANSLATE : intensity * COLLAPSE_TRANSLATE * 0.4;
-      el.style.transform = `translateY(${translate.toFixed(2)}px) scale(${scale.toFixed(4)})`;
-      el.style.opacity = (1 - intensity).toFixed(3);
-    },
-  });
+  useCollapseOnScroll(slideRef);
 
   return (
     <div className="collective-publications__slide" ref={slideRef}>

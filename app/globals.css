@@ -282,13 +282,13 @@ button:focus-visible,
   /* Full-bleed, not constrained to --max-width like the rest of the
      site's sections -- the hero it overlays is full-bleed too, so this
      padding is what actually pins the index/dot at the true viewport
-     edge on screens wider than --max-width. Uses --gutter (112px, 32px
-     below 900px), same as .navbar__overlay-panel, so the "II/VII" mark
-     lines up exactly with the mega menu's link list underneath it. */
+     edge on screens wider than --max-width. Fixed 24px (not --gutter),
+     same as .navbar__overlay-panel, so the "II/VII" mark lines up
+     exactly with the mega menu's link list underneath it. */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32px var(--gutter);
+  padding: 32px 24px;
   transition: padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -373,7 +373,7 @@ button:focus-visible,
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 80px var(--gutter);
+  padding: 80px 24px;
 }
 
 .navbar__overlay-brand {
@@ -437,7 +437,7 @@ button:focus-visible,
 @media (max-width: 900px) {
   .navbar__overlay-panel {
     flex-basis: 100%;
-    padding: 60px var(--gutter);
+    padding: 60px 24px;
   }
 
   .navbar__overlay-media {
@@ -4658,12 +4658,15 @@ button:focus-visible,
 }
 
 /* ==========================================================================
-   /editions page (Figma "Editions" frame, node 173:1455)
+   /editions page (Figma "Editions" frame, node 173:1455) and each
+   edition's own /editions/[slug] detail page (Figma "Editions Details"
+   frame, node 232:4674).
    Uses the shared Navbar/Cta/Footer components as-is (those sections are
    pixel-identical in the source frame) plus the .values__* body pattern
    for the CH Collections statement. Everything else below is scoped to
-   this page with an `editions-`/`edition-spotlight__` prefix, matching
-   how every other page variant in this file is organized.
+   this page with an `editions-`/`edition-spotlight__`/`edition-detail-`
+   prefix, matching how every other page variant in this file is
+   organized.
    ========================================================================== */
 
 /* ---------- Intro ---------- */
@@ -4676,26 +4679,195 @@ button:focus-visible,
   padding: 200px 0 80px;
 }
 
-/* ---------- Edition spotlight ---------- */
+/* ---------- Editions list (node 232:4626) ---------- */
 
-.edition-spotlight {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--gutter) 120px;
+/* One summary row per edition, each linking out to its own detail page.
+   Scroll behavior matches Collective's Publications section exactly (by
+   explicit request) -- normal document flow, one viewport per row, each
+   row shrinking/fading away as it scrolls past via useCollapseOnScroll
+   (shared with Publications rather than duplicated). */
+.editions-list {
+  background: var(--bg);
 }
 
-.edition-spotlight__index {
+.editions-list__intro {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 120px var(--gutter) 0;
+}
+
+.editions-list__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 120px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 60px 80px 60px var(--gutter);
+  will-change: transform, opacity;
+}
+
+.editions-list__image {
+  position: relative;
+  flex: 1 1 0%;
+  height: 600px;
+}
+
+.editions-list__body {
+  flex: 1 1 0%;
+  min-width: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.editions-list__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.editions-list__eyebrow {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 32px;
+}
+
+.editions-list__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.editions-list__name {
+  font-family: var(--font-roboto), sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  color: #1d190f;
+}
+
+.editions-list__summary p {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 16px;
+}
+
+.editions-list__summary p:last-child {
+  margin-bottom: 0;
+}
+
+.editions-list__explore {
+  align-self: flex-start;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.editions-list__explore:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  .editions-list__row {
+    flex-direction: column;
+    padding: 60px var(--gutter);
+    gap: 24px;
+    min-height: 0;
+  }
+
+  .editions-list__image {
+    /* flex:0 0 auto, not the base rule's flex:1 1 0% -- the row is a
+       column now, so "0%" flex-basis is a *height* basis, and with
+       .editions-list__body also flex:1 the two competed for the row's
+       height and the image (having no intrinsic content of its own to
+       size by) lost, collapsing to 0px tall. An explicit height needs
+       flex-grow/shrink off to actually apply here. */
+    flex: 0 0 auto;
+    width: 100%;
+    height: 400px;
+  }
+}
+
+@media (max-width: 560px) {
+  .editions-list__intro {
+    padding: 60px var(--gutter) 0;
+  }
+
+  .editions-list__image {
+    height: 320px;
+  }
+
+  .editions-list__name {
+    font-size: 24px;
+  }
+}
+
+/* ---------- Edition detail header (node 232:4756) ---------- */
+
+/* Centered header at the top of an edition's own detail page -- roman
+   numeral eyebrow, plain name, intro paragraph. Close in spirit to the
+   shared .centered-statement pattern (EditionsIntro uses that one), but
+   kept as its own scoped block since it has an extra name line the
+   shared one doesn't, and per this file's own convention of not
+   cross-referencing a distant pattern just because it looks similar. */
+.edition-detail-header {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 200px var(--gutter) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.edition-detail-header__eyebrow {
   font-family: var(--font-cormorant), serif;
   font-weight: 300;
   font-size: 32px;
   letter-spacing: 4.8px;
-  margin-bottom: 23px;
+  opacity: 0.6;
 }
 
-.edition-spotlight__divider {
-  border: none;
-  border-top: 1px solid var(--ink);
-  margin-bottom: 28px;
+.edition-detail-header__name {
+  font-family: var(--font-roboto), sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  color: #1d190f;
+}
+
+.edition-detail-header__intro {
+  max-width: 549px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+  color: rgba(29, 25, 15, 0.8);
+}
+
+@media (max-width: 560px) {
+  .edition-detail-header {
+    padding-top: 160px;
+  }
+}
+
+/* ---------- Edition spotlight (detail page body, node 232:4736) ---------- */
+
+.edition-spotlight {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  /* 32px top -- the gap after .edition-detail-header, which this always
+     follows on the detail page now (it no longer renders inline,
+     repeated, on /editions itself, so it no longer needs its own
+     roman-numeral index/divider -- the header above already carries
+     that same roman numeral). */
+  padding: 32px var(--gutter) 120px;
 }
 
 .edition-spotlight__body {

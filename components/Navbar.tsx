@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const PRIMARY_LINKS = [
-  { href: "/", label: "Discover" },
   { href: "/editions", label: "Editions" },
   { href: "/collective", label: "Collective" },
+  { href: "/", label: "Discover" },
   { href: "/write-to-us", label: "Write to us" },
 ];
 

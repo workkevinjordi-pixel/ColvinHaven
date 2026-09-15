@@ -1,33 +1,23 @@
 import Image from "next/image";
 import ScrollFade from "../ScrollFade";
-
-export type EditionSpotlightData = {
-  index: string;
-  title: string;
-  lede: string[];
-  heroImage: { src: string; alt: string };
-  row: {
-    main: { image: { src: string; alt: string }; text: string[] };
-    side: { image: { src: string; alt: string }; text: string };
-  };
-  banner: { src: string; alt: string };
-};
+import type { EditionData } from "./editions-data";
 
 /**
- * One "edition" article block (Figma nodes 203:100 and 203:101 -- both
- * currently hold identical Tsuki content in the source file; this
- * component just renders whatever data it's given, so a second edition's
- * real copy is a one-object change in the page, not a new component).
+ * The detail page's body content (Figma node 232:4674, everything below
+ * its own centered header -- see EditionDetailHeader): hero image, the
+ * poetic title + lede, a two-image row, and a closing banner. Used only
+ * by app/editions/[slug]/page.tsx now -- the /editions page itself shows
+ * the shorter EditionsList summary instead, linking here for the full
+ * story. No longer renders its own roman-numeral index/divider (it used
+ * to, back when this rendered inline per-edition on /editions itself);
+ * the detail page's header already carries that same roman numeral.
  */
-export default function EditionSpotlight({ data }: { data: EditionSpotlightData }) {
-  const { index, title, lede, heroImage, row, banner } = data;
+export default function EditionSpotlight({ data }: { data: EditionData }) {
+  const { title, lede, heroImage, row, banner } = data;
 
   return (
     <section className="edition-spotlight">
       <ScrollFade>
-        <p className="edition-spotlight__index">{index}</p>
-        <hr className="edition-spotlight__divider" />
-
         <div className="edition-spotlight__body">
           <div className="edition-spotlight__lede">
             <div className="edition-spotlight__hero-image">

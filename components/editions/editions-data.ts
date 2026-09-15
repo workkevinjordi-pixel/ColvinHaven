@@ -1,12 +1,52 @@
-import type { EditionSpotlightData } from "./EditionSpotlight";
+export type EditionData = {
+  /** URL segment -- /editions/[slug] */
+  slug: string;
+  /** Roman-numeral eyebrow, shared by the list row and the detail
+   * page's own header (Figma keeps the same value in both places). */
+  index: string;
+  /** Plain name ("Umah Tsuki") -- the list row's heading and the detail
+   * page's big centered title. Distinct from `title` below, which is
+   * the more poetic name ("TSUKI (月 - Moon)") used further down the
+   * detail page's own body copy. */
+  name: string;
+  /** "Explore Umah Tsuki" -- the list row's link text into the detail
+   * page. */
+  exploreLabel: string;
+  /** List row's two-paragraph blurb (node 232:4659) -- still the same
+   * Design-Anthology-flavored placeholder Figma itself reuses there,
+   * not edition-specific copy yet. */
+  listSummary: string[];
+  /** Detail page header's paragraph (node 232:4758) -- still Figma's
+   * own Lorem Ipsum placeholder; swap in real copy when it's ready. */
+  detailIntro: string;
+  title: string;
+  lede: string[];
+  heroImage: { src: string; alt: string };
+  row: {
+    main: { image: { src: string; alt: string }; text: string[] };
+    side: { image: { src: string; alt: string }; text: string };
+  };
+  banner: { src: string; alt: string };
+};
 
 // Both entries are drawn from the same "TSUKI" content because the source
-// Figma frame (node 173:1455) currently renders the same block twice --
-// there's no distinct Sora copy in the file yet. Swap the second entry's
-// fields in once that content exists; the component itself is already
-// data-driven.
-const tsuki: EditionSpotlightData = {
+// Figma frame (nodes 173:1455 and 232:4674) currently renders the same
+// block twice -- there's no distinct Sora copy in the file yet, for
+// either the list row or a Sora detail frame. Swap the second entry's
+// fields in once that content exists; every component here is already
+// fully data-driven off this file, so a real Sora edition is a one-object
+// change, not a new component.
+const tsuki: EditionData = {
+  slug: "umah-tsuki",
   index: "I/VII",
+  name: "Umah Tsuki",
+  exploreLabel: "Explore Umah Tsuki",
+  listSummary: [
+    "We are so pleased for our Tsuki Edition be featured in the September 2024 Edition of Design Anthology,  the premier English-language interiors, design, architecture and urban living magazine.",
+    "“An Island Haven in Bali’s Tumbak Bayuh",
+  ],
+  detailIntro:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   title: "TSUKI (月 - Moon)",
   lede: [
     `"Our first expression" — the seed a growing collection has since grown from, each edition shaped by the same quiet reverence for nature and the pace of slow living.`,
@@ -41,4 +81,12 @@ const tsuki: EditionSpotlightData = {
   },
 };
 
-export const editions: EditionSpotlightData[] = [tsuki, tsuki];
+const sora: EditionData = {
+  ...tsuki,
+  slug: "umah-sora",
+  index: "II/VII",
+  name: "Umah Sora",
+  exploreLabel: "Explore Umah Sora",
+};
+
+export const editions: EditionData[] = [tsuki, sora];

@@ -413,7 +413,10 @@ button:focus-visible,
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
   background-repeat: no-repeat;
-  background-size: 0% 2px;
+  /* 1px, not 2px -- matches the link's own weight-300 (Light) type
+     instead of reading heavier than the text sitting above it. Same
+     thickness as .footer__nav a's hover underline. */
+  background-size: 0% 1px;
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
     background-size 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -426,7 +429,7 @@ button:focus-visible,
 
 .navbar__overlay-links a:hover,
 .navbar__overlay-links a:focus-visible {
-  background-size: 100% 2px;
+  background-size: 100% 1px;
 }
 
 .navbar__overlay-media {

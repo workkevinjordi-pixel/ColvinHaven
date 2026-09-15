@@ -10,12 +10,6 @@ const PRIMARY_LINKS = [
   { href: "/write-to-us", label: "Write to us" },
 ];
 
-// Same News destination as the navbar's own "II/VII" corner mark --
-// grouped apart from the primary links (its own margin-top, a beat
-// after the others) and rendered in that mark's roman-numeral type via
-// navbar__overlay-link--roman instead of the plain style the rest use.
-const SECONDARY_LINK = { href: "/news", label: "II/VII", roman: true };
-
 type NavbarProps = {
   /**
    * Forces the solid/ink "scrolled" treatment from the first frame,
@@ -106,20 +100,6 @@ export default function Navbar({ solid = false }: NavbarProps) {
                 {link.label}
               </a>
             ))}
-            <div className="navbar__overlay-links-secondary">
-              <a
-                href={SECONDARY_LINK.href}
-                className="navbar__overlay-link--roman"
-                style={{
-                  transitionDelay: open
-                    ? `${0.16 + PRIMARY_LINKS.length * 0.06}s`
-                    : "0s",
-                }}
-                onClick={() => setOpen(false)}
-              >
-                {SECONDARY_LINK.label}
-              </a>
-            </div>
           </nav>
         </div>
         <div className="navbar__overlay-media">

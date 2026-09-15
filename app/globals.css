@@ -394,10 +394,6 @@ button:focus-visible,
   gap: 16px;
 }
 
-.navbar__overlay-links-secondary {
-  margin-top: 56px;
-}
-
 .navbar__overlay-links a {
   display: inline-block;
   font-size: 22px;
@@ -425,15 +421,6 @@ button:focus-visible,
 .navbar__overlay-links a:hover,
 .navbar__overlay-links a:focus-visible {
   background-size: 100% 2px;
-}
-
-/* Keeps the "II/VII" mega-menu entry in the same roman-numeral type as
-   the navbar's own corner mark (Cormorant Garamond Light, tracked out),
-   instead of the plain uppercase sans the other four menu items use. */
-.navbar__overlay-link--roman {
-  font-family: var(--font-cormorant), serif;
-  text-transform: none;
-  letter-spacing: 0.12em;
 }
 
 .navbar__overlay-media {
@@ -474,10 +461,6 @@ button:focus-visible,
 
   .navbar__overlay-links a {
     font-size: 18px;
-  }
-
-  .navbar__overlay-links-secondary {
-    margin-top: 40px;
   }
 }
 

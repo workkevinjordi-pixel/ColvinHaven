@@ -13,6 +13,14 @@ import { useSectionProgress } from "./useSectionProgress";
 // as an over-eager zoom-and-shove instead of a subtle parallax.
 const COLLAPSE_SCALE = 0.05;
 const COLLAPSE_TRANSLATE = 14;
+// useSectionProgress's raw progress only reaches +-1 once the element's
+// center is a full viewport away from the viewport's own center -- left
+// at 1x, that meant scrolling almost an entire viewport before a row
+// even finished fading in, let alone back out. Scaling progress up
+// before clamping reaches full opacity/scale much sooner (at 2.5x,
+// within 40% of a viewport each way) while the eased tracking itself
+// stays exactly as smooth -- just a shorter, simpler run than before.
+const INTENSITY_SPEEDUP = 2.5;
 
 /**
  * Shrinks, fades, and nudges an element as it scrolls away from the
@@ -35,7 +43,7 @@ export function useCollapseOnScroll(ref: RefObject<HTMLElement | null>) {
     onProgress: (progress) => {
       const el = ref.current;
       if (!el) return;
-      const intensity = Math.min(1, Math.abs(progress));
+      const intensity = Math.min(1, Math.abs(progress) * INTENSITY_SPEEDUP);
       const scale = 1 - intensity * COLLAPSE_SCALE;
       const translate =
         progress > 0

@@ -4675,11 +4675,12 @@ button:focus-visible,
 /* ---------- Intro ---------- */
 
 .editions-intro {
-  /* Top padding is deliberately more generous than the Figma frame's own
-     80px -- that value assumed the page started at the very top of the
-     canvas, but the live site's navbar is `position: fixed`, so content
-     here needs real clearance to avoid sliding under it. */
-  padding: 200px 0 80px;
+  /* 160px, not the Figma frame's own 80px -- that value assumed the
+     page started at the very top of the canvas, but the live site's
+     navbar is `position: fixed` (80px tall, unscrolled) sitting on top
+     of it, so this needs to clear that too. 160 = 80px navbar + the
+     actual 80px gap below it. */
+  padding: 160px 0 80px;
 }
 
 /* ---------- Editions list (node 232:4626) ---------- */
@@ -4975,7 +4976,8 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .editions-intro {
-    padding-top: 160px;
+    /* Navbar is shorter here (72px, unscrolled) than desktop's 80px. */
+    padding-top: 146px;
   }
 
   .edition-spotlight__hero-image,

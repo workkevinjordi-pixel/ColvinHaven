@@ -4899,6 +4899,195 @@ button:focus-visible,
   padding-bottom: 120px;
 }
 
+/* ---------- Publications (Figma node 222:4394) ---------- */
+
+/* Two publication mentions, each wiped in over a pinned 100vh viewport
+   as the page scrolls -- see components/collective/Publications.tsx for
+   why this is a clip-path wipe (JS-driven) rather than FeatureSplit's
+   opacity crossfade: crossfading two blocks of text reads as a ghosted
+   double-exposure, the wipe never shows both slides' text at once. The
+   runway is taller than the 2x100vh the slides need (SECTION_HEIGHT_VH
+   in the component) so both the "before" and "after" state each get
+   hold time, not just the transition itself. */
+.collective-publications {
+  position: relative;
+  background: var(--bg);
+}
+
+.collective-publications__intro {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 120px var(--gutter) 0;
+  position: relative;
+  /* Above the pin's slides (z-index 1/2 below) so it never gets wiped
+     over -- it belongs to the page's normal scroll, not the pin. */
+  z-index: 3;
+}
+
+.collective-publications__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* items-start, not centered -- matches the Figma row (pl-120 pr-80
+   py-60, items-start) directly, and matters for the wipe below: two
+   slides of very different text length can only cut cleanly between
+   each other if both anchor their content to the same top edge. Centering
+   each independently would put their date/title/paragraphs at different
+   screen heights, so the wipe's boundary would cut through the middle of
+   one slide's paragraph while showing a *different* paragraph of the
+   other -- readable nonsense, not a clean reveal. */
+.collective-publications__slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 120px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 140px var(--gutter) 40px;
+  background: var(--bg);
+}
+
+.collective-publications__slide--a {
+  z-index: 1;
+}
+
+/* Starts fully masked away (nothing shown) -- the JS wipe grows a soft
+   mask-image gradient over it top-down as the user scrolls (see
+   Publications.tsx's render()), so each slide reveals in its own
+   natural reading order -- date/title first, "Read more" last. A soft
+   mask, not a hard clip-path edge, because clip-path can slice straight
+   through the middle of a text line; the gradient fades that line out
+   instead. Solid background above keeps slide A from ever showing
+   through mid-wipe. */
+.collective-publications__slide--b {
+  z-index: 2;
+  mask-image: linear-gradient(transparent, transparent);
+  -webkit-mask-image: linear-gradient(transparent, transparent);
+  will-change: mask-image, transform;
+}
+
+.collective-publications__cover {
+  position: relative;
+  flex: 0 0 clamp(260px, 32vw, 452px);
+  width: clamp(260px, 32vw, 452px);
+  aspect-ratio: 452 / 640;
+  max-height: calc(100vh - 220px);
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Percentages of the Figma frame's own 452x640 crop, so the same
+   offsets hold as the cover scales down via clamp() above. */
+.collective-publications__cover-photo {
+  position: absolute;
+  display: block;
+  left: -48.05%;
+  top: 18.88%;
+  width: 172.28%;
+  height: 81.12%;
+  object-fit: cover;
+}
+
+.collective-publications__cover-photo--full {
+  left: 0;
+  top: 1.72%;
+  width: 99.9%;
+  height: 96.56%;
+}
+
+.collective-publications__cover-logo {
+  position: absolute;
+  left: 5.21%;
+  top: 4.28%;
+  width: 65.9%;
+  height: auto;
+}
+
+.collective-publications__body {
+  flex: 1 1 0%;
+  min-width: 0;
+  /* Safety net, not the intended fit: at typical viewport heights this
+     never engages, but a very short window (heavy browser chrome, a
+     small laptop) gets an internal scroll instead of silently clipped
+     text. */
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.collective-publications__date {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.collective-publications__title {
+  font-family: var(--font-roboto), sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  color: #1d190f;
+  margin: 8px 0 16px;
+}
+
+.collective-publications__text p {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 16px;
+}
+
+.collective-publications__text p:last-child {
+  margin-bottom: 0;
+}
+
+.collective-publications__link {
+  margin-top: 24px;
+  align-self: flex-start;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.collective-publications__link:hover {
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collective-publications {
+    height: auto;
+  }
+
+  .collective-publications__pin {
+    position: static;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    overflow: visible;
+    padding: 60px 0;
+  }
+
+  .collective-publications__slide {
+    position: relative;
+    inset: auto;
+  }
+
+  .collective-publications__slide--b {
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    transform: none !important;
+  }
+}
+
 /* ---------- Foundation ---------- */
 
 .foundation {
@@ -5045,6 +5234,32 @@ button:focus-visible,
   .craft__row-side {
     height: 500px;
   }
+
+  /* The wipe's whole point is showing one full-viewport slide at a
+     time -- below 900px there isn't room for a 452px cover beside a
+     text column at all, so the pin drops the side-by-side layout and
+     stacks each slide's cover above its text instead, still wiping. */
+  .collective-publications__slide {
+    flex-direction: column;
+    /* flex-start, not center -- same reasoning as the desktop rule
+       above: both slides need to anchor to the same top edge for the
+       wipe's cut to land somewhere coherent for both of them. */
+    justify-content: flex-start;
+    padding-top: 110px;
+    gap: 24px;
+    overflow-y: auto;
+  }
+
+  .collective-publications__cover {
+    flex: 0 0 auto;
+    width: min(320px, 60vw);
+    max-height: 40vh;
+  }
+
+  .collective-publications__body {
+    max-height: none;
+    overflow-y: visible;
+  }
 }
 
 @media (max-width: 560px) {
@@ -5082,6 +5297,19 @@ button:focus-visible,
 
   .craft__row-side {
     height: 320px;
+  }
+
+  .collective-publications__intro {
+    padding: 60px var(--gutter) 0;
+  }
+
+  .collective-publications__slide {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  .collective-publications__title {
+    font-size: 24px;
   }
 }
 

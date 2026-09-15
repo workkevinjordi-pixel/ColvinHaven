@@ -557,10 +557,11 @@ button:focus-visible,
 
 /* One-time loading screen -- shown once per session, then dismissed by
    SplashScreen.tsx. A solid field with a small centered roman-numeral
-   mark, matching the Hero section's own "II/VII" state underneath (which
-   renders the whole time this sits on top of it) -- so the whole thing
-   reads as a single seamless solid-to-hero-photo crossfade rather than a
-   loading screen. Sits above the fixed navbar (z-index 100). */
+   mark that travels to the navbar's corner (while the field is still
+   fully opaque -- see the component for why that sequencing matters),
+   then the field dissolves to reveal the real Hero section underneath,
+   already rendering the whole time. Sits above the fixed navbar
+   (z-index 100). */
 .splash {
   position: fixed;
   inset: 0;
@@ -575,22 +576,21 @@ button:focus-visible,
      so, which reads as a quick reveal that then just sits there. This
      spreads the dissolve evenly across the full duration instead.
      No duration here on purpose -- SplashScreen sets transition-duration
-     inline from its own EXIT_MS constant, the single source of truth. */
+     inline from its own FADE_MS constant, the single source of truth. */
   transition-property: opacity;
   transition-timing-function: ease-in-out;
 }
 
-.splash--leaving {
+.splash--revealing {
   opacity: 0;
   pointer-events: none;
 }
 
 /* Same size/weight/tracking as .navbar__index, and full white to match
-   its own unscrolled-navbar color -- so when SplashScreen slides this
-   to the navbar mark's live position (a FLIP, see the component) and
-   the solid field finishes dissolving away, there's no visible size or
-   opacity jump. It reads as this mark becoming the real one, not two
-   different elements crossfading. */
+   its own unscrolled-navbar color -- so once the mark arrives at the
+   navbar's position and the field dissolves around it, there's no
+   visible size or color jump. It reads as this mark becoming the real
+   one, not two different elements crossfading. */
 .splash__index {
   font-family: var(--font-cormorant), serif;
   font-weight: 300;
@@ -598,9 +598,8 @@ button:focus-visible,
   letter-spacing: 3.6px;
   color: #fff;
   /* No duration here on purpose -- SplashScreen sets transition-duration
-     inline, computed as a fraction of the fade's own EXIT_MS, so the
-     mark's travel time always scales with the overall reveal instead of
-     drifting out of sync with a separately hardcoded value. */
+     inline from its own MOVE_MS constant, so this can't drift out of
+     sync with a separately hardcoded value. */
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -5388,10 +5387,51 @@ button:focus-visible,
 .news-pull-quote {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 120px var(--gutter) 120px 480px;
+  padding: 120px var(--gutter);
 }
 
-.news-pull-quote p {
+.news-pull-quote__row {
+  display: flex;
+  gap: 68px;
+  align-items: center;
+}
+
+/* Same two source images and offset positions as Collective's
+   foundation__collage -- only the container box differs (637x584 here,
+   sized so image B's bottom edge lands exactly on the box's own, vs.
+   Foundation's 752x473 where it overflows slightly). */
+.news-pull-quote__collage {
+  position: relative;
+  flex: 0 0 637px;
+  width: 637px;
+  height: 584px;
+}
+
+.news-pull-quote__collage-img {
+  position: absolute;
+  overflow: hidden;
+}
+
+.news-pull-quote__collage-img--a {
+  left: 0;
+  top: 0;
+  width: 305px;
+  height: 423px;
+}
+
+.news-pull-quote__collage-img--b {
+  left: 332px;
+  top: 99px;
+  width: 305px;
+  height: 485px;
+}
+
+.news-pull-quote__text {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.news-pull-quote__text p {
   font-family: var(--font-roboto), sans-serif;
   font-weight: 400;
   font-size: 40px;
@@ -5424,7 +5464,17 @@ button:focus-visible,
     padding: 80px var(--gutter);
   }
 
-  .news-pull-quote p {
+  .news-pull-quote__row {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .news-pull-quote__collage {
+    width: 100%;
+    max-width: 637px;
+  }
+
+  .news-pull-quote__text p {
     font-size: 28px;
     line-height: 1.5;
   }
@@ -5433,6 +5483,26 @@ button:focus-visible,
 @media (max-width: 560px) {
   .news-envaction__side {
     height: 320px;
+  }
+
+  /* Percentage-based instead of the fixed pixel offsets/sizes the
+     desktop layout uses (left: 332px etc.) -- at this width those would
+     overflow the now-much-narrower collage box entirely, exactly as
+     .foundation__collage-img--a/--b already handle the same problem. */
+  .news-pull-quote__collage {
+    height: 420px;
+  }
+
+  .news-pull-quote__collage-img--a {
+    width: 55%;
+    height: 100%;
+  }
+
+  .news-pull-quote__collage-img--b {
+    left: 45%;
+    top: 8%;
+    width: 55%;
+    height: 92%;
   }
 }
 

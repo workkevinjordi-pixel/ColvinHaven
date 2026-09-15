@@ -1,8 +1,6 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
-import { useCollapseOnScroll } from "@/lib/useCollapseOnScroll";
 
 type Publication = {
   date: string;
@@ -49,11 +47,8 @@ const PUBLICATIONS: Publication[] = [
 ];
 
 function PublicationSlide({ pub }: { pub: Publication }) {
-  const slideRef = useRef<HTMLDivElement>(null);
-  useCollapseOnScroll(slideRef);
-
   return (
-    <div className="collective-publications__slide" ref={slideRef}>
+    <div className="collective-publications__slide">
       <div className="collective-publications__cover">
         <Image
           src={pub.coverSrc}
@@ -87,12 +82,8 @@ function PublicationSlide({ pub }: { pub: Publication }) {
 
 /**
  * Two publication mentions (Figma node 222:4394), one full viewport of
- * space each, stacked in normal document flow -- no scroll-jacked pin.
- * Each slide shrinks and fades out as it scrolls away from center (in
- * either direction, via useSectionProgress -- the same drift-tracking
- * hook ParallaxImage/ParallaxLayer already use elsewhere), so scrolling
- * past one reads as it collapsing away rather than just sliding off
- * screen unchanged.
+ * space each, stacked in plain normal document flow -- no scroll-jacked
+ * pin, no scroll-triggered animation, just a static section.
  */
 export default function Publications() {
   return (

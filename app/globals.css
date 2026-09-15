@@ -4686,10 +4686,8 @@ button:focus-visible,
 /* ---------- Editions list (node 232:4626) ---------- */
 
 /* One summary row per edition, each linking out to its own detail page.
-   Scroll behavior matches Collective's Publications section exactly (by
-   explicit request) -- normal document flow, one viewport per row, each
-   row shrinking/fading away as it scrolls past via useCollapseOnScroll
-   (shared with Publications rather than duplicated). */
+   Plain static section, no scroll-triggered animation -- normal
+   document flow, one viewport per row. */
 .editions-list {
   background: var(--bg);
 }
@@ -4708,7 +4706,6 @@ button:focus-visible,
   margin: 0 auto;
   min-height: 100vh;
   padding: 60px 80px 60px var(--gutter);
-  will-change: transform, opacity;
 }
 
 .editions-list__image {
@@ -5067,15 +5064,9 @@ button:focus-visible,
 
 /* ---------- Publications (Figma node 222:4394) ---------- */
 
-/* Two publication mentions, one viewport of space each, in normal
-   document flow -- no scroll-jacked pin, it just scrolls. Each slide
-   shrinks and fades as it scrolls away from center in either direction
-   (see Publications.tsx's useSectionProgress usage -- the same
-   drift-tracking hook ParallaxImage/ParallaxLayer already use
-   elsewhere), so scrolling past one reads as it collapsing away rather
-   than just sliding off screen unchanged. useSectionProgress already
-   no-ops under prefers-reduced-motion, so there's no separate
-   reduced-motion override needed here. */
+/* Two publication mentions, one viewport of space each, in plain
+   normal document flow -- no scroll-jacked pin, no scroll-triggered
+   animation, just a static section. */
 .collective-publications {
   background: var(--bg);
 }
@@ -5094,7 +5085,6 @@ button:focus-visible,
   margin: 0 auto;
   min-height: 100vh;
   padding: 120px var(--gutter) 80px;
-  will-change: transform, opacity;
 }
 
 .collective-publications__cover {

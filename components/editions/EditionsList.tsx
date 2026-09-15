@@ -1,17 +1,10 @@
-"use client";
-
-import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useCollapseOnScroll } from "@/lib/useCollapseOnScroll";
 import type { EditionData } from "./editions-data";
 
 function EditionRow({ edition }: { edition: EditionData }) {
-  const rowRef = useRef<HTMLDivElement>(null);
-  useCollapseOnScroll(rowRef);
-
   return (
-    <div className="editions-list__row" ref={rowRef}>
+    <div className="editions-list__row">
       <div className="editions-list__image">
         <Image
           src={edition.heroImage.src}
@@ -49,11 +42,7 @@ function EditionRow({ edition }: { edition: EditionData }) {
  * linking to its own detail page (app/editions/[slug]/page.tsx) --
  * replaces what used to be the full EditionSpotlight content rendered
  * inline here; that full story moved to the detail page, and this is
- * just the teaser.
- *
- * The scroll-collapse effect (each row shrinking/fading away as it
- * scrolls past, via useCollapseOnScroll) is the same one Collective's
- * Publications section uses, by explicit request ("exactly similar").
+ * just the teaser. Plain static section, no scroll-triggered animation.
  */
 export default function EditionsList({ editions }: { editions: EditionData[] }) {
   return (

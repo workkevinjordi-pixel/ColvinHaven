@@ -104,7 +104,7 @@ export default function Navbar({ solid = false }: NavbarProps) {
         </div>
         <div className="navbar__overlay-media">
           <Image
-            src="/assets/editions/tsuki-hero.png"
+            src="/assets/navbar/mega-menu.jpg"
             alt=""
             fill
             sizes="(min-width: 900px) 40vw, 0px"

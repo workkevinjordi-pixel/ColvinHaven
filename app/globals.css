@@ -4911,7 +4911,12 @@ button:focus-visible,
    matching override there. z-index sits below the navbar (100) and the
    mega menu overlay (90) but above ordinary page content. Slimmer now
    (8px vertical padding, 12px type) than the header's own meta row --
-   this is a compact persistent strip, not a second header. */
+   this is a compact persistent strip, not a second header.
+   Side padding is 24px, matching .navbar__inner's own -- not the
+   Figma frame's 20px -- per explicit request that the two line up.
+   Stays invisible (but still occupying its normal-flow space, so
+   nothing else jumps when it appears) until scrolled past the first
+   viewport -- see EditionStickyBanner's own comment for why. */
 .edition-sticky-banner {
   position: sticky;
   top: 80px;
@@ -4920,7 +4925,15 @@ button:focus-visible,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 60px;
+  padding: 8px 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.edition-sticky-banner--visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .edition-sticky-banner__title {
@@ -4960,10 +4973,15 @@ button:focus-visible,
   background: #d9d9d9;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .edition-sticky-banner {
+    transition: none;
+  }
+}
+
 @media (max-width: 560px) {
   .edition-sticky-banner {
     top: 72px;
-    padding: 8px 24px;
     flex-wrap: wrap;
     gap: 8px;
   }

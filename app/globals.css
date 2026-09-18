@@ -5324,7 +5324,9 @@ button:focus-visible,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32px 60px;
+  /* 20px side padding, matching .footer's own (the next thing this
+     band sits above, via Cta). */
+  padding: 32px 20px;
 }
 
 .next-edition-band__label {
@@ -5361,7 +5363,7 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .next-edition-band {
-    padding: 24px;
+    padding: 24px 20px;
     flex-wrap: wrap;
     gap: 16px;
   }

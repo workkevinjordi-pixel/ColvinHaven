@@ -273,9 +273,16 @@ button:focus-visible,
 /* No background/blur here (unlike --scrolled) -- the mega menu panel
    underneath already carries its own solid ground, so the thin strip
    stays fully transparent and reads as one seamless surface with it
-   rather than a separate bar sitting on top. */
+   rather than a separate bar sitting on top. Explicitly resets
+   backdrop-filter too, not just background: on a `solid` navbar (or
+   once actually scrolled), .navbar--scrolled is applied at the same
+   time as this class, and its blur doesn't get cancelled just because
+   background does -- transparent background + a leftover blur still
+   reads as a frosted glass strip smeared across whatever's behind it. */
 .navbar--open {
   background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   color: var(--ink);
 }
 
@@ -4882,8 +4889,12 @@ button:focus-visible,
   max-width: var(--max-width);
   margin: 0 auto;
   /* 32px top -- the gap after .edition-detail-header, which this always
-     follows on the detail page. */
-  padding: 32px var(--gutter) 0;
+     follows on the detail page. 120px bottom -- breathing room before
+     the "Next Editions" band, which otherwise sits flush against the
+     closing gallery row (that band supplies none of its own top
+     spacing; it's a plain-color strip meant to butt up against
+     whatever precedes it). */
+  padding: 32px var(--gutter) 120px;
   font-family: var(--font-plus-jakarta-sans), sans-serif;
 }
 

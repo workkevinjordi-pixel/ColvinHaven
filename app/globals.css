@@ -391,14 +391,15 @@ button:focus-visible,
   text-transform: uppercase;
   margin-bottom: 48px;
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Plain opacity, no slide -- matches the reference recording, where
+     the panel's text settles in place with no vertical motion, all of
+     it (brand + every link) fading together rather than cascading in
+     one item at a time. */
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar__overlay--visible .navbar__overlay-brand {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .navbar__overlay-links {
@@ -417,7 +418,6 @@ button:focus-visible,
   color: var(--ink);
   text-decoration: none;
   opacity: 0;
-  transform: translateY(16px);
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
   background-repeat: no-repeat;
@@ -425,14 +425,15 @@ button:focus-visible,
      instead of reading heavier than the text sitting above it. Same
      thickness as .footer__nav a's hover underline. */
   background-size: 0% 1px;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+  /* Same plain-opacity, no-slide, no-stagger fade as .navbar__overlay-
+     brand -- every link appears together with it, not one after
+     another (see that rule's comment). */
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     background-size 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar__overlay--visible .navbar__overlay-links a {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .navbar__overlay-links a:hover,
@@ -443,6 +444,20 @@ button:focus-visible,
 .navbar__overlay-media {
   position: relative;
   flex: 1 1 auto;
+  opacity: 0;
+  /* No delay here (this rule governs the closing direction: transition-
+     delay is read from the *target* state, so removing --visible uses
+     this 0s) -- the image fades out in step with the text and panel,
+     all at once. */
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar__overlay--visible .navbar__overlay-media {
+  opacity: 1;
+  /* Delay only applies entering (see above) -- the reference recording
+     shows the panel's text settle first, then the photo crossfades in
+     afterward, not both appearing in lockstep. */
+  transition-delay: 0.2s;
 }
 
 @media (max-width: 900px) {
@@ -487,14 +502,15 @@ button:focus-visible,
   .navbar__dot-trigger,
   .navbar__overlay,
   .navbar__overlay-brand,
-  .navbar__overlay-links a {
+  .navbar__overlay-links a,
+  .navbar__overlay-media {
     transition: none;
   }
 
   .navbar__overlay-brand,
-  .navbar__overlay-links a {
+  .navbar__overlay-links a,
+  .navbar__overlay-media {
     opacity: 1;
-    transform: none;
   }
 }
 

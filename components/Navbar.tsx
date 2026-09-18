@@ -83,20 +83,15 @@ export default function Navbar({ solid = false }: NavbarProps) {
 
       <div className={`navbar__overlay${open ? " navbar__overlay--visible" : ""}`}>
         <div className="navbar__overlay-panel">
-          <p
-            className="navbar__overlay-brand"
-            style={{ transitionDelay: open ? "0.1s" : "0s" }}
-          >
-            Colvin Haven
-          </p>
+          {/* Brand and every link fade in together (no per-item stagger,
+              no slide) -- matches the reference recording, where the
+              whole text block settles in one plain opacity fade before
+              the photo crossfades in after it (see .navbar__overlay-
+              media's own delay in globals.css). */}
+          <p className="navbar__overlay-brand">Colvin Haven</p>
           <nav className="navbar__overlay-links">
-            {PRIMARY_LINKS.map((link, i) => (
-              <a
-                key={link.href}
-                href={link.href}
-                style={{ transitionDelay: open ? `${0.16 + i * 0.06}s` : "0s" }}
-                onClick={() => setOpen(false)}
-              >
+            {PRIMARY_LINKS.map((link) => (
+              <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
                 {link.label}
               </a>
             ))}

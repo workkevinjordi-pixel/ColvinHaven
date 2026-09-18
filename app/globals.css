@@ -20,7 +20,7 @@ html {
 }
 
 body {
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 300;
   color: var(--ink);
   background: var(--bg);
@@ -74,12 +74,13 @@ button:focus-visible,
   }
 }
 
-/* Roboto Medium 32px section heading, used by every "labeled statement"
-   block across the site (CH Collections, Foundation, Craft, Inspiration)
-   -- distinct from .values__heading's serif treatment, which is reserved
-   for the main site's own Guiding Values / Edition headings. */
+/* Plus Jakarta Sans Medium 32px section heading, used by every "labeled
+   statement" block across the site (CH Collections, Foundation, Craft,
+   Inspiration) -- distinct from .values__heading's serif treatment,
+   which is reserved for the main site's own Guiding Values / Edition
+   headings. */
 .section-heading {
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 500;
   font-size: 32px;
   margin-bottom: 24px;
@@ -377,7 +378,7 @@ button:focus-visible,
 }
 
 .navbar__overlay-brand {
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 300;
   font-size: 32px;
   text-transform: uppercase;
@@ -1340,7 +1341,7 @@ button:focus-visible,
    Option 2  --  alternate layout served at /option2
    Every rule is scoped under .opt2. Serif is Cormorant Garamond
    (--font-cormorant, loaded in layout.tsx); everything else
-   inherits Roboto and the --ink / --bg tokens from :root.
+   inherits Plus Jakarta Sans and the --ink / --bg tokens from :root.
    ============================================================ */
 
 .opt2 {
@@ -2112,7 +2113,7 @@ button:focus-visible,
    single fade-rise), no parallax -- that's Option 2's language.
    Every rule is scoped under .opt3. Display face is Fraunces
    (--font-fraunces, loaded in layout.tsx); body text inherits
-   Roboto and the --ink / --bg tokens from :root.
+   Plus Jakarta Sans and the --ink / --bg tokens from :root.
    ============================================================ */
 
 .opt3 {
@@ -2120,7 +2121,7 @@ button:focus-visible,
   --o3-rail: clamp(120px, 18vw, 240px);
   --o3-gap: clamp(24px, 6vw, 90px);
   --o3-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
-  --o3-sans: var(--font-roboto), sans-serif;
+  --o3-sans: var(--font-plus-jakarta-sans), sans-serif;
   --o3-line: rgba(29, 25, 15, 0.16);
   --o3-muted: rgba(29, 25, 15, 0.58);
   background: var(--bg);
@@ -2781,7 +2782,7 @@ button:focus-visible,
 .opt4 {
   --o4-gutter: clamp(22px, 7vw, 128px);
   --o4-serif: var(--font-cormorant), "Times New Roman", Times, serif;
-  --o4-sans: var(--font-roboto), sans-serif;
+  --o4-sans: var(--font-plus-jakarta-sans), sans-serif;
   --o4-muted: rgba(29, 25, 15, 0.62);
   --o4-line: rgba(29, 25, 15, 0.18);
   --o4-section: clamp(96px, 15vw, 200px);
@@ -3523,8 +3524,8 @@ button:focus-visible,
    sizes, a staggered two-column image grid, short narrow copy
    set against a wide label rail, hairline section rules, almost
    no motion. Content and section order are taken 1:1 from the
-   main site. Every rule is scoped under .opt5; type is Roboto
-   (inherited), no serif anywhere.
+   main site. Every rule is scoped under .opt5; type is Plus Jakarta
+   Sans (inherited), no serif anywhere.
    ============================================================ */
 
 .opt5 {
@@ -3537,7 +3538,7 @@ button:focus-visible,
   background: var(--o5-bg);
   color: var(--o5-ink);
   overflow-x: hidden;
-  font-family: var(--font-roboto), "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-plus-jakarta-sans), "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -4013,7 +4014,7 @@ button:focus-visible,
    wide full-bleed landscape imagery with lots of air, a
    multi-column footer with a newsletter field. Content and
    section order taken 1:1 from the main site. Scoped under
-   .opt6; type is Roboto, no serif.
+   .opt6; type is Plus Jakarta Sans, no serif.
    ============================================================ */
 
 .opt6 {
@@ -4022,7 +4023,7 @@ button:focus-visible,
   --o6-ink: #1a1a18;
   --o6-muted: #7c7b75;
   --o6-line: #e6e5e0;
-  --o6-sans: var(--font-roboto), "Helvetica Neue", Arial, sans-serif;
+  --o6-sans: var(--font-plus-jakarta-sans), "Helvetica Neue", Arial, sans-serif;
   --o6-gutter: clamp(20px, 5vw, 76px);
   --o6-section: clamp(80px, 12vw, 172px);
   background: var(--o6-bg);
@@ -4743,7 +4744,7 @@ button:focus-visible,
 }
 
 .editions-list__name {
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 400;
   font-size: 32px;
   color: #1d190f;
@@ -5383,7 +5384,7 @@ button:focus-visible,
 }
 
 .collective-publications__title {
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 400;
   font-size: 32px;
   color: #1d190f;
@@ -5768,7 +5769,7 @@ button:focus-visible,
 }
 
 .publications__card-title {
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 400;
   font-size: 32px;
   margin-bottom: 16px;
@@ -5869,7 +5870,7 @@ button:focus-visible,
 }
 
 .news-checklist__title {
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -5976,7 +5977,7 @@ button:focus-visible,
 }
 
 .news-pull-quote__text p {
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 400;
   font-size: 40px;
   line-height: 56px;
@@ -6113,7 +6114,7 @@ button:focus-visible,
 }
 
 .write-to-us__field label {
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 500;
   font-size: 14px;
 }
@@ -6124,7 +6125,7 @@ button:focus-visible,
   border: none;
   border-bottom: 1px solid var(--ink);
   background: transparent;
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 300;
   font-size: 14px;
   color: var(--ink);
@@ -6158,7 +6159,7 @@ button:focus-visible,
   border: 1px solid var(--ink);
   background: var(--ink);
   color: #fff;
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 300;
   font-size: 16px;
   cursor: pointer;

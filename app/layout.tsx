@@ -1,22 +1,13 @@
 import type { Metadata } from "next";
-import {
-  Roboto,
-  Cormorant_Garamond,
-  Fraunces,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
+import { Cormorant_Garamond, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const roboto = Roboto({
-  weight: ["300", "400", "500"],
-  subsets: ["latin"],
-  variable: "--font-roboto",
-  display: "swap",
-});
-
-// Used only by an edition's own detail page (Figma "Editions Details"
-// frame, node 232:4674) -- that frame's entire body copy switched to
-// this face, distinct from the Roboto the rest of the site uses.
+// The site's one sans-serif face -- used everywhere `var(--font-plus-
+// jakarta-sans)` appears in globals.css, which is every sans-serif
+// declaration on the main site (body's own default included) plus the
+// /option3/4/6 layout variants' own sans stacks. Roboto used to fill
+// this role; it's gone now, replaced 1:1 (same sizes/weights) rather
+// than left loaded alongside an unused font.
 const plusJakartaSans = Plus_Jakarta_Sans({
   weight: ["300", "400", "500", "600"],
   subsets: ["latin"],
@@ -57,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${roboto.variable} ${cormorant.variable} ${fraunces.variable} ${plusJakartaSans.variable}`}
+      className={`${plusJakartaSans.variable} ${cormorant.variable} ${fraunces.variable}`}
     >
       <body>{children}</body>
     </html>

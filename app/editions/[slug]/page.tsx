@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import EditionDetailHeader from "@/components/editions/EditionDetailHeader";
+import EditionStickyBanner from "@/components/editions/EditionStickyBanner";
 import EditionSpotlight from "@/components/editions/EditionSpotlight";
 import NextEditionBand from "@/components/editions/NextEditionBand";
 import Cta from "@/components/Cta";
@@ -33,11 +34,14 @@ export async function generateMetadata({
 // Per-edition detail page (Figma node 232:4674, "Editions Details",
 // updated) -- reached by clicking "Explore Umah Tsuki" (or Sora) on the
 // /editions page's summary list. Navbar -> centered header (roman
-// numeral, name, meta row) -> the full story (hero, title, spec/craft
-// row, image rows, galleries, a pull-quote banner) -> a "Next Editions"
-// band linking to the other edition -> the same inquiry banner the
-// homepage closes with (Cta, no overrides -- pixel-identical in the
-// source frame) -> Footer.
+// numeral, name, meta row) -> a sticky info strip (node 248:5222, sits
+// in normal flow right after the header so it scrolls until it reaches
+// 16px below the navbar, then stays pinned there for the rest of the
+// page) -> the full story (hero, title, spec/craft row, image rows,
+// galleries, a pull-quote banner) -> a "Next Editions" band linking to
+// the other edition -> the same inquiry banner the homepage closes
+// with (Cta, no overrides -- pixel-identical in the source frame) ->
+// Footer.
 export default async function EditionDetailPage({
   params,
 }: {
@@ -51,6 +55,7 @@ export default async function EditionDetailPage({
     <>
       <Navbar solid />
       <EditionDetailHeader data={edition} />
+      <EditionStickyBanner data={edition} />
       <EditionSpotlight data={edition} />
       <NextEditionBand next={edition.nextEdition} />
       <Cta />

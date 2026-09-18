@@ -4899,6 +4899,78 @@ button:focus-visible,
   }
 }
 
+/* ---------- Edition sticky banner (node 248:5222) ---------- */
+
+/* Floats 16px below the fixed navbar as the visitor scrolls through an
+   edition's detail page -- sits in normal document flow right after
+   the header (see EditionStickyBanner's own comment), so it scrolls
+   normally until its sticky offset is reached, then stays pinned there
+   for the rest of the page. top is navbar height + 16px; the navbar is
+   80px tall everywhere except below 560px (72px), so this has its own
+   matching override there. z-index sits below the navbar (100) and the
+   mega menu overlay (90) but above ordinary page content. */
+.edition-sticky-banner {
+  position: sticky;
+  top: 96px;
+  z-index: 50;
+  background: #ddd8d0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 60px;
+}
+
+.edition-sticky-banner__title {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.edition-sticky-banner__index {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #1d190f;
+}
+
+.edition-sticky-banner__name {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #1d190f;
+}
+
+.edition-sticky-banner__meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(29, 25, 15, 0.8);
+  white-space: nowrap;
+}
+
+.edition-sticky-banner__meta-divider {
+  align-self: stretch;
+  width: 1px;
+  background: #d9d9d9;
+}
+
+@media (max-width: 560px) {
+  .edition-sticky-banner {
+    top: 88px;
+    padding: 20px 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .edition-sticky-banner__meta {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+}
+
 /* ---------- Edition spotlight (detail page body, node 232:4674) ---------- */
 
 .edition-spotlight {

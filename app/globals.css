@@ -4813,10 +4813,11 @@ button:focus-visible,
 /* ---------- Edition detail header (node 232:4756) ---------- */
 
 /* Centered header at the top of an edition's own detail page -- roman
-   numeral eyebrow, plain name, intro paragraph. Close in spirit to the
-   shared .centered-statement pattern (EditionsIntro uses that one), but
-   kept as its own scoped block since it has an extra name line the
-   shared one doesn't, and per this file's own convention of not
+   numeral eyebrow, plain name, meta row (type / location / year, each
+   pair split by a vertical divider). Close in spirit to the shared
+   .centered-statement pattern (EditionsIntro uses that one), but kept
+   as its own scoped block since it has an extra name line the shared
+   one doesn't, and per this file's own convention of not
    cross-referencing a distant pattern just because it looks similar. */
 .edition-detail-header {
   max-width: var(--max-width);
@@ -4825,7 +4826,7 @@ button:focus-visible,
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
   text-align: center;
 }
 
@@ -4838,77 +4839,63 @@ button:focus-visible,
 }
 
 .edition-detail-header__name {
-  font-family: var(--font-roboto), sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 400;
   font-size: 32px;
   color: #1d190f;
 }
 
-.edition-detail-header__intro {
-  max-width: 549px;
+.edition-detail-header__meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 300;
   color: rgba(29, 25, 15, 0.8);
+  white-space: nowrap;
+}
+
+.edition-detail-header__meta-divider {
+  align-self: stretch;
+  width: 1px;
+  background: #d9d9d9;
 }
 
 @media (max-width: 560px) {
   .edition-detail-header {
     padding-top: 160px;
   }
+
+  .edition-detail-header__meta {
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: normal;
+  }
 }
 
-/* ---------- Edition spotlight (detail page body, node 232:4736) ---------- */
+/* ---------- Edition spotlight (detail page body, node 232:4674) ---------- */
 
 .edition-spotlight {
   max-width: var(--max-width);
   margin: 0 auto;
   /* 32px top -- the gap after .edition-detail-header, which this always
-     follows on the detail page now (it no longer renders inline,
-     repeated, on /editions itself, so it no longer needs its own
-     roman-numeral index/divider -- the header above already carries
-     that same roman numeral). */
-  padding: 32px var(--gutter) 120px;
+     follows on the detail page. */
+  padding: 32px var(--gutter) 0;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
 }
 
 .edition-spotlight__body {
   display: flex;
   flex-direction: column;
-  gap: 28px;
-}
-
-.edition-spotlight__lede {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  gap: 56px;
 }
 
 .edition-spotlight__hero-image {
   position: relative;
   width: 100%;
   height: 473px;
-}
-
-.edition-spotlight__title-block {
-  max-width: 651px;
-}
-
-.edition-spotlight__title {
-  font-family: var(--font-roboto), sans-serif;
-  font-weight: 400;
-  font-size: 32px;
-  margin-bottom: 16px;
-}
-
-.edition-spotlight__title-block p {
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 300;
-  margin-bottom: 16px;
-}
-
-.edition-spotlight__title-block p:last-child {
-  margin-bottom: 0;
 }
 
 .edition-spotlight__row {
@@ -4955,6 +4942,182 @@ button:focus-visible,
   aspect-ratio: 1500 / 611;
 }
 
+/* ---------- Edition story (new blocks added with the updated detail
+   page design: title, spec/craft row, side-by-side story blocks,
+   3-image galleries, pull-quote banner) ---------- */
+
+.edition-story__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edition-story__title {
+  font-weight: 500;
+  font-size: 32px;
+  color: #1d190f;
+}
+
+.edition-story__info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: 64px;
+}
+
+.edition-story__specs {
+  flex: 0 0 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 24px;
+}
+
+.edition-story__spec {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.edition-story__spec-label {
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 300;
+  color: rgba(29, 25, 15, 0.6);
+}
+
+.edition-story__spec-value {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+  color: #1d190f;
+}
+
+.edition-story__craft-text {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.edition-story__craft-text p {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+  color: #1d190f;
+  margin-bottom: 16px;
+}
+
+.edition-story__craft-text p:last-child {
+  margin-bottom: 0;
+}
+
+.edition-story__portrait {
+  position: relative;
+  flex: 0 0 253px;
+  width: 253px;
+  height: 336px;
+}
+
+.edition-story__gallery {
+  display: flex;
+  gap: 23px;
+  align-items: stretch;
+}
+
+.edition-story__gallery-image {
+  position: relative;
+  flex: 1 1 0%;
+  height: 473px;
+}
+
+/* Text-left/image-right (--a) and image-left/text-right (--b) pairs --
+   both indented off one edge rather than spanning the full column, per
+   the source frame (pl-160/justify-end for --a, pr-160 for --b). */
+.edition-story__side-block {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  padding: 48px 0;
+}
+
+.edition-story__side-block--a {
+  padding-left: 160px;
+  justify-content: flex-end;
+}
+
+.edition-story__side-block--b {
+  padding-right: 160px;
+}
+
+.edition-story__side-block-text {
+  flex: 0 1 493px;
+}
+
+.edition-story__side-block-text p {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+  color: #1d190f;
+  margin-bottom: 16px;
+}
+
+.edition-story__side-block-text p:last-child {
+  margin-bottom: 0;
+}
+
+.edition-story__side-block-text a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.edition-story__side-block-text a:hover {
+  opacity: 0.6;
+}
+
+.edition-story__side-block-image {
+  position: relative;
+  flex: 0 0 313px;
+  width: 313px;
+  height: 375px;
+}
+
+.edition-story__quote-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.edition-story__quote-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1500 / 611;
+}
+
+.edition-story__quote-text {
+  max-width: 736px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+}
+
+.edition-story__quote-heading {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+  color: #1d190f;
+}
+
+.edition-story__quote-body {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1d190f;
+}
+
 @media (max-width: 900px) {
   .edition-spotlight__row {
     flex-direction: column;
@@ -4969,6 +5132,51 @@ button:focus-visible,
   .edition-spotlight__row-main .edition-spotlight__row-text {
     max-width: none;
   }
+
+  .edition-story__info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .edition-story__specs {
+    flex: 0 0 auto;
+    padding-left: 0;
+  }
+
+  .edition-story__portrait {
+    width: 100%;
+    height: 320px;
+  }
+
+  .edition-story__gallery {
+    flex-direction: column;
+  }
+
+  .edition-story__gallery-image {
+    width: 100%;
+    height: 320px;
+  }
+
+  .edition-story__side-block,
+  .edition-story__side-block--a,
+  .edition-story__side-block--b {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 0;
+    padding-right: 0;
+    gap: 24px;
+  }
+
+  .edition-story__side-block-text,
+  .edition-story__side-block-image {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .edition-story__quote-text {
+    padding: 0 var(--gutter);
+  }
 }
 
 @media (max-width: 560px) {
@@ -4978,8 +5186,63 @@ button:focus-visible,
   }
 
   .edition-spotlight__hero-image,
-  .edition-spotlight__row-image {
+  .edition-spotlight__row-image,
+  .edition-story__side-block-image {
     height: 320px;
+  }
+
+  .edition-story__quote-text {
+    padding: 0 32px;
+  }
+}
+
+/* ---------- Next Editions band (node 246:5036) ---------- */
+
+.next-edition-band {
+  background: #ddd8d0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 60px;
+}
+
+.next-edition-band__label {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #1d190f;
+}
+
+.next-edition-band__link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1d190f;
+  text-decoration: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.next-edition-band__link:hover {
+  opacity: 0.6;
+}
+
+.next-edition-band__index {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.next-edition-band__name {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+@media (max-width: 560px) {
+  .next-edition-band {
+    padding: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 }
 

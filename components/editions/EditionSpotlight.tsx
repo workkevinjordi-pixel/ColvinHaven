@@ -36,9 +36,15 @@ function ImageTextRow({ row }: { row: EditionData["row1"] }) {
   );
 }
 
-function GalleryRow({ images }: { images: EditionData["galleryRow"] }) {
+function GalleryRow({
+  images,
+  id,
+}: {
+  images: EditionData["galleryRow"];
+  id?: string;
+}) {
   return (
-    <div className="edition-story__gallery">
+    <div className="edition-story__gallery" id={id}>
       {images.map((img, i) => (
         <div className="edition-story__gallery-image" key={i}>
           <Image
@@ -207,7 +213,12 @@ export default function EditionSpotlight({ data }: { data: EditionData }) {
 
         <ImageTextRow row={row4} />
 
-        <GalleryRow images={galleryRow} />
+        {/* Marked with an id -- EditionStickyBanner watches this exact
+            element (the page's very last content block, right before
+            NextEditionBand) to hide itself once it's reached, so the
+            sticky banner doesn't keep competing for attention with the
+            "Next Editions" band that follows. */}
+        <GalleryRow images={galleryRow} id="edition-final-gallery" />
       </div>
     </section>
   );

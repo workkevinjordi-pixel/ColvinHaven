@@ -36,9 +36,10 @@ export async function generateMetadata({
 // /editions page's summary list. Navbar -> centered header (roman
 // numeral, name, meta row) -> a sticky info strip (node 248:5222, sits
 // in normal flow right after the header so it scrolls until it reaches
-// 16px below the navbar, then stays pinned there for the rest of the
-// page) -> the full story (hero, title, spec/craft row, image rows,
-// galleries, a pull-quote banner) -> a "Next Editions" band linking to
+// the navbar's own bottom edge, then stays pinned flush against it for
+// the rest of the page) -> the full story (hero, title, spec/craft
+// row, image rows, galleries, a pull-quote banner) -> a "Next
+// Editions" band linking to
 // the other edition -> the same inquiry banner the homepage closes
 // with (Cta, no overrides -- pixel-identical in the source frame) ->
 // Footer.

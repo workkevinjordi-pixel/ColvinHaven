@@ -4899,25 +4899,28 @@ button:focus-visible,
   }
 }
 
-/* ---------- Edition sticky banner (node 248:5222) ---------- */
+/* ---------- Edition sticky banner (node 248:5222, updated) ---------- */
 
-/* Floats 16px below the fixed navbar as the visitor scrolls through an
-   edition's detail page -- sits in normal document flow right after
-   the header (see EditionStickyBanner's own comment), so it scrolls
-   normally until its sticky offset is reached, then stays pinned there
-   for the rest of the page. top is navbar height + 16px; the navbar is
-   80px tall everywhere except below 560px (72px), so this has its own
+/* Sits flush against the fixed navbar's own bottom edge -- no gap --
+   as the visitor scrolls through an edition's detail page. Sits in
+   normal document flow right after the header (see
+   EditionStickyBanner's own comment), so it scrolls normally until its
+   sticky offset is reached, then stays pinned there for the rest of
+   the page. top is exactly the navbar's height; the navbar is 80px
+   tall everywhere except below 560px (72px), so this has its own
    matching override there. z-index sits below the navbar (100) and the
-   mega menu overlay (90) but above ordinary page content. */
+   mega menu overlay (90) but above ordinary page content. Slimmer now
+   (8px vertical padding, 12px type) than the header's own meta row --
+   this is a compact persistent strip, not a second header. */
 .edition-sticky-banner {
   position: sticky;
-  top: 96px;
+  top: 80px;
   z-index: 50;
   background: #ddd8d0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32px 60px;
+  padding: 8px 60px;
 }
 
 .edition-sticky-banner__title {
@@ -4929,14 +4932,14 @@ button:focus-visible,
 .edition-sticky-banner__index {
   font-family: var(--font-cormorant), serif;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 12px;
   color: #1d190f;
 }
 
 .edition-sticky-banner__name {
   font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 12px;
   color: #1d190f;
 }
 
@@ -4945,7 +4948,7 @@ button:focus-visible,
   align-items: center;
   gap: 16px;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 24px;
   color: rgba(29, 25, 15, 0.8);
   white-space: nowrap;
@@ -4959,10 +4962,10 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .edition-sticky-banner {
-    top: 88px;
-    padding: 20px 24px;
+    top: 72px;
+    padding: 8px 24px;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
   }
 
   .edition-sticky-banner__meta {

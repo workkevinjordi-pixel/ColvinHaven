@@ -86,6 +86,15 @@ button:focus-visible,
   margin-bottom: 24px;
 }
 
+/* Confirmed uniform 24px across every page that uses this heading --
+   Editions' CH Collections and Collective's Foundation/Craft/Inspiration
+   all spec the same value in Figma's mobile frames. */
+@media (max-width: 560px) {
+  .section-heading {
+    font-size: 24px;
+  }
+}
+
 /* Row variant for a .section-heading with a subtitle beside it (News'
    "What's Cooking – A taste of what's happening") -- the heading's own
    margin-bottom moves to the row so heading and subtitle stay vertically
@@ -163,11 +172,15 @@ button:focus-visible,
 @media (max-width: 560px) {
   .filmstrip__item {
     flex-basis: 220px;
-    height: 360px;
+    /* 240px, not the previous 360px -- confirmed against both Editions'
+       and Collective's mobile filmstrip frames in Figma (240 regular /
+       320 wide, see --wide below). */
+    height: 240px;
   }
 
   .filmstrip__item--wide {
     flex-basis: 340px;
+    height: 320px;
   }
 }
 
@@ -178,6 +191,17 @@ button:focus-visible,
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 80px var(--gutter) 200px;
+}
+
+/* Confirmed uniform 32px 16px across both pages that use this wrapper
+   (Editions' CH Collections, Collective's Inspiration) in Figma's
+   mobile frames. Collective's Inspiration zeroes out the bottom half of
+   this via .collective-inspiration .statement-section below and
+   supplies its own trailing gap instead. */
+@media (max-width: 560px) {
+  .statement-section {
+    padding: 32px 16px;
+  }
 }
 
 .statement-section__text p {
@@ -783,6 +807,16 @@ button:focus-visible,
   line-height: 24px;
   font-weight: 300;
   margin-bottom: 24px;
+}
+
+/* Confirmed uniform 14px in Figma's mobile frames for every StatementSection
+   usage (Editions' CH Collections, Collective's Inspiration). Also matches
+   the already-scoped .values--after-drawing .values__text p fix for the
+   homepage's Option8Values instance, so this is a safe, consistent default. */
+@media (max-width: 560px) {
+  .values__text p {
+    font-size: 14px;
+  }
 }
 
 .values__text p:last-child {
@@ -4874,15 +4908,34 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .editions-list__intro {
-    padding: 60px var(--gutter) 0;
+    padding: 32px 16px 0;
+  }
+
+  /* Figma's mobile frame gives the whole intro+rows stack one uniform
+     24px gap (intro-to-first-row and row-to-row alike), with 32px only
+     at the section's very top (.editions-list__intro above) and bottom
+     (:last-child below) -- not each row's own 60px top/bottom padding
+     from the 900px breakpoint. */
+  .editions-list__row {
+    padding: 0 16px;
+    margin-top: 24px;
+  }
+
+  .editions-list__row:last-child {
+    padding-bottom: 32px;
   }
 
   .editions-list__image {
-    height: 320px;
+    height: 420px;
   }
 
   .editions-list__name {
     font-size: 24px;
+  }
+
+  .editions-list__summary p,
+  .editions-list__explore {
+    font-size: 14px;
   }
 }
 
@@ -5755,52 +5808,117 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .collective-intro {
-    padding-top: 160px;
+    /* 112px, not the Figma frame's own 80px -- same reasoning as
+       .editions-intro: the live site's navbar is `position: fixed`
+       (72px tall, unscrolled) sitting on top of it, plus Figma's own
+       40px gap below the navbar. */
+    padding-top: 112px;
   }
 
   .collective-intro__lead {
     padding: 0;
+    font-size: 20px;
+    line-height: 32px;
   }
 
+  /* Bare .collective-photo-band covers the standalone band between
+     Craft and Inspiration; the intro's own (bled full-width) instance
+     is taller and sits closer to the lead text, so it gets its own
+     override below. */
   .collective-photo-band {
-    height: 360px;
+    height: 320px;
+  }
+
+  .collective-intro .collective-photo-band {
+    margin-top: 24px;
+    height: 349px;
+  }
+
+  .collective-band-section {
+    padding: 32px 0;
+  }
+
+  .foundation {
+    padding: 32px 16px;
   }
 
   .foundation__collage {
-    height: 420px;
+    height: 328px;
   }
 
   .foundation__collage-img--a {
-    width: 55%;
-    height: 100%;
+    width: 48%;
+    height: 72%;
   }
 
   .foundation__collage-img--b {
-    left: 45%;
-    top: 8%;
-    width: 55%;
-    height: 92%;
+    left: 52%;
+    top: 17%;
+    width: 48%;
+    height: 83%;
+  }
+
+  .craft {
+    padding: 32px 16px;
   }
 
   .craft__row-image {
-    height: 320px;
+    height: 282px;
   }
 
   .craft__row-side {
-    height: 320px;
+    height: 429px;
+  }
+
+  /* Inspiration's own bottom gap before Publications -- the shared
+     .statement-section's 32px bottom padding is zeroed out for this
+     instance (see .collective-inspiration .statement-section above),
+     so this is the only source of that trailing space on mobile. */
+  .collective-inspiration {
+    padding-bottom: 32px;
   }
 
   .collective-publications__intro {
-    padding: 60px var(--gutter) 0;
+    padding: 32px 16px 0;
   }
 
+  /* Figma's mobile frame gives the whole publications block one 24px
+     gap after the heading, then 48px between the two entries, and 80px
+     of trailing space after the last one -- not each slide's own
+     desktop-derived top/bottom padding. */
   .collective-publications__slide {
-    padding-left: var(--gutter);
-    padding-right: var(--gutter);
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 24px;
+    padding-bottom: 0;
+    min-height: 0;
+  }
+
+  .collective-publications__slide + .collective-publications__slide {
+    padding-top: 48px;
+  }
+
+  .collective-publications__slide:last-child {
+    padding-bottom: 80px;
+  }
+
+  .collective-publications__cover {
+    width: 100%;
+    flex: 0 0 auto;
+    aspect-ratio: auto;
+    height: 480px;
   }
 
   .collective-publications__title {
     font-size: 24px;
+  }
+
+  .collective-publications__text p {
+    font-size: 14px;
+  }
+
+  .collective-publications__link {
+    font-size: 14px;
   }
 }
 

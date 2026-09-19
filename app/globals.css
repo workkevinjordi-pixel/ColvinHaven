@@ -1306,6 +1306,58 @@ button:focus-visible,
   .brand__word {
     font-size: 24px;
   }
+
+  /* Homepage-scoped (.values--after-drawing) -- the mobile Figma frame
+     (node 250:9089) uses a completely different heading treatment here
+     than the shared desktop .values__heading: sans-serif instead of
+     the site's Times New Roman, smaller, and much tighter section
+     padding all round. Left off the bare .values class since that's
+     shared with Collective/News/Editions/Write-to-us, none of which
+     are in scope for this pass. */
+  .values--after-drawing {
+    padding: 32px 16px;
+  }
+
+  .values--after-drawing .values__heading {
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+  }
+
+  .values--after-drawing .values__text p {
+    font-size: 14px;
+  }
+
+  /* .quote is homepage-only (Quote.tsx has no other call site), so
+     this is safe to fix outright. It never had a mobile override at
+     all before -- the desktop rule's 600px left padding, applied
+     as-is on a 390px screen, squeezed the text into a sliver-thin
+     column and blew the section's height out hugely. */
+  .quote {
+    padding: 40px 16px;
+  }
+
+  .quote__blockquote {
+    font-size: 20px;
+    line-height: 40px;
+  }
+
+  /* .cta is shared (Collective, an edition's own detail page, and the
+     homepage all reuse it pixel-identical, per this file's established
+     convention) -- also had no mobile override at all, so this
+     benefits all three rather than being a homepage-only fix. */
+  .cta__frame {
+    padding: 0 24px;
+  }
+
+  .cta__content {
+    max-width: 330px;
+  }
+
+  .cta__text {
+    font-size: 24px;
+    line-height: 48px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

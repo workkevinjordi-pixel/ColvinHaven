@@ -14,12 +14,17 @@ import type { EditionData } from "./editions-data";
  * Visible only in the middle stretch of the page: hidden until the
  * visitor has scrolled a full viewport past the top (roughly the
  * header plus the hero image, which already show the same info
- * full-size), and hidden again once they reach the final gallery
- * (#edition-final-gallery, the page's last content block) so it stops
- * competing for attention with the "Next Editions" band right after
- * it. It's still `position: sticky` and in normal document flow the
- * whole time (see globals.css) regardless of which state it's in --
- * only opacity changes, so nothing shifts when it appears or hides.
+ * full-size), and hidden for good once they reach the final gallery
+ * (#edition-final-gallery, the page's last content block) -- a one-way
+ * latch, not a live toggle, so it stays hidden all the way through
+ * "Next Editions" and the Cta/Footer after it, rather than reappearing
+ * once the gallery itself scrolls out of view above the fold (which a
+ * plain entry.isIntersecting readout would do: that flips back to
+ * false the moment the target leaves the viewport in *either*
+ * direction, not just re-enters it from below). It's still `position:
+ * sticky` and in normal document flow the whole time (see globals.css)
+ * regardless of which state it's in -- only opacity changes, so
+ * nothing shifts when it appears or hides.
  */
 export default function EditionStickyBanner({ data }: { data: EditionData }) {
   const [pastHero, setPastHero] = useState(false);
@@ -38,7 +43,15 @@ export default function EditionStickyBanner({ data }: { data: EditionData }) {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => setReachedFinalGallery(entry.isIntersecting));
+        entries.forEach((entry) => {
+          // Only ever latches true, never back to false -- see the
+          // component doc comment above for why a live isIntersecting
+          // readout is the wrong tool here.
+          if (entry.isIntersecting) {
+            setReachedFinalGallery(true);
+            observer.disconnect();
+          }
+        });
       },
       // Triggers as soon as the final gallery's own top edge reaches
       // the sticky banner's bottom edge, not only once it's already

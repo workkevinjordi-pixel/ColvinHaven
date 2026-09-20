@@ -14,10 +14,11 @@ const REEL: FilmstripImage[] = [
 ];
 
 /**
- * Top-of-page intro: faded roman-numeral eyebrow, a lede paragraph (still
- * Figma's own Lorem Ipsum placeholder -- swap in real copy when it's
- * ready), an outline CTA, and a filmstrip that bleeds past the standard
- * content column on both sides.
+ * Top-of-page intro: faded roman-numeral eyebrow, a lede paragraph
+ * (real copy, per the funnel strategy's "seven Editions, ever" framing
+ * -- Figma's own placeholder was still Lorem Ipsum here), an outline
+ * CTA, and a filmstrip that bleeds past the standard content column on
+ * both sides.
  */
 export default function EditionsIntro() {
   return (
@@ -25,13 +26,10 @@ export default function EditionsIntro() {
       <ScrollFade className="centered-statement">
         <p className="centered-statement__eyebrow">II/VII</p>
         <p className="centered-statement__lead">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-          enim ad minim veniam, quis nostrud exercitation ullamco laboris
-          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat
-          nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-          sunt in culpa qui officia deserunt mollit anim id est laborum.
+          There will only ever be seven Editions in this first series —
+          each one a singular commission, conceived for a single family and
+          built entirely by hand. Some are already complete. Others are
+          still taking shape. This is where they stand today.
         </p>
         <a href="#editions" className="centered-statement__cta">
           Explore II/VII

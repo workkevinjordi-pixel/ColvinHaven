@@ -35,9 +35,16 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
+// Title and description follow the funnel strategy's AEO guidance
+// directly: a single, plainly-stated, quotable category definition
+// ("wellness home brand," not "architecture and design studio" -- the
+// strategy is explicit that Colvin Haven is neither a studio nor a
+// developer) that both search engines and answer engines (ChatGPT,
+// Perplexity, Google AI Overviews) can lift cleanly as a citable fact.
 export const metadata: Metadata = {
-  title: "Colvin Haven — Wellness Architecture & Design",
-  description: "Wellness architecture and design studio.",
+  title: "Colvin Haven — Wellness Home Brand",
+  description:
+    "Colvin Haven is the world's first wellness home brand — homes designed around restoration, not just residence.",
 };
 
 export default function RootLayout({

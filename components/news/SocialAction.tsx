@@ -18,8 +18,8 @@ export default function SocialAction() {
         heading="Social Action"
         tag="INSIDE COLVIN HAVEN FOUNDATION"
         paragraphs={[
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          "The Colvin Haven Foundation grew out of the same instinct that shaped the homes themselves — that building well in a place means investing in it, not just building on it.",
+          "It supports cultural and community initiatives in and around Tumbak Bayuh village, in the same quiet, unpublicized way the homes themselves get made — craftsman by craftsman, one commitment at a time.",
         ]}
       />
       <PhotoBand

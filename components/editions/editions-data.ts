@@ -12,9 +12,10 @@ export type EditionData = {
   /** "Explore Umah Tsuki" -- the list row's link text into the detail
    * page. */
   exploreLabel: string;
-  /** List row's two-paragraph blurb (node 232:4659) -- still the same
-   * Design-Anthology-flavored placeholder Figma itself reuses there,
-   * not edition-specific copy yet. */
+  /** List row's two-paragraph blurb (node 232:4659) -- each edition's
+   * own real press mention (Tsuki's Design Anthology feature, Sora's
+   * Wallpaper* one), not the shared Design-Anthology-flavored
+   * placeholder Figma itself originally reused for both. */
   listSummary: string[];
   /** Detail header's meta row (node 234:4776): type / location / year,
    * each pair separated by a vertical divider. */
@@ -80,24 +81,29 @@ export type EditionData = {
 
 // Both entries are drawn from the same "TSUKI" content because the source
 // Figma frame (nodes 173:1455 and 232:4674) currently renders the same
-// block twice -- there's no distinct Sora copy in the file yet, for
-// either the list row or a Sora detail frame. Swap the second entry's
-// fields in once that content exists; every component here is already
-// fully data-driven off this file, so a real Sora edition is a one-object
-// change, not a new component.
+// block twice -- there's no distinct Sora photography or story beats in
+// the file yet (galleryRow, storyA/storyB's images, quoteBanner, row4).
+// Swap the second entry's fields in once real Sora photography and copy
+// exist; every component here is already fully data-driven off this
+// file, so a real Sora edition is a one-object change, not a new
+// component. `meta`/`specs` below are overridden on the Sora object
+// itself where the underlying fact actually differs (year), rather than
+// left silently wrong via the spread -- see the funnel strategy's "Edition
+// 2 complete" status and the homepage gallery's existing 2024 date for
+// both homes.
 //
-// storyA's paragraphs 1-2 repeat craftText verbatim, with a third Lorem
-// Ipsum paragraph appended -- that's Figma's own current content, not a
-// mistake introduced here (two different spots in the source frame hold
-// the identical craftsmen copy).
+// storyA's paragraphs 1-2 repeat craftText verbatim; its third paragraph
+// was still Figma's own Lorem Ipsum placeholder, now replaced with real
+// copy grounded in the same material facts already established in row1
+// and row4 below (paras stone, ulin hardwood, teak).
 const tsuki: EditionData = {
   slug: "umah-tsuki",
   index: "I/VII",
   name: "Umah Tsuki",
   exploreLabel: "Explore Umah Tsuki",
   listSummary: [
-    "We are so pleased for our Tsuki Edition be featured in the September 2024 Edition of Design Anthology,  the premier English-language interiors, design, architecture and urban living magazine.",
-    "“An Island Haven in Bali’s Tumbak Bayuh",
+    "Umah Tsuki was featured in the September 2024 issue of Design Anthology, the premier English-language interiors, design, architecture and urban living magazine — “An Island Haven in Bali’s Tumbak Bayuh.”",
+    "In verdant Tumbak Bayuh, former chef Andrew Swallow’s first home privileges simplicity and refinement — provenance over performance, at every scale.",
   ],
   meta: { type: "RESIDENTIAL", location: "TUMBAK BAYUH", year: "2022" },
 
@@ -148,7 +154,7 @@ const tsuki: EditionData = {
     paragraphs: [
       "Every Colvin Haven home is built by Indonesian master craftsmen and artisans whose knowledge of local timber, stone, and joinery has passed through generations.",
       "It's the core of how these homes get made. Colvin Haven doesn't design a home and then have it built. The two happen together, craftsman and founder, on site, for as long as each home takes. We offer a limited turnkey home to our clients.",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Provenance mattered more than convenience at every step — paras stone quarried in Bali, ulin hardwood reclaimed rather than freshly felled, teak hand-cut and laid by the same local woodworkers who built the rest of the home. Nothing shipped in that the island couldn't already give.",
     ],
     image: {
       src: "/assets/editions/detail/portrait-2.jpg",
@@ -227,6 +233,24 @@ const sora: EditionData = {
   index: "II/VII",
   name: "Umah Sora",
   exploreLabel: "Explore Umah Sora",
+  // Overridden rather than left inherited from tsuki -- Sora's own press
+  // mention is Wallpaper*, not the Design Anthology feature that's
+  // actually Tsuki's (see WhatsCooking's checklist and News'
+  // PublicationsSection, both already Wallpaper*-specific for Sora).
+  listSummary: [
+    "Umah Sora was featured on Wallpaper.com, the global design authority — the second home in the collection, and the first to prove the language could travel.",
+    "Not a smaller version of Tsuki, but its true essence distilled into an intimate, human scale.",
+  ],
+  // Overridden rather than left inherited from tsuki -- Sora is a later
+  // edition (completed 2024, per the homepage gallery's existing date
+  // for it and the funnel strategy's "Edition 2 complete" status), not
+  // the same 2022 as Tsuki.
+  meta: { type: "RESIDENTIAL", location: "TUMBAK BAYUH", year: "2024" },
+  specs: [
+    { label: "LAND SIZE", value: "2000 m2" },
+    { label: "YEAR", value: "2024" },
+    { label: "LOCATION", value: "TUMBAK BAYUH, BALI" },
+  ],
   nextEdition: { slug: "umah-tsuki", index: "I/VII", name: "Tsuki" },
 };
 

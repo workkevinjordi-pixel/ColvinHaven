@@ -18,7 +18,7 @@ const MOMENTS: Moment[] = [
     paragraphs: [
       "Every Colvin Haven home is built by Indonesian master craftsmen and artisans whose knowledge of local timber, stone, and joinery has passed through generations.",
       "It's the core of how these homes get made. Colvin Haven doesn't design a home and then have it built. The two happen together, craftsman and founder, on site, for as long as each home takes. We offer a limited turnkey home to our clients.",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Sora took the same two years Tsuki did — not because the process could be rushed, but because it never should be. The same discipline at every stage: the site cleared by hand, the trees planted before the first foundation was poured, each material sourced before it was needed rather than ordered to a deadline.",
     ],
   },
   {
@@ -55,7 +55,7 @@ export default function SoraProfile() {
           </p>
           <div className="sora__facts">
             <p>Land Size: 2000 m2</p>
-            <p>Time to complete: 2028</p>
+            <p>Completed: 2024</p>
           </div>
         </div>
 

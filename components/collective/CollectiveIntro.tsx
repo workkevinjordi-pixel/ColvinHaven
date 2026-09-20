@@ -12,10 +12,11 @@ export default function CollectiveIntro() {
     <section className="collective-intro">
       <ScrollFade>
         <p className="collective-intro__lead">
-          A practice devoted to the complete experience of home. A
-          collective of designers, architects and craftspeople. Discretion
-          and understatement characterise the Colvin Haven approach, in
-          its architecture and in its interactions.
+          Colvin Haven is a wellness home brand — the first of its kind,
+          built on the belief that a home should restore the person living
+          in it, not just shelter them. A collective of designers,
+          architects and craftspeople, working in the same discretion and
+          understatement that define every Colvin Haven home.
         </p>
       </ScrollFade>
       <div className="collective-photo-band collective-photo-band--bleed">

@@ -40,9 +40,9 @@ export default function WriteToUsSection() {
                 <span>LET US KNOW YOUR THOUGHTS</span>
               </div>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua.
+                Whether one of the remaining Editions feels right, or
+                you&apos;d simply like to know more about the practice,
+                we&apos;d genuinely love to hear from you.
               </p>
             </div>
 

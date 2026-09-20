@@ -25,8 +25,8 @@ export default function EnvironmentalActions() {
             date="11/22/24"
             title="Tumbak Bayuh Reforesting"
             description={[
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+              "Every Colvin Haven home begins the same way — trees planted first, always, years before construction starts. The Tumbak Bayuh reforesting project extends that same instinct beyond the boundary of any single property, back into the village the practice calls home.",
+              "It's a small, ongoing effort rather than a single gesture — native species replanted alongside the community that will live among them, on the belief that a landscape should be left healthier than it was found.",
             ]}
           />
           <div className="news-envaction__side">

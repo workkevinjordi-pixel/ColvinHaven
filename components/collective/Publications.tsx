@@ -33,7 +33,7 @@ const PUBLICATIONS: Publication[] = [
     date: "8/30/24",
     title: "Design Anthology 39",
     paragraphs: [
-      "We are so pleased for our Tsuki Edition be featured in the September 2024 Edition of Design Anthology, the premier English-language interiors, design, architecture and urban living magazine.",
+      "We are so pleased for our Tsuki Edition to be featured in the September 2024 Edition of Design Anthology, the premier English-language interiors, design, architecture and urban living magazine.",
       "The issue, helmed by editors-in-chief Simone Schultz and Jeremy Smart, delivers a global tour of the most interesting new design, style, travel, art and architecture stories from Asia Pacific and beyond.",
       "“An Island Haven in Bali’s Tumbak Bayuh",
       "In verdant Tumbak Bayuh, former chef Andrew Swallow’s first foray into design privileges simplicity and refinement….",

@@ -32,8 +32,8 @@ export default function Cta({
   bgHeight = 1416,
   text = (
     <>
-      We work with a select number of clients each year. Those who find
-      us, were meant to.
+      There will only ever be seven Editions in this first series. We work
+      with a select few each year — those who find us were meant to.
     </>
   ),
   buttonHref = "/write-to-us",

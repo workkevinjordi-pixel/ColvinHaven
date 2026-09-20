@@ -42,7 +42,7 @@ const MOMENTS: Moment[] = [
  */
 export default function SoraProfile() {
   return (
-    <section className="sora">
+    <section className="sora" id="sora">
       <ScrollFade className="sora__body">
         <div className="sora__sidebar">
           <h2 className="section-heading">SORA (空 - Sky)</h2>

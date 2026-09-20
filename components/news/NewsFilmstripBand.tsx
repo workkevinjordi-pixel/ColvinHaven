@@ -12,10 +12,13 @@ const REEL: FilmstripImage[] = [
 ];
 
 /**
- * Mid-page eyebrow + lede + filmstrip band (Figma node 205:540) -- the
- * same .centered-statement pattern Editions' intro uses, minus its CTA
- * button (this Figma instance has none), in its own .news-filmstrip-band
- * wrapper rather than .editions-intro's fixed-navbar-clearance padding.
+ * Mid-page eyebrow + lede + filmstrip band (Figma node 205:540 desktop,
+ * 250:11130 mobile) -- the same .centered-statement pattern Editions'
+ * intro uses, in its own .news-filmstrip-band wrapper rather than
+ * .editions-intro's fixed-navbar-clearance padding. The mobile frame
+ * spec (unlike the desktop one this was first built from) includes the
+ * same outline "Explore II/VII" CTA EditionsIntro already has, linking
+ * to the Sora profile section right below on this page.
  */
 export default function NewsFilmstripBand() {
   return (
@@ -31,6 +34,9 @@ export default function NewsFilmstripBand() {
           nulla pariatur. Excepteur sint occaecat cupidatat non proident,
           sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
+        <a href="#sora" className="centered-statement__cta">
+          Explore II/VII
+        </a>
       </ScrollFade>
       <Filmstrip images={REEL} />
     </div>

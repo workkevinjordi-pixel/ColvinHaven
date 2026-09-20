@@ -226,6 +226,15 @@ button:focus-visible,
   text-align: center;
 }
 
+/* Confirmed 16px (not var(--gutter)'s 32px) in News' mobile frame --
+   the same tighter side gutter every other mobile section on this pass
+   uses, so applied here too for both pages that share this class. */
+@media (max-width: 560px) {
+  .centered-statement {
+    padding: 0 16px;
+  }
+}
+
 .centered-statement__eyebrow {
   font-family: var(--font-cormorant), serif;
   font-weight: 300;
@@ -5940,12 +5949,22 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .news-first-section .statement-section {
-    padding-top: 160px;
+    /* 104px, not the Figma frame's own 32px -- same reasoning as
+       .editions-intro/.collective-intro: the live site's navbar is
+       `position: fixed` (72px tall, unscrolled) sitting on top of it,
+       plus Figma's own 32px gap below the navbar. */
+    padding-top: 104px;
   }
 }
 
 .news-filmstrip-band {
   padding: 80px 0;
+}
+
+@media (max-width: 560px) {
+  .news-filmstrip-band {
+    padding: 40px 0;
+  }
 }
 
 /* ---------- Sora profile ---------- */
@@ -5954,6 +5973,12 @@ button:focus-visible,
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 120px var(--gutter);
+}
+
+@media (max-width: 560px) {
+  .sora {
+    padding: 32px 16px;
+  }
 }
 
 .sora__body {
@@ -5982,6 +6007,12 @@ button:focus-visible,
   margin-bottom: 24px;
 }
 
+@media (max-width: 560px) {
+  .sora__description {
+    font-size: 14px;
+  }
+}
+
 .sora__facts p {
   font-size: 16px;
   line-height: 24px;
@@ -6000,6 +6031,12 @@ button:focus-visible,
   gap: 80px;
 }
 
+@media (max-width: 560px) {
+  .sora__moments {
+    gap: 24px;
+  }
+}
+
 .sora__moment-image {
   position: relative;
   width: 100%;
@@ -6012,6 +6049,12 @@ button:focus-visible,
   line-height: 24px;
   font-weight: 300;
   margin-bottom: 24px;
+}
+
+@media (max-width: 560px) {
+  .sora__moment-text p {
+    font-size: 14px;
+  }
 }
 
 .sora__moment-text p:last-child {
@@ -6086,6 +6129,21 @@ button:focus-visible,
   font-weight: 300;
 }
 
+@media (max-width: 560px) {
+  .publications__card-body {
+    gap: 32px;
+  }
+
+  .publications__card-title {
+    font-size: 24px;
+  }
+
+  .publications__card-description,
+  .publications__card-link {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 900px) {
   .sora__body {
     flex-direction: column;
@@ -6098,6 +6156,13 @@ button:focus-visible,
     position: static;
     padding-top: 0;
     width: 100%;
+    /* The base rule's flex: 0 0 396px sets flex-basis: 396px, which
+       controlled *width* in the desktop row layout -- but .sora__body
+       is flex-direction: column here, so that same flex-basis instead
+       pins the sidebar's *height* to 396px regardless of its actual
+       content, leaving a large empty gap below it. auto lets it size
+       to content like a normal stacked block. */
+    flex-basis: auto;
   }
 
   .publications__row {
@@ -6113,11 +6178,20 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .sora__moment-image {
-    height: 320px;
+    height: 282px;
   }
 
-  .publications__card-image {
-    height: 320px;
+  /* Publications' Wallpaper* card and Environmental Actions' card share
+     this class but spec different mobile heights in Figma -- 480px for
+     the former's white-background magazine-cover treatment, 473px
+     (unchanged from desktop, no mobile shrink) for the latter's plain
+     photo. */
+  .news-publications__row .publications__card-image {
+    height: 480px;
+  }
+
+  .news-envaction__row .publications__card-image {
+    height: 473px;
   }
 }
 
@@ -6151,6 +6225,14 @@ button:focus-visible,
   width: 24px;
   height: 24px;
   border: 1px solid var(--ink);
+}
+
+@media (max-width: 560px) {
+  .news-checklist__icon {
+    flex-basis: 16px;
+    width: 16px;
+    height: 16px;
+  }
 }
 
 .news-checklist__body {
@@ -6318,8 +6400,39 @@ button:focus-visible,
 }
 
 @media (max-width: 560px) {
+  .sora__body {
+    gap: 24px;
+  }
+
+  /* Figma's mobile frame gives every item here (both between the two
+     stacked "columns" and between the two items within each) a uniform
+     16px gap -- not the 900px breakpoint's 24px, which was tuned for a
+     wider stacked-but-still-two-column layout. */
+  .news-checklist {
+    gap: 16px;
+  }
+
+  .news-checklist__col {
+    gap: 16px;
+  }
+
   .news-envaction__side {
-    height: 320px;
+    height: 433px;
+  }
+
+  /* Bare .collective-photo-band's own mobile height (see the
+     /collective page rules above) doesn't apply here -- Figma specs a
+     much shorter 218px band for this particular closing usage. */
+  .news-social-action .collective-photo-band {
+    height: 218px;
+  }
+
+  .news-pull-quote {
+    padding: 32px 16px;
+  }
+
+  .news-pull-quote__row {
+    gap: 24px;
   }
 
   /* Percentage-based instead of the fixed pixel offsets/sizes the
@@ -6327,19 +6440,24 @@ button:focus-visible,
      overflow the now-much-narrower collage box entirely, exactly as
      .foundation__collage-img--a/--b already handle the same problem. */
   .news-pull-quote__collage {
-    height: 420px;
+    height: 328px;
   }
 
   .news-pull-quote__collage-img--a {
-    width: 55%;
-    height: 100%;
+    width: 48%;
+    height: 72%;
   }
 
   .news-pull-quote__collage-img--b {
-    left: 45%;
-    top: 8%;
-    width: 55%;
-    height: 92%;
+    left: 52%;
+    top: 17%;
+    width: 48%;
+    height: 83%;
+  }
+
+  .news-pull-quote__text p {
+    font-size: 20px;
+    line-height: 40px;
   }
 }
 

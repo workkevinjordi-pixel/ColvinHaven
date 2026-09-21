@@ -208,8 +208,45 @@ button:focus-visible,
   margin-bottom: 40px;
 }
 
-.statement-section__text p:last-child {
+/* :last-of-type, not :last-child -- CH Collections' optional trailing
+   CTA (.statement-section__cta below) is a sibling <a>, not a <p>, so
+   :last-child would stop matching the last paragraph once that CTA is
+   present and leave it with an extra, unwanted 40px of its own. */
+.statement-section__text p:last-of-type {
   margin-bottom: 0;
+}
+
+/* Outline CTA below a StatementSection's paragraphs (Figma node
+   274:11369) -- so far only Editions' CH Collections passes the
+   optional `cta` prop that renders this. Same visual treatment as
+   .centered-statement__cta and .gallery__link, but not shared with
+   them directly, per this file's convention of not cross-referencing a
+   distant class even when the styles match. */
+.statement-section__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+  padding: 12px 16px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-weight: 300;
+  font-size: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.statement-section__cta:hover {
+  background: rgba(29, 25, 15, 0.06);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statement-section__cta:hover {
+    transform: none;
+  }
 }
 
 /* Centered roman-numeral eyebrow + lede paragraph (+ optional outline
@@ -6621,6 +6658,188 @@ button:focus-visible,
   }
 
   .write-to-us__image {
+    height: 420px;
+  }
+}
+
+/* ==========================================================================
+   /request-the-collections page (Figma "Request the collections" frame,
+   node 274:11373)
+   Reuses Navbar/Footer, .section-heading, .values__divider/tag/dot. No
+   Cta section on this page (the Figma frame has none), matching
+   /write-to-us. New pattern below: the photo + form two-column row --
+   same 470x649 image and 115px gap as .write-to-us__row, but kept as
+   its own scoped block rather than reused directly (see
+   RequestCollectionsSection's own comment for why).
+   ========================================================================== */
+
+.request-collections {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  /* 200px top clears the fixed navbar, same reasoning as
+     .write-to-us/.editions-intro/.collective-intro -- this is the
+     page's first (and only) section. 80px bottom is Figma's own value
+     here (not .write-to-us's 120px -- a genuinely different page, not
+     a copy-paste of that one). */
+  padding: 200px var(--gutter) 80px;
+}
+
+.request-collections__row {
+  display: flex;
+  gap: 115px;
+  align-items: flex-start;
+}
+
+.request-collections__image {
+  position: relative;
+  flex: 0 0 470px;
+  height: 649px;
+}
+
+/* Figma spaces the intro/fields/submit groups with justify-content:
+   space-between across the image's full 649px height, not a flat gap
+   -- gap stays as a minimum floor for when content (e.g. a longer
+   intro paragraph) pushes the column taller than the image. */
+.request-collections__form-col {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  align-self: stretch;
+}
+
+.request-collections__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.request-collections__intro p {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+}
+
+.request-collections__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.request-collections__field {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.request-collections__field label {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.request-collections__field input,
+.request-collections__field textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--ink);
+  padding: 0 0 8px;
+  outline: none;
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.request-collections__field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.request-collections__field input::placeholder,
+.request-collections__field textarea::placeholder {
+  color: var(--ink);
+  opacity: 0.45;
+}
+
+.request-collections__field input:focus,
+.request-collections__field textarea:focus {
+  border-bottom-width: 2px;
+}
+
+.request-collections__submit-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.request-collections__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.request-collections__submit:hover {
+  background: #35301f;
+  transform: translateY(-1px);
+}
+
+.request-collections__note {
+  font-style: italic;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .request-collections__field input,
+  .request-collections__field textarea,
+  .request-collections__submit {
+    transition: none;
+  }
+
+  .request-collections__submit:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .request-collections__row {
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .request-collections__image {
+    width: 100%;
+    max-width: 470px;
+  }
+
+  .request-collections__form-col {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .request-collections {
+    padding-top: 160px;
+  }
+
+  .request-collections__image {
     height: 420px;
   }
 }

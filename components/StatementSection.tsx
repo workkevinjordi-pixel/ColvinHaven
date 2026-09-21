@@ -8,6 +8,10 @@ export type StatementSectionProps = {
   subtitle?: string;
   tag: string;
   paragraphs: string[];
+  /** Optional outline CTA below the paragraphs (Figma node 274:11369,
+   * added to Editions' CH Collections only -- no other StatementSection
+   * usage has one, so this stays undefined for them. */
+  cta?: { label: string; href: string };
 };
 
 /**
@@ -22,6 +26,7 @@ export default function StatementSection({
   subtitle,
   tag,
   paragraphs,
+  cta,
 }: StatementSectionProps) {
   return (
     <section className="statement-section">
@@ -46,6 +51,11 @@ export default function StatementSection({
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
+            {cta && (
+              <a href={cta.href} className="statement-section__cta">
+                {cta.label}
+              </a>
+            )}
           </div>
         </div>
       </ScrollFade>

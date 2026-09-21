@@ -1014,7 +1014,7 @@ button:focus-visible,
 
 .gallery__grid {
   display: grid;
-  grid-template-columns: 5fr 1fr 6fr;
+  grid-template-columns: 5fr 1fr 6fr 1fr 5fr;
   align-items: center;
 }
 
@@ -1030,6 +1030,12 @@ button:focus-visible,
 
 .gallery__feature {
   grid-column: 3;
+}
+
+/* Mirrors .gallery__stack on the grid's far side -- five cards total
+   (stack / feature / stack), not the original three. */
+.gallery__stack--secondary {
+  grid-column: 5;
 }
 
 .gallery__card-media {
@@ -1322,6 +1328,7 @@ button:focus-visible,
   }
 
   .gallery__stack,
+  .gallery__stack--secondary,
   .gallery__feature {
     grid-column: 1;
   }

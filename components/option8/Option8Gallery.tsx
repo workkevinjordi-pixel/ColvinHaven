@@ -12,7 +12,8 @@ type Card = {
   meta: string;
 };
 
-const stackCards: Card[] = [
+// Left-hand stack, closest to the guiding-values copy above.
+const primaryStack: Card[] = [
   {
     src: "/assets/project-cabin-deck.jpg",
     alt: "Black-clad cabin deck with bench overlooking the pond",
@@ -37,6 +38,26 @@ const featureCard: Card = {
   meta: "Residential • 2024",
 };
 
+// Right-hand stack, mirroring primaryStack -- brings the grid from three
+// cards to five (two previously-unused assets already in public/assets/,
+// no new photography needed).
+const secondaryStack: Card[] = [
+  {
+    src: "/assets/feature-1-koi-pond-crop.jpg",
+    alt: "A koi pond bordered by ferns and stone, reflecting the garden above",
+    title: "Umah Tsuki",
+    location: "Pererenan, Bali",
+    meta: "Residential • 2024",
+  },
+  {
+    src: "/assets/feature-2-cabin-crop.jpg",
+    alt: "A wooden bench on a black-clad deck beneath the tree canopy",
+    title: "Umah Sora",
+    location: "Pererenan, Bali",
+    meta: "Residential • 2024",
+  },
+];
+
 function ProjectCard({ card, tall = false }: { card: Card; tall?: boolean }) {
   return (
     <article
@@ -48,7 +69,7 @@ function ProjectCard({ card, tall = false }: { card: Card; tall?: boolean }) {
           src={card.src}
           alt={card.alt}
           fill
-          sizes={tall ? "(min-width: 900px) 50vw, 100vw" : "(min-width: 900px) 42vw, 100vw"}
+          sizes={tall ? "(min-width: 900px) 50vw, 100vw" : "(min-width: 900px) 26vw, 100vw"}
           style={{ objectFit: "cover" }}
         />
       </div>
@@ -64,6 +85,10 @@ function ProjectCard({ card, tall = false }: { card: Card; tall?: boolean }) {
 // Figma (frames 173:1452-1454) places this grid directly after the guiding
 // values paragraph with no heading of its own -- unlike the main site's
 // Gallery, which prepends an "Our Edition" intro block.
+//
+// Five cards, not the original three: a narrow stack of two on each side
+// of the tall feature card (stack / feature / stack), keeping the same
+// visual language throughout rather than introducing a new grid pattern.
 export default function Option8Gallery() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -71,7 +96,7 @@ export default function Option8Gallery() {
     <section className="gallery" id="editions" ref={sectionRef}>
       <div className="gallery__grid">
         <div className="gallery__stack">
-          {stackCards.map((card, i) => (
+          {primaryStack.map((card, i) => (
             <ParallaxLayer
               key={card.title + card.src}
               sectionRef={sectionRef}
@@ -88,6 +113,17 @@ export default function Option8Gallery() {
         >
           <ProjectCard card={featureCard} tall />
         </ParallaxLayer>
+        <div className="gallery__stack gallery__stack--secondary">
+          {secondaryStack.map((card, i) => (
+            <ParallaxLayer
+              key={card.title + card.src}
+              sectionRef={sectionRef}
+              strength={i === 0 ? -35 : 35}
+            >
+              <ProjectCard card={card} />
+            </ParallaxLayer>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -32,8 +32,8 @@ export default function Cta({
   bgHeight = 1416,
   text = (
     <>
-      There will only ever be seven Editions in this first series. We work
-      with a select few each year — those who find us were meant to.
+      There will only ever be seven Editions in each series. We work with a
+      select few clients each year, those who find us were meant to.
     </>
   ),
   buttonHref = "/write-to-us",

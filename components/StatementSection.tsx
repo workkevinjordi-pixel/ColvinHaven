@@ -8,10 +8,11 @@ export type StatementSectionProps = {
   subtitle?: string;
   tag: string;
   paragraphs: string[];
-  /** Optional outline CTA below the paragraphs (Figma node 274:11369,
-   * added to Editions' CH Collections only -- no other StatementSection
-   * usage has one, so this stays undefined for them. */
-  cta?: { label: string; href: string };
+  /** Optional outline CTA below the paragraphs, with an optional small
+   * note underneath it (Figma nodes 274:11369/275:11574, added to
+   * Editions' CH Collections only -- no other StatementSection usage
+   * has one, so this stays undefined for them. */
+  cta?: { label: string; href: string; note?: string };
 };
 
 /**
@@ -52,9 +53,14 @@ export default function StatementSection({
               <p key={i}>{p}</p>
             ))}
             {cta && (
-              <a href={cta.href} className="statement-section__cta">
-                {cta.label}
-              </a>
+              <div className="statement-section__cta-group">
+                <a href={cta.href} className="statement-section__cta">
+                  {cta.label}
+                </a>
+                {cta.note && (
+                  <p className="statement-section__cta-note">{cta.note}</p>
+                )}
+              </div>
             )}
           </div>
         </div>

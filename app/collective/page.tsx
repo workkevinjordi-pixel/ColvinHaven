@@ -64,20 +64,27 @@ export default function CollectivePage() {
         <Filmstrip images={REEL} />
       </div>
       <Publications />
-      {/* Figma's quote/CTA background (node 222:4432) turns out to be the
-          exact same source photo as the site's own hero-bg.png (byte-
-          identical asset export, just a different crop/overlay) -- so
-          this reuses it via Cta's default bgSrc rather than duplicating
-          the file under public/assets/collective/. */}
+      {/* Figma's closing CTA background (node 250:10633) turns out to be
+          the exact same source photo as the site's own hero-bg.png
+          (byte-identical asset export, just a different crop/overlay) --
+          so this reuses it via Cta's default bgSrc rather than
+          duplicating the file under public/assets/collective/. Content
+          updated from the earlier pull-quote treatment to a job-
+          applications CTA, per the current Figma frame -- "send us your
+          CV and Portfolio send it to through the application form
+          below" cleaned up in transit (a duplicated "send" construction,
+          not a deliberate phrasing). No dedicated careers/application
+          page exists yet, so the button still points at /write-to-us
+          until one does. */}
       <Cta
-        id="collective-quote"
+        id="collective-apply"
         text={
           <>
-            &ldquo;Colvin Haven is more than just building a house.
-            It&rsquo;s about creating an environment, fostering a
-            community, and building a lifestyle around it.&rdquo;
+            For job applications, send us your CV and portfolio through
+            the application form below.
           </>
         }
+        buttonLabel="Apply to Colvin Haven"
       />
       <Footer />
     </>

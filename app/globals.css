@@ -209,24 +209,32 @@ button:focus-visible,
 }
 
 /* :last-of-type, not :last-child -- CH Collections' optional trailing
-   CTA (.statement-section__cta below) is a sibling <a>, not a <p>, so
-   :last-child would stop matching the last paragraph once that CTA is
-   present and leave it with an extra, unwanted 40px of its own. */
+   CTA group (.statement-section__cta-group below) is a sibling <div>,
+   not a <p>, so :last-child would stop matching the last paragraph
+   once that group is present and leave it with an extra, unwanted 40px
+   of its own. */
 .statement-section__text p:last-of-type {
   margin-bottom: 0;
 }
 
-/* Outline CTA below a StatementSection's paragraphs (Figma node
-   274:11369) -- so far only Editions' CH Collections passes the
-   optional `cta` prop that renders this. Same visual treatment as
-   .centered-statement__cta and .gallery__link, but not shared with
-   them directly, per this file's convention of not cross-referencing a
-   distant class even when the styles match. */
+/* Outline CTA + small note below a StatementSection's paragraphs
+   (Figma nodes 274:11369/275:11574/275:11576) -- so far only Editions'
+   CH Collections passes the optional `cta` prop that renders this. */
+.statement-section__cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+/* Same visual treatment as .centered-statement__cta and .gallery__link,
+   but not shared with them directly, per this file's convention of not
+   cross-referencing a distant class even when the styles match. */
 .statement-section__cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 32px;
   padding: 12px 16px;
   border: 1px solid var(--ink);
   color: var(--ink);
@@ -241,6 +249,11 @@ button:focus-visible,
 .statement-section__cta:hover {
   background: rgba(29, 25, 15, 0.06);
   transform: translateY(-1px);
+}
+
+.statement-section__cta-note {
+  font-weight: 300;
+  font-size: 12px;
 }
 
 @media (prefers-reduced-motion: reduce) {

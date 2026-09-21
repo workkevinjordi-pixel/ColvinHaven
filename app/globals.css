@@ -1114,33 +1114,15 @@ button:focus-visible,
   line-height: 48px;
 }
 
-/* Opening quote mark pops in on its own -- scaled from nothing, rotated,
-   sliding up into place -- then the text fades/rises in just after.
-   Recreates havenconstructions.com.au's BlockQuote entrance. */
-.quote__mark {
-  display: inline-block;
-  font-size: 48px;
-  line-height: 1;
-  vertical-align: -8px;
-  margin-right: 4px;
-  opacity: 0;
-  transform: translateY(50%) rotate(-30deg) scale(0);
-  transition:
-    opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
-    transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
+/* Quote text (opening mark now just its first character, not a
+   separately-styled/animated span) fades and rises into place as the
+   section scrolls into view. */
 .quote__text {
   opacity: 0;
   transform: translateY(20px);
   transition:
     opacity 0.7s ease 0.15s,
     transform 0.7s ease 0.15s;
-}
-
-.quote--visible .quote__mark {
-  opacity: 1;
-  transform: translateY(0) rotate(0deg) scale(1);
 }
 
 .quote--visible .quote__text {
@@ -1337,6 +1319,15 @@ button:focus-visible,
     margin-top: 40px;
   }
 
+  /* Once the grid is a single stacked column, each card's own scroll-
+     driven parallax drift (set as an inline transform by ParallaxLayer)
+     only fights the fixed 40px gap above -- overridden off entirely
+     rather than left to throw cards out of alignment with each other. */
+  .gallery__stack-item,
+  .gallery__feature {
+    transform: none !important;
+  }
+
   .gallery__caption {
     opacity: 1;
     transform: none;
@@ -1411,7 +1402,6 @@ button:focus-visible,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .quote__mark,
   .quote__text {
     transition: none;
     opacity: 1;
@@ -5103,13 +5093,25 @@ button:focus-visible,
 @media (max-width: 560px) {
   .edition-sticky-banner {
     top: 72px;
-    flex-wrap: wrap;
+  }
+
+  /* Smaller text and tighter gaps throughout, rather than letting the
+     title and meta rows wrap onto a second line (or each other's items
+     wrap) once they no longer fit at the desktop sizes -- keeps the
+     whole banner on one line at mobile widths. */
+  .edition-sticky-banner__title {
     gap: 8px;
   }
 
+  .edition-sticky-banner__index,
+  .edition-sticky-banner__name {
+    font-size: 10px;
+  }
+
   .edition-sticky-banner__meta {
-    flex-wrap: wrap;
-    white-space: normal;
+    gap: 6px;
+    font-size: 10px;
+    line-height: 18px;
   }
 }
 

@@ -101,6 +101,7 @@ export default function Option8Gallery() {
               key={card.title + card.src}
               sectionRef={sectionRef}
               strength={i === 0 ? 35 : -35}
+              className="gallery__stack-item"
             >
               <ProjectCard card={card} />
             </ParallaxLayer>
@@ -119,6 +120,7 @@ export default function Option8Gallery() {
               key={card.title + card.src}
               sectionRef={sectionRef}
               strength={i === 0 ? -35 : 35}
+              className="gallery__stack-item"
             >
               <ProjectCard card={card} />
             </ParallaxLayer>

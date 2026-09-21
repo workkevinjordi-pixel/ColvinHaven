@@ -848,6 +848,38 @@ button:focus-visible,
   padding-left: 720px;
 }
 
+/* StatementSection (CH Collections, Inspiration, Social Action) uses a
+   much narrower 855px text column than Option8Values' guiding-values
+   paragraph does, so the shared .values__text's fixed 720px inset --
+   tuned for that wider usage -- left far too much dead space between
+   the tag and the text here (Figma node 250:9170 confirms the real
+   gap is just whatever's left over between the tag's own width and
+   the 855px column, via justify-content: space-between, not a fixed
+   inset at all). Scoped to .statement-section specifically, and to
+   min-width: 901px specifically, so it doesn't fight the shared
+   .values__body/__aside/__text stacking already established for
+   <=900px below, or touch Option8Values' own instance. */
+@media (min-width: 901px) {
+  .statement-section .values__body {
+    position: static;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .statement-section .values__aside {
+    position: static;
+  }
+
+  .statement-section__text {
+    padding-left: 0;
+    width: 855px;
+    max-width: 100%;
+    flex: 0 0 auto;
+  }
+}
+
 .values__text p {
   font-size: 16px;
   line-height: 24px;
@@ -1049,36 +1081,44 @@ button:focus-visible,
   transform: translateY(-1px);
 }
 
+/* Two-column masonry (Figma node 274:11573): five cards, three in the
+   left column and two in the right, the right column offset down to
+   create the staggered look. 120px column-gap matches the 600px-card /
+   120px-gap / 600px-card rhythm of the source frame, scaled down to
+   this page's own 1216px content column instead of Figma's wider
+   1320px canvas. */
 .gallery__grid {
   display: grid;
-  grid-template-columns: 5fr 1fr 6fr 1fr 5fr;
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 120px;
+  align-items: start;
 }
 
-.gallery__stack {
-  grid-column: 1;
+.gallery__col {
   display: flex;
   flex-direction: column;
 }
 
-.gallery__stack > * + * {
+.gallery__col > * + * {
   margin-top: 80px;
 }
 
-.gallery__feature {
-  grid-column: 3;
+/* Figma's own right-column numbers -- a 278px top offset and a 206px
+   gap between its two cards, neither of which matches the left
+   column's uniform 80px. Not a formula, just how the source frame
+   staggers the two columns against each other. */
+.gallery__col--right {
+  margin-top: 278px;
 }
 
-/* Mirrors .gallery__stack on the grid's far side -- five cards total
-   (stack / feature / stack), not the original three. */
-.gallery__stack--secondary {
-  grid-column: 5;
+.gallery__col--right > * + * {
+  margin-top: 206px;
 }
 
 .gallery__card-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 5 / 6;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
 }
 
@@ -1103,7 +1143,7 @@ button:focus-visible,
 }
 
 .gallery__card--tall .gallery__card-media {
-  aspect-ratio: 682 / 1057;
+  aspect-ratio: 600 / 866;
 }
 
 .gallery__caption {
@@ -1119,8 +1159,10 @@ button:focus-visible,
   transform: translateY(0);
 }
 
+/* Plus Jakarta Sans Regular, not the old Times New Roman serif
+   treatment -- confirmed by node 274:11573's own card captions. */
 .gallery__title {
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 400;
   font-size: 32px;
   letter-spacing: normal;
@@ -1346,13 +1388,18 @@ button:focus-visible,
     row-gap: 40px;
   }
 
-  .gallery__stack,
-  .gallery__stack--secondary,
-  .gallery__feature {
+  /* Both columns collapse into one, in DOM order (left column's three
+     cards, then the right column's two) -- the 278px stagger and the
+     206px/80px column-specific gaps only make sense side-by-side, so
+     both columns get the same uniform 40px mobile gap instead. */
+  .gallery__col,
+  .gallery__col--right {
     grid-column: 1;
+    margin-top: 0;
   }
 
-  .gallery__stack > * + * {
+  .gallery__col > * + *,
+  .gallery__col--right > * + * {
     margin-top: 40px;
   }
 
@@ -1360,8 +1407,7 @@ button:focus-visible,
      driven parallax drift (set as an inline transform by ParallaxLayer)
      only fights the fixed 40px gap above -- overridden off entirely
      rather than left to throw cards out of alignment with each other. */
-  .gallery__stack-item,
-  .gallery__feature {
+  .gallery__col-item {
     transform: none !important;
   }
 

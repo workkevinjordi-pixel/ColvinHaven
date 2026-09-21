@@ -10,10 +10,12 @@ type Card = {
   title: string;
   location: string;
   meta: string;
+  tall?: boolean;
 };
 
-// Left-hand stack, closest to the guiding-values copy above.
-const primaryStack: Card[] = [
+// Left column, top-aligned: two square cards then one tall one (Figma
+// node 274:11573, frames 250:7805/7812/11558).
+const leftColumn: Card[] = [
   {
     src: "/assets/project-cabin-deck.jpg",
     alt: "Black-clad cabin deck with bench overlooking the pond",
@@ -28,26 +30,27 @@ const primaryStack: Card[] = [
     location: "Pererenan, Bali",
     meta: "Residential • 2024",
   },
-];
-
-const featureCard: Card = {
-  src: "/assets/gallery.png",
-  alt: "Umah Tsuki courtyard",
-  title: "Umah Tsuki",
-  location: "Pererenan, Bali",
-  meta: "Residential • 2024",
-};
-
-// Right-hand stack, mirroring primaryStack -- brings the grid from three
-// cards to five (two previously-unused assets already in public/assets/,
-// no new photography needed).
-const secondaryStack: Card[] = [
   {
     src: "/assets/feature-1-koi-pond-crop.jpg",
     alt: "A koi pond bordered by ferns and stone, reflecting the garden above",
     title: "Umah Tsuki",
     location: "Pererenan, Bali",
     meta: "Residential • 2024",
+    tall: true,
+  },
+];
+
+// Right column, offset down from the left (frames 250:7819/11565) --
+// the stagger is what makes this read as a two-column masonry rather
+// than two independent lists.
+const rightColumn: Card[] = [
+  {
+    src: "/assets/gallery.png",
+    alt: "Umah Tsuki courtyard",
+    title: "Umah Tsuki",
+    location: "Pererenan, Bali",
+    meta: "Residential • 2024",
+    tall: true,
   },
   {
     src: "/assets/feature-2-cabin-crop.jpg",
@@ -58,10 +61,10 @@ const secondaryStack: Card[] = [
   },
 ];
 
-function ProjectCard({ card, tall = false }: { card: Card; tall?: boolean }) {
+function ProjectCard({ card }: { card: Card }) {
   return (
     <article
-      className={`gallery__card${tall ? " gallery__card--tall" : ""}`}
+      className={`gallery__card${card.tall ? " gallery__card--tall" : ""}`}
       tabIndex={0}
     >
       <div className="gallery__card-media">
@@ -69,7 +72,7 @@ function ProjectCard({ card, tall = false }: { card: Card; tall?: boolean }) {
           src={card.src}
           alt={card.alt}
           fill
-          sizes={tall ? "(min-width: 900px) 50vw, 100vw" : "(min-width: 900px) 26vw, 100vw"}
+          sizes="(min-width: 900px) 45vw, 100vw"
           style={{ objectFit: "cover" }}
         />
       </div>
@@ -82,50 +85,43 @@ function ProjectCard({ card, tall = false }: { card: Card; tall?: boolean }) {
   );
 }
 
-// Figma (frames 173:1452-1454) places this grid directly after the guiding
-// values paragraph with no heading of its own -- unlike the main site's
-// Gallery, which prepends an "Our Edition" intro block.
-//
-// Five cards, not the original three: a narrow stack of two on each side
-// of the tall feature card (stack / feature / stack), keeping the same
-// visual language throughout rather than introducing a new grid pattern.
+function GalleryColumn({
+  cards,
+  secondary,
+  sectionRef,
+}: {
+  cards: Card[];
+  secondary?: boolean;
+  sectionRef: React.RefObject<HTMLElement | null>;
+}) {
+  return (
+    <div className={`gallery__col${secondary ? " gallery__col--right" : ""}`}>
+      {cards.map((card, i) => (
+        <ParallaxLayer
+          key={card.title + card.src}
+          sectionRef={sectionRef}
+          strength={i % 2 === 0 ? 35 : -35}
+          className="gallery__col-item"
+        >
+          <ProjectCard card={card} />
+        </ParallaxLayer>
+      ))}
+    </div>
+  );
+}
+
+// Figma (node 274:11573) replaces the earlier stack/feature/stack
+// arrangement with a genuine two-column masonry: five cards total,
+// three in the left column (top-aligned), two in the right (offset
+// down to create the staggered look).
 export default function Option8Gallery() {
   const sectionRef = useRef<HTMLElement>(null);
 
   return (
     <section className="gallery" id="editions" ref={sectionRef}>
       <div className="gallery__grid">
-        <div className="gallery__stack">
-          {primaryStack.map((card, i) => (
-            <ParallaxLayer
-              key={card.title + card.src}
-              sectionRef={sectionRef}
-              strength={i === 0 ? 35 : -35}
-              className="gallery__stack-item"
-            >
-              <ProjectCard card={card} />
-            </ParallaxLayer>
-          ))}
-        </div>
-        <ParallaxLayer
-          sectionRef={sectionRef}
-          strength={45}
-          className="gallery__feature"
-        >
-          <ProjectCard card={featureCard} tall />
-        </ParallaxLayer>
-        <div className="gallery__stack gallery__stack--secondary">
-          {secondaryStack.map((card, i) => (
-            <ParallaxLayer
-              key={card.title + card.src}
-              sectionRef={sectionRef}
-              strength={i === 0 ? -35 : 35}
-              className="gallery__stack-item"
-            >
-              <ProjectCard card={card} />
-            </ParallaxLayer>
-          ))}
-        </div>
+        <GalleryColumn cards={leftColumn} sectionRef={sectionRef} />
+        <GalleryColumn cards={rightColumn} secondary sectionRef={sectionRef} />
       </div>
     </section>
   );

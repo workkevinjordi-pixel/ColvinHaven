@@ -200,19 +200,39 @@ button:focus-visible,
   .filmstrip__track {
     width: max-content;
     animation: filmstrip-scroll 40s linear infinite;
+    /* Mobile Safari has a known repaint bug on a continuously-animated
+       transform inside an overflow:hidden ancestor: it can leave stale
+       pixels from earlier frames on screen instead of properly
+       clipping/repainting, showing as ghosted, misaligned image
+       fragments (reported on the live Editions page's own filmstrip,
+       not reproducible in Chromium). will-change hints a dedicated
+       layer ahead of time; the keyframes below also keep a 3D
+       translate live throughout the animation itself (a plain static
+       transform here wouldn't help -- the animation's own translateX
+       replaces it outright once running), which is the more reliable
+       half of the standard fix for this on iOS. */
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .filmstrip {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
 }
 
 @keyframes filmstrip-scroll {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
     /* Exactly one .filmstrip__group's width (see .filmstrip__item's
        margin-right above) -- the point where the second, cloned group
        sits pixel-for-pixel where the first one started, so the loop
-       restarts with no visible seam or jump. */
-    transform: translateX(-50%);
+       restarts with no visible seam or jump. translate3d, not
+       translateX, to keep the layer promotion (see .filmstrip__track
+       above) in effect for the whole animation, not just its start. */
+    transform: translate3d(-50%, 0, 0);
   }
 }
 

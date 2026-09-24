@@ -16,16 +16,39 @@ export const metadata: Metadata = {
     "The Colvin Haven collective: a practice devoted to the complete experience of home.",
 };
 
-// Reuses the same two photos as the Editions filmstrip -- both hashes in
-// the Figma frame (node 205:377) are byte-identical to assets already
-// downloaded for /editions, so this pulls from public/assets/editions/
-// instead of duplicating the files under public/assets/collective/.
+// Re-synced against node 250:10541 (frame 287:11841): five genuinely
+// distinct photos now, not the Editions filmstrip's two reused ones --
+// confirmed via hash, none of these match any asset already on the
+// site. Kept the same narrow/wide/narrow/wide/narrow alternation
+// Filmstrip.tsx already establishes everywhere else it's used (the
+// Figma frame's own pixel widths are close enough to uniform that they
+// don't read as a deliberate re-spec of that pattern).
 const REEL: FilmstripImage[] = [
-  { src: "/assets/editions/tsuki-hero.png", alt: "", wide: false },
-  { src: "/assets/editions/tsuki-edition-1.png", alt: "", wide: true },
-  { src: "/assets/editions/tsuki-hero.png", alt: "", wide: false },
-  { src: "/assets/editions/tsuki-edition-1.png", alt: "", wide: true },
-  { src: "/assets/editions/tsuki-hero.png", alt: "", wide: false },
+  {
+    src: "/assets/collective/filmstrip-lounge-chair.jpg",
+    alt: "A dark timber lounge chair on a deck backed by bamboo",
+    wide: false,
+  },
+  {
+    src: "/assets/collective/filmstrip-bonsai-wall.jpg",
+    alt: "A cloud-pruned pine beside a stone wall and dark timber house",
+    wide: true,
+  },
+  {
+    src: "/assets/collective/filmstrip-timber-edge.jpg",
+    alt: "A pale timber batten set into a dark board-and-batten wall",
+    wide: false,
+  },
+  {
+    src: "/assets/collective/filmstrip-shrine-umbrellas.jpg",
+    alt: "Balinese ceremonial umbrellas atop a stone shrine, seen through palms",
+    wide: true,
+  },
+  {
+    src: "/assets/collective/filmstrip-bench-pond.jpg",
+    alt: "A timber bench on a deck overlooking a stone-edged pond",
+    wide: false,
+  },
 ];
 
 // Follows the Figma "Collective" frame (node 203:208, extended by nodes
@@ -51,8 +74,8 @@ export default function CollectivePage() {
       <Craft />
       <div className="collective-band-section">
         <PhotoBand
-          src="/assets/collective/kitchen-courtyard.png"
-          alt="A wood-paneled kitchen and dining nook opening onto a stone-clad courtyard"
+          src="/assets/collective/standalone-courtyard.jpg"
+          alt="A timber deck and stair bridge over a stone-edged pond, between two roof pavilions"
         />
       </div>
       {/* Figma now nests Inspiration and the filmstrip in one shared

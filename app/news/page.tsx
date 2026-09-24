@@ -14,7 +14,9 @@ export const metadata: Metadata = {
   description: "News and publications from Colvin Haven.",
 };
 
-// Follows the updated Figma "News" frame (node 205:468) section order:
+// Follows the updated Figma "News" frame (node 205:468, re-synced
+// against node 250:10858 -- same section order and content, just one
+// swapped photo in SoraProfile) section order:
 // Navbar -> "What's Cooking" (now a 4-item checklist, not a tag +
 // paragraph) -> filmstrip band -> Sora profile -> Publications (now one
 // article card, not two) -> Environmental Actions (new) -> Social

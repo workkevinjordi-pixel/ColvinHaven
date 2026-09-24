@@ -1306,7 +1306,14 @@ button:focus-visible,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  /* Sized to content + padding, not a fixed 100px -- that width was
+     tuned for the original "Write to Us" label and breaks badly for
+     Collective's own longer "Apply to Colvin Haven" label (the text
+     overflows the box's own border with nowrap set and no fixed width
+     to actually contain it). Every other button on the site already
+     sizes this way; this brings .cta__button in line so 16px is the
+     real, consistent left/right padding everywhere, not just a nominal
+     value a fixed width happens to partly hide. */
   padding: 12px 16px;
   border: 1px solid #fff;
   color: #fff;
@@ -1465,6 +1472,18 @@ button:focus-visible,
   .footer {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+/* Figma node 250:10844: centered, not the <=900px rule's left-aligned
+   stack above (that tablet-range treatment stays as-is) -- mark above
+   nav, both centered, with its own distinct padding/gap rather than
+   the shared desktop values. */
+@media (max-width: 560px) {
+  .footer {
+    align-items: center;
+    padding: 64px 20px;
+    gap: 48px;
   }
 }
 
@@ -6700,7 +6719,17 @@ button:focus-visible,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  /* Sized to content + padding, not a fixed 100px -- matches
+     .request-collections__submit (the same button, never had a fixed
+     width) so the real left/right padding is a consistent 16px
+     everywhere rather than 16px plus whatever extra space a fixed
+     width happened to leave around a short "Send" label. Its parent
+     (.write-to-us__form-col) is a column flex container that stretches
+     children by default -- fine for .write-to-us__fields, which wants
+     full width, but not for this button now that it has no width of
+     its own to resist that stretch. align-self opts it out, matching
+     .request-collections__submit-row's own align-items: flex-start. */
+  align-self: flex-start;
   padding: 12px 16px;
   border: 1px solid var(--ink);
   background: var(--ink);

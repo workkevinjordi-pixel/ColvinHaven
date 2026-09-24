@@ -1549,6 +1549,92 @@ button:focus-visible,
   }
 }
 
+/* Figma's mobile "Homepage" frame (node 250:7843, gallery node
+   250:9111) redoes the <=900px rule's single stacked column (above) as
+   a compact two-column masonry instead -- two 167px columns with a
+   24px gap, sized to fit a 390px phone almost exactly (167*2 + 24 +
+   2*16 side inset = 390). Scoped to <=560px rather than folded into
+   the <=900px rule above so the 561-900px tablet range keeps that
+   wider, single-column treatment -- same two-tier split Footer's own
+   node 250:10844 already established (a <=900px rule and a narrower,
+   more specific <=560px one, below). Captions go back to hover/focus-
+   revealed (undoing the <=900px rule's forced opacity:1) since Figma's
+   own mobile frame shows none by default -- tap-to-focus (each card's
+   own tabIndex=0) still surfaces them on a touchscreen, so nothing is
+   lost, only hidden until tapped, matching desktop. */
+@media (max-width: 560px) {
+  .gallery {
+    padding: 0 16px;
+  }
+
+  .gallery__grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 0;
+  }
+
+  .gallery__col {
+    margin-top: 0;
+  }
+
+  /* The <=900px rule above forces both columns into grid-column: 1 to
+     stack them as one -- undone here since this rule puts them back
+     side by side. */
+  .gallery__col--right {
+    grid-column: 2;
+    margin-top: 0;
+  }
+
+  .gallery__col > * + * {
+    margin-top: 24px;
+  }
+
+  /* Not uniform with the gap above -- matches the source frame's own
+     numbers exactly, same "not a formula" caveat the desktop rule
+     above already makes about its own 278/206/80px numbers. */
+  .gallery__col > *:nth-child(3) {
+    margin-top: 32px;
+  }
+
+  .gallery__col--right {
+    margin-top: 82px;
+  }
+
+  .gallery__col--right > * + * {
+    margin-top: 43px;
+  }
+
+  .gallery__caption {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  /* Each card's own exact Figma proportions at this width, in place of
+     the desktop rule's shared square/600:866 pair -- neither bucket is
+     close enough at a 167px column to reuse (the "not tall" bucket
+     alone ranges 167x182 to 167x236 here, e.g., a 41% height swing
+     that's plainly a real per-card difference, not a rounding one). */
+  .gallery__col > *:nth-child(1) .gallery__card-media {
+    aspect-ratio: 167 / 236;
+  }
+
+  .gallery__col > *:nth-child(2) .gallery__card-media {
+    aspect-ratio: 167 / 182;
+  }
+
+  .gallery__col > *:nth-child(3) .gallery__card-media {
+    aspect-ratio: 167 / 251;
+  }
+
+  .gallery__col--right > *:nth-child(1) .gallery__card-media {
+    aspect-ratio: 167 / 269;
+  }
+
+  .gallery__col--right > *:nth-child(2) .gallery__card-media {
+    aspect-ratio: 167 / 182;
+  }
+}
+
 /* Figma node 250:10844: centered, not the <=900px rule's left-aligned
    stack above (that tablet-range treatment stays as-is) -- mark above
    nav, both centered, with its own distinct padding/gap rather than

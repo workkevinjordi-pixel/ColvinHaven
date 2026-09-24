@@ -5123,6 +5123,85 @@ button:focus-visible,
   padding: 160px 0 80px;
 }
 
+/* EditionsFilmstrip (node 250:9164): five portrait photos, full page
+   width, no side gutter -- .editions-intro itself has no horizontal
+   padding, so this just needs its own 100% width, not the shared
+   .filmstrip's bleed-past-a-max-width-column math. */
+.editions-swiper {
+  margin-top: 24px;
+  width: 100%;
+  height: 473px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.editions-swiper__item {
+  position: relative;
+  flex: 0 0 280px;
+  height: 473px;
+  overflow: hidden;
+}
+
+/* The one card given the narrower "flex" slot (280/280/224/280/280) --
+   grows or shrinks with the viewport instead of the other four's fixed
+   280px, exactly like the source frame's own flex-[1_0_0] middle
+   image. */
+.editions-swiper__item--narrow {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+@media (max-width: 1000px) {
+  /* Below this point every card reverts to one uniform base size
+     (the desktop composition's asymmetric 280/280/224/280/280 doesn't
+     carry over to a swiper, where any of the five can end up
+     centered) and .editions-swiper becomes a horizontal, center-
+     snapping scroller -- EditionsFilmstrip.tsx does the rest (scaling
+     whichever card is nearest the viewport's center as the user
+     swipes). Side padding is calc(50% - half the card width) so the
+     first and last cards can also reach true center, not just the
+     three in between. */
+  .editions-swiper {
+    height: 340px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 calc(50% - 100px);
+    scrollbar-width: none;
+  }
+
+  .editions-swiper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .editions-swiper__item,
+  .editions-swiper__item--narrow {
+    flex: 0 0 200px;
+    height: 340px;
+    scroll-snap-align: center;
+    transition: transform 0.2s ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editions-swiper__item {
+    transition: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .editions-swiper {
+    padding: 0 calc(50% - 80px);
+  }
+
+  .editions-swiper__item,
+  .editions-swiper__item--narrow {
+    flex-basis: 160px;
+    height: 272px;
+  }
+}
+
 /* ---------- Editions list (node 232:4626) ---------- */
 
 /* One summary row per edition, each linking out to its own detail page.

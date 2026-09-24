@@ -1,24 +1,47 @@
 import ScrollFade from "../ScrollFade";
-import Filmstrip, { type FilmstripImage } from "../Filmstrip";
+import EditionsFilmstrip, {
+  type EditionsFilmstripImage,
+} from "./EditionsFilmstrip";
 
-// Alternating narrow/wide filmstrip, matching the Figma "Editions" frame
-// (node 203:131): Image / edition 1 / Image / edition 2 / Image. Figma
-// reuses the same two placeholder photos across all five slots -- kept
-// as-is here rather than inventing new crops.
-const REEL: FilmstripImage[] = [
-  { src: "/assets/editions/tsuki-hero.png", alt: "", wide: false },
-  { src: "/assets/editions/tsuki-edition-1.png", alt: "", wide: true },
-  { src: "/assets/editions/tsuki-hero.png", alt: "", wide: false },
-  { src: "/assets/editions/tsuki-edition-1.png", alt: "", wide: true },
-  { src: "/assets/editions/tsuki-hero.png", alt: "", wide: false },
+// Re-synced against the current Figma "Editions" frame (node 250:9129,
+// filmstrip at node 250:9164): five genuinely distinct photos, not the
+// two reused ones (tsuki-hero.png / tsuki-edition-1.png) this used to
+// alternate -- confirmed via hash, none of these match any asset
+// already on the site.
+const REEL: EditionsFilmstripImage[] = [
+  {
+    src: "/assets/editions/editions-filmstrip-shrine.jpg",
+    alt: "Balinese ceremonial umbrellas atop a stone shrine, seen through palm fronds",
+  },
+  {
+    src: "/assets/editions/editions-filmstrip-living-room.jpg",
+    alt: "A corner living room opening onto a jungle canopy through floor-to-ceiling glass",
+  },
+  {
+    src: "/assets/editions/editions-filmstrip-timber-wall.jpg",
+    alt: "Dark timber cladding above an outdoor daybed, seen against the surrounding jungle",
+  },
+  {
+    src: "/assets/editions/editions-filmstrip-lounge.jpg",
+    alt: "A grey sofa with an orange throw pillow beside a window looking onto banana leaves",
+  },
+  {
+    src: "/assets/editions/editions-filmstrip-koi-pond.jpg",
+    alt: "A stone-edged koi pond beneath a dark timber deck",
+  },
 ];
 
 /**
  * Top-of-page intro: faded roman-numeral eyebrow, a lede paragraph
  * (real copy, per the funnel strategy's "seven Editions, ever" framing
  * -- Figma's own placeholder was still Lorem Ipsum here), an outline
- * CTA, and a filmstrip that bleeds past the standard content column on
- * both sides.
+ * CTA, and a filmstrip that spans the full page width.
+ *
+ * The filmstrip itself is EditionsFilmstrip, not the shared Filmstrip
+ * component News/Collective use -- this page's own mobile interaction
+ * is a swiper (each photo scales up as it's swiped to center) rather
+ * than their auto-scrolling marquee, a deliberate, page-specific
+ * request rather than a shared pattern.
  */
 export default function EditionsIntro() {
   return (
@@ -36,7 +59,7 @@ export default function EditionsIntro() {
         </a>
       </ScrollFade>
 
-      <Filmstrip images={REEL} />
+      <EditionsFilmstrip images={REEL} />
     </section>
   );
 }

@@ -31,6 +31,15 @@ export type EditionData = {
   portraitImage: { src: string; alt: string };
 
   heroImage: { src: string; alt: string };
+  /** Optional override for the detail page's own top hero banner
+   * specifically (EditionSpotlight) -- `heroImage` above is shared with
+   * the Editions-list summary row (EditionsList) too, and Figma's own
+   * detail-page frame for Sora (node 284:11733) now specs a distinct
+   * photo there from what the list row uses (node 250:9150) for the
+   * exact same edition. Falls back to `heroImage` when unset (Tsuki:
+   * both contexts genuinely use the same photo, confirmed by hash, so
+   * it doesn't set this). */
+  detailHeroImage?: { src: string; alt: string };
   row1: {
     main: { image: { src: string; alt: string }; text: string[] };
     side: { image: { src: string; alt: string }; text: string };
@@ -253,12 +262,109 @@ const sora: EditionData = {
   ],
   nextEdition: { slug: "umah-tsuki", index: "I/VII", name: "Tsuki" },
   // Overridden rather than left inherited from tsuki -- the Editions
-  // overview's list row (node 250:9150) and this page's own hero
-  // (shared field, same as the list row per EditionsList/EditionSpotlight)
-  // now show a distinct Sora photo, not Tsuki's courtyard shot.
+  // overview's list row (node 250:9150) shows a distinct Sora photo,
+  // not Tsuki's courtyard shot. (The detail page's own hero is a
+  // *third*, different photo again -- see detailHeroImage below.)
   heroImage: {
     src: "/assets/editions/sora-gate.jpg",
     alt: "Umah Sora's dark timber gate with a circular wood inlay, framed by a stone wall",
+  },
+
+  // Every image below is a genuine, distinct Sora photo (Figma node
+  // 284:11715, "Editions Details" duplicated with Sora's own header
+  // swapped in) -- confirmed one by one via visual diff against tsuki's
+  // corresponding image, not just a differing filename/hash (Figma
+  // frequently keeps a stale filename, e.g. banner1 below is still
+  // named "UMAH+TSUKI+..." despite being a genuinely different photo).
+  // The WRITTEN copy in that same Figma frame, by contrast, is still a
+  // stale, unedited duplicate of Tsuki's own -- every paragraph still
+  // explicitly says "Umah Tsuki"/"Tsuki's kitchen", the poetic `title`
+  // still reads "TSUKI (月 - Moon)", `specs`' own YEAR still says 2022
+  // (contradicting this same frame's header, which says 2024), and the
+  // "Next Editions" pointer still points at "Sora" (i.e. itself) rather
+  // than Tsuki -- so unlike the images, none of that text is real
+  // Sora-specific content yet. Left entirely inherited from tsuki via
+  // the spread above, same as before this pass.
+  detailHeroImage: {
+    src: "/assets/editions/detail/sora-detail-hero.jpg",
+    alt: "A slatted timber facade and shingled roof of Umah Sora, seen through palm fronds",
+  },
+  portraitImage: {
+    src: "/assets/editions/detail/sora-portrait.jpg",
+    alt: "A black-and-white portrait of a man descending timber stairs beside Umah Sora",
+  },
+  row1: {
+    main: {
+      image: {
+        src: "/assets/editions/detail/sora-row1-main.jpg",
+        alt: "A covered walkway between two of Umah Sora's overlapping roof planes",
+      },
+      text: tsuki.row1.main.text,
+    },
+    side: {
+      image: {
+        src: "/assets/editions/detail/sora-row1-side.jpg",
+        alt: "A round window and built-in bench seat on Umah Sora's timber deck",
+      },
+      text: tsuki.row1.side.text,
+    },
+  },
+  banner1: {
+    src: "/assets/editions/detail/sora-banner1.jpg",
+    alt: "A shoji-screened bedroom opening onto a dark timber corridor at Umah Sora",
+  },
+  storyA: {
+    paragraphs: tsuki.storyA.paragraphs,
+    image: {
+      src: "/assets/editions/detail/sora-storyA.jpg",
+      alt: "A round window set into Umah Sora's timber facade, opening onto a garden view",
+    },
+  },
+  galleryRow: [
+    {
+      src: "/assets/editions/detail/sora-gallery-1.jpg",
+      alt: "A living room opening onto Umah Sora's pool through full-height glass",
+    },
+    {
+      src: "/assets/sora-bonsai-entrance.jpg",
+      alt: "A cloud-pruned pine beside Umah Sora's dark timber-clad entrance",
+    },
+    {
+      src: "/assets/editions/detail/sora-gallery-3.jpg",
+      alt: "A framed artwork of scattered blue dots beside Umah Sora's kitchen counter",
+    },
+  ],
+  storyB: {
+    image: {
+      src: "/assets/editions/detail/sora-storyB.jpg",
+      alt: "A round window opening onto a garden view, framed by Umah Sora's shoji-screened corridor",
+    },
+    paragraphs: tsuki.storyB.paragraphs,
+    linkParagraph: tsuki.storyB.linkParagraph,
+  },
+  quoteBanner: {
+    image: {
+      src: "/assets/editions/detail/sora-quote-banner.jpg",
+      alt: "A black timber roofline and covered walkway at Umah Sora, seen among palms",
+    },
+    heading: tsuki.quoteBanner.heading,
+    body: tsuki.quoteBanner.body,
+  },
+  row4: {
+    main: {
+      image: {
+        src: "/assets/editions/detail/sora-row4-main.jpg",
+        alt: "A living room at Umah Sora opening onto its pool and garden",
+      },
+      text: tsuki.row4.main.text,
+    },
+    side: {
+      image: {
+        src: "/assets/editions/detail/sora-row4-side.jpg",
+        alt: "A framed artwork of scattered blue dots beside Umah Sora's kitchen counter",
+      },
+      text: tsuki.row4.side.text,
+    },
   },
 };
 

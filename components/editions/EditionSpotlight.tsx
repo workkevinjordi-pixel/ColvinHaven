@@ -74,6 +74,7 @@ export default function EditionSpotlight({ data }: { data: EditionData }) {
     craftText,
     portraitImage,
     heroImage,
+    detailHeroImage,
     row1,
     banner1,
     storyA,
@@ -82,6 +83,11 @@ export default function EditionSpotlight({ data }: { data: EditionData }) {
     quoteBanner,
     row4,
   } = data;
+
+  // Falls back to the shared `heroImage` (what the Editions-list row
+  // also uses) when an edition hasn't specced a distinct photo for its
+  // own detail-page hero specifically -- see the field's own comment.
+  const hero = detailHeroImage ?? heroImage;
 
   return (
     <section className="edition-spotlight">
@@ -96,8 +102,8 @@ export default function EditionSpotlight({ data }: { data: EditionData }) {
       <div className="edition-spotlight__body">
         <div className="edition-spotlight__hero-image">
           <Image
-            src={heroImage.src}
-            alt={heroImage.alt}
+            src={hero.src}
+            alt={hero.alt}
             fill
             sizes="(min-width: 900px) 1216px, 100vw"
             style={{ objectFit: "cover" }}

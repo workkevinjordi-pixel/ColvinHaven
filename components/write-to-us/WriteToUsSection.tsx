@@ -4,12 +4,14 @@ import Image from "next/image";
 import ScrollFade from "../ScrollFade";
 
 /**
- * "Write to Us" contact form (Figma node 205:625): a tall photo beside a
- * label + intro paragraph, three fields (Name, Email, Message), and a
- * Send button. Fields are real, typeable inputs/textarea -- the Figma
- * "placeholder" text becomes an actual HTML placeholder rather than
- * static copy. Submit is wired (preventDefault, no-op) but doesn't send
- * anywhere yet -- that action is defined later.
+ * "Write to Us" contact form (Figma node 205:625, image re-synced
+ * against node 288:11889 -- a dark ocean-water photo, not the palm-
+ * trees shot every other page's photo band uses): a tall photo beside
+ * a label + intro paragraph, three fields (Name, Email, Message), and
+ * a Send button. Fields are real, typeable inputs/textarea -- the
+ * Figma "placeholder" text becomes an actual HTML placeholder rather
+ * than static copy. Submit is wired (preventDefault, no-op) but
+ * doesn't send anywhere yet -- that action is defined later.
  */
 export default function WriteToUsSection() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -25,8 +27,8 @@ export default function WriteToUsSection() {
         <div className="write-to-us__row">
           <div className="write-to-us__image">
             <Image
-              src="/assets/collective/palm-trees-2.png"
-              alt="Silhouetted palm trees against a golden dusk sky"
+              src="/assets/write-to-us-water.jpg"
+              alt="Dark, textured ocean water seen from above"
               fill
               sizes="(min-width: 900px) 470px, 100vw"
               style={{ objectFit: "cover" }}

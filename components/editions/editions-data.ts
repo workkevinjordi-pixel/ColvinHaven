@@ -134,7 +134,7 @@ const tsuki: EditionData = {
       },
       text: [
         "“Designed to belong, Tsuki editions disappear into the landscape, honoring the land rather than overtaking it”",
-        "In both materials and construction, Umah Tsuki emphasizes provenance — hand-built on site from locally sourced paras stone and recycled ulin hardwood, its traditional techniques and meticulous finishes set the scene for a quality of life attuned to the essential.",
+        "In both materials and construction, Umah Tsuki emphasizes provenance hand-built on site from locally sourced paras stone and recycled ulin hardwood, its traditional techniques and meticulous finishes set the scene for a quality of life attuned to the essential.",
       ],
     },
     side: {
@@ -142,7 +142,7 @@ const tsuki: EditionData = {
         src: "/assets/editions/tsuki-hero.png",
         alt: "Umah Tsuki's black-clad cantilevered volume seen through the surrounding tree canopy",
       },
-      text: "Twenty years of service taught one thing above all — a home doesn't gather around a view, it gathers around a kitchen. So Tsuki's kitchen was never an afterthought. It sits at the heart of the home.",
+      text: "Twenty years of service taught one thing above all a home doesn't gather around a view, it gathers around a kitchen. So Tsuki's kitchen was never an afterthought. It sits at the heart of the home.",
     },
   },
   banner1: {
@@ -201,7 +201,7 @@ const tsuki: EditionData = {
       alt: "Umah Tsuki's pool deck framed by surrounding trees",
     },
     heading:
-      "“Step inside Umah Tsuki by Colvin Haven — much like Swallow’s culinary practice, which focused on farm-to-table cooking, the design of Umah Tsuki is all about provenance and locality” - Wallpaper* 2024",
+      "“Step inside Umah Tsuki by Colvin Haven much like Swallow’s culinary practice, which focused on farm-to-table cooking, the design of Umah Tsuki is all about provenance and locality” - Wallpaper* 2024",
     body: "From the beginning I wanted to use a minimal variety of materials native to Indonesia to keep the architecture pure and honest, revealing strength and simplicity,’ explains Swallow, who worked alongside Kevin Kudo-King from architecture firm Olson Kundig, Abbie Labrum of Earth Lines Architects and Nyoman Suryantara from Como Design Studio to realise the home. ‘I really wanted to create a sanctuary that would give you a sense of calm and peace the moment you set foot on the property.’",
   },
 
@@ -252,6 +252,14 @@ const sora: EditionData = {
     { label: "LOCATION", value: "TUMBAK BAYUH, BALI" },
   ],
   nextEdition: { slug: "umah-tsuki", index: "I/VII", name: "Tsuki" },
+  // Overridden rather than left inherited from tsuki -- the Editions
+  // overview's list row (node 250:9150) and this page's own hero
+  // (shared field, same as the list row per EditionsList/EditionSpotlight)
+  // now show a distinct Sora photo, not Tsuki's courtyard shot.
+  heroImage: {
+    src: "/assets/editions/sora-gate.jpg",
+    alt: "Umah Sora's dark timber gate with a circular wood inlay, framed by a stone wall",
+  },
 };
 
 export const editions: EditionData[] = [tsuki, sora];

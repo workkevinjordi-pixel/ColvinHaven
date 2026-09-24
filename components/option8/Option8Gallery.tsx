@@ -14,25 +14,28 @@ type Card = {
 };
 
 // Left column, top-aligned: two square cards then one tall one (Figma
-// node 274:11573, frames 250:7805/7812/11558).
+// node 274:11573, frames 250:7805/7812/11558 -- re-fetched, content
+// updated: 250:7805 is now Umah Sora rather than Umah Tsuki (with a new
+// photo to match), and both 250:7805/274:11558's underlying photos
+// changed even where a caption didn't).
 const leftColumn: Card[] = [
   {
-    src: "/assets/project-cabin-deck.jpg",
-    alt: "Black-clad cabin deck with bench overlooking the pond",
+    src: "/assets/sora-bonsai-entrance.jpg",
+    alt: "A cloud-pruned pine beside Umah Sora's dark timber-clad entrance",
+    title: "Umah Sora",
+    location: "Pererenan, Bali",
+    meta: "Residential • 2026",
+  },
+  {
+    src: "/assets/feature-3-pool.jpg",
+    alt: "Pool deck framed by tropical garden",
     title: "Umah Tsuki",
     location: "Pererenan, Bali",
     meta: "Residential • 2024",
   },
   {
-    src: "/assets/feature-3-pool.jpg",
-    alt: "Pool deck framed by tropical garden",
-    title: "Umah Sora",
-    location: "Pererenan, Bali",
-    meta: "Residential • 2024",
-  },
-  {
-    src: "/assets/feature-1-koi-pond-crop.jpg",
-    alt: "A koi pond bordered by ferns and stone, reflecting the garden above",
+    src: "/assets/tsuki-stair-landing.jpg",
+    alt: "A round window beside a black timber stair landing at Umah Tsuki",
     title: "Umah Tsuki",
     location: "Pererenan, Bali",
     meta: "Residential • 2024",
@@ -53,9 +56,9 @@ const rightColumn: Card[] = [
     tall: true,
   },
   {
-    src: "/assets/feature-2-cabin-crop.jpg",
-    alt: "A wooden bench on a black-clad deck beneath the tree canopy",
-    title: "Umah Sora",
+    src: "/assets/tsuki-woven-chair.jpg",
+    alt: "A woven lounge chair on Umah Tsuki's deck among monstera leaves",
+    title: "Umah Tsuki",
     location: "Pererenan, Bali",
     meta: "Residential • 2024",
   },

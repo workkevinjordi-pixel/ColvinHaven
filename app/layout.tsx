@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -45,6 +45,14 @@ export const metadata: Metadata = {
   title: "Colvin Haven — Wellness Home Brand",
   description:
     "Colvin Haven is the world's first wellness home brand — homes designed around restoration, not just residence.",
+};
+
+// Matches --bg -- tints the mobile browser's own address-bar/status-bar
+// chrome to the same cream every page opens on, instead of Chrome/
+// Safari's default white flashing against it for a moment before the
+// page paints.
+export const viewport: Viewport = {
+  themeColor: "#f0ebe3",
 };
 
 export default function RootLayout({

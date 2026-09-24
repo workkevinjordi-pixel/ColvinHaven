@@ -17,6 +17,14 @@ html {
      the mega menu is open (which removes the scrollbar) never shifts
      the centered, max-width navbar sideways -- the logo stays put. */
   scrollbar-gutter: stable;
+  /* Suppresses the default grey/blue flash mobile browsers paint over
+     whatever's tapped (links, buttons, cards) -- every interactive
+     element that wants tap feedback gets a deliberate :active state of
+     its own instead (see each button/link's own rules), rather than
+     leaving every tap on ordinary body text or non-interactive
+     elements flashing a highlight box that implies they're tappable
+     when they're not. */
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -246,7 +254,8 @@ button:focus-visible,
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.statement-section__cta:hover {
+.statement-section__cta:hover,
+.statement-section__cta:active {
   background: rgba(29, 25, 15, 0.06);
   transform: translateY(-1px);
 }
@@ -257,7 +266,8 @@ button:focus-visible,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .statement-section__cta:hover {
+  .statement-section__cta:hover,
+  .statement-section__cta:active {
     transform: none;
   }
 }
@@ -315,13 +325,15 @@ button:focus-visible,
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.centered-statement__cta:hover {
+.centered-statement__cta:hover,
+.centered-statement__cta:active {
   background: rgba(29, 25, 15, 0.06);
   transform: translateY(-1px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .centered-statement__cta:hover {
+  .centered-statement__cta:hover,
+  .centered-statement__cta:active {
     transform: none;
   }
 }
@@ -405,6 +417,7 @@ button:focus-visible,
 }
 
 .navbar__dot-trigger {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -416,8 +429,20 @@ button:focus-visible,
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.navbar__dot-trigger:hover {
+.navbar__dot-trigger:hover,
+.navbar__dot-trigger:active {
   transform: scale(1.08);
+}
+
+@media (max-width: 560px) {
+  /* Invisible hit-area extension -- widens the tappable region to the
+     ~44px minimum recommended touch target without growing the 40px
+     dot itself, which stays exactly its designed size. */
+  .navbar__dot-trigger::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+  }
 }
 
 .navbar__dot-trigger--open {
@@ -1089,7 +1114,8 @@ button:focus-visible,
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.gallery__link:hover {
+.gallery__link:hover,
+.gallery__link:active {
   background: rgba(29, 25, 15, 0.06);
   transform: translateY(-1px);
 }
@@ -1292,14 +1318,17 @@ button:focus-visible,
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.cta__button:hover {
+.cta__button:hover,
+.cta__button:active {
   background: rgba(255, 255, 255, 0.1);
   transform: translateY(-1px);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .gallery__link:hover,
-  .cta__button:hover {
+  .gallery__link:active,
+  .cta__button:hover,
+  .cta__button:active {
     transform: none;
   }
 }
@@ -5564,7 +5593,8 @@ button:focus-visible,
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.next-edition-band__link:hover {
+.next-edition-band__link:hover,
+.next-edition-band__link:active {
   opacity: 0.6;
 }
 
@@ -5755,7 +5785,8 @@ button:focus-visible,
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.collective-publications__link:hover {
+.collective-publications__link:hover,
+.collective-publications__link:active {
   opacity: 0.6;
 }
 
@@ -6682,7 +6713,8 @@ button:focus-visible,
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.write-to-us__submit:hover {
+.write-to-us__submit:hover,
+.write-to-us__submit:active {
   background: #35301f;
   transform: translateY(-1px);
 }
@@ -6694,7 +6726,8 @@ button:focus-visible,
     transition: none;
   }
 
-  .write-to-us__submit:hover {
+  .write-to-us__submit:hover,
+  .write-to-us__submit:active {
     transform: none;
   }
 }
@@ -6708,6 +6741,16 @@ button:focus-visible,
   .write-to-us__image {
     width: 100%;
     max-width: 470px;
+  }
+
+  /* 16px, not the desktop-matching-Figma 14px -- any input/textarea
+     under 16px makes iOS Safari auto-zoom the whole page in on focus,
+     then leaves the visitor to manually zoom back out after typing.
+     Scoped to touch-sized viewports only so the desktop form still
+     matches Figma's 14px exactly. */
+  .write-to-us__field input,
+  .write-to-us__field textarea {
+    font-size: 16px;
   }
 }
 
@@ -6854,7 +6897,8 @@ button:focus-visible,
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.request-collections__submit:hover {
+.request-collections__submit:hover,
+.request-collections__submit:active {
   background: #35301f;
   transform: translateY(-1px);
 }
@@ -6872,7 +6916,8 @@ button:focus-visible,
     transition: none;
   }
 
-  .request-collections__submit:hover {
+  .request-collections__submit:hover,
+  .request-collections__submit:active {
     transform: none;
   }
 }
@@ -6890,6 +6935,16 @@ button:focus-visible,
 
   .request-collections__form-col {
     justify-content: flex-start;
+  }
+
+  /* 16px, not the desktop-matching-Figma 14px -- any input/textarea
+     under 16px makes iOS Safari auto-zoom the whole page in on focus,
+     then leaves the visitor to manually zoom back out after typing.
+     Scoped to touch-sized viewports only so the desktop form still
+     matches Figma's 14px exactly. */
+  .request-collections__field input,
+  .request-collections__field textarea {
+    font-size: 16px;
   }
 }
 

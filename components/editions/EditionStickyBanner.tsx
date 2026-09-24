@@ -27,7 +27,10 @@ export default function EditionStickyBanner({ data }: { data: EditionData }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    let rafId = 0;
+
     const update = () => {
+      rafId = 0;
       const pastHero = window.scrollY > window.innerHeight;
 
       // "Below the content" once the closing gallery's own bottom edge
@@ -43,12 +46,24 @@ export default function EditionStickyBanner({ data }: { data: EditionData }) {
 
       setVisible(pastHero && !belowContent);
     };
+
+    // Batches to at most one recompute per animation frame -- mobile
+    // browsers can fire many `scroll` events per visual frame during a
+    // momentum fling, and each one otherwise triggers a fresh
+    // getElementById + getBoundingClientRect (a forced layout read) far
+    // more often than the screen can even show a change, which is
+    // wasted main-thread work exactly while the page is mid-scroll.
+    const onScrollOrResize = () => {
+      if (!rafId) rafId = requestAnimationFrame(update);
+    };
+
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize);
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 

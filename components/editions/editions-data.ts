@@ -40,6 +40,17 @@ export type EditionData = {
    * both contexts genuinely use the same photo, confirmed by hash, so
    * it doesn't set this). */
   detailHeroImage?: { src: string; alt: string };
+  /** Optional override for the Editions-list summary row (EditionsList)
+   * specifically -- the mirror image of `detailHeroImage` above.
+   * Falls back to `heroImage` when unset (Sora: no override needed,
+   * its list row already uses its own distinct heroImage). Tsuki sets
+   * this because Figma's current Editions-list frame (node 250:9141)
+   * now specs a different photo there than the detail page's own hero
+   * -- confirmed via hash to be the same photo already on the site as
+   * tsuki-stair-landing.jpg (the homepage gallery's tall left-column
+   * card), just re-exported at a different resolution, so this reuses
+   * that file directly rather than downloading a duplicate. */
+  listImage?: { src: string; alt: string };
   row1: {
     main: { image: { src: string; alt: string }; text: string[] };
     side: { image: { src: string; alt: string }; text: string };
@@ -134,6 +145,10 @@ const tsuki: EditionData = {
   heroImage: {
     src: "/assets/editions/tsuki-hero.png",
     alt: "Umah Tsuki's black-clad cantilevered volume seen through the surrounding tree canopy",
+  },
+  listImage: {
+    src: "/assets/tsuki-stair-landing.jpg",
+    alt: "A round window beside a black timber stair landing at Umah Tsuki",
   },
   row1: {
     main: {
@@ -269,6 +284,12 @@ const sora: EditionData = {
     src: "/assets/editions/sora-gate.jpg",
     alt: "Umah Sora's dark timber gate with a circular wood inlay, framed by a stone wall",
   },
+  // Explicitly unset, not left inherited from tsuki's spread -- tsuki
+  // sets this (see its own definition above) to override just its own
+  // list row's photo, and without this line the spread below would
+  // silently carry that same override into Sora's list row too. Sora's
+  // list row already shows its own correct photo via heroImage above.
+  listImage: undefined,
 
   // Every image below is a genuine, distinct Sora photo (Figma node
   // 284:11715, "Editions Details" duplicated with Sora's own header

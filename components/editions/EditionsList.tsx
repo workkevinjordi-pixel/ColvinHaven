@@ -3,12 +3,13 @@ import Link from "next/link";
 import type { EditionData } from "./editions-data";
 
 function EditionRow({ edition }: { edition: EditionData }) {
+  const image = edition.listImage ?? edition.heroImage;
   return (
     <div className="editions-list__row">
       <div className="editions-list__image">
         <Image
-          src={edition.heroImage.src}
-          alt={edition.heroImage.alt}
+          src={image.src}
+          alt={image.alt}
           fill
           sizes="(min-width: 900px) 50vw, 100vw"
           style={{ objectFit: "cover" }}

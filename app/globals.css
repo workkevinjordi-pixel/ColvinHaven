@@ -7252,3 +7252,534 @@ button:focus-visible,
     height: 420px;
   }
 }
+
+/* ==========================================================================
+   Homepage (New) -- /homepage-new (Figma node 298:11984)
+
+   A design-exploration variant of the homepage: reuses the live
+   homepage's own Hero, Drawing, Cta and Footer verbatim, but replaces
+   everything between Drawing and Cta with a much longer body -- Guiding
+   Values restyled as a centered serif statement, the Editions page's
+   own filmstrip (reused component + assets, not duplicated), a "CH
+   Collections" card, two Edition teaser cards, a full-bleed Collective
+   banner, a "MORI" coming-soon teaser, and a photo+quote split. Every
+   class here is `.hpn-`-prefixed and scoped to this one page, per how
+   every other page-specific section on this site is organized.
+   ========================================================================== */
+
+.hpn-tag {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.hpn-tag__dot {
+  width: 12px;
+  height: 12px;
+  background: var(--ink);
+  flex: 0 0 auto;
+}
+
+.hpn-tag span:last-child {
+  font-size: 12px;
+  letter-spacing: 1.2px;
+}
+
+.hpn-heading {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 32px;
+  /* Explicit, not "normal" -- Cormorant Garamond has no CJK glyphs, so
+     "MORI (森 - Jungle)"'s 森 falls back to the platform's default CJK
+     font, whose own line-height metrics run much taller than
+     Cormorant's. With line-height: normal that fallback glyph inflates
+     this element's whole line box, which (in the tight 16px gap this
+     heading sits in, e.g. right under Mori's "COMING SOON" tag) reads
+     as the heading overlapping its own preceding sibling. Pinning the
+     line-height keeps every .hpn-heading usage a stable, predictable
+     height regardless of which specific one happens to contain CJK
+     characters. */
+  line-height: 1.2;
+  letter-spacing: 3.2px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@media (max-width: 560px) {
+  .hpn-heading {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+}
+
+/* ---------- Guiding Values (centered serif restyle of the shared
+   "guiding values" copy, node 298:13283) ---------- */
+
+.hpn-values {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 60px 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.hpn-values__text {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 920px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .hpn-values {
+    padding: 48px var(--gutter);
+  }
+}
+
+@media (max-width: 560px) {
+  .hpn-values {
+    padding: 32px 16px;
+  }
+
+  .hpn-values__text {
+    font-size: 15px;
+    line-height: 26px;
+  }
+}
+
+/* ---------- Filmstrip band (node 298:13386): lede paragraph inset by
+   the site's standard --gutter, filmstrip itself edge-to-edge full
+   page width -- reuses EditionsFilmstrip verbatim (same component, same
+   five images, same swipe-to-center mobile interaction), not a
+   duplicate. ---------- */
+
+.hpn-filmstrip-band {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  padding: 60px 0;
+}
+
+.hpn-filmstrip-band__lede {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .hpn-filmstrip-band__lede {
+    padding: 0 16px;
+    font-size: 15px;
+    line-height: 26px;
+  }
+}
+
+/* ---------- CH Collections (node 298:13396): poster card + text,
+   replacing the current site's .values__aside/text layout for this
+   page only -- same copy as Editions' ChCollections, new layout. ---------- */
+
+.hpn-collections {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 60px 120px;
+  display: flex;
+  gap: 120px;
+  align-items: center;
+}
+
+.hpn-collections__card {
+  position: relative;
+  flex: 0 0 425px;
+  height: 560px;
+  border-radius: 17px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.12);
+}
+
+.hpn-collections__body {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.hpn-collections__heading {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 32px;
+  letter-spacing: 3.2px;
+}
+
+.hpn-collections__text {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+@media (max-width: 900px) {
+  .hpn-collections {
+    flex-direction: column;
+    gap: 40px;
+    padding: 48px var(--gutter);
+  }
+
+  .hpn-collections__card {
+    flex-basis: auto;
+    width: 100%;
+    max-width: 340px;
+    height: 448px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hpn-collections {
+    padding: 32px 16px;
+  }
+}
+
+/* ---------- Editions teaser cards (node 298:13290) -- driven by the
+   shared editions-data.ts array, so the copy is always the real,
+   already-approved per-edition summary, never Figma's own stale
+   duplicate-Tsuki-blurb placeholder. ---------- */
+
+.hpn-editions {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 60px 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.hpn-editions__row {
+  display: flex;
+  gap: 120px;
+  align-items: flex-start;
+}
+
+.hpn-editions__card {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.hpn-editions__image {
+  position: relative;
+  width: 100%;
+  height: 480px;
+}
+
+.hpn-editions__index {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 32px;
+}
+
+.hpn-editions__name {
+  font-size: 24px;
+  letter-spacing: 1.2px;
+  line-height: 32px;
+  margin-top: 8px;
+}
+
+.hpn-editions__summary {
+  margin-top: 16px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+.hpn-editions__explore {
+  font-weight: 300;
+  font-size: 16px;
+  text-decoration: none;
+  color: var(--ink);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hpn-editions__explore:hover,
+.hpn-editions__explore:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hpn-editions__explore {
+    transition: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .hpn-editions {
+    padding: 48px var(--gutter);
+  }
+
+  .hpn-editions__row {
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .hpn-editions__image {
+    height: 360px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hpn-editions {
+    padding: 32px 16px;
+  }
+}
+
+/* ---------- Collective banner (node 298:13451): full-bleed photo (no
+   column constraint, unlike .collective-photo-band's 1320px column),
+   heading/text/CTA inset below it. ---------- */
+
+.hpn-collective {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 60px 0;
+}
+
+.hpn-collective__banner {
+  position: relative;
+  width: 100%;
+  height: 649px;
+}
+
+.hpn-collective__body {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.hpn-collective__text {
+  max-width: 720px;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: 2px;
+  color: rgba(29, 25, 15, 0.7);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .hpn-collective__banner {
+    height: 420px;
+  }
+
+  .hpn-collective__body {
+    padding: 0 var(--gutter);
+  }
+}
+
+@media (max-width: 560px) {
+  .hpn-collective__banner {
+    height: 320px;
+  }
+
+  .hpn-collective__body {
+    padding: 0 16px;
+  }
+
+  .hpn-collective__text {
+    font-size: 17px;
+    line-height: 28px;
+  }
+}
+
+/* ---------- Mori (node 298:13458): "coming soon" teaser for a third
+   edition. Its own intro (heading, lede, facts) is genuine new copy,
+   ported faithfully -- but the two-photo row below it is Figma's own
+   placeholder reuse of Tsuki's row1 images/text (no real Mori
+   photography exists yet), reusing .edition-spotlight__row* directly
+   since the proportions match that pattern exactly (790/403, 23px gap,
+   473px image height). ---------- */
+
+.hpn-mori {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 60px 120px 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+.hpn-mori__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  max-width: 720px;
+}
+
+.hpn-mori__heading-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Figma specs 16px here, but that's not enough clearance once
+     .hpn-heading actually contains a CJK character ("MORI (森 -
+     Jungle)") -- 森's fallback-font glyph paints past its own line
+     box on top even with an explicit line-height (see .hpn-heading's
+     own comment), so this one usage needs the extra breathing room
+     the box model alone doesn't account for. */
+  gap: 28px;
+}
+
+.hpn-mori__lede {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+  text-align: center;
+}
+
+.hpn-mori__facts {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+@media (max-width: 900px) {
+  .hpn-mori {
+    padding: 48px var(--gutter) 80px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hpn-mori {
+    padding: 32px 16px 60px;
+    gap: 40px;
+  }
+
+  .hpn-mori__facts {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+}
+
+/* ---------- Quote (node 298:13537): photo + uppercase quote side by
+   side -- the photo is flush with the true left edge (no left inset),
+   only the text column gets the page's own right-hand gutter. Same
+   pool-banner-2.jpg photo and copy as the live site's Quote component,
+   new split layout. ---------- */
+
+.hpn-quote {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 60px 120px 60px 0;
+  display: flex;
+  align-items: center;
+  gap: 96px;
+}
+
+.hpn-quote__image {
+  position: relative;
+  flex: 0 0 648px;
+  height: 649px;
+}
+
+.hpn-quote__text {
+  flex: 1 1 0%;
+  min-width: 0;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 50px;
+  letter-spacing: 1.68px;
+  text-transform: uppercase;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+@media (max-width: 900px) {
+  .hpn-quote {
+    flex-direction: column;
+    gap: 32px;
+    padding: 48px var(--gutter);
+  }
+
+  .hpn-quote__image {
+    flex-basis: auto;
+    width: 100%;
+    height: 420px;
+  }
+
+  .hpn-quote__text {
+    font-size: 18px;
+    line-height: 32px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hpn-quote {
+    padding: 32px 16px;
+  }
+
+  .hpn-quote__image {
+    height: 320px;
+  }
+
+  .hpn-quote__text {
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: 1px;
+  }
+}
+
+/* ---------- Gold navbar/footer accent (nodes 298:11997/298:13279):
+   this page's own hero and footer specify a gold "II/VII"/"CH" mark
+   (#c7a95f) instead of white -- scoped to a .hpn-page ancestor rather
+   than touching Navbar/Footer's own shared styles, since every other
+   page on the site keeps the plain white/ink treatment. Only the
+   *unscrolled, transparent* navbar state gets the override -- once
+   scrolled (or the mega menu is open) the navbar already switches to
+   dark text over a light ground, where gold wouldn't read at all. */
+.hpn-page .navbar:not(.navbar--scrolled):not(.navbar--open) .navbar__index {
+  color: #c7a95f;
+}
+
+.hpn-page .footer__mark,
+.hpn-page .footer__nav a {
+  color: #c7a95f;
+}

@@ -5800,7 +5800,14 @@ button:focus-visible,
     flex-direction: column;
   }
 
+  /* flex-basis, not just height -- the base rule's `flex: 1 1 0%` sets
+     flex-basis:0%, and on a flex item's main axis (now vertical, once
+     .edition-story__gallery switches to flex-direction:column above)
+     flex-basis governs the used size ahead of a plain `height`, so
+     every gallery image collapsed to 0px tall here until flex-basis
+     itself was reset alongside it. */
   .edition-story__gallery-image {
+    flex-basis: 320px;
     width: 100%;
     height: 320px;
   }

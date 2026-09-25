@@ -79,9 +79,11 @@ export default function EditionSpotlight({ data }: { data: EditionData }) {
     banner1,
     storyA,
     galleryRow,
+    galleryRow2,
     storyB,
     quoteBanner,
     row4,
+    closingBanner,
   } = data;
 
   // Falls back to the shared `heroImage` (what the Editions-list row
@@ -220,11 +222,29 @@ export default function EditionSpotlight({ data }: { data: EditionData }) {
         <ImageTextRow row={row4} />
 
         {/* Marked with an id -- EditionStickyBanner watches this exact
-            element (the page's very last content block, right before
-            NextEditionBand) to hide itself once it's reached, so the
-            sticky banner doesn't keep competing for attention with the
-            "Next Editions" band that follows. */}
-        <GalleryRow images={galleryRow} id="edition-final-gallery" />
+            element (the page's very last content block before
+            closingBanner/NextEditionBand) to hide itself once it's
+            reached, so the sticky banner doesn't keep competing for
+            attention with what follows. Figma now specs a genuinely
+            different second set of three photos here (galleryRow2),
+            not the same three repeated -- falls back to the first
+            gallery's images if an edition hasn't specced its own. */}
+        <GalleryRow
+          images={galleryRow2 ?? galleryRow}
+          id="edition-final-gallery"
+        />
+
+        {closingBanner && (
+          <div className="edition-spotlight__banner">
+            <Image
+              src={closingBanner.src}
+              alt={closingBanner.alt}
+              fill
+              sizes="(min-width: 900px) 1216px, 100vw"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+        )}
       </div>
     </section>
   );

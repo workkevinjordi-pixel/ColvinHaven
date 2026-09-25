@@ -65,9 +65,15 @@ export type EditionData = {
     image: { src: string; alt: string };
   };
 
-  /** Three-image gallery row, used twice (nodes 234:4912 and 246:5017 --
-   * same three images both times in the source frame). */
+  /** Three-image gallery row (node 234:4912). Originally used twice
+   * verbatim (also at node 246:5017), but the current Figma frame
+   * (250:9142/284:11732) now specs a genuinely different second set of
+   * three -- see `galleryRow2`. */
   galleryRow: { src: string; alt: string }[];
+  /** The second gallery row's own three images, once distinct from the
+   * first (see `galleryRow` above). Falls back to `galleryRow` when
+   * unset, matching how the two used to be identical. */
+  galleryRow2?: { src: string; alt: string }[];
 
   /** Image-left/text-right story block (node 246:4946) -- mirror of
    * storyA. The closing paragraph has one embedded link ("Bali"). */
@@ -93,6 +99,12 @@ export type EditionData = {
     main: { image: { src: string; alt: string }; text: string[] };
     side: { image: { src: string; alt: string }; text: string };
   };
+
+  /** New closing full-bleed photo (node 281:11707/284:11805), right
+   * after the final gallery row and before "Next Editions" -- optional
+   * since older data (if any is ever added without it) just omits the
+   * section rather than falling back to a possibly-wrong reused image. */
+  closingBanner?: { src: string; alt: string };
 
   /** "Next Editions" band at the very end (node 246:5036) -- the other
    * edition to jump to. */
@@ -180,31 +192,65 @@ const tsuki: EditionData = {
       "It's the core of how these homes get made. Colvin Haven doesn't design a home and then have it built. The two happen together, craftsman and founder, on site, for as long as each home takes. We offer a limited turnkey home to our clients.",
       "Provenance mattered more than convenience at every step — paras stone quarried in Bali, ulin hardwood reclaimed rather than freshly felled, teak hand-cut and laid by the same local woodworkers who built the rest of the home. Nothing shipped in that the island couldn't already give.",
     ],
+    // Re-synced against node 279:11585: now the same koi-pond photo that
+    // used to sit at galleryRow[0] (gallery-1.jpg) -- Figma moved it
+    // here rather than dropping it, confirmed via hash. Reused directly
+    // rather than duplicating the file, with its alt text corrected to
+    // actually describe what it shows (the old "Tree branches shading
+    // Umah Tsuki's timber deck" alt was already stale/mismatched before
+    // this change, a pre-existing inconsistency unrelated to it).
     image: {
-      src: "/assets/editions/detail/portrait-2.jpg",
-      alt: "A slatted timber facade of Umah Tsuki with a window framing the garden",
+      src: "/assets/editions/detail/gallery-1.jpg",
+      alt: "A koi pond bordered by stone and ferns",
     },
   },
 
+  // Re-synced against node 279:11585 (frame 279:11602): all three swapped
+  // for genuinely new photos -- confirmed via hash, none of these three
+  // match what was here before (or each other). The old koi-pond photo
+  // that lived at index 0 (gallery-1.jpg) didn't disappear -- storyA
+  // below now uses it instead, once Figma moved that same photo there.
   galleryRow: [
     {
-      src: "/assets/editions/detail/gallery-1.jpg",
-      alt: "Tree branches shading Umah Tsuki's timber deck",
+      src: "/assets/editions/editions-filmstrip-living-room.jpg",
+      alt: "A corner living room opening onto a jungle canopy through floor-to-ceiling glass",
     },
     {
-      src: "/assets/editions/tsuki-hero.png",
-      alt: "Umah Tsuki's black-clad cantilevered volume seen through the surrounding tree canopy",
+      src: "/assets/editions/detail/tsuki-gallery-hallway.jpg",
+      alt: "A dark timber-slatted hallway opening onto a garden deck",
     },
     {
-      src: "/assets/editions/tsuki-edition-1.png",
-      alt: "Detail of Umah Tsuki's shou sugi ban roofline and timber-framed window",
+      src: "/assets/editions/detail/tsuki-gallery-dining.jpg",
+      alt: "A dining room with a sculptural pendant light and a framed textile on the wall",
     },
   ],
 
+  // A second, genuinely different three-photo gallery row -- see
+  // `galleryRow2`'s own comment on the EditionData type.
+  galleryRow2: [
+    {
+      src: "/assets/editions/detail/tsuki-gallery2-bedroom-lamp.jpg",
+      alt: "A bedroom with a glowing bedside lamp and patterned throw pillows",
+    },
+    {
+      src: "/assets/editions/detail/tsuki-gallery2-dog-porch.jpg",
+      alt: "A dog resting on a covered porch against a dark timber-slatted wall",
+    },
+    {
+      src: "/assets/editions/detail/tsuki-gallery2-porch.jpg",
+      alt: "A covered porch with lounge chairs overlooking a stone-walled garden and staircase",
+    },
+  ],
+
+  closingBanner: {
+    src: "/assets/editions/detail/tsuki-closing-patio.jpg",
+    alt: "An outdoor lounge with a sectional sofa beside a stone retaining wall and garden stairs",
+  },
+
   storyB: {
     image: {
-      src: "/assets/editions/detail/gallery-2.png",
-      alt: "A daybed on Umah Tsuki's covered deck overlooking the garden",
+      src: "/assets/editions/detail/tsuki-koipond-bridge.jpg",
+      alt: "A koi pond seen from a timber walkway bridge, with a woven hammock chair beyond",
     },
     paragraphs: [
       "Umah Tsuki, the family home for Andrew Swallow, his wife, and their young daughter, sits perched above a verdant, sloping plot in the Balinese village of Tumbak Bayuh. The property is the first built project to be completed by Swallow – a former chef – who spent years devising the menus and interiors of his own restaurants in the US before choosing to fully pursue his interest in design.",
@@ -386,6 +432,28 @@ const sora: EditionData = {
       },
       text: tsuki.row4.side.text,
     },
+  },
+  // Own genuinely distinct photos -- explicitly set, not left inherited
+  // from tsuki's spread above (same reasoning as listImage's own
+  // comment: without this, tsuki's galleryRow2/closingBanner values
+  // would silently carry over into Sora's too).
+  galleryRow2: [
+    {
+      src: "/assets/editions/detail/sora-gallery2-kitchen.jpg",
+      alt: "A round paper pendant light above a kitchen counter and dark stone backsplash",
+    },
+    {
+      src: "/assets/editions/detail/sora-gallery2-sauna.jpg",
+      alt: "A timber-framed sauna corner seen through glass, set against a stone wall",
+    },
+    {
+      src: "/assets/editions/detail/sora-gallery2-pooldeck.jpg",
+      alt: "A pool deck and lounge seen beneath an overhanging shingled roof",
+    },
+  ],
+  closingBanner: {
+    src: "/assets/editions/detail/sora-closing-lounge.jpg",
+    alt: "An outdoor lounge and dining area beneath a pyramid roof, overlooking a pool",
   },
 };
 

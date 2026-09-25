@@ -3,13 +3,14 @@ import ScrollFade from "../ScrollFade";
 
 /**
  * "CH Collections" (Figma node 298:13396): a poster-card image beside
- * the same tag/heading/paragraphs/CTA copy as Editions' own ChCollections
- * -- new layout, same already-approved words (including the CTA note's
- * "each edition stands" -- Figma's own copy of this frame still has the
- * unfixed "each editions stands" typo the live site already corrected).
- * The card itself is a flat, pre-composed graphic (Figma layer name:
- * "Screenshot 2026-09-25 at 18.00.37") rather than a live-rendered
- * component, so it's reproduced as a single image.
+ * text ported character-for-character from this Figma frame, per
+ * explicit "make sure the text exactly the same" direction -- including
+ * the CTA note's own "each editions stands" (Figma's literal text; the
+ * live site's own ChCollections already corrected this to "edition's",
+ * but this page mirrors the Figma source exactly rather than that
+ * correction). The card itself is a flat, pre-composed graphic (Figma
+ * layer name: "Screenshot 2026-09-25 at 18.00.37") rather than a
+ * live-rendered component, so it's reproduced as a single image.
  */
 export default function CollectionsCard() {
   return (
@@ -28,7 +29,7 @@ export default function CollectionsCard() {
           <span className="hpn-tag__dot" />
           <span>WARM WELCOME TO OUR COLLECTIONS</span>
         </div>
-        <h2 className="hpn-collections__heading">CH Collections</h2>
+        <h2 className="hpn-collections__heading">CH COLLECTIONS</h2>
         <div className="hpn-collections__text">
           <p>
             Every CH home is a singular commission one family, one
@@ -56,8 +57,8 @@ export default function CollectionsCard() {
             Request the collections
           </a>
           <p className="statement-section__cta-note">
-            A private look at where each edition stands today, and which
-            are still available.
+            A private look at where each editions stands today, and
+            which are still available.
           </p>
         </div>
       </ScrollFade>

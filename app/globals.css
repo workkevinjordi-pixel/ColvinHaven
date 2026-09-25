@@ -1041,7 +1041,13 @@ button:focus-visible,
    chore -- tuned by eye, not derived from anything. */
 .drawing-scroll {
   position: relative;
-  height: 220vh;
+  /* 160vh, not the previous 220vh -- ScrollDrawing maps 0-100% of the
+     drawing to this section's own scrollable range (height minus the
+     100vh pin), so this height is directly what "how much scrolling it
+     takes to finish drawing" means. 160vh leaves 60vh of scroll
+     distance (vs. the old 120vh) to complete the same animation --
+     roughly twice as fast per pixel scrolled, on user request. */
+  height: 160vh;
   background: var(--bg);
 }
 
@@ -7282,6 +7288,14 @@ button:focus-visible,
 
 .hpn-tag span:last-child {
   font-size: 12px;
+}
+
+/* Mori's own "COMING SOON" tag (node 298:13523) is the only one of
+   this page's three tags with explicit letter-spacing in Figma -- "A
+   WAY OF LIFE" and "WARM WELCOME TO OUR COLLECTIONS" both specify none
+   (default/normal), confirmed by their own JSX carrying no tracking
+   class at all, unlike this one's tracking-[1.2px]. */
+.hpn-mori .hpn-tag span:last-child {
   letter-spacing: 1.2px;
 }
 
@@ -7302,7 +7316,23 @@ button:focus-visible,
   line-height: 1.2;
   letter-spacing: 3.2px;
   text-align: center;
-  text-transform: uppercase;
+  /* No text-transform: uppercase here -- Figma's own headings that
+     read as all-caps ("OUR GUIDING VALUES", "EDITIONS", "COLLECTIVE")
+     are typed that way as literal text content, not transformed, and
+     "MORI (森 - Jungle)" proves the difference matters: its own text
+     layer is genuinely mixed-case ("Jungle", not "JUNGLE"), so a
+     blanket transform here would silently force it uppercase too.
+     Every .hpn-heading usage instead types its own exact-case text. */
+}
+
+/* Editions' own "EDITIONS" heading (node 298:13290) is genuinely
+   smaller than every other .hpn-heading usage -- 24px/2.4px tracking
+   here vs. the 32px/3.2px Guiding Values, Collective and Mori all
+   share -- confirmed via a dedicated get_design_context call on this
+   specific frame, not assumed uniform across headings. */
+.hpn-heading--small {
+  font-size: 24px;
+  letter-spacing: 2.4px;
 }
 
 @media (max-width: 560px) {
@@ -7423,8 +7453,18 @@ button:focus-visible,
 .hpn-collections__heading {
   font-family: var(--font-cormorant), serif;
   font-weight: 500;
-  font-size: 32px;
-  letter-spacing: 3.2px;
+  font-size: 24px;
+  letter-spacing: 2.4px;
+}
+
+/* This frame's own CTA note (node 298:13419) specs 1.2px tracking and
+   a 70%-opacity ink color, unlike the shared .statement-section__cta-
+   note's plain default (no tracking, full-opacity inherited color) --
+   scoped here rather than changed on the shared class, which other
+   pages' StatementSection usages also rely on. */
+.hpn-collections .statement-section__cta-note {
+  letter-spacing: 1.2px;
+  color: rgba(29, 25, 15, 0.7);
 }
 
 .hpn-collections__text {
@@ -7591,9 +7631,9 @@ button:focus-visible,
 .hpn-collective__text {
   max-width: 720px;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
-  letter-spacing: 2px;
+  letter-spacing: 1.6px;
   color: rgba(29, 25, 15, 0.7);
   text-align: center;
 }
@@ -7782,4 +7822,28 @@ button:focus-visible,
 .hpn-page .footer__mark,
 .hpn-page .footer__nav a {
   color: #c7a95f;
+}
+
+/* This frame's own footer nav (node 298:13280) specs a 40px gap
+   between "Editions"/"Collective", not the shared Footer's 16px. */
+.hpn-page .footer__nav {
+  gap: 40px;
+}
+
+/* ---------- Hero title sizing (node 298:11986, "Frame 99"): this
+   page's own hero title/tagline are genuinely smaller than the live
+   homepage's Hero component (24px/14px here vs. 32px/16px there,
+   confirmed via a dedicated get_design_context call on this exact
+   frame, not assumed from the live site) -- scoped the same way as the
+   gold accent above, since Hero itself is shared and every other page
+   that uses it keeps the larger size. */
+.hpn-page .hero__title {
+  font-size: 24px;
+  letter-spacing: 3.6px;
+  color: #f8f5f6;
+}
+
+.hpn-page .hero__tagline {
+  font-size: 14px;
+  letter-spacing: 1.4px;
 }

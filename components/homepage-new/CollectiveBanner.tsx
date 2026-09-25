@@ -25,7 +25,7 @@ export default function CollectiveBanner() {
         />
       </div>
       <ScrollFade className="hpn-collective__body">
-        <h2 className="hpn-heading">Collective</h2>
+        <h2 className="hpn-heading hpn-heading--small">COLLECTIVE</h2>
         <p className="hpn-collective__text">
           A practice devoted to the complete experience of home. A
           collective of designers, architects and craftspeople.
@@ -33,7 +33,7 @@ export default function CollectiveBanner() {
           approach, in its architecture and in its interactions.
         </p>
         <a href="/collective" className="statement-section__cta">
-          Deep dive to the Collective
+          DEEP DIVE TO THE COLLECTIVE
         </a>
       </ScrollFade>
     </section>

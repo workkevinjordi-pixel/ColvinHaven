@@ -3,8 +3,13 @@ import ScrollFade from "../ScrollFade";
 
 /**
  * "MORI (森 - Jungle)" coming-soon teaser (Figma node 298:13458): a
- * third edition, not yet built. Its intro -- heading, lede, and specs
- * (2000m2, complete 2027) -- is genuine new copy, ported faithfully.
+ * third edition, not yet built. Heading/tag/specs are ported
+ * faithfully. The lede paragraph carries its own Figma-side slip --
+ * "Kawa distils the same philosophy", not "Mori" -- left over from
+ * copy-pasting an earlier "Kawa" edition's intro and renaming only the
+ * heading; per explicit "make sure the text exactly the same"
+ * direction this mirrors that literal text rather than silently
+ * correcting it to "Mori".
  *
  * The two-photo row below it is a different story: both images and
  * both captions are byte-for-byte Tsuki's own row1 content (confirmed
@@ -25,11 +30,11 @@ export default function MoriTeaser() {
             <span className="hpn-tag__dot" />
             <span>COMING SOON</span>
           </div>
-          <h2 className="hpn-heading">Mori (森 - Jungle)</h2>
+          <h2 className="hpn-heading hpn-heading--small">MORI (森 - Jungle)</h2>
         </div>
         <p className="hpn-mori__lede">
           The third express in our collection. Not a smaller version of
-          Tsuki, but its true essence distilled. Mori distils the same
+          Tsuki, but its true essence distilled. Kawa distils the same
           philosophy into an intimate, human scale. Every metre
           purposeful.
         </p>

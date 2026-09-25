@@ -32,20 +32,24 @@ const REEL: EditionsFilmstripImage[] = [
 
 /**
  * Lede paragraph + filmstrip (Figma node 298:13386). The lede is
- * literal Lorem Ipsum in this Figma frame -- replaced with real copy
- * adapted from Editions' own intro lede (same seven-Editions framing,
- * just without that page's "II/VII" eyebrow and CTA, neither of which
- * this frame has room for).
+ * literal Lorem Ipsum in this Figma frame -- per explicit "make sure
+ * the text exactly the same" direction, ported as-is rather than
+ * swapped for real copy (this page's earlier pass here had used
+ * Editions' own intro lede instead; reverted).
  */
 export default function FilmstripBand() {
   return (
     <div className="hpn-filmstrip-band">
       <ScrollFade>
         <p className="hpn-filmstrip-band__lede">
-          There will only ever be seven Editions in this first series —
-          each one a singular commission, conceived for a single family
-          and built entirely by hand. Some are already complete. Others
-          are still taking shape.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+          enim ad minim veniam, quis nostrud exercitation ullamco
+          laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+          cupidatat non proident, sunt in culpa qui officia deserunt
+          mollit anim id est laborum.
         </p>
       </ScrollFade>
       <EditionsFilmstrip images={REEL} />

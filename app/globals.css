@@ -7290,15 +7290,6 @@ button:focus-visible,
   font-size: 12px;
 }
 
-/* Mori's own "COMING SOON" tag (node 298:13523) is the only one of
-   this page's three tags with explicit letter-spacing in Figma -- "A
-   WAY OF LIFE" and "WARM WELCOME TO OUR COLLECTIONS" both specify none
-   (default/normal), confirmed by their own JSX carrying no tracking
-   class at all, unlike this one's tracking-[1.2px]. */
-.hpn-mori .hpn-tag span:last-child {
-  letter-spacing: 1.2px;
-}
-
 .hpn-heading {
   font-family: var(--font-cormorant), serif;
   font-weight: 500;
@@ -7828,147 +7819,6 @@ button:focus-visible,
   }
 }
 
-/* ---------- Mori (node 298:13458): "coming soon" teaser for a third
-   edition. Its own intro (heading, lede, facts) is genuine new copy,
-   ported faithfully -- but the two-photo row below it is Figma's own
-   placeholder reuse of Tsuki's row1 images/text (no real Mori
-   photography exists yet), reusing .edition-spotlight__row* directly
-   since the proportions match that pattern exactly (790/403, 23px gap,
-   473px image height). ---------- */
-
-.hpn-mori {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  /* See .hpn-values' own comment on the 120px-not-60px rhythm --
-     120px top, not the previous 60px (bottom was already 120px). */
-  padding: 120px 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 60px;
-}
-
-.hpn-mori__intro {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-  max-width: 720px;
-}
-
-.hpn-mori__heading-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* Figma specs 16px here, but that's not enough clearance once
-     .hpn-heading actually contains a CJK character ("MORI (森 -
-     Jungle)") -- 森's fallback-font glyph paints past its own line
-     box on top even with an explicit line-height (see .hpn-heading's
-     own comment), so this one usage needs the extra breathing room
-     the box model alone doesn't account for. */
-  gap: 28px;
-}
-
-.hpn-mori__lede {
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 1.6px;
-  color: rgba(29, 25, 15, 0.7);
-  text-align: center;
-}
-
-.hpn-mori__facts {
-  display: flex;
-  gap: 48px;
-  justify-content: center;
-  font-weight: 300;
-  font-size: 16px;
-  letter-spacing: 1.6px;
-  color: rgba(29, 25, 15, 0.7);
-}
-
-@media (max-width: 900px) {
-  .hpn-mori {
-    padding: 48px var(--gutter) 80px;
-  }
-}
-
-/* Hidden by default (desktop/tablet); swapped at <=560px below. See
-   MoriTeaser.tsx's own comment on why this pair exists. */
-.hpn-mori__row-text-mobile {
-  display: none;
-}
-
-@media (max-width: 560px) {
-  .hpn-mori {
-    padding: 40px 16px;
-    gap: 32px;
-  }
-
-  .hpn-mori__heading-group {
-    /* Figma specs 16px here too, same CJK-overflow caveat as the base
-       rule's own 28px -- split the difference rather than reusing
-       either extreme verbatim. */
-    gap: 20px;
-  }
-
-  .hpn-mori__facts {
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-  }
-
-  /* Figma's mobile Mori frame (node 298:14978) restructures this row
-     entirely: both photos side by side (not stacked, unlike every
-     real edition detail page's own mobile layout, which this shares
-     a class with -- scoped to .hpn-mori specifically so the real
-     detail pages are untouched), with all three paragraphs combined
-     into one block below instead of captioning each photo on its own. */
-  .hpn-mori__row {
-    /* Without this, .edition-spotlight__row-main's own flex-grow:1
-       below has no defined space to grow into: .hpn-mori is a column
-       flex container with align-items:center, which shrink-wraps
-       every child to its own content size on the cross axis (here,
-       horizontal) unless the child stretches explicitly -- so this
-       row was collapsing to its own two children's combined
-       flex-basis (0% + 140px) instead of the full available width. */
-    width: 100%;
-    flex-direction: row;
-    gap: 16px;
-  }
-
-  .hpn-mori__row .edition-spotlight__row-main {
-    flex: 1 1 0%;
-    width: auto;
-  }
-
-  .hpn-mori__row .edition-spotlight__row-side {
-    flex: 0 0 140px;
-    width: 140px;
-  }
-
-  .hpn-mori__row .edition-spotlight__row-image {
-    height: 299px;
-  }
-
-  .hpn-mori__row-text-desktop {
-    display: none;
-  }
-
-  .hpn-mori__row-text-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 24px;
-    letter-spacing: 1.4px;
-    color: rgba(29, 25, 15, 0.7);
-  }
-}
-
 /* ---------- Quote (node 298:13537): photo + uppercase quote side by
    side -- the photo is flush with the true left edge (no left inset),
    only the text column gets the page's own right-hand gutter. Same
@@ -8169,5 +8019,87 @@ button:focus-visible,
     max-width: none;
     font-size: 14px;
     letter-spacing: 1.4px;
+  }
+}
+
+/* ---------- Masonry gallery (node 309:21554), added to
+   /homepage-new between Guiding Values and the filmstrip band --
+   replaces the section order the page originally shipped with
+   (Values -> Filmstrip -> CH Collections -> Editions -> Mori ->
+   Collective -> Quote): the filmstrip now comes AFTER this gallery
+   instead of right after Values, and neither CH Collections' poster
+   card nor the Mori "coming soon" teaser exist anywhere in this
+   updated Figma file any more (confirmed by text-searching the raw
+   metadata dump for "COLLECTION"/"MORI"/"Kawa"/"COMING SOON" -- none
+   present), so both are dropped rather than kept alongside the new
+   section. ---------- */
+
+.hpn-masonry {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  /* 60px, not this page's usual 120px gutter -- this frame's own
+     x-offset (60px, per its metadata: x=60 on a 1320px-wide frame
+     inside the 1440px canvas) is genuinely half of every other
+     homepage-new section's inset, not a copy-paste of the same
+     number. */
+  padding: 120px 60px;
+  display: flex;
+  gap: 120px;
+}
+
+.hpn-masonry__col {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.hpn-masonry__col > * + * {
+  margin-top: 284px;
+}
+
+/* Figma's own numbers -- not a formula, same "confirmed exact, not
+   derived" caveat the live homepage's own Option8Gallery masonry
+   already documents for its own (different) stagger values. */
+.hpn-masonry__col--right {
+  margin-top: 278px;
+}
+
+.hpn-masonry__col--right > * + * {
+  margin-top: 401px;
+}
+
+.hpn-masonry__card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.hpn-masonry__card--tall {
+  aspect-ratio: 600 / 866;
+}
+
+@media (max-width: 900px) {
+  .hpn-masonry {
+    flex-direction: column;
+    gap: 40px;
+    padding: 80px var(--gutter);
+  }
+
+  .hpn-masonry__col,
+  .hpn-masonry__col--right {
+    margin-top: 0;
+  }
+
+  .hpn-masonry__col > * + *,
+  .hpn-masonry__col--right > * + * {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hpn-masonry {
+    padding: 40px 16px;
   }
 }

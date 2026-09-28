@@ -30,27 +30,34 @@ const REEL: EditionsFilmstripImage[] = [
   },
 ];
 
+type FilmstripBandProps = {
+  lede?: React.ReactNode;
+};
+
 /**
  * Lede paragraph + filmstrip (Figma node 298:13386). The lede is
- * literal Lorem Ipsum in this Figma frame -- per explicit "make sure
- * the text exactly the same" direction, ported as-is rather than
- * swapped for real copy (this page's earlier pass here had used
- * Editions' own intro lede instead; reverted).
+ * literal Lorem Ipsum in this Figma frame -- default prop here is real
+ * copy (same seven-Editions framing as EditionsNewIntro's own lede),
+ * same pattern as Cta's own default/override split: a page built under
+ * an explicit "make sure the text exactly the same" direction passes
+ * the Lorem Ipsum in as an override (see app/homepage-new/page.tsx),
+ * every other page -- including the real homepage, which has no such
+ * direction -- gets real copy for free via the default.
  */
-export default function FilmstripBand() {
+export default function FilmstripBand({
+  lede = (
+    <>
+      There will only ever be seven Editions in this first series — each
+      one a singular commission, conceived for a single family and
+      built entirely by hand. Some are already complete. Others are
+      still taking shape.
+    </>
+  ),
+}: FilmstripBandProps = {}) {
   return (
     <div className="hpn-filmstrip-band">
       <ScrollFade>
-        <p className="hpn-filmstrip-band__lede">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-          enim ad minim veniam, quis nostrud exercitation ullamco
-          laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-          irure dolor in reprehenderit in voluptate velit esse cillum
-          dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-          cupidatat non proident, sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
-        </p>
+        <p className="hpn-filmstrip-band__lede">{lede}</p>
       </ScrollFade>
       <EditionsFilmstrip images={REEL} showDots dotCount={6} />
     </div>

@@ -7348,7 +7348,15 @@ button:focus-visible,
 .hpn-values {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 60px 120px;
+  /* 120px, not Figma's own 60px -- matches the vertical rhythm every
+     other major section on this site uses (.values, .statement-
+     section, Craft/Foundation-style rows all sit in the 120-200px
+     range). At Figma's tighter 60px, this page's many stacked
+     sections read as cramped/compressed rather than the premium,
+     unhurried spacing the rest of the site establishes -- a
+     deliberate, requested departure from the source frame's own
+     number, not a fidelity miss like the earlier text/sizing pass. */
+  padding: 120px 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7396,7 +7404,8 @@ button:focus-visible,
   flex-direction: column;
   align-items: center;
   gap: 48px;
-  padding: 60px 0;
+  /* See .hpn-values' own comment on the 120px-not-60px rhythm. */
+  padding: 120px 0;
 }
 
 .hpn-filmstrip-band__lede {
@@ -7426,7 +7435,8 @@ button:focus-visible,
 .hpn-collections {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 60px 120px;
+  /* See .hpn-values' own comment on the 120px-not-60px rhythm. */
+  padding: 120px 120px;
   display: flex;
   gap: 120px;
   align-items: center;
@@ -7507,7 +7517,8 @@ button:focus-visible,
 .hpn-editions {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 60px 120px;
+  /* See .hpn-values' own comment on the 120px-not-60px rhythm. */
+  padding: 120px 120px;
   display: flex;
   flex-direction: column;
   gap: 60px;
@@ -7609,7 +7620,8 @@ button:focus-visible,
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  padding: 60px 0;
+  /* See .hpn-values' own comment on the 120px-not-60px rhythm. */
+  padding: 120px 0;
 }
 
 .hpn-collective__banner {
@@ -7674,7 +7686,9 @@ button:focus-visible,
 .hpn-mori {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 60px 120px 120px;
+  /* See .hpn-values' own comment on the 120px-not-60px rhythm --
+     120px top, not the previous 60px (bottom was already 120px). */
+  padding: 120px 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7749,7 +7763,8 @@ button:focus-visible,
 .hpn-quote {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 60px 120px 60px 0;
+  /* See .hpn-values' own comment on the 120px-not-60px rhythm. */
+  padding: 120px 120px 120px 0;
   display: flex;
   align-items: center;
   gap: 96px;

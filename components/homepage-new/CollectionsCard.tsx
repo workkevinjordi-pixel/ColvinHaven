@@ -25,11 +25,13 @@ export default function CollectionsCard() {
         />
       </ScrollFade>
       <ScrollFade className="hpn-collections__body">
-        <div className="hpn-tag">
-          <span className="hpn-tag__dot" />
-          <span>WARM WELCOME TO OUR COLLECTIONS</span>
+        <div className="hpn-collections__heading-group">
+          <div className="hpn-tag">
+            <span className="hpn-tag__dot" />
+            <span>WARM WELCOME TO OUR COLLECTIONS</span>
+          </div>
+          <h2 className="hpn-collections__heading">CH COLLECTIONS</h2>
         </div>
-        <h2 className="hpn-collections__heading">CH COLLECTIONS</h2>
         <div className="hpn-collections__text">
           <p>
             Every CH home is a singular commission one family, one

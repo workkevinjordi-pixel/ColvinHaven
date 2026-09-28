@@ -44,7 +44,7 @@ export default function MoriTeaser() {
         </div>
       </ScrollFade>
 
-      <ScrollFade className="edition-spotlight__row">
+      <ScrollFade className="edition-spotlight__row hpn-mori__row">
         <div className="edition-spotlight__row-main">
           <div className="edition-spotlight__row-image">
             <Image
@@ -55,7 +55,11 @@ export default function MoriTeaser() {
               style={{ objectFit: "cover" }}
             />
           </div>
-          <div className="edition-spotlight__row-text">
+          {/* Hidden at <=560px -- Figma's own mobile frame (node
+              298:14978) doesn't caption each photo individually there,
+              it combines all three paragraphs into one block below
+              both photos instead. See .hpn-mori__row-text-mobile. */}
+          <div className="edition-spotlight__row-text hpn-mori__row-text-desktop">
             <p>
               &ldquo;Designed to belong, Tsuki editions disappear into the
               landscape, honoring the land rather than overtaking
@@ -80,7 +84,7 @@ export default function MoriTeaser() {
               style={{ objectFit: "cover" }}
             />
           </div>
-          <p>
+          <p className="hpn-mori__row-text-desktop">
             Twenty years of service taught one thing above all a home
             doesn&apos;t gather around a view, it gathers around a
             kitchen. So Tsuki&apos;s kitchen was never an afterthought.
@@ -88,6 +92,32 @@ export default function MoriTeaser() {
           </p>
         </div>
       </ScrollFade>
+
+      {/* Mobile-only combined text (node 298:15001) -- same three
+          paragraphs as above, shown only <=560px while the per-column
+          copies above are hidden there via plain CSS `display: none`
+          (in both directions) -- that alone keeps assistive tech from
+          ever seeing both copies at once, no manual aria-hidden
+          needed on either. */}
+      <div className="hpn-mori__row-text-mobile">
+        <p>
+          &ldquo;Designed to belong, Tsuki editions disappear into the
+          landscape, honoring the land rather than overtaking it&rdquo;
+        </p>
+        <p>
+          In both materials and construction, Umah Tsuki emphasizes
+          provenance hand-built on site from locally sourced paras stone
+          and recycled ulin hardwood, its traditional techniques and
+          meticulous finishes set the scene for a quality of life
+          attuned to the essential.
+        </p>
+        <p>
+          Twenty years of service taught one thing above all a home
+          doesn&apos;t gather around a view, it gathers around a
+          kitchen. So Tsuki&apos;s kitchen was never an afterthought. It
+          sits at the heart of the home.
+        </p>
+      </div>
     </section>
   );
 }

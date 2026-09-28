@@ -67,7 +67,18 @@ function GalleryRow({
  * shorter EditionsList summary instead, linking here for the full
  * story.
  */
-export default function EditionSpotlight({ data }: { data: EditionData }) {
+export default function EditionSpotlight({
+  data,
+  finalGalleryId = "edition-final-gallery",
+}: {
+  data: EditionData;
+  /** Defaults to "edition-final-gallery" (what EditionStickyBanner's
+   * own IntersectionObserver watches on each standalone detail page).
+   * /editions-new renders two EditionSpotlights on one page and has no
+   * sticky banner to satisfy, so it passes a per-edition id instead --
+   * two elements sharing one id would otherwise be invalid HTML. */
+  finalGalleryId?: string;
+}) {
   const {
     title,
     specs,
@@ -231,7 +242,7 @@ export default function EditionSpotlight({ data }: { data: EditionData }) {
             gallery's images if an edition hasn't specced its own. */}
         <GalleryRow
           images={galleryRow2 ?? galleryRow}
-          id="edition-final-gallery"
+          id={finalGalleryId}
         />
 
         {closingBanner && (

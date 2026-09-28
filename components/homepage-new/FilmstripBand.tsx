@@ -52,7 +52,7 @@ export default function FilmstripBand() {
           mollit anim id est laborum.
         </p>
       </ScrollFade>
-      <EditionsFilmstrip images={REEL} />
+      <EditionsFilmstrip images={REEL} showDots dotCount={6} />
     </div>
   );
 }

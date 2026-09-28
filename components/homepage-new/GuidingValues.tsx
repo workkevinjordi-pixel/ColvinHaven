@@ -14,11 +14,15 @@ export default function GuidingValues() {
   return (
     <section>
       <ScrollFade className="hpn-values">
-        <div className="hpn-tag">
-          <span className="hpn-tag__dot" />
-          <span>A WAY OF LIFE</span>
+        <div className="hpn-values__heading-group">
+          <div className="hpn-tag">
+            <span className="hpn-tag__dot" />
+            <span>A WAY OF LIFE</span>
+          </div>
+          <h2 className="hpn-heading hpn-heading--small">
+            OUR GUIDING VALUES
+          </h2>
         </div>
-        <h2 className="hpn-heading hpn-heading--small">OUR GUIDING VALUES</h2>
         <div className="hpn-values__text">
           <p>
             Before anything else, we plant the trees. By the time you

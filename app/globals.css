@@ -7363,6 +7363,18 @@ button:focus-visible,
   gap: 32px;
 }
 
+/* Wraps the tag + heading together (mobile node 298:14832 nests them
+   at their own tighter 16px gap, distinct from the 24px gap before
+   the text block below) -- desktop keeps both gaps equal to the
+   original flat 32px sequence, so nesting them here changes nothing
+   visually above 560px. */
+.hpn-values__heading-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
 .hpn-values__text {
   display: flex;
   flex-direction: column;
@@ -7384,12 +7396,18 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .hpn-values {
-    padding: 32px 16px;
+    padding: 40px 16px;
+    gap: 24px;
+  }
+
+  .hpn-values__heading-group {
+    gap: 16px;
   }
 
   .hpn-values__text {
-    font-size: 15px;
-    line-height: 26px;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 1.4px;
   }
 }
 
@@ -7420,11 +7438,56 @@ button:focus-visible,
   text-align: center;
 }
 
+/* Dot pagination under the mobile swiper (node 298:14863) -- Figma
+   shows 6 dots regardless of this reel's own 5 images (confirmed via
+   a dedicated get_design_context call, not a miscount on this side),
+   so EditionsFilmstrip's own `dotCount` prop is set to 6 explicitly
+   here rather than defaulting to images.length. Only rendered where
+   `showDots` is passed -- the Editions page's own intro filmstrip
+   (same component) has no dots in its own mobile frame, so the prop
+   defaults to off. */
+.editions-swiper__dots {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .editions-swiper__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+}
+
+.editions-swiper__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(29, 25, 15, 0.5);
+  transition: background-color 0.2s ease;
+}
+
+.editions-swiper__dot--active {
+  background: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editions-swiper__dot {
+    transition: none;
+  }
+}
+
 @media (max-width: 560px) {
+  .hpn-filmstrip-band {
+    gap: 24px;
+    padding: 40px 0;
+  }
+
   .hpn-filmstrip-band__lede {
     padding: 0 16px;
-    font-size: 15px;
-    line-height: 26px;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 1.4px;
   }
 }
 
@@ -7458,6 +7521,24 @@ button:focus-visible,
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
+}
+
+/* Wraps the tag + heading together, same reasoning as
+   .hpn-values__heading-group above -- no visual change at desktop
+   (both stay left-aligned, inheriting .hpn-collections__body's own
+   16px tag-to-heading gap via this group), but node 298:14874's own
+   mobile frame centers this group (and only this group -- the body
+   paragraphs below stay left-aligned even though the section as a
+   whole reads as centered). */
+.hpn-collections__heading-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* 32px, matching the original flat tag/heading/text sequence's own
+     gap -- only the mobile override below tightens this to Figma's
+     mobile-specific 16px. */
+  gap: 32px;
+  width: 100%;
 }
 
 .hpn-collections__heading {
@@ -7505,7 +7586,43 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .hpn-collections {
-    padding: 32px 16px;
+    padding: 40px 16px;
+    gap: 40px;
+  }
+
+  /* Card, tag, and heading center; the body paragraphs and CTA note
+     stay left-aligned (matching node 298:14874's own mixed alignment
+     -- confirmed via screenshot, not assumed uniform). */
+  .hpn-collections__body {
+    align-items: center;
+  }
+
+  .hpn-collections__heading-group {
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hpn-collections__heading {
+    text-align: center;
+  }
+
+  .hpn-collections__card {
+    max-width: 243px;
+    height: 320px;
+  }
+
+  .hpn-collections__text {
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 1.4px;
+  }
+
+  .hpn-collections .statement-section__cta-group {
+    width: 100%;
+  }
+
+  .hpn-collections .statement-section__cta {
+    width: 100%;
   }
 }
 
@@ -7607,7 +7724,38 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .hpn-editions {
-    padding: 32px 16px;
+    padding: 40px 16px;
+    gap: 32px;
+  }
+
+  .hpn-editions__row {
+    gap: 24px;
+  }
+
+  .hpn-editions__card {
+    gap: 32px;
+  }
+
+  .hpn-editions__image {
+    height: 240px;
+  }
+
+  .hpn-editions__index {
+    font-size: 14px;
+  }
+
+  .hpn-editions__name {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .hpn-editions__summary {
+    font-size: 14px;
+    letter-spacing: 1.4px;
+  }
+
+  .hpn-editions__explore {
+    font-size: 14px;
   }
 }
 
@@ -7661,17 +7809,22 @@ button:focus-visible,
 }
 
 @media (max-width: 560px) {
-  .hpn-collective__banner {
-    height: 320px;
+  .hpn-collective {
+    padding: 40px 0;
+    gap: 32px;
   }
 
+  /* 420px, not a further-shrunk 320px -- confirmed via a dedicated
+     get_design_context call on node 298:14968's own mobile frame,
+     which keeps the same 420px the >=560px tablet range already
+     uses rather than shrinking it again at this breakpoint. */
   .hpn-collective__body {
     padding: 0 16px;
   }
 
   .hpn-collective__text {
-    font-size: 17px;
-    line-height: 28px;
+    font-size: 16px;
+    line-height: 24px;
   }
 }
 
@@ -7741,16 +7894,78 @@ button:focus-visible,
   }
 }
 
+/* Hidden by default (desktop/tablet); swapped at <=560px below. See
+   MoriTeaser.tsx's own comment on why this pair exists. */
+.hpn-mori__row-text-mobile {
+  display: none;
+}
+
 @media (max-width: 560px) {
   .hpn-mori {
-    padding: 32px 16px 60px;
-    gap: 40px;
+    padding: 40px 16px;
+    gap: 32px;
+  }
+
+  .hpn-mori__heading-group {
+    /* Figma specs 16px here too, same CJK-overflow caveat as the base
+       rule's own 28px -- split the difference rather than reusing
+       either extreme verbatim. */
+    gap: 20px;
   }
 
   .hpn-mori__facts {
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
     align-items: center;
+  }
+
+  /* Figma's mobile Mori frame (node 298:14978) restructures this row
+     entirely: both photos side by side (not stacked, unlike every
+     real edition detail page's own mobile layout, which this shares
+     a class with -- scoped to .hpn-mori specifically so the real
+     detail pages are untouched), with all three paragraphs combined
+     into one block below instead of captioning each photo on its own. */
+  .hpn-mori__row {
+    /* Without this, .edition-spotlight__row-main's own flex-grow:1
+       below has no defined space to grow into: .hpn-mori is a column
+       flex container with align-items:center, which shrink-wraps
+       every child to its own content size on the cross axis (here,
+       horizontal) unless the child stretches explicitly -- so this
+       row was collapsing to its own two children's combined
+       flex-basis (0% + 140px) instead of the full available width. */
+    width: 100%;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .hpn-mori__row .edition-spotlight__row-main {
+    flex: 1 1 0%;
+    width: auto;
+  }
+
+  .hpn-mori__row .edition-spotlight__row-side {
+    flex: 0 0 140px;
+    width: 140px;
+  }
+
+  .hpn-mori__row .edition-spotlight__row-image {
+    height: 299px;
+  }
+
+  .hpn-mori__row-text-desktop {
+    display: none;
+  }
+
+  .hpn-mori__row-text-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 1.4px;
+    color: rgba(29, 25, 15, 0.7);
   }
 }
 
@@ -7807,18 +8022,24 @@ button:focus-visible,
 }
 
 @media (max-width: 560px) {
+  /* Asymmetric 40/80, and a plain 0 side inset (not 16px) on the
+     section itself -- the image runs full-bleed edge to edge here,
+     confirmed via a dedicated get_design_context call on node
+     298:15034; only the text below gets its own 16px inset. */
   .hpn-quote {
-    padding: 32px 16px;
+    padding: 40px 0 80px;
+    gap: 32px;
   }
 
   .hpn-quote__image {
-    height: 320px;
+    height: 510px;
   }
 
   .hpn-quote__text {
-    font-size: 16px;
-    line-height: 28px;
-    letter-spacing: 1px;
+    padding: 0 16px;
+    font-size: 20px;
+    line-height: 40px;
+    letter-spacing: 1.4px;
   }
 }
 
@@ -7861,4 +8082,92 @@ button:focus-visible,
 .hpn-page .hero__tagline {
   font-size: 14px;
   letter-spacing: 1.4px;
+}
+
+/* ==========================================================================
+   Editions (New) -- /editions-new (Figma node 303:15060, mobile
+   304:15408)
+
+   A design-exploration variant of the Editions page: every edition's
+   full story on one continuous page instead of a summary card linking
+   out to its own detail page. Everything from EditionDetailHeader
+   down is reused verbatim (see page.tsx's own comment) -- this block
+   only covers what's actually new here: the page's own gutter width,
+   the simplified intro, and resetting EditionDetailHeader's
+   navbar-clearing top padding for a header that (unlike the standalone
+   detail pages) is never literally the first thing on the page.
+   ========================================================================== */
+
+/* 120px, not the site's usual 112px -- this frame's own content column
+   is 1200px (1440 - 2*120), not the standard 1216px (1440 - 2*112).
+   Every .edition-spotlight/.edition-story__* width is already either
+   `flex: 1 1 0%` or a CSS `aspect-ratio`, both of which resolve
+   relative to their container -- so this one variable override is all
+   it takes to reproduce the frame's own narrower column exactly,
+   confirmed via get_design_context math (e.g. the gallery row's three
+   images: (1200 - 2*23) / 3 = 384.67px, matching this frame's own
+   value pixel for pixel; the standalone detail pages' identical row at
+   112px --gutter instead computes to 390px, also matching their own
+   Figma frame). */
+/* Scoped to >900px only -- the shared `:root { --gutter: 32px }`
+   mobile/tablet override (used sitewide for the responsive gutter
+   shrink) sits earlier in this file but carries equal selector
+   specificity to `.edn-page`, so leaving this unscoped would let it
+   win at every width purely by appearing later in the cascade,
+   silently cancelling that shrink below 900px. */
+@media (min-width: 901px) {
+  .edn-page {
+    --gutter: 120px;
+  }
+}
+
+.edn-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  /* 200px top, not Figma's own 80px -- this page's own intro IS the
+     first thing under the fixed navbar (Figma's canvas assumed no
+     navbar sits on top of it), same reasoning as .editions-intro's
+     own 160px-not-80px override elsewhere on this site. 80px bottom
+     matches Figma as-is. */
+  padding: 200px 0 80px;
+}
+
+.edn-intro__lede {
+  max-width: 549px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(29, 25, 15, 0.7);
+  text-align: center;
+}
+
+/* Resets EditionDetailHeader's own 200px/160px navbar-clearing top
+   padding -- correct on the standalone /editions/[slug] pages (where
+   it's genuinely the first thing under the fixed navbar), wrong here
+   (both editions' headers on this page always follow another section:
+   CollectionsCard for Tsuki's, Tsuki's own closing content for Sora's)
+   -- that preceding section's own bottom padding already supplies
+   clearance, so stacking this page's own 200px on top of it would
+   read as an oversized, unintentional gap. */
+.edn-page .edition-detail-header {
+  padding-top: 0;
+}
+
+@media (max-width: 560px) {
+  .edn-intro {
+    /* Navbar is shorter here (72px, unscrolled) than desktop's 80px --
+       same reasoning as .editions-intro's own mobile override. */
+    padding: 146px 0 40px;
+  }
+
+  .edn-intro__lede {
+    padding: 0 16px;
+    max-width: none;
+    font-size: 14px;
+    letter-spacing: 1.4px;
+  }
 }

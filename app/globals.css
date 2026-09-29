@@ -7284,17 +7284,16 @@ button:focus-visible,
 }
 
 /* ==========================================================================
-   Homepage (New) -- /homepage-new (Figma node 298:11984)
-
-   A design-exploration variant of the homepage: reuses the live
-   homepage's own Hero, Drawing, Cta and Footer verbatim, but replaces
-   everything between Drawing and Cta with a much longer body -- Guiding
-   Values restyled as a centered serif statement, the Editions page's
-   own filmstrip (reused component + assets, not duplicated), a "CH
-   Collections" card, two Edition teaser cards, a full-bleed Collective
-   banner, a "MORI" coming-soon teaser, and a photo+quote split. Every
-   class here is `.hpn-`-prefixed and scoped to this one page, per how
-   every other page-specific section on this site is organized.
+   `.hpn-`-prefixed classes below -- originally built for /homepage-new
+   (Figma node 298:11984), a design-exploration variant of the homepage
+   that route/page is now deleted. Most of what /homepage-new rendered
+   (Guiding Values, Masonry Gallery, the Collective banner, the photo+
+   quote split) is deleted with it and its own CSS removed; what
+   remains here (.hpn-tag/.hpn-heading/.hpn-values, .hpn-collections,
+   .hpn-filmstrip-band) survives because something else still uses it:
+   .hpn-values via WayOfLife.tsx (the real homepage), .hpn-collections
+   via CollectionsCard.tsx (/editions-new), .hpn-filmstrip-band inlined
+   directly in app/page.tsx.
    ========================================================================== */
 
 .hpn-tag {
@@ -7641,317 +7640,18 @@ button:focus-visible,
   }
 }
 
-/* ---------- Editions teaser cards (node 298:13290) -- driven by the
-   shared editions-data.ts array, so the copy is always the real,
-   already-approved per-edition summary, never Figma's own stale
-   duplicate-Tsuki-blurb placeholder. ---------- */
+/* .hpn-editions/.hpn-collective/.hpn-quote (the real homepage's
+   own former Guiding-Values-frame sections, before it was replaced
+   by /landing's content) removed -- EditionsCards.tsx/
+   CollectiveBanner.tsx/QuoteSplit.tsx are all deleted, zero
+   consumers left for any of these three. */
 
-.hpn-editions {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  /* See .hpn-values' own comment on the 120px-not-60px rhythm. */
-  padding: 120px 120px;
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-}
-
-.hpn-editions__row {
-  display: flex;
-  gap: 120px;
-  align-items: flex-start;
-}
-
-.hpn-editions__card {
-  flex: 1 1 0%;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.hpn-editions__image {
-  position: relative;
-  width: 100%;
-  height: 480px;
-}
-
-.hpn-editions__index {
-  font-family: var(--font-cormorant), serif;
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 32px;
-}
-
-.hpn-editions__name {
-  font-size: 24px;
-  letter-spacing: 1.2px;
-  line-height: 32px;
-  margin-top: 8px;
-}
-
-.hpn-editions__summary {
-  margin-top: 16px;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 1.6px;
-  color: rgba(29, 25, 15, 0.7);
-}
-
-.hpn-editions__explore {
-  font-weight: 300;
-  font-size: 16px;
-  text-decoration: none;
-  color: var(--ink);
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  background-size: 0% 1px;
-  transition: background-size 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hpn-editions__explore:hover,
-.hpn-editions__explore:focus-visible {
-  background-size: 100% 1px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hpn-editions__explore {
-    transition: none;
-  }
-}
-
-@media (max-width: 900px) {
-  .hpn-editions {
-    padding: 48px var(--gutter);
-  }
-
-  .hpn-editions__row {
-    flex-direction: column;
-    gap: 48px;
-  }
-
-  .hpn-editions__image {
-    height: 360px;
-  }
-}
-
-@media (max-width: 560px) {
-  .hpn-editions {
-    padding: 40px 16px;
-    gap: 32px;
-  }
-
-  .hpn-editions__row {
-    gap: 24px;
-  }
-
-  .hpn-editions__card {
-    gap: 32px;
-  }
-
-  .hpn-editions__image {
-    height: 240px;
-  }
-
-  .hpn-editions__index {
-    font-size: 14px;
-  }
-
-  .hpn-editions__name {
-    font-size: 20px;
-    letter-spacing: 2px;
-  }
-
-  .hpn-editions__summary {
-    font-size: 14px;
-    letter-spacing: 1.4px;
-  }
-
-  .hpn-editions__explore {
-    font-size: 14px;
-  }
-}
-
-/* ---------- Collective banner (node 298:13451): full-bleed photo (no
-   column constraint, unlike .collective-photo-band's 1320px column),
-   heading/text/CTA inset below it. ---------- */
-
-.hpn-collective {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  /* See .hpn-values' own comment on the 120px-not-60px rhythm. */
-  padding: 120px 0;
-}
-
-.hpn-collective__banner {
-  position: relative;
-  width: 100%;
-  height: 649px;
-}
-
-.hpn-collective__body {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-
-.hpn-collective__text {
-  max-width: 720px;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 32px;
-  letter-spacing: 1.6px;
-  color: rgba(29, 25, 15, 0.7);
-  text-align: center;
-}
-
-@media (max-width: 900px) {
-  .hpn-collective__banner {
-    height: 420px;
-  }
-
-  .hpn-collective__body {
-    padding: 0 var(--gutter);
-  }
-}
-
-@media (max-width: 560px) {
-  .hpn-collective {
-    padding: 40px 0;
-    gap: 32px;
-  }
-
-  /* 420px, not a further-shrunk 320px -- confirmed via a dedicated
-     get_design_context call on node 298:14968's own mobile frame,
-     which keeps the same 420px the >=560px tablet range already
-     uses rather than shrinking it again at this breakpoint. */
-  .hpn-collective__body {
-    padding: 0 16px;
-  }
-
-  .hpn-collective__text {
-    font-size: 16px;
-    line-height: 24px;
-  }
-}
-
-/* ---------- Quote (node 298:13537): photo + uppercase quote side by
-   side -- the photo is flush with the true left edge (no left inset),
-   only the text column gets the page's own right-hand gutter. Same
-   pool-banner-2.jpg photo and copy as the live site's Quote component,
-   new split layout. ---------- */
-
-.hpn-quote {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  /* See .hpn-values' own comment on the 120px-not-60px rhythm. */
-  padding: 120px 120px 120px 0;
-  display: flex;
-  align-items: center;
-  gap: 96px;
-}
-
-.hpn-quote__image {
-  position: relative;
-  flex: 0 0 648px;
-  height: 649px;
-}
-
-.hpn-quote__text {
-  flex: 1 1 0%;
-  min-width: 0;
-  font-weight: 300;
-  font-size: 24px;
-  line-height: 50px;
-  letter-spacing: 1.68px;
-  text-transform: uppercase;
-  color: rgba(29, 25, 15, 0.7);
-}
-
-@media (max-width: 900px) {
-  .hpn-quote {
-    flex-direction: column;
-    gap: 32px;
-    padding: 48px var(--gutter);
-  }
-
-  .hpn-quote__image {
-    flex-basis: auto;
-    width: 100%;
-    height: 420px;
-  }
-
-  .hpn-quote__text {
-    font-size: 18px;
-    line-height: 32px;
-  }
-}
-
-@media (max-width: 560px) {
-  /* Asymmetric 40/80, and a plain 0 side inset (not 16px) on the
-     section itself -- the image runs full-bleed edge to edge here,
-     confirmed via a dedicated get_design_context call on node
-     298:15034; only the text below gets its own 16px inset. */
-  .hpn-quote {
-    padding: 40px 0 80px;
-    gap: 32px;
-  }
-
-  .hpn-quote__image {
-    height: 510px;
-  }
-
-  .hpn-quote__text {
-    padding: 0 16px;
-    font-size: 20px;
-    line-height: 40px;
-    letter-spacing: 1.4px;
-  }
-}
-
-/* ---------- Gold footer accent (nodes 298:11997/298:13279): this
-   page's own footer specifies a gold "CH" mark (#c7a95f) instead of
-   ink -- scoped to a .hpn-page ancestor rather than touching Footer's
-   own shared styles, since every other page on the site keeps the
-   plain ink treatment. (The navbar's own "II/VII" mark used to be
-   scoped here too, but that's now every page's own default -- see
-   .navbar__index's gold rule further up this file.) */
-.hpn-page .footer__mark,
-.hpn-page .footer__nav a {
-  color: #c7a95f;
-}
-
-/* This frame's own footer nav (node 298:13280) specs a 40px gap
-   between "Editions"/"Collective", not the shared Footer's 16px. */
-.hpn-page .footer__nav {
-  gap: 40px;
-}
-
-/* ---------- Hero title sizing (node 298:11986, "Frame 99"): this
-   page's own hero title/tagline are genuinely smaller than the live
-   homepage's Hero component (24px/14px here vs. 32px/16px there,
-   confirmed via a dedicated get_design_context call on this exact
-   frame, not assumed from the live site) -- scoped the same way as the
-   gold accent above, since Hero itself is shared and every other page
-   that uses it keeps the larger size. */
-.hpn-page .hero__title {
-  font-size: 24px;
-  letter-spacing: 3.6px;
-  color: #f8f5f6;
-}
-
-.hpn-page .hero__tagline {
-  font-size: 14px;
-  letter-spacing: 1.4px;
-}
+/* .hpn-page's own gold-footer/hero-sizing rules that used to live here
+   were removed -- /homepage-new (the only page that ever wrapped
+   itself in that class) has been deleted; .hpn-page has zero
+   consumers left in the codebase. The gold navbar rule that also used
+   to be scoped here is unaffected -- see .navbar__index's own sitewide
+   rule further up this file, which is unrelated to .hpn-page. */
 
 /* ==========================================================================
    Editions (New) -- /editions-new (Figma node 303:15060, mobile
@@ -8041,91 +7741,19 @@ button:focus-visible,
   }
 }
 
-/* ---------- Masonry gallery (node 309:21554), added to
-   /homepage-new between Guiding Values and the filmstrip band --
-   replaces the section order the page originally shipped with
-   (Values -> Filmstrip -> CH Collections -> Editions -> Mori ->
-   Collective -> Quote): the filmstrip now comes AFTER this gallery
-   instead of right after Values, and neither CH Collections' poster
-   card nor the Mori "coming soon" teaser exist anywhere in this
-   updated Figma file any more (confirmed by text-searching the raw
-   metadata dump for "COLLECTION"/"MORI"/"Kawa"/"COMING SOON" -- none
-   present), so both are dropped rather than kept alongside the new
-   section. ---------- */
-
-.hpn-masonry {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  /* 60px, not this page's usual 120px gutter -- this frame's own
-     x-offset (60px, per its metadata: x=60 on a 1320px-wide frame
-     inside the 1440px canvas) is genuinely half of every other
-     homepage-new section's inset, not a copy-paste of the same
-     number. */
-  padding: 120px 60px;
-  display: flex;
-  gap: 120px;
-}
-
-.hpn-masonry__col {
-  flex: 1 1 0%;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.hpn-masonry__col > * + * {
-  margin-top: 284px;
-}
-
-/* Figma's own numbers -- not a formula, same "confirmed exact, not
-   derived" caveat the live homepage's own Option8Gallery masonry
-   already documents for its own (different) stagger values. */
-.hpn-masonry__col--right {
-  margin-top: 278px;
-}
-
-.hpn-masonry__col--right > * + * {
-  margin-top: 401px;
-}
-
-.hpn-masonry__card {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-}
-
-.hpn-masonry__card--tall {
-  aspect-ratio: 600 / 866;
-}
-
-@media (max-width: 900px) {
-  .hpn-masonry {
-    flex-direction: column;
-    gap: 40px;
-    padding: 80px var(--gutter);
-  }
-
-  .hpn-masonry__col,
-  .hpn-masonry__col--right {
-    margin-top: 0;
-  }
-
-  .hpn-masonry__col > * + *,
-  .hpn-masonry__col--right > * + * {
-    margin-top: 24px;
-  }
-}
-
-@media (max-width: 560px) {
-  .hpn-masonry {
-    padding: 40px 16px;
-  }
-}
+/* .hpn-masonry (MasonryGallery.tsx, the real homepage's own
+   former Guiding-Values-frame gallery) removed -- that component is
+   deleted, zero consumers left. */
 
 /* ==========================================================================
-   Landing -- /landing (Figma node 319:36698, itself still named
-   "Homepage" in Figma -- a distinct new page, not a homepage revision)
+   .landing-page and the .landing-* classes below -- built for a
+   separate page at /landing (Figma node 319:36698 desktop /
+   321:38045 mobile), since folded into the real homepage (app/page.tsx)
+   on explicit request; /landing itself is deleted, this is now the
+   real homepage's own styling. Class names kept as .landing-* rather
+   than renamed to something homepage-specific -- a rename here is
+   cosmetic-only churn across a few hundred lines and every consuming
+   component, not worth the risk for no behavior change.
    ========================================================================== */
 
 /* This frame's own hero title/tagline are the same smaller size
@@ -8149,16 +7777,34 @@ button:focus-visible,
   letter-spacing: 1.4px;
 }
 
-/* ---------- Static drawing (StaticDrawing.tsx) -- this page's own
-   replacement for the shared, scroll-jacked Drawing/ScrollDrawing (a
-   120vh+ pinned runway the user has to scroll through): two follow-up
-   requests found that gap still too big even after shortening the
-   runway once already, so this drops the scroll-scrubbed reveal
-   animation entirely rather than tuning its timing further -- the
-   sketch just renders fully drawn, in normal document flow, with its
-   own small section padding standing in for what used to be scroll
-   distance. The real homepage's own Drawing/ScrollDrawing usage (and
-   its 160vh pacing) is untouched -- this is a different component. */
+/* ---------- Drawing: desktop keeps the shared, scroll-jacked
+   Drawing/ScrollDrawing (its own parallax reveal is a deliberate
+   keeper, on explicit request); mobile gets StaticDrawing instead
+   (below) -- a follow-up during this page's own original build (back
+   when it was a separate page, /landing) found that scroll-jacked
+   runway's own dead space too big specifically on a phone-sized
+   viewport, even after shortening it once already. .home-drawing--
+   desktop/--mobile (app/page.tsx) is the CSS-only toggle between the
+   two, same mechanism as the EditionsFilmstrip/MobileFilmstrip pair
+   further down. ---------- */
+.home-drawing--mobile {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .home-drawing--desktop {
+    display: none;
+  }
+
+  .home-drawing--mobile {
+    display: block;
+  }
+}
+
+/* StaticDrawing.tsx -- a non-scroll-jacked rendering of the same
+   sketch, mobile-only (above). The sketch just renders fully drawn, in
+   normal document flow, with its own small section padding standing
+   in for what would otherwise be scroll distance. */
 .landing-drawing-static {
   width: 100%;
   max-width: var(--max-width);
@@ -8261,12 +7907,13 @@ button:focus-visible,
 
 /* WayOfLife (node 319:37991 desktop, 321:39394 mobile) reuses
    .hpn-values verbatim at desktop width -- both frames are genuinely
-   centered there. Its mobile frame, unlike GuidingValues' own (still
-   centered on every breakpoint), is left-aligned instead -- confirmed
+   centered there. Its mobile frame is left-aligned instead -- confirmed
    via a dedicated get_design_context call on that exact mobile frame,
-   not assumed to carry the desktop alignment down. Scoped to
-   .landing-page so GuidingValues (wrapped in .hpn-page, not this
-   class) keeps its own centered mobile treatment untouched. */
+   not assumed. Scoped to .landing-page (this override doesn't touch
+   the base .hpn-values rule) -- GuidingValues, the only other
+   component that used to reuse .hpn-values with its own centered
+   mobile treatment, is deleted, so there's nothing left this could
+   regress, but the scoping is harmless to keep either way. */
 @media (max-width: 900px) {
   .landing-page .hpn-values {
     align-items: flex-start;

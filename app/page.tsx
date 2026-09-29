@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SplashScreen from "@/components/SplashScreen";
+import Drawing from "@/components/Drawing";
 import StaticDrawing from "@/components/landing/StaticDrawing";
 import TextIntro from "@/components/landing/TextIntro";
 import EditionsGallery from "@/components/landing/EditionsGallery";
@@ -15,9 +16,7 @@ import Footer from "@/components/Footer";
 // Same five photos as the Editions page's own intro filmstrip (Figma
 // node 250:9164) -- this frame's own filmstrip (node 319:38000/
 // 321:39410 mobile) is a verbatim reuse for its desktop composition,
-// confirmed via hash on every image, same as /landing's own identical
-// copy of this array (this page reuses that exact section, not a
-// separate implementation of it).
+// confirmed via hash on every image.
 const REEL: EditionsFilmstripImage[] = [
   {
     src: "/assets/editions/editions-filmstrip-shrine.jpg",
@@ -44,8 +43,7 @@ const REEL: EditionsFilmstripImage[] = [
 // Both text sections below (Figma nodes 319:37933 "Tsuki Editions" and
 // 319:38007 "Collective") carry this exact same body copy -- confirmed
 // via a dedicated get_design_context call on each, not assumed from
-// one matching the other. Identical copy to /landing's own -- this
-// page renders that same content, not a re-derivation of it.
+// one matching the other.
 const SHARED_COPY = (
   <>
     <p>
@@ -68,42 +66,48 @@ const SHARED_COPY = (
   </>
 );
 
-// This page now renders the same content as /landing (Figma node
-// 319:36698 desktop / 321:38045 mobile) -- on explicit request to make
-// that page the real homepage, replacing what was here before: Hero ->
-// StaticDrawing -> Tsuki Editions intro -> captioned Editions gallery
-// -> "A Way of Life" -> filmstrip -> Collective -> Cta -> Footer. The
-// previous frame this page was built from (309:20272 -- Guiding
-// Values/Masonry Gallery/FilmstripBand/EditionsCards/CollectiveBanner/
-// QuoteSplit, all under components/homepage-new/) is dropped entirely
-// in favor of the sections below -- none of those components are
-// deleted (they're still exactly what /homepage-new itself renders,
-// untouched, still live at its own route as a design-exploration
-// page), just no longer what "/" renders.
+// This page renders the "Homepage" Figma frame (node 319:36698 desktop
+// / 321:38045 mobile), originally built at a separate route (/landing,
+// now deleted) and folded in here on explicit request to replace this
+// page's previous content: Hero -> Drawing -> Tsuki Editions intro ->
+// captioned Editions gallery -> "A Way of Life" -> filmstrip ->
+// Collective -> Cta -> Footer. The previous frame this page was built
+// from (309:20272 -- Guiding Values/Masonry Gallery/FilmstripBand/
+// EditionsCards/CollectiveBanner/QuoteSplit) is dropped entirely --
+// those components are deleted along with /homepage-new (the
+// design-exploration page they were originally built for, also
+// deleted on the same request), not just unused.
 //
-// Every section below is reused directly from where it was already
-// built and verified for /landing -- StaticDrawing/TextIntro/
-// EditionsGallery/WayOfLife/MobileFilmstrip all live under
-// components/landing/ despite that directory name now also being what
-// the real homepage renders, same as /homepage-new's own components
-// already being reused by this page once before. /landing itself is
-// untouched and still live at its own route, now simply rendering the
-// same content this page also renders -- REEL/SHARED_COPY above are
-// verbatim copies of its own constants, not imports from it, matching
-// this codebase's established convention of duplicating small
-// page-local data rather than reaching across routes for it.
+// TextIntro/EditionsGallery/WayOfLife/MobileFilmstrip/StaticDrawing
+// all still live under components/landing/ despite that directory
+// name no longer matching a real route -- renaming the directory (or
+// the .landing-* CSS classes these components and this page's own
+// wrapper below use) is cosmetic-only churn with no behavior change,
+// so it's left as-is rather than renamed just to match.
+//
+// Drawing (the shared, scroll-jacked parallax reveal every other page
+// using this sketch -- /editions, /collective, etc. -- already uses)
+// is back for desktop, on explicit request: an earlier pass had
+// replaced it outright with StaticDrawing (a plain, non-animated
+// rendering) after repeated follow-ups found the scroll-jacked
+// runway's own dead space, on a phone-sized viewport specifically,
+// too big even after shortening it -- that finding was about mobile,
+// not the parallax effect itself, which was never the actual
+// complaint. Desktop keeps the real animated Drawing; only mobile
+// still gets StaticDrawing. Both render; CSS (.home-drawing--desktop/
+// --mobile) picks one per breakpoint, same mechanism as the
+// EditionsFilmstrip/MobileFilmstrip pair right below it.
 //
 // .landing-page brings this frame's own gold Footer mark + wider nav
 // gap, smaller Hero title (24px/14px), and Cta's own link-style button
-// + smaller line -- all already verified correct at /landing, applied
-// here now that this is the frame the main homepage itself implements.
+// + smaller line -- all already verified correct at the old /landing.
 // (The Navbar's own gold mark isn't part of this scope -- that's a
 // separate, later "every page" request, see .navbar__index's own
 // sitewide rule -- but .landing-page's Footer/Hero/Cta overrides are.)
 //
 // SplashScreen is homepage-only by construction (rendered here, not in
-// the root layout) -- every other page, /landing included, starts
-// directly on its own content, no loading overlay.
+// the root layout) -- every other page starts directly on its own
+// content, no loading overlay.
 export default function Home() {
   return (
     <div className="landing-page">
@@ -115,7 +119,12 @@ export default function Home() {
       <SplashScreen />
       <Navbar />
       <Hero />
-      <StaticDrawing />
+      <div className="home-drawing home-drawing--desktop">
+        <Drawing />
+      </div>
+      <div className="home-drawing home-drawing--mobile">
+        <StaticDrawing />
+      </div>
       <TextIntro heading="Tsuki Editions" linkLabel="Editions" linkHref="/editions">
         {SHARED_COPY}
       </TextIntro>
@@ -125,7 +134,7 @@ export default function Home() {
           Figma's own dedicated mobile frame (321:39410) uses a different,
           genuinely mobile-specific image set instead (MobileFilmstrip's
           own comment) -- both render, CSS decides which one is visible
-          at a given width, matching /landing's own identical setup. */}
+          at a given width. */}
       <div className="hpn-filmstrip-band landing-filmstrip--desktop">
         <EditionsFilmstrip images={REEL} />
       </div>

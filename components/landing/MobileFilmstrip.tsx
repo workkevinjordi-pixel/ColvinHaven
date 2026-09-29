@@ -37,9 +37,9 @@ const ITEMS: Item[] = [
  * static, not the desktop EditionsFilmstrip's own touch-swiper
  * interaction, since this is a different component for a different
  * image set (see ITEMS' own comment), not a mobile mode of that one.
- * Rendered alongside EditionsFilmstrip in app/landing/page.tsx, with
- * CSS (not JS) choosing which of the two actually displays at a given
- * width -- see globals.css.
+ * Rendered alongside EditionsFilmstrip in app/page.tsx (the real
+ * homepage), with CSS (not JS) choosing which of the two actually
+ * displays at a given width -- see globals.css.
  */
 export default function MobileFilmstrip() {
   return (

@@ -506,13 +506,15 @@ button:focus-visible,
 
 /* Sitewide gold "II/VII" mark (was a per-page .hpn-page-scoped accent
    for homepage-new/editions-new/landing only -- now every page's own
-   index mark, on an explicit "all pages" request). Only the
-   *unscrolled, transparent* navbar state gets this -- once scrolled
-   (or the mega menu is open) .navbar already switches to dark text
-   over a light ground (see .navbar--scrolled/.navbar--open above),
-   where gold wouldn't read at all, so those states keep inheriting
-   .navbar's own color instead. */
-.navbar:not(.navbar--scrolled):not(.navbar--open) .navbar__index {
+   index mark, on an explicit "all pages" request). Unconditional --
+   an earlier version only applied this in the *unscrolled, transparent*
+   navbar state, reverting to .navbar's own dark-ink color once
+   scrolled (or the mega menu open), on the reasoning that gold
+   wouldn't read against the scrolled state's light ground. A
+   follow-up explicitly asked for gold to stay gold through scroll
+   instead of reverting, so this now wins regardless of
+   .navbar--scrolled/.navbar--open. */
+.navbar__index {
   color: #c7a95f;
 }
 

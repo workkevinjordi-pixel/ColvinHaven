@@ -504,6 +504,18 @@ button:focus-visible,
   white-space: nowrap;
 }
 
+/* Sitewide gold "II/VII" mark (was a per-page .hpn-page-scoped accent
+   for homepage-new/editions-new/landing only -- now every page's own
+   index mark, on an explicit "all pages" request). Only the
+   *unscrolled, transparent* navbar state gets this -- once scrolled
+   (or the mega menu is open) .navbar already switches to dark text
+   over a light ground (see .navbar--scrolled/.navbar--open above),
+   where gold wouldn't read at all, so those states keep inheriting
+   .navbar's own color instead. */
+.navbar:not(.navbar--scrolled):not(.navbar--open) .navbar__index {
+  color: #c7a95f;
+}
+
 .navbar__actions {
   display: flex;
   align-items: center;
@@ -804,17 +816,19 @@ button:focus-visible,
   pointer-events: none;
 }
 
-/* Same size/weight/tracking as .navbar__index, and full white to match
-   its own unscrolled-navbar color -- so once the mark arrives at the
-   navbar's position and the field dissolves around it, there's no
-   visible size or color jump. It reads as this mark becoming the real
-   one, not two different elements crossfading. */
+/* Same size/weight/tracking as .navbar__index, and the same color
+   (gold, #c7a95f -- kept in sync with that sitewide rule, not
+   hardcoded independently) as its own unscrolled-navbar state -- so
+   once the mark arrives at the navbar's position and the field
+   dissolves around it, there's no visible size or color jump. It reads
+   as this mark becoming the real one, not two different elements
+   crossfading. */
 .splash__index {
   font-family: var(--font-cormorant), serif;
   font-weight: 300;
   font-size: 24px;
   letter-spacing: 3.6px;
-  color: #fff;
+  color: #c7a95f;
   /* No duration here on purpose -- SplashScreen sets transition-duration
      inline from its own MOVE_MS constant, so this can't drift out of
      sync with a separately hardcoded value. */
@@ -5142,19 +5156,29 @@ button:focus-visible,
   gap: 24px;
 }
 
+/* flex-grow ratios (280/280/224/280/280), not fixed px -- an earlier
+   version fixed the four normal cards at 280px and only let the
+   narrow one (flex: 1 1 0%) absorb any leftover space, matching
+   Figma's own flex-[1_0_0]-on-the-middle-item markup literally. That
+   reads as "responsive" only for that one card: between 1000px (this
+   rule's own upper bound) and whatever width happens to fit four
+   fixed 280px cards, resizing the viewport visibly shrank only the
+   narrow card while the other four stayed locked at 280px -- a real
+   bug caught on a resize test, not a design choice worth keeping.
+   `flex: <ratio> 0 0` on every card instead distributes the row's
+   actual available width (already gap-aware, no extra math needed)
+   by that same 280:224 ratio, so all five scale together at any
+   width in this range; at the exact width the original design was
+   authored for, this still lands on precisely 280px/224px. */
 .editions-swiper__item {
   position: relative;
-  flex: 0 0 280px;
+  flex: 280 0 0;
   height: 473px;
   overflow: hidden;
 }
 
-/* The one card given the narrower "flex" slot (280/280/224/280/280) --
-   grows or shrinks with the viewport instead of the other four's fixed
-   280px, exactly like the source frame's own flex-[1_0_0] middle
-   image. */
 .editions-swiper__item--narrow {
-  flex: 1 1 0%;
+  flex: 224 0 0;
   min-width: 0;
 }
 
@@ -7893,18 +7917,13 @@ button:focus-visible,
   }
 }
 
-/* ---------- Gold navbar/footer accent (nodes 298:11997/298:13279):
-   this page's own hero and footer specify a gold "II/VII"/"CH" mark
-   (#c7a95f) instead of white -- scoped to a .hpn-page ancestor rather
-   than touching Navbar/Footer's own shared styles, since every other
-   page on the site keeps the plain white/ink treatment. Only the
-   *unscrolled, transparent* navbar state gets the override -- once
-   scrolled (or the mega menu is open) the navbar already switches to
-   dark text over a light ground, where gold wouldn't read at all. */
-.hpn-page .navbar:not(.navbar--scrolled):not(.navbar--open) .navbar__index {
-  color: #c7a95f;
-}
-
+/* ---------- Gold footer accent (nodes 298:11997/298:13279): this
+   page's own footer specifies a gold "CH" mark (#c7a95f) instead of
+   ink -- scoped to a .hpn-page ancestor rather than touching Footer's
+   own shared styles, since every other page on the site keeps the
+   plain ink treatment. (The navbar's own "II/VII" mark used to be
+   scoped here too, but that's now every page's own default -- see
+   .navbar__index's gold rule further up this file.) */
 .hpn-page .footer__mark,
 .hpn-page .footer__nav a {
   color: #c7a95f;
@@ -8101,5 +8120,493 @@ button:focus-visible,
 @media (max-width: 560px) {
   .hpn-masonry {
     padding: 40px 16px;
+  }
+}
+
+/* ==========================================================================
+   Landing -- /landing (Figma node 319:36698, itself still named
+   "Homepage" in Figma -- a distinct new page, not a homepage revision)
+   ========================================================================== */
+
+/* This frame's own hero title/tagline are the same smaller size
+   .hpn-page already established (24px/14px, confirmed via a dedicated
+   get_design_context call on this frame's "Frame 99", not assumed
+   carried over). Its own Figma frame actually specs a plain white
+   navbar mark here (unlike homepage-new/editions-new's gold one) --
+   since then overridden by an explicit "gold on every page" request
+   (see .navbar__index's own sitewide rule), so this page's navbar now
+   matches those others anyway, just not for a reason this frame itself
+   asked for. Footer still gets its own gold "CH" mark + wider nav gap
+   below, same as before. */
+.landing-page .hero__title {
+  font-size: 24px;
+  letter-spacing: 3.6px;
+  color: #f8f5f6;
+}
+
+.landing-page .hero__tagline {
+  font-size: 14px;
+  letter-spacing: 1.4px;
+}
+
+/* ---------- Static drawing (StaticDrawing.tsx) -- this page's own
+   replacement for the shared, scroll-jacked Drawing/ScrollDrawing (a
+   120vh+ pinned runway the user has to scroll through): two follow-up
+   requests found that gap still too big even after shortening the
+   runway once already, so this drops the scroll-scrubbed reveal
+   animation entirely rather than tuning its timing further -- the
+   sketch just renders fully drawn, in normal document flow, with its
+   own small section padding standing in for what used to be scroll
+   distance. The real homepage's own Drawing/ScrollDrawing usage (and
+   its 160vh pacing) is untouched -- this is a different component. */
+.landing-drawing-static {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 40px var(--gutter);
+  background: var(--bg);
+}
+
+.landing-drawing-static__svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Paths use fill/stroke="currentColor" with no color of their own --
+     this is what they resolve against. Same as Drawing's own SVG. */
+  color: var(--ink);
+}
+
+/* Every path's FINAL state (Drawing's own SVG markup already carries
+   class="draw-path" per path, baked in by the same preprocessing
+   script Drawing.tsx's asset shares -- this scopes that same class to
+   just this component's own final/static rendering, not the
+   animated one): fully outlined (no dash pattern left showing) and
+   fully filled, immediately, no JS/animation involved at all. */
+.landing-drawing-static__svg .draw-path {
+  fill-opacity: 1;
+  stroke: currentColor;
+  stroke-width: 0.75;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
+.landing-page .footer__mark,
+.landing-page .footer__nav a {
+  color: #c7a95f;
+}
+
+.landing-page .footer__nav {
+  gap: 40px;
+}
+
+/* This page's own mobile Footer frame (node 321:39424) keeps the same
+   single row (mark left, nav right) as desktop -- confirmed via a
+   dedicated get_design_context call on that exact mobile frame, not
+   assumed -- unlike the shared Footer's own dedicated mobile frame
+   elsewhere on the site (node 250:10844, a centered mark-above-nav
+   stack, kept as every other page's default below 900px). Two class
+   selectors beat that shared rule's one on specificity regardless of
+   which appears later in the file, so this one rule at 900px covers
+   both that rule's own 900px and 560px tiers. */
+@media (max-width: 900px) {
+  .landing-page .footer {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 20px;
+    gap: 24px;
+  }
+}
+
+/* ---------- Cta (node 319:37948) -- a follow-up fidelity pass found
+   two things this frame specs that the shared Cta component's own
+   defaults don't: its own line ("Those who find us, were meant to.")
+   sits at 24px/48px line-height here, not Cta's usual 32px (used
+   as-is by the real homepage's own "seven Editions" line); and its own
+   button is a plain italic arrow-link ("Write to Us  →"), not Cta's
+   usual bordered box. Both are scoped to .landing-page rather than
+   touching Cta.tsx or its shared classes, since the real homepage and
+   every Editions detail page keep the box-button treatment. The arrow
+   is a CSS ::after (not a Cta.tsx markup change) specifically so nothing
+   about Cta's own component code has to change for one page's link
+   style. No hover state, same as .landing-intro__link's own arrow
+   links elsewhere on this page -- a plain static link, not the box
+   button's tinted-background/lift hover. ---------- */
+.landing-page .cta__text {
+  font-size: 24px;
+  line-height: 48px;
+}
+
+.landing-page .cta__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: none;
+  font-style: italic;
+  background: none;
+  transition: none;
+}
+
+.landing-page .cta__button::after {
+  content: "→";
+}
+
+.landing-page .cta__button:hover,
+.landing-page .cta__button:active {
+  background: none;
+  transform: none;
+}
+
+/* WayOfLife (node 319:37991 desktop, 321:39394 mobile) reuses
+   .hpn-values verbatim at desktop width -- both frames are genuinely
+   centered there. Its mobile frame, unlike GuidingValues' own (still
+   centered on every breakpoint), is left-aligned instead -- confirmed
+   via a dedicated get_design_context call on that exact mobile frame,
+   not assumed to carry the desktop alignment down. Scoped to
+   .landing-page so GuidingValues (wrapped in .hpn-page, not this
+   class) keeps its own centered mobile treatment untouched. */
+@media (max-width: 900px) {
+  .landing-page .hpn-values {
+    align-items: flex-start;
+  }
+
+  .landing-page .hpn-values__heading-group {
+    align-items: flex-start;
+  }
+
+  .landing-page .hpn-values__text {
+    text-align: left;
+  }
+}
+
+/* ---------- Text intro shell (nodes 319:37933 "Tsuki Editions" and
+   319:38007 "Collective"): heading, divider line, paragraph, italic
+   arrow-link. Both sections share this exact shell/copy in this
+   Figma file -- see TextIntro.tsx's own comment. ---------- */
+
+.landing-intro__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 120px 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.landing-intro__heading-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Collective is the only .landing-intro instance with a section on
+   both sides that themselves carry their own vertical padding (the
+   filmstrip above, Cta below) -- the base 120px/120px was stacking
+   with each of those into a bigger gap than either reads as alone. A
+   follow-up request asked for the opposite of symmetric here: tighter
+   against the filmstrip above, looser against Cta below (Cta's own
+   full-bleed banner has no padding of its own to stack with, so this
+   bottom value is the entire visible gap, not half of it like the top
+   is with the filmstrip's own 120px). */
+.landing-intro__inner--narrow {
+  padding-top: 40px;
+  padding-bottom: 200px;
+}
+
+/* Collective (node 319:38007) confines its heading to the same
+   760px column as its paragraph, starting further right (Figma's own
+   pl-560 on a 1440px frame) -- Tsuki Editions' heading instead spans
+   the full content width above a right-aligned paragraph column. */
+.landing-intro__inner--narrow .landing-intro__heading-group {
+  width: 760px;
+  max-width: 100%;
+}
+
+.landing-intro__heading {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: var(--ink);
+}
+
+.landing-intro__line {
+  height: 1px;
+  width: 100%;
+  background: rgba(29, 25, 15, 0.15);
+}
+
+/* gap here is body-text-to-link only -- .landing-intro__text has its
+   own separate 16px gap between its own paragraphs, untouched. Bumped
+   from an original 16px (same as that paragraph-to-paragraph gap,
+   which read as the link belonging to the last paragraph rather than
+   sitting apart from the text block as its own element) to 32px, per
+   a follow-up request specifically about the link/text relationship,
+   not paragraph spacing. */
+.landing-intro__body {
+  width: 760px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.landing-intro__text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+.landing-intro__link {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.landing-intro__link span {
+  display: inline-block;
+  margin-left: 4px;
+}
+
+@media (max-width: 900px) {
+  .landing-intro__inner {
+    padding: 64px var(--gutter);
+    align-items: stretch;
+  }
+
+  .landing-intro__inner--narrow {
+    padding-top: 32px;
+    padding-bottom: 96px;
+  }
+
+  .landing-intro__inner--narrow .landing-intro__heading-group,
+  .landing-intro__body {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .landing-intro__inner {
+    padding: 48px 16px;
+    gap: 16px;
+  }
+
+  .landing-intro__inner--narrow {
+    padding-top: 24px;
+    padding-bottom: 64px;
+  }
+
+  .landing-intro__heading {
+    font-size: 24px;
+  }
+}
+
+/* ---------- Captioned Editions gallery (node 319:37965): five cards
+   at Figma's own mixed/scattered positions (not a tidy two-column
+   grid), each card's own width at 75% of Figma's -- see
+   EditionsGallery.tsx's own comment on the CARDS array for the exact
+   numbers and why left/top stay unscaled while width shrinks. ---------- */
+
+/* Bottom padding is deliberately much smaller than the 120px top/sides
+   -- a follow-up request to close the gap to the next section (A Way
+   of Life) found the combination of this padding, the canvas's own
+   trailing dead space, and A Way of Life's own 120px top padding
+   (.hpn-values, unchanged -- shared with other pages, not touched)
+   added up to a much bigger gap than any single one of those reads as
+   on its own. The canvas's own slack is trimmed at the source (see
+   EditionsGallery.tsx's own CANVAS_H comment); this padding is the
+   other half of that fix. */
+.landing-gallery {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 120px 60px 40px;
+}
+
+/* Locks width:height to the same 1320:1790 ratio EditionsGallery.tsx's
+   own CANVAS_W/CANVAS_H use (1790 -- not Figma's own 2254 -- is that
+   canvas trimmed to the cards' own real extent after their vertical
+   gaps were tightened, see that file's CANVAS_H comment), so every
+   card's percentage left/top/width below (already fractions of that
+   same box) lands in the same relative spot regardless of the
+   canvas's own rendered width. */
+.landing-gallery__canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1320 / 1790;
+}
+
+.landing-gallery__item {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+}
+
+/* Now an <a> (each card links to its own Editions detail page, see
+   EDITION_HREF in EditionsGallery.tsx), not a plain div -- display:
+   block so the anchor still fills the same box a div would. The
+   caption below stays plain text/unlinked on purpose (an explicit
+   "photo clickable, not the text" request). */
+.landing-gallery__card {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 431 / 560;
+  overflow: hidden;
+}
+
+.landing-gallery__card--wide {
+  aspect-ratio: 480 / 720;
+}
+
+/* Minimal/subtle hover: a slight zoom on the photo only, same
+   treatment (timing, easing, 1.05 scale) the live homepage's own
+   Option8Gallery masonry already uses for its own image cards
+   (.gallery__card-media img), not a new pattern invented for this
+   one section. */
+.landing-gallery__card img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-gallery__card:hover img,
+.landing-gallery__card:focus-visible img {
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-gallery__card img {
+    transition: none;
+  }
+
+  .landing-gallery__card:hover img,
+  .landing-gallery__card:focus-visible img {
+    transform: none;
+  }
+}
+
+.landing-gallery__caption {
+  margin-top: 24px;
+}
+
+.landing-gallery__caption-name {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--ink);
+}
+
+.landing-gallery__caption-name span {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+}
+
+.landing-gallery__caption-year {
+  margin-top: 8px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--ink);
+}
+
+/* Figma's own dedicated mobile frame (node 321:39281) turned out to be
+   its own genuinely mixed/scattered canvas too -- not a linear scale
+   of the desktop numbers, and not the plain single-column stack an
+   earlier pass here used as a generic fallback before that frame was
+   fetched. Same mechanism as desktop (an aspect-ratio-locked canvas +
+   percentage left/top/width per card), just its own mx/my/mw values
+   and its own 390:920 canvas ratio (EditionsGallery.tsx's
+   MOBILE_CANVAS_W/H -- 920, not Figma's own 686: its own vertical
+   gaps were re-spaced to fit this rendered caption size without
+   overlapping the next card, see that file's own my/MOBILE_CANVAS_H
+   comments) -- and edge-to-edge (no section padding), since that
+   frame's own card insets (as little as ~15px from the viewport edge)
+   are already baked into its own mx numbers, the same way desktop's x
+   values already bake in its own 60px inset. */
+@media (max-width: 900px) {
+  .landing-gallery {
+    padding: 64px 0 32px;
+  }
+
+  .landing-gallery__canvas {
+    aspect-ratio: 390 / 920;
+  }
+
+  .landing-gallery__item {
+    left: var(--mx);
+    top: var(--my);
+    width: var(--mw);
+  }
+
+  /* Figma's own mobile caption text (7.302px/4.868px) is that size
+     only because this whole card group was scaled down as one unit
+     for its mobile frame, the same way its photos were -- fine for a
+     photo, illegible for text. Every other text section in this same
+     Figma file was independently retyped for mobile at a legible size
+     (e.g. this page's own TSUKI EDITION heading: 32px desktop -> 24px
+     mobile, a 0.75 ratio) rather than uniformly scaled, so this
+     applies that same ~0.75 ratio to the caption instead of its
+     literal (illegible) scaled value. */
+  .landing-gallery__caption-name {
+    font-size: 18px;
+  }
+
+  .landing-gallery__caption-year {
+    font-size: 13px;
+  }
+}
+
+/* ---------- Mobile-only filmstrip (node 321:39410) -- see
+   MobileFilmstrip.tsx's own comment on why this is a separate
+   component/image set from the desktop filmstrip just above it in the
+   page, not a mobile mode of that one. .landing-filmstrip--desktop
+   wraps EditionsFilmstrip's own usage here specifically (that class
+   name, not a bare element selector, so nothing about EditionsFilmstrip
+   itself -- used unwrapped elsewhere, e.g. /editions -- is touched).
+   ---------- */
+
+.landing-mobile-filmstrip {
+  display: none;
+}
+
+/* position:relative unconditionally, not nested in the media query
+   below -- next/image's `fill` needs a positioned parent at all times
+   to avoid its own dev warning, even though this element (and every
+   image inside it) stays display:none and never actually renders
+   above 900px. */
+.landing-mobile-filmstrip__item {
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .landing-filmstrip--desktop {
+    display: none;
+  }
+
+  .landing-mobile-filmstrip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    /* Wider than any phone viewport by design (Figma's own row: 930px
+       of photos across 5 items) -- overflow: hidden here, not visible,
+       so the two "wide" slots' own photo crops cleanly at the edge
+       instead of creating horizontal page scroll. */
+    overflow: hidden;
+    padding: 64px 0;
+  }
+
+  .landing-mobile-filmstrip__item {
+    flex: 0 0 auto;
   }
 }

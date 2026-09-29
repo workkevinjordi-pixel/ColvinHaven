@@ -63,6 +63,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // globals.css sets `scroll-behavior: smooth` on html (for in-page
+      // anchor jumps). As of Next.js 16 the router no longer overrides
+      // that during route transitions on its own (a v15 behavior
+      // change) -- without this attribute, navigating to a new page
+      // visibly animates the scroll position down to 0 instead of
+      // starting there instantly, which reads as "page changes, THEN
+      // scrolls up" rather than a clean reset. This attribute is
+      // Next's own opt-in to restore the old instant-scroll-on-navigate
+      // behavior, confirmed against its own source
+      // (disable-smooth-scroll.ts) and 16 upgrade docs, not guessed.
+      data-scroll-behavior="smooth"
       className={`${plusJakartaSans.variable} ${cormorant.variable} ${fraunces.variable}`}
     >
       <body>{children}</body>

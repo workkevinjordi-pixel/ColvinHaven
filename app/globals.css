@@ -8063,34 +8063,34 @@ button:focus-visible,
 
 /* ---------- Captioned Editions gallery (node 319:37965): five cards
    at Figma's own mixed/scattered positions, each at Figma's own real
-   size -- re-synced from an earlier, smaller/differently-inset
-   revision of this same frame on an explicit "implement this design
-   from Figma" follow-up; see EditionsGallery.tsx's own comment above
-   CARDS for exactly what changed and why the earlier 75%-of-Figma
-   shrink isn't reapplied on top this time. ---------- */
+   size, plus a "Sneak peak" /news link -- re-synced twice now from
+   this same frame's own earlier revisions on explicit "implement this
+   design from Figma" follow-ups; see EditionsGallery.tsx's own comment
+   above CARDS/NEWS_LINK for exactly what changed each time. ---------- */
 
 /* No side padding -- this frame's own canvas is edge-to-edge at its
    full 1440px width (x=0, width=1440, confirmed via metadata, not
-   assumed), unlike the previous revision's own 60px inset. Bottom
-   padding stays deliberately smaller than the 120px top -- see the
-   original "close the gap to the next section" reasoning this still
-   follows, EditionsGallery.tsx's own CANVAS_H comment. */
+   assumed). Bottom padding stays deliberately smaller than the 120px
+   top -- see the original "close the gap to the next section"
+   reasoning this still follows, EditionsGallery.tsx's own CANVAS_H
+   comment. */
 .landing-gallery {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 120px 0 40px;
 }
 
-/* Locks width:height to the same 1440:2110 ratio EditionsGallery.tsx's
-   own CANVAS_W/CANVAS_H use (2110 -- not Figma's own 2254 -- is that
-   canvas trimmed to the cards' own real extent, see that file's
-   CANVAS_H comment), so every card's percentage left/top/width below
-   (already fractions of that same box) lands in the same relative
-   spot regardless of the canvas's own rendered width. */
+/* Locks width:height to the same 1440:2210 ratio EditionsGallery.tsx's
+   own CANVAS_W/CANVAS_H use (2210 -- not Figma's own 2203 -- is that
+   canvas rounded up a hairline from the cards' own real extent, see
+   that file's CANVAS_H comment), so every card's percentage
+   left/top/width below (already fractions of that same box) lands in
+   the same relative spot regardless of the canvas's own rendered
+   width. */
 .landing-gallery__canvas {
   position: relative;
   width: 100%;
-  aspect-ratio: 1440 / 2110;
+  aspect-ratio: 1440 / 2210;
 }
 
 .landing-gallery__item {
@@ -8144,6 +8144,39 @@ button:focus-visible,
   margin-top: 24px;
 }
 
+/* Desktop's own re-synced caption ("Edition II" / "Sora", one row,
+   space-between) and mobile's own untouched original ("Sora II" /
+   "2026", two lines) are both rendered (EditionsGallery.tsx) -- only
+   one is ever visible, toggled here and in the >900px media query
+   below stays the default (desktop shown, mobile hidden). See the
+   Card type's own comment on why these two genuinely differ instead
+   of one being a resized version of the other. */
+.landing-gallery__caption--mobile {
+  display: none;
+}
+
+.landing-gallery__caption--desktop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.landing-gallery__caption-edition {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #8a6d26;
+  white-space: nowrap;
+}
+
+.landing-gallery__caption-desktop-name {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--ink);
+}
+
 .landing-gallery__caption-name {
   font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 400;
@@ -8162,6 +8195,38 @@ button:focus-visible,
   font-size: 16px;
   line-height: 24px;
   color: var(--ink);
+}
+
+/* New in the same re-sync as the caption format above (Figma node
+   332:39703, desktop only) -- a lede + "Sneak peak" link into /news.
+   Absolutely positioned the same way as .landing-gallery__item, but
+   with its left/top/width set directly inline (EditionsGallery.tsx)
+   rather than via --x/--y/--w custom properties, since it's a single
+   one-off element, not a repeated card. */
+.landing-gallery__news {
+  position: absolute;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.landing-gallery__news-heading {
+  font-weight: 300;
+  font-size: 24px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+.landing-gallery__news-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 16px;
+  color: rgba(29, 25, 15, 0.7);
+  text-decoration: none;
 }
 
 /* Figma's own dedicated mobile frame (node 321:39281) turned out to be
@@ -8194,6 +8259,17 @@ button:focus-visible,
     width: var(--mw);
   }
 
+  /* Desktop's own re-synced caption is out, mobile's own original one
+     is in -- see .landing-gallery__caption--mobile/--desktop's own
+     comment above. */
+  .landing-gallery__caption--desktop {
+    display: none;
+  }
+
+  .landing-gallery__caption--mobile {
+    display: block;
+  }
+
   /* Figma's own mobile caption text (7.302px/4.868px) is that size
      only because this whole card group was scaled down as one unit
      for its mobile frame, the same way its photos were -- fine for a
@@ -8209,6 +8285,13 @@ button:focus-visible,
 
   .landing-gallery__caption-year {
     font-size: 13px;
+  }
+
+  /* Not part of Figma's own mobile frame (321:39281 is unchanged,
+     confirmed via a dedicated re-fetch during this same desktop
+     re-sync) -- desktop-only. */
+  .landing-gallery__news {
+    display: none;
   }
 }
 

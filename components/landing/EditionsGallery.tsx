@@ -16,57 +16,47 @@ const EDITION_HREF: Record<string, string> = {
 type Card = {
   src: string;
   alt: string;
+  /** Bare name ("Sora"/"Tsuki") -- desktop's own caption (below) no
+   * longer appends a roman numeral to it directly, unlike mobile's. */
   name: string;
+  /** Mobile-only caption pieces (numeral appended to name, year on its
+   * own line below) -- Figma's own mobile frame (321:39281) is
+   * unchanged from the original build, still this older two-line
+   * format, confirmed via a dedicated re-fetch during this same
+   * desktop re-sync rather than assumed to have changed alongside it. */
   numeral: string;
   year: string;
+  /** Desktop-only caption label ("Edition II"/"Edition I") -- this
+   * frame's own re-sync replaced the old name+numeral/year caption
+   * with an "Edition <numeral>" / bare name row instead, confirmed via
+   * a dedicated get_design_context call on this exact frame. */
+  edition: string;
   /** Figma's own x/y/width/height (node 319:37965) for this card's own
    * photo, as percentages of the 1440px-wide (edge-to-edge, no side
-   * inset -- this frame's own x=0/width=1440) desktop canvas. Every
-   * card now has its own distinct crop/aspect-ratio (this frame was
-   * re-synced since an earlier pass here: five genuinely different
-   * ratios now, not two repeated ones), so height is tracked
-   * per-card and applied as an inline aspect-ratio rather than a
-   * shared CSS modifier class. */
+   * inset) desktop canvas. Every card has its own distinct
+   * crop/aspect-ratio, applied as an inline aspect-ratio per card
+   * rather than a shared CSS modifier class. */
   x: number;
   y: number;
   w: number;
   h: number;
   /** Figma's own dedicated MOBILE frame (node 321:39281) for this same
    * gallery -- its own independent x/y/w for each card, not derived
-   * from the desktop numbers above (confirmed via a dedicated
-   * get_design_context call on that mobile frame specifically). Mobile
-   * keeps the same mixed/scattered idea as desktop, just its own
-   * layout -- this is NOT the single stacked column an earlier mobile
-   * pass here used as a generic fallback before that frame existed,
-   * and it's untouched by this desktop re-sync (the mobile frame
-   * wasn't part of this pass -- only 319:37965, the desktop node, was
-   * re-fetched and found changed).
+   * from the desktop numbers above. Mobile keeps the same
+   * mixed/scattered idea as desktop, just its own layout.
    *
    * my is NOT Figma's own value for every card (mx/mw are) -- Figma's
    * own vertical gaps were sized for its own illegibly tiny scaled-down
-   * caption text (see the caption-size comment in globals.css), which
-   * fits in far less vertical room than the legible size actually
-   * rendered here. Left as Figma's own numbers, every second/third
-   * card in each column overlapped the card above it in practice
-   * (confirmed by measuring rendered getBoundingClientRect, not
-   * guessed) -- a real visual bug a follow-up request caught. Every
-   * card after the first in its column is instead positioned at that
-   * previous card's own measured bottom edge (image + 24px gap +
-   * caption, all at their real rendered size) plus a 24px gap, the
-   * same breathing room Figma's own numbers left after its own
-   * (shorter) caption.
-   *
-   * The right column's own my (index 3 and 4) is a further, deliberate
-   * departure from Figma's own value on top of that overlap fix -- a
-   * follow-up request found the right column (which only spans roughly
-   * the canvas's top third) left the left column's own third/bottom
-   * card reading as visually orphaned, with nothing beside it. Both of
-   * the right column's cards are shifted down by the same ~133px so
-   * the right column's own vertical center lines up with the left
-   * column's (their own internal 24px gap to each other is unchanged),
-   * putting the right column's second card roughly alongside that
-   * bottom-left card instead of well above it. Only the left column's
-   * first card (index 0) keeps Figma's own my untouched. */
+   * caption text, which fits in far less vertical room than the
+   * legible size actually rendered here. Every card after the first in
+   * its column is instead positioned at that previous card's own
+   * measured bottom edge plus a 24px gap -- see globals.css's own
+   * comment on the caption sizes for the full story. Only the left
+   * column's first card (index 0) keeps Figma's own my untouched;
+   * the right column's own my (index 2 and 3 below) is shifted down
+   * ~133px on top of that so its own vertical center lines up with
+   * the left column's, so its second card sits roughly alongside the
+   * left column's bottom card rather than well above it. */
   mx: number;
   my: number;
   mw: number;
@@ -80,37 +70,28 @@ type Card = {
 // door, already used on /editions) for every "Sora" card, and
 // gallery.png (the boardwalk/bench courtyard shot the live homepage's
 // own Drawing/masonry sections already use) for every "Tsuki" card.
-// Ported as-is, mismatched captions included (card D below: the Sora
-// photo under a "Tsuki I" caption) -- this reads as an early
-// placeholder pass (two example photos standing in for a set that
-// will eventually have one photo per caption), not a fidelity bug to
-// silently "fix" by inventing new pairings. Both asset URLs' own
-// hashes are unchanged from the very first time this frame was
-// fetched, confirming the re-sync below is a genuine layout/sizing
-// revision, not a different set of photos.
+// Ported as-is, mismatched captions included (card index 4 below: the
+// Sora photo under a "Tsuki"/"Edition I" caption) -- this reads as an
+// early placeholder pass (two example photos standing in for a set
+// that will eventually have one photo per caption), not a fidelity
+// bug to silently "fix" by inventing new pairings. Both asset URLs'
+// own hashes are unchanged since this frame was first fetched.
 //
-// x/y/w/h are Figma's own real numbers for this frame, re-fetched
-// fresh (not reused from an earlier pass) on an explicit "implement
-// this design from Figma" follow-up -- the frame had changed since
-// the original build: bigger photos throughout, a genuinely new
-// square crop (card D, 600x600 -- previously every card was one of
-// just two repeated ratios), a flipped column balance (left column
-// now 2 cards, right column 3 -- previously 3/2), and the canvas
-// itself is now edge-to-edge at the full 1440px frame width (x=0,
-// width=1440) rather than inset 60px each side. Rendered at Figma's
-// own 100% scale this time -- an earlier pass here had deliberately
-// shrunk every card to 75% of Figma's size for a "cleaner look"
-// request, but that request predates this resize and was against the
-// old, smaller Figma numbers; this frame's own photos are already
-// substantially bigger, satisfying the (separate, later) "make the
-// gallery bigger" request on its own without layering another
-// reduction on top.
+// x/y/w/h are this frame's own real numbers, re-fetched fresh on a
+// follow-up "implement this design from Figma" request that turned out
+// to have changed several things at once: every card's own position,
+// size and crop shifted again (bigger still than the previous re-sync
+// in most cases), and the caption format switched from "name+numeral"
+// / "year" to "Edition <numeral>" / bare name (see the Card type's own
+// comment) -- confirmed via a dedicated metadata + design-context
+// fetch, not assumed from the earlier pass. Rendered at this frame's
+// own 100% scale, same as the previous re-sync (no shrink reapplied).
 //
-// CANVAS_H is trimmed to the real content extent (card B's own bottom
-// edge, 1455+646=2101, rounded up to 2110 for a hairline's buffer) --
-// not Figma's own 2254, same "close the gap to the next section"
-// reasoning as the original build: leaving Figma's own trailing
-// canvas space would just be dead space below the last card again.
+// CANVAS_H is trimmed to the real content extent (card index 2's own
+// bottom edge, 1455+753=2208, rounded up to 2210 for a hairline's
+// buffer) -- not Figma's own 2203, same "close the gap to the next
+// section" reasoning as every earlier pass here: leaving Figma's own
+// trailing canvas space would just be dead space below the last card.
 const CARDS: Card[] = [
   {
     src: "/assets/sora-bonsai-entrance.jpg",
@@ -118,6 +99,7 @@ const CARDS: Card[] = [
     name: "Sora",
     numeral: "II",
     year: "2026",
+    edition: "Edition II",
     x: 96,
     y: 22,
     w: 560,
@@ -132,10 +114,11 @@ const CARDS: Card[] = [
     name: "Tsuki",
     numeral: "I",
     year: "2024",
-    x: 60,
+    edition: "Edition I",
+    x: 20,
     y: 938,
-    w: 560,
-    h: 840,
+    w: 640,
+    h: 910,
     mx: 15.52,
     my: 298,
     mw: 146.04,
@@ -146,10 +129,11 @@ const CARDS: Card[] = [
     name: "Sora",
     numeral: "II",
     year: "2026",
+    edition: "Edition II",
     x: 811,
     y: 1455,
     w: 480,
-    h: 560,
+    h: 720,
     mx: 51.72,
     my: 645,
     mw: 131.13,
@@ -160,6 +144,7 @@ const CARDS: Card[] = [
     name: "Tsuki",
     numeral: "I",
     year: "2024",
+    edition: "Edition I",
     x: 851,
     y: 58,
     w: 400,
@@ -174,6 +159,7 @@ const CARDS: Card[] = [
     name: "Tsuki",
     numeral: "I",
     year: "2024",
+    edition: "Edition I",
     x: 780,
     y: 685,
     w: 600,
@@ -185,9 +171,18 @@ const CARDS: Card[] = [
 ];
 
 const CANVAS_W = 1440;
-const CANVAS_H = 2110;
+const CANVAS_H = 2210;
 const MOBILE_CANVAS_W = 390;
-const MOBILE_CANVAS_H = 920; // was 686 (Figma's own) -- grown to fit the re-spaced my values above without clipping/overlap.
+const MOBILE_CANVAS_H = 920; // Figma's own mobile frame is unchanged; see MOBILE_CANVAS_H's own original comment history for why this isn't that frame's own 686.
+
+// New in this same re-sync (Figma node 332:39703, desktop only -- the
+// mobile frame doesn't have this): a lede + "Sneak peak" link into
+// /news, sitting in the gap after the left column's own last card.
+// "Sneak peak" (not "peek") is Figma's own literal text -- ported
+// as-is, same as this codebase's established practice elsewhere
+// (CollectionsCard's own "each editions stands") of not silently
+// correcting Figma's own copy.
+const NEWS_LINK = { x: 120, y: 1972, w: 440 };
 
 function GalleryCard({ card }: { card: Card }) {
   const style = {
@@ -218,7 +213,15 @@ function GalleryCard({ card }: { card: Card }) {
             style={{ objectFit: "cover" }}
           />
         </Link>
-        <div className="landing-gallery__caption">
+        {/* Desktop's own new "Edition <numeral>" / bare name row and
+            mobile's own untouched "name <numeral>" / year rows both
+            render -- CSS picks one per breakpoint (globals.css), same
+            mechanism as the EditionsFilmstrip/MobileFilmstrip pair. */}
+        <div className="landing-gallery__caption landing-gallery__caption--desktop">
+          <p className="landing-gallery__caption-edition">{card.edition}</p>
+          <p className="landing-gallery__caption-desktop-name">{card.name}</p>
+        </div>
+        <div className="landing-gallery__caption landing-gallery__caption--mobile">
           <p className="landing-gallery__caption-name">
             {card.name} <span>{card.numeral}</span>
           </p>
@@ -229,17 +232,37 @@ function GalleryCard({ card }: { card: Card }) {
   );
 }
 
+function GalleryNewsLink() {
+  const style: CSSProperties = {
+    left: `${((NEWS_LINK.x / CANVAS_W) * 100).toFixed(2)}%`,
+    top: `${((NEWS_LINK.y / CANVAS_H) * 100).toFixed(2)}%`,
+    width: `${((NEWS_LINK.w / CANVAS_W) * 100).toFixed(2)}%`,
+  };
+
+  return (
+    <div className="landing-gallery__news" style={style}>
+      <ScrollFade>
+        <p className="landing-gallery__news-heading">
+          Dive in to what&apos;s cooking at CH
+        </p>
+        <Link href="/news" className="landing-gallery__news-link">
+          Sneak peak <span aria-hidden="true">→</span>
+        </Link>
+      </ScrollFade>
+    </div>
+  );
+}
+
 /**
  * Captioned Editions gallery (Figma node 319:37965, mobile 321:39281):
  * five cards at Figma's own mixed/scattered positions on a
  * 1440-wide, edge-to-edge desktop canvas (not a tidy two-column grid),
- * each at Figma's own real size and its own real aspect-ratio -- see
- * this file's own comment above CARDS for the exact numbers and the
- * re-sync that produced them. Mobile has its own real Figma frame with
- * its own genuinely different mixed layout (not a linear scale-down of
- * the desktop numbers, and not the single stacked column an earlier
- * mobile pass here used before that frame existed) -- mx/my/mw below
- * (mobile's own caption text was scaled down as part of the same group
+ * each at Figma's own real size and its own real aspect-ratio, plus a
+ * "Sneak peak" link into /news new to this same re-sync -- see this
+ * file's own comment above CARDS/NEWS_LINK for the exact numbers.
+ * Mobile has its own real, unchanged Figma frame with its own
+ * genuinely different mixed layout and caption format -- mx/my/mw
+ * below (mobile's own caption text was scaled down as part of a group
  * resize in that Figma frame, landing on illegibly small 7px/5px
  * sizes; the rendered caption sizes here are a deliberate legible
  * substitute, see globals.css). Both layouts are positioned via CSS
@@ -260,6 +283,7 @@ export default function EditionsGallery() {
         {CARDS.map((card, i) => (
           <GalleryCard key={`${card.src}-${i}`} card={card} />
         ))}
+        <GalleryNewsLink />
       </div>
     </section>
   );

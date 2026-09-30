@@ -8062,37 +8062,35 @@ button:focus-visible,
 }
 
 /* ---------- Captioned Editions gallery (node 319:37965): five cards
-   at Figma's own mixed/scattered positions (not a tidy two-column
-   grid), each card's own width at 75% of Figma's -- see
-   EditionsGallery.tsx's own comment on the CARDS array for the exact
-   numbers and why left/top stay unscaled while width shrinks. ---------- */
+   at Figma's own mixed/scattered positions, each at Figma's own real
+   size -- re-synced from an earlier, smaller/differently-inset
+   revision of this same frame on an explicit "implement this design
+   from Figma" follow-up; see EditionsGallery.tsx's own comment above
+   CARDS for exactly what changed and why the earlier 75%-of-Figma
+   shrink isn't reapplied on top this time. ---------- */
 
-/* Bottom padding is deliberately much smaller than the 120px top/sides
-   -- a follow-up request to close the gap to the next section (A Way
-   of Life) found the combination of this padding, the canvas's own
-   trailing dead space, and A Way of Life's own 120px top padding
-   (.hpn-values, unchanged -- shared with other pages, not touched)
-   added up to a much bigger gap than any single one of those reads as
-   on its own. The canvas's own slack is trimmed at the source (see
-   EditionsGallery.tsx's own CANVAS_H comment); this padding is the
-   other half of that fix. */
+/* No side padding -- this frame's own canvas is edge-to-edge at its
+   full 1440px width (x=0, width=1440, confirmed via metadata, not
+   assumed), unlike the previous revision's own 60px inset. Bottom
+   padding stays deliberately smaller than the 120px top -- see the
+   original "close the gap to the next section" reasoning this still
+   follows, EditionsGallery.tsx's own CANVAS_H comment. */
 .landing-gallery {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 120px 60px 40px;
+  padding: 120px 0 40px;
 }
 
-/* Locks width:height to the same 1320:1790 ratio EditionsGallery.tsx's
-   own CANVAS_W/CANVAS_H use (1790 -- not Figma's own 2254 -- is that
-   canvas trimmed to the cards' own real extent after their vertical
-   gaps were tightened, see that file's CANVAS_H comment), so every
-   card's percentage left/top/width below (already fractions of that
-   same box) lands in the same relative spot regardless of the
-   canvas's own rendered width. */
+/* Locks width:height to the same 1440:2110 ratio EditionsGallery.tsx's
+   own CANVAS_W/CANVAS_H use (2110 -- not Figma's own 2254 -- is that
+   canvas trimmed to the cards' own real extent, see that file's
+   CANVAS_H comment), so every card's percentage left/top/width below
+   (already fractions of that same box) lands in the same relative
+   spot regardless of the canvas's own rendered width. */
 .landing-gallery__canvas {
   position: relative;
   width: 100%;
-  aspect-ratio: 1320 / 1790;
+  aspect-ratio: 1440 / 2110;
 }
 
 .landing-gallery__item {
@@ -8106,17 +8104,15 @@ button:focus-visible,
    EDITION_HREF in EditionsGallery.tsx), not a plain div -- display:
    block so the anchor still fills the same box a div would. The
    caption below stays plain text/unlinked on purpose (an explicit
-   "photo clickable, not the text" request). */
+   "photo clickable, not the text" request). No aspect-ratio here --
+   this frame's re-sync gave every card its own distinct crop (five
+   different ratios, not two repeated ones), set inline per card
+   (EditionsGallery.tsx) rather than as a shared modifier class. */
 .landing-gallery__card {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 431 / 560;
   overflow: hidden;
-}
-
-.landing-gallery__card--wide {
-  aspect-ratio: 480 / 720;
 }
 
 /* Minimal/subtle hover: a slight zoom on the photo only, same
@@ -8181,7 +8177,8 @@ button:focus-visible,
    comments) -- and edge-to-edge (no section padding), since that
    frame's own card insets (as little as ~15px from the viewport edge)
    are already baked into its own mx numbers, the same way desktop's x
-   values already bake in its own 60px inset. */
+   values are already relative to its own edge-to-edge canvas (see the
+   base .landing-gallery rule above). */
 @media (max-width: 900px) {
   .landing-gallery {
     padding: 64px 0 32px;

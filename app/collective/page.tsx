@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
-import CollectiveIntro from "@/components/collective/CollectiveIntro";
 import Foundation from "@/components/collective/Foundation";
 import Craft from "@/components/collective/Craft";
 import PhotoBand from "@/components/collective/PhotoBand";
 import Inspiration from "@/components/collective/Inspiration";
 import Publications from "@/components/collective/Publications";
 import Filmstrip, { type FilmstripImage } from "@/components/Filmstrip";
-import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -16,13 +14,16 @@ export const metadata: Metadata = {
     "The Colvin Haven collective: a practice devoted to the complete experience of home.",
 };
 
-// Re-synced against node 250:10541 (frame 287:11841): five genuinely
-// distinct photos now, not the Editions filmstrip's two reused ones --
-// confirmed via hash, none of these match any asset already on the
-// site. Kept the same narrow/wide/narrow/wide/narrow alternation
-// Filmstrip.tsx already establishes everywhere else it's used (the
-// Figma frame's own pixel widths are close enough to uniform that they
-// don't read as a deliberate re-spec of that pattern).
+// Unchanged from the previous build (re-synced against node 250:10541):
+// five genuinely distinct photos, kept exactly as they already were --
+// the current Figma frame's own filmstrip (within node 334:39906) still
+// shows these same five photos in the same order, just at slightly
+// different individual pixel widths (four fixed ~280px images and one
+// flexible narrow one, rather than this file's alternating 284/443 --
+// close enough in spirit, and visually near-identical given the same
+// photos in the same order, that it isn't worth a bespoke non-marquee
+// component just to chase that one difference) -- see Filmstrip.tsx's
+// own comment for why this reuses it rather than a page-specific layout.
 const REEL: FilmstripImage[] = [
   {
     src: "/assets/collective/filmstrip-lounge-chair.jpg",
@@ -51,64 +52,63 @@ const REEL: FilmstripImage[] = [
   },
 ];
 
-// Follows the Figma "Collective" frame (node 203:208, extended by nodes
-// 222:4394 and 222:4432) section order: Navbar -> intro statement ->
-// Foundation -> Craft -> standalone photo band -> Inspiration ->
-// filmstrip -> Publications -> quote/CTA -> Footer. Footer is
-// pixel-identical to the one already built for the main site, so it's
-// reused directly.
+// Rebuilt against the current "Collective" Figma frame (node 334:39855),
+// replacing the previous build (node 203:208, extended by 222:4394 and
+// 222:4432) entirely on explicit request, not incrementally patched.
+// Confirmed via a dedicated get_metadata + get_screenshot + per-section
+// get_design_context pass, not assumed from the earlier frame:
 //
-// The closing quote/CTA (222:4432) reuses the shared Cta shell with its
-// own background photo and copy instead of the generic inquiry line --
-// same reasoning as News (which dropped Cta for its own PullQuote) and
-// Editions (which dropped it outright): once a page's closing section
-// has bespoke content of its own, keeping the *generic* Cta immediately
-// above it would just stack two near-identical full-bleed banners back
-// to back, right before the Footer.
+// Navbar -> Foundation -> Craft -> standalone photo band -> Inspiration
+// -> filmstrip -> Publications -> Footer.
+//
+// Two whole sections the previous build had are GONE from this frame
+// entirely, confirmed via its own screenshot (not just absent from the
+// metadata dump by coincidence): the top-of-page intro statement
+// (CollectiveIntro, now deleted -- its own CSS/asset went with it,
+// nothing else referenced either) and the closing job-applications
+// CTA (Cta, still used elsewhere -- just not imported here any more).
+// The page now ends with Publications running straight into Footer,
+// 120px apart per the site-wide rule every other page's Footer
+// already follows (CollectivePublications' own last slide now carries
+// that spacing instead of the 80px shared by its own first slide).
+//
+// Foundation, Craft, Inspiration, and Publications all turned out to
+// already carry the right copy from the previous build (this frame
+// still uses the exact same real text throughout, Lorem Ipsum
+// placeholders included in spots where the live site already has its
+// own real copy instead -- same keep-the-real-copy discipline applied
+// everywhere else on this site) -- Foundation's own collage box needed
+// a real fix though (637x584, not the stale 752x473 that was actually
+// clipping its second photo), done directly in globals.css.
+//
+// The standalone band's own photo changes from the courtyard shot to a
+// new mountain-at-dusk silhouette (node 334:40005, confirmed genuinely
+// new via hash, downloaded and run through this project's own export
+// pipeline) -- scoped via .collective-mountain-band so its own 588px
+// height (this frame's own value, not the shared 649px default) stays
+// off News' SocialAction, which reuses this same PhotoBand component
+// at that original height.
 export default function CollectivePage() {
   return (
     <>
       <Navbar solid />
-      <CollectiveIntro />
       <Foundation />
       <Craft />
-      <div className="collective-band-section">
+      <div className="collective-band-section collective-mountain-band">
         <PhotoBand
-          src="/assets/collective/standalone-courtyard.jpg"
-          alt="A timber deck and stair bridge over a stone-edged pond, between two roof pavilions"
+          src="/assets/collective/collective-mountain-dusk.jpg"
+          alt="A mountain silhouette against an amber dusk sky"
         />
       </div>
-      {/* Figma now nests Inspiration and the filmstrip in one shared
-          w-1834 group with a tight 24px gap between them, rather than
-          two independently-spaced sections -- .collective-inspiration
+      {/* Figma nests Inspiration and the filmstrip in one shared group
+          with a tight 24px gap between them, rather than two
+          independently-spaced sections -- .collective-inspiration
           scopes StatementSection's bottom padding down to match. */}
       <div className="collective-inspiration">
         <Inspiration />
         <Filmstrip images={REEL} />
       </div>
       <Publications />
-      {/* Figma's closing CTA background (node 250:10633) turns out to be
-          the exact same source photo as the site's own hero-bg.png
-          (byte-identical asset export, just a different crop/overlay) --
-          so this reuses it via Cta's default bgSrc rather than
-          duplicating the file under public/assets/collective/. Content
-          updated from the earlier pull-quote treatment to a job-
-          applications CTA, per the current Figma frame -- "send us your
-          CV and Portfolio send it to through the application form
-          below" cleaned up in transit (a duplicated "send" construction,
-          not a deliberate phrasing). No dedicated careers/application
-          page exists yet, so the button still points at /write-to-us
-          until one does. */}
-      <Cta
-        id="collective-apply"
-        text={
-          <>
-            For job applications, send us your CV and portfolio through
-            the application form below.
-          </>
-        }
-        buttonLabel="Apply to Colvin Haven"
-      />
       <Footer />
     </>
   );

@@ -5945,25 +5945,13 @@ button:focus-visible,
 
 /* ---------- Intro ---------- */
 
-/* 1320px / 60px-edge-gutter column -- the same one Navbar and Footer use,
-   not the standard 1216px content column the rest of the page sits in. */
-.collective-intro {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  /* Top padding clears the fixed navbar, same reasoning as
-     .editions-intro; no bottom padding since the photo band immediately
-     below carries its own margin-top instead. */
-  padding: 200px 60px 0;
-}
-
-.collective-intro__lead {
-  padding: 0 120px;
-  font-size: 24px;
-  line-height: 40px;
-  font-weight: 300;
-  text-align: center;
-}
-
+/* .collective-intro/__lead/--bleed (the top-of-page statement + full-
+   bleed photo) removed -- the current /collective Figma frame
+   (334:39855, replacing 203:208) no longer has an intro section at
+   all, confirmed via its own get_screenshot: the page now opens
+   straight into Foundation. .collective-photo-band itself stays (still
+   used by the standalone band below Craft, and by News' SocialAction
+   -- see that selector's own scoped override further down). */
 .collective-photo-band {
   position: relative;
   width: 100%;
@@ -5972,18 +5960,12 @@ button:focus-visible,
   height: 649px;
 }
 
-.collective-intro .collective-photo-band {
-  margin-top: 48px;
-}
-
-/* Breaks out of .collective-intro's 60px edge padding to span the full
-   1440px page width edge-to-edge -- unlike the standalone band between
-   Craft and Inspiration, which keeps that 60px gutter. */
-.collective-photo-band--bleed {
-  max-width: none;
-  width: calc(100% + 120px);
-  margin-left: -60px;
-  margin-right: -60px;
+/* The standalone band below Craft is now a different photo at a
+   different height (588px, not the bare default's 649px) per the
+   current Figma frame -- scoped so it doesn't touch News'
+   SocialAction, which still relies on the bare 649px default above. */
+.collective-mountain-band .collective-photo-band {
+  height: 588px;
 }
 
 /* Generic vertical breathing room around a bare full-width element (the
@@ -6003,11 +5985,9 @@ button:focus-visible,
   padding-bottom: 0;
 }
 
-/* The filmstrip is the last thing in this wrapper, immediately
-   followed by the full-bleed Cta banner (which owns no top padding of
-   its own -- it's a photo banner, meant to sit flush at its own top
-   edge). Without this, the filmstrip's images run straight into Cta's
-   dark background with no breathing room at all. Matches the same
+/* The filmstrip is the last thing in this wrapper, immediately followed
+   by Publications (there's no longer a Cta banner on this page at all
+   -- the current Figma frame drops it entirely). Matches the same
    120px rhythm .collective-band-section already uses elsewhere on this
    page for a bare full-width element. */
 .collective-inspiration {
@@ -6037,6 +6017,14 @@ button:focus-visible,
   margin: 0 auto;
   min-height: 100vh;
   padding: 120px var(--gutter) 80px;
+}
+
+/* Publications is now the page's last section before Footer (no Cta
+   banner between them any more) -- the site-wide rule is 120px there,
+   not every slide's own shared 80px (which stays as-is for the gap
+   between the two slides themselves). */
+.collective-publications__slide:last-child {
+  padding-bottom: 120px;
 }
 
 .collective-publications__cover {
@@ -6123,9 +6111,16 @@ button:focus-visible,
 
 .foundation__collage {
   position: relative;
-  flex: 0 0 752px;
-  width: 752px;
-  height: 473px;
+  /* Re-synced against node 334:39878 (within the current /collective
+     Figma frame, 334:39855): the container's own real bounding size
+     to hold both --a/--b images (0,0,305,423 and 332,99,305,485,
+     already correct below) is 637x584, not the previous 752x473 --
+     that stale box was both too wide (clipping nothing, just empty
+     space) and too short (actually clipping image --b, whose own
+     99+485=584 bottom edge overflowed the old 473px height). */
+  flex: 0 0 637px;
+  width: 637px;
+  height: 584px;
 }
 
 .foundation__collage-img {
@@ -6269,31 +6264,11 @@ button:focus-visible,
 }
 
 @media (max-width: 560px) {
-  .collective-intro {
-    /* 112px, not the Figma frame's own 80px -- same reasoning as
-       .editions-intro: the live site's navbar is `position: fixed`
-       (72px tall, unscrolled) sitting on top of it, plus Figma's own
-       40px gap below the navbar. */
-    padding-top: 112px;
-  }
-
-  .collective-intro__lead {
-    padding: 0;
-    font-size: 20px;
-    line-height: 32px;
-  }
-
   /* Bare .collective-photo-band covers the standalone band between
-     Craft and Inspiration; the intro's own (bled full-width) instance
-     is taller and sits closer to the lead text, so it gets its own
-     override below. */
+     Craft and Inspiration (and News' SocialAction, which relies on
+     this same default). */
   .collective-photo-band {
     height: 320px;
-  }
-
-  .collective-intro .collective-photo-band {
-    margin-top: 24px;
-    height: 349px;
   }
 
   .collective-band-section {

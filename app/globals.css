@@ -593,6 +593,9 @@ button:focus-visible,
 }
 
 .navbar__overlay-panel {
+  /* Anchors .navbar__overlay-apply below, which positions independently
+     of the brand/links group's own centering. */
+  position: relative;
   flex: 0 0 60%;
   display: flex;
   flex-direction: column;
@@ -657,6 +660,51 @@ button:focus-visible,
   background-size: 100% 1px;
 }
 
+/* Bottom-left of the panel, at the same 80px/24px inset as the panel's
+   own padding -- independent of the brand/links group above it (which
+   stays centered via .navbar__overlay-panel's own justify-content),
+   not a third item fighting that centering for space. */
+.navbar__overlay-apply {
+  position: absolute;
+  left: 24px;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar__overlay--visible .navbar__overlay-apply {
+  opacity: 1;
+}
+
+.navbar__overlay-apply-label {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--ink);
+}
+
+.navbar__overlay-apply a {
+  display: inline-block;
+  width: fit-content;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar__overlay-apply a:hover,
+.navbar__overlay-apply a:focus-visible {
+  background-size: 100% 1px;
+}
+
 .navbar__overlay-media {
   position: relative;
   flex: 1 1 auto;
@@ -685,6 +733,10 @@ button:focus-visible,
   .navbar__overlay-media {
     display: none;
   }
+
+  .navbar__overlay-apply {
+    bottom: 60px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -710,6 +762,15 @@ button:focus-visible,
   .navbar__overlay-links a {
     font-size: 18px;
   }
+
+  .navbar__overlay-apply {
+    bottom: 40px;
+  }
+
+  .navbar__overlay-apply-label,
+  .navbar__overlay-apply a {
+    font-size: 15px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -719,13 +780,15 @@ button:focus-visible,
   .navbar__overlay,
   .navbar__overlay-brand,
   .navbar__overlay-links a,
-  .navbar__overlay-media {
+  .navbar__overlay-media,
+  .navbar__overlay-apply {
     transition: none;
   }
 
   .navbar__overlay-brand,
   .navbar__overlay-links a,
-  .navbar__overlay-media {
+  .navbar__overlay-media,
+  .navbar__overlay-apply {
     opacity: 1;
   }
 }

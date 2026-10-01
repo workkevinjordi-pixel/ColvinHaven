@@ -96,6 +96,22 @@ export default function Navbar({ solid = false }: NavbarProps) {
               </a>
             ))}
           </nav>
+
+          {/* Pinned near the panel's own bottom-left corner (position:
+              absolute, independent of the brand/links centering above)
+              rather than a third flex item in that group -- explicit
+              request, added as its own standalone block at the bottom of
+              the megamenu, not folded into PRIMARY_LINKS. Apply opens a
+              mailto: (no dedicated application form/page exists yet). */}
+          <div className="navbar__overlay-apply">
+            <p className="navbar__overlay-apply-label">Join the collective.</p>
+            <a
+              href="mailto:info@colvinhaven.com"
+              onClick={() => setOpen(false)}
+            >
+              Apply <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
         <div className="navbar__overlay-media">
           <Image

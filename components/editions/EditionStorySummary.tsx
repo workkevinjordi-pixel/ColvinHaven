@@ -61,6 +61,7 @@ export default function EditionStorySummary({
     detailHeroImage,
     row1,
     banner1,
+    editionsBanner1,
     storyA,
     galleryRow,
     galleryRow2,
@@ -71,12 +72,13 @@ export default function EditionStorySummary({
   } = data;
 
   const hero = detailHeroImage ?? heroImage;
+  const banner1Image = editionsBanner1 ?? banner1;
 
   const banner1Block = (
     <div className="edition-spotlight__banner">
       <Image
-        src={banner1.src}
-        alt={banner1.alt}
+        src={banner1Image.src}
+        alt={banner1Image.alt}
         fill
         sizes="(min-width: 900px) 1216px, 100vw"
         style={{ objectFit: "cover" }}

@@ -56,6 +56,16 @@ export type EditionData = {
     side: { image: { src: string; alt: string }; text: string };
   };
   banner1: { src: string; alt: string };
+  /** Optional override for the /editions and /editions1 inline-story
+   * rendering (EditionStorySummary) specifically -- the mirror of
+   * `detailHeroImage`/`listImage` above. Falls back to `banner1` when
+   * unset (Sora: no override needed, its own banner1 is already
+   * correct everywhere). Tsuki sets this on explicit request after a
+   * side-by-side look at the live /editions page -- swaps that page's
+   * banner1 slot for the kitchen/dining photo instead of the pool-deck
+   * one `banner1` itself still correctly shows on /editions/[slug] and
+   * /editions-new, which this doesn't touch. */
+  editionsBanner1?: { src: string; alt: string };
 
   /** Text-left/image-right story block (node 234:4902) -- indented and
    * pushed toward the right edge in the source frame (pl-160,
@@ -184,6 +194,10 @@ const tsuki: EditionData = {
   banner1: {
     src: "/assets/editions/tsuki-pool-banner.png",
     alt: "Umah Tsuki's pool area opening onto the surrounding jungle",
+  },
+  editionsBanner1: {
+    src: "/assets/editions/detail/tsuki-banner-kitchen-dining.jpg",
+    alt: "Umah Tsuki's wood-panelled kitchen and dining area beneath a woven pendant light",
   },
 
   storyA: {

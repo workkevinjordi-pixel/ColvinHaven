@@ -16,20 +16,19 @@ const EDITION_HREF: Record<string, string> = {
 type Card = {
   src: string;
   alt: string;
-  /** Bare name ("Sora"/"Tsuki") -- desktop's own caption (below) no
-   * longer appends a roman numeral to it directly, unlike mobile's. */
+  /** Bare name ("Sora"/"Tsuki") -- no longer shown in either caption
+   * (explicit request: drop the edition name everywhere here, keep
+   * only the roman numeral), still used internally for EDITION_HREF,
+   * the card's own aria-label, and its React key. */
   name: string;
-  /** Mobile-only caption pieces (numeral appended to name, year on its
-   * own line below) -- Figma's own mobile frame (321:39281) is
-   * unchanged from the original build, still this older two-line
-   * format, confirmed via a dedicated re-fetch during this same
-   * desktop re-sync rather than assumed to have changed alongside it. */
+  /** Mobile-only caption pieces (numeral, year on its own line below)
+   * -- the numeral used to have `name` prefixed inline ("Sora II"),
+   * dropped per the same request as `name`'s own comment above. */
   numeral: string;
   year: string;
-  /** Desktop-only caption label ("Edition II"/"Edition I") -- this
-   * frame's own re-sync replaced the old name+numeral/year caption
-   * with an "Edition <numeral>" / bare name row instead, confirmed via
-   * a dedicated get_design_context call on this exact frame. */
+  /** Desktop-only caption label ("Edition II"/"Edition I") -- the only
+   * visible desktop caption now; a bare-name second line used to sit
+   * below it, also dropped per the same request. */
   edition: string;
   /** Figma's own x/y/width/height (node 319:37965) for this card's own
    * photo, as percentages of the 1440px-wide (edge-to-edge, no side
@@ -176,12 +175,12 @@ const MOBILE_CANVAS_W = 390;
 const MOBILE_CANVAS_H = 920; // Figma's own mobile frame is unchanged; see MOBILE_CANVAS_H's own original comment history for why this isn't that frame's own 686.
 
 // New in this same re-sync (Figma node 332:39703, desktop only -- the
-// mobile frame doesn't have this): a lede + "Sneak peak" link into
-// /news, sitting in the gap after the left column's own last card.
-// "Sneak peak" (not "peek") is Figma's own literal text -- ported
-// as-is, same as this codebase's established practice elsewhere
-// (CollectionsCard's own "each editions stands") of not silently
-// correcting Figma's own copy.
+// mobile frame doesn't have this): a lede + link into /news, sitting in
+// the gap after the left column's own last card. Copy explicitly
+// requested afterward -- "What's cooking at CH?" / "Dive Deeper" --
+// replacing Figma's own original "Dive in to what's cooking at CH" /
+// "Sneak peak" text; "Dive Deeper" also matches the label TextIntro
+// already uses for its own Collective link elsewhere on this page.
 const NEWS_LINK = { x: 120, y: 1972, w: 440 };
 
 function GalleryCard({ card }: { card: Card }) {
@@ -213,18 +212,19 @@ function GalleryCard({ card }: { card: Card }) {
             style={{ objectFit: "cover" }}
           />
         </Link>
-        {/* Desktop's own new "Edition <numeral>" / bare name row and
-            mobile's own untouched "name <numeral>" / year rows both
-            render -- CSS picks one per breakpoint (globals.css), same
-            mechanism as the EditionsFilmstrip/MobileFilmstrip pair. */}
+        {/* Desktop's own "Edition <numeral>" row and mobile's own
+            numeral/year rows both render -- CSS picks one per breakpoint
+            (globals.css), same mechanism as the EditionsFilmstrip/
+            MobileFilmstrip pair. Neither shows the bare edition name
+            ("Sora"/"Tsuki") any more, on explicit request -- "Edition
+            <numeral>" already carries the roman numeral, which is all
+            that's meant to stay; EDITION_HREF/aria-label above still key
+            off card.name internally, just nothing visible does. */}
         <div className="landing-gallery__caption landing-gallery__caption--desktop">
           <p className="landing-gallery__caption-edition">{card.edition}</p>
-          <p className="landing-gallery__caption-desktop-name">{card.name}</p>
         </div>
         <div className="landing-gallery__caption landing-gallery__caption--mobile">
-          <p className="landing-gallery__caption-name">
-            {card.name} <span>{card.numeral}</span>
-          </p>
+          <p className="landing-gallery__caption-name">{card.numeral}</p>
           <p className="landing-gallery__caption-year">{card.year}</p>
         </div>
       </ScrollFade>
@@ -243,10 +243,10 @@ function GalleryNewsLink() {
     <div className="landing-gallery__news" style={style}>
       <ScrollFade>
         <p className="landing-gallery__news-heading">
-          Dive in to what&apos;s cooking at CH
+          What&apos;s cooking at CH?
         </p>
         <Link href="/news" className="landing-gallery__news-link">
-          Sneak peak <span aria-hidden="true">→</span>
+          Dive Deeper <span aria-hidden="true">→</span>
         </Link>
       </ScrollFade>
     </div>
@@ -258,7 +258,7 @@ function GalleryNewsLink() {
  * five cards at Figma's own mixed/scattered positions on a
  * 1440-wide, edge-to-edge desktop canvas (not a tidy two-column grid),
  * each at Figma's own real size and its own real aspect-ratio, plus a
- * "Sneak peak" link into /news new to this same re-sync -- see this
+ * "Dive Deeper" link into /news new to this same re-sync -- see this
  * file's own comment above CARDS/NEWS_LINK for the exact numbers.
  * Mobile has its own real, unchanged Figma frame with its own
  * genuinely different mixed layout and caption format -- mx/my/mw

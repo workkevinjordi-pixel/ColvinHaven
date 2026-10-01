@@ -7107,10 +7107,12 @@ button:focus-visible,
   margin: 0 auto;
   /* 200px top clears the fixed navbar, same reasoning as
      .write-to-us/.editions-intro/.collective-intro -- this is the
-     page's first (and only) section. 80px bottom is Figma's own value
-     here (not .write-to-us's 120px -- a genuinely different page, not
-     a copy-paste of that one). */
-  padding: 200px var(--gutter) 80px;
+     page's first (and only) section. 120px bottom matches the site-wide
+     rule every page's last section before Footer follows (same value
+     .write-to-us/.news-pull-quote/.edition-spotlight already use) --
+     this used to deliberately keep Figma's own 80px here instead, but
+     that broke the rule once it became explicit, so it's gone. */
+  padding: 200px var(--gutter) 120px;
 }
 
 .request-collections__row {
@@ -8168,13 +8170,6 @@ button:focus-visible,
   font-size: 16px;
   color: #8a6d26;
   white-space: nowrap;
-}
-
-.landing-gallery__caption-desktop-name {
-  font-family: var(--font-plus-jakarta-sans), sans-serif;
-  font-weight: 400;
-  font-size: 20px;
-  color: var(--ink);
 }
 
 .landing-gallery__caption-name {

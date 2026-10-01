@@ -367,6 +367,11 @@ const sora: EditionData = {
   // silently carry that same override into Sora's list row too. Sora's
   // list row already shows its own correct photo via heroImage above.
   listImage: undefined,
+  // Same reasoning -- tsuki's own editionsBanner1 override (the
+  // kitchen/dining swap) would otherwise silently leak into Sora's
+  // /editions banner1 slot too, which never asked for it and already
+  // shows its own correct banner1 (sora-banner1.jpg) there.
+  editionsBanner1: undefined,
 
   // Every image below is a genuine, distinct Sora photo (Figma node
   // 284:11715, "Editions Details" duplicated with Sora's own header

@@ -66,6 +66,16 @@ export type EditionData = {
    * one `banner1` itself still correctly shows on /editions/[slug] and
    * /editions-new, which this doesn't touch. */
   editionsBanner1?: { src: string; alt: string };
+  /** Optional override for storyA's own image on /editions and
+   * /editions1 (EditionStorySummary) specifically -- same mirror
+   * pattern as `editionsBanner1` above. Falls back to `storyA.image`
+   * when unset. Tsuki sets this to the genuine Figma asset for this
+   * page's own storyA-equivalent block (node 325:39526, within the
+   * /editions page's own Umah Tsuki frame 325:39482) -- a dark
+   * timber-slatted hallway, not the koi-pond photo `storyA.image`
+   * itself still correctly shows on /editions/[slug] and
+   * /editions-new, which this doesn't touch. */
+  editionsStoryAImage?: { src: string; alt: string };
 
   /** Text-left/image-right story block (node 234:4902) -- indented and
    * pushed toward the right edge in the source frame (pl-160,
@@ -217,6 +227,10 @@ const tsuki: EditionData = {
       src: "/assets/editions/detail/gallery-1.jpg",
       alt: "A koi pond bordered by stone and ferns",
     },
+  },
+  editionsStoryAImage: {
+    src: "/assets/editions/detail/tsuki-storyA-hallway.jpg",
+    alt: "A dark timber-slatted hallway opening onto a garden path and bench",
   },
 
   // Re-synced against node 279:11585 (frame 279:11602): all three swapped
@@ -372,6 +386,10 @@ const sora: EditionData = {
   // /editions banner1 slot too, which never asked for it and already
   // shows its own correct banner1 (sora-banner1.jpg) there.
   editionsBanner1: undefined,
+  // Same reasoning again -- tsuki's own editionsStoryAImage override
+  // would otherwise silently leak into Sora's /editions storyA slot,
+  // which already shows its own correct image (sora-storyA.jpg) there.
+  editionsStoryAImage: undefined,
 
   // Every image below is a genuine, distinct Sora photo (Figma node
   // 284:11715, "Editions Details" duplicated with Sora's own header

@@ -63,6 +63,7 @@ export default function EditionStorySummary({
     banner1,
     editionsBanner1,
     storyA,
+    editionsStoryAImage,
     galleryRow,
     galleryRow2,
     storyB,
@@ -73,6 +74,7 @@ export default function EditionStorySummary({
 
   const hero = detailHeroImage ?? heroImage;
   const banner1Image = editionsBanner1 ?? banner1;
+  const storyAImage = editionsStoryAImage ?? storyA.image;
 
   const banner1Block = (
     <div className="edition-spotlight__banner">
@@ -95,8 +97,8 @@ export default function EditionStorySummary({
       </div>
       <div className="edition-story__side-block-image">
         <Image
-          src={storyA.image.src}
-          alt={storyA.image.alt}
+          src={storyAImage.src}
+          alt={storyAImage.alt}
           fill
           sizes="(min-width: 900px) 313px, 100vw"
           style={{ objectFit: "cover" }}

@@ -64,7 +64,12 @@ export default function EditionsPage() {
       <CollectionsCard />
       {editions.map((edition) => (
         <div key={edition.slug}>
-          <EditionDetailHeader data={edition} />
+          <EditionDetailHeader
+            data={edition}
+            displayName={
+              edition.slug === "umah-tsuki" ? "UMAH TSUKI" : undefined
+            }
+          />
           <EditionStorySummary
             data={edition}
             layout={edition.slug === "umah-sora" ? "sora" : "tsuki"}

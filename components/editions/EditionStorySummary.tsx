@@ -70,11 +70,13 @@ export default function EditionStorySummary({
     quoteBanner,
     row4,
     closingBanner,
+    editionsClosingBanner,
   } = data;
 
   const hero = detailHeroImage ?? heroImage;
   const banner1Image = editionsBanner1 ?? banner1;
   const storyAImage = editionsStoryAImage ?? storyA.image;
+  const closingBannerImage = editionsClosingBanner ?? closingBanner;
 
   const banner1Block = (
     <div className="edition-spotlight__banner">
@@ -217,11 +219,11 @@ export default function EditionStorySummary({
           </>
         )}
 
-        {closingBanner && (
+        {closingBannerImage && (
           <div className="edition-spotlight__banner">
             <Image
-              src={closingBanner.src}
-              alt={closingBanner.alt}
+              src={closingBannerImage.src}
+              alt={closingBannerImage.alt}
               fill
               sizes="(min-width: 900px) 1216px, 100vw"
               style={{ objectFit: "cover" }}

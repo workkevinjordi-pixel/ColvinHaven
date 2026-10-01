@@ -125,6 +125,15 @@ export type EditionData = {
    * since older data (if any is ever added without it) just omits the
    * section rather than falling back to a possibly-wrong reused image. */
   closingBanner?: { src: string; alt: string };
+  /** Optional override for closingBanner's own image on /editions
+   * (EditionStorySummary) specifically -- same mirror pattern as
+   * `editionsBanner1`/`editionsStoryAImage` above. Falls back to
+   * `closingBanner` when unset. Tsuki sets this on explicit request to
+   * the genuine "Pool Area (7 of 12)" Figma asset for this page's own
+   * closing banner -- `closingBanner` itself still shows the patio
+   * photo on /editions/[slug] and /editions-new, which this doesn't
+   * touch. */
+  editionsClosingBanner?: { src: string; alt: string };
 
   /** "Next Editions" band at the very end (node 246:5036) -- the other
    * edition to jump to. */
@@ -274,6 +283,10 @@ const tsuki: EditionData = {
     src: "/assets/editions/detail/tsuki-closing-patio.jpg",
     alt: "An outdoor lounge with a sectional sofa beside a stone retaining wall and garden stairs",
   },
+  editionsClosingBanner: {
+    src: "/assets/editions/detail/tsuki-closing-pool-deck.jpg",
+    alt: "An outdoor lounge with a sectional sofa beside a stone retaining wall and garden stairs",
+  },
 
   storyB: {
     image: {
@@ -390,6 +403,11 @@ const sora: EditionData = {
   // would otherwise silently leak into Sora's /editions storyA slot,
   // which already shows its own correct image (sora-storyA.jpg) there.
   editionsStoryAImage: undefined,
+  // Same reasoning again -- tsuki's own editionsClosingBanner override
+  // would otherwise silently leak into Sora's /editions closing banner
+  // slot, which already shows its own correct closingBanner
+  // (sora-closing-lounge.jpg) there.
+  editionsClosingBanner: undefined,
 
   // Every image below is a genuine, distinct Sora photo (Figma node
   // 284:11715, "Editions Details" duplicated with Sora's own header

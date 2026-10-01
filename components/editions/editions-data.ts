@@ -266,8 +266,15 @@ const tsuki: EditionData = {
   },
 
   quoteBanner: {
+    // Re-synced against node 325:39544 (within the /editions page's own
+    // Figma frame, 325:39482): the old pool-banner-2.png here was
+    // actually a kitchen/dining photo despite its name and alt text
+    // (a pre-existing mismatch, caught while verifying this block
+    // against this node) -- replaced with the genuine pool-deck photo
+    // this frame specs, downloaded via this project's own export
+    // pipeline rather than Figma's temporary asset URL.
     image: {
-      src: "/assets/editions/detail/pool-banner-2.png",
+      src: "/assets/editions/detail/tsuki-quote-pool-deck.jpg",
       alt: "Umah Tsuki's pool deck framed by surrounding trees",
     },
     heading:
@@ -315,6 +322,16 @@ const sora: EditionData = {
   // edition (completed 2024, per the homepage gallery's existing date
   // for it and the funnel strategy's "Edition 2 complete" status), not
   // the same 2022 as Tsuki.
+  //
+  // NOTE: node 325:39568's own header (within the /editions page's
+  // Figma frame, 325:39567) currently shows "2026" here instead -- not
+  // applied, since this `meta`/`specs` pair is shared by every page
+  // that renders this object (including /editions/[slug] and
+  // /editions-new, built against a different, not-yet-rechecked Sora
+  // frame), and the homepage gallery independently hardcodes 2024 for
+  // this same edition elsewhere on the site. Worth a real cross-page
+  // date re-sync on its own if 2026 turns out to be the new true value
+  // everywhere, not a one-field edit scoped to this frame alone.
   meta: { type: "RESIDENTIAL", location: "TUMBAK BAYUH", year: "2024" },
   specs: [
     { label: "LAND SIZE", value: "2000 m2" },

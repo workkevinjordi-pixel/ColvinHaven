@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { EditionData } from "./editions-data";
 
-function ImageTextRow({ row }: { row: EditionData["row1"] }) {
+export function ImageTextRow({ row }: { row: EditionData["row1"] }) {
   return (
     <div className="edition-spotlight__row">
       <div className="edition-spotlight__row-main">
@@ -36,7 +36,7 @@ function ImageTextRow({ row }: { row: EditionData["row1"] }) {
   );
 }
 
-function GalleryRow({
+export function GalleryRow({
   images,
   id,
 }: {
@@ -62,10 +62,21 @@ function GalleryRow({
 
 /**
  * The detail page's body content (Figma node 232:4674, everything below
- * its own centered header -- see EditionDetailHeader). Used only by
- * app/editions/[slug]/page.tsx -- the /editions page itself shows the
- * shorter EditionsList summary instead, linking here for the full
- * story.
+ * its own centered header -- see EditionDetailHeader). Used by
+ * app/editions/[slug]/page.tsx and by /editions-new (Figma node
+ * 303:15060 -- a different frame, but one whose own full-story section
+ * order matches this component's, confirmed via that frame's own
+ * get_design_context).
+ *
+ * NOT used by /editions or /editions1 (Figma node 325:39444/325:39482)
+ * -- that frame's own Umah Tsuki/Sora story blocks are reordered and
+ * trimmed relative to this fixed sequence (row4's content appears where
+ * row1 normally would, storyB and the first `galleryRow` don't appear
+ * at all, and the quote banner's body paragraph is hidden) -- see
+ * EditionStorySummary, which renders that frame's own distinct
+ * sequence instead, reusing this file's ImageTextRow/GalleryRow
+ * sub-components and the exact same CSS classes rather than
+ * duplicating either.
  */
 export default function EditionSpotlight({
   data,

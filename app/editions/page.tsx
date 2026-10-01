@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import EditionsHero from "@/components/editions/EditionsHero";
 import CollectionsCard from "@/components/homepage-new/CollectionsCard";
 import EditionDetailHeader from "@/components/editions/EditionDetailHeader";
-import EditionSpotlight from "@/components/editions/EditionSpotlight";
+import EditionStorySummary from "@/components/editions/EditionStorySummary";
 import Footer from "@/components/Footer";
 import { editions } from "@/components/editions/editions-data";
 
@@ -29,13 +29,18 @@ export const metadata: Metadata = {
 // deleted (both predate this change and aren't part of it) -- just no
 // longer what this page renders.
 //
-// The two full stories are EditionDetailHeader + EditionSpotlight --
-// the exact same components /editions/[slug] and /editions-new already
-// use, not a duplicate -- reused directly against the same
-// editions-data.ts content, each given its own finalGalleryId since
-// two EditionSpotlights render on one page here (see that prop's own
-// comment on EditionSpotlight -- two elements sharing one id would
-// otherwise be invalid HTML).
+// The two full stories are EditionDetailHeader + EditionStorySummary.
+// EditionStorySummary (not EditionSpotlight) specifically, because this
+// frame's own Umah Tsuki/Sora story blocks turned out, on a dedicated
+// get_design_context re-check of each edition's own sub-nodes (325:39482
+// for Tsuki, 325:39567 for Sora), to each have their own distinct
+// section order -- neither matches EditionSpotlight's fixed sequence
+// (the one /editions/[slug] and /editions-new both use), and the two
+// editions don't even match each other. See EditionStorySummary's own
+// comment for the full per-layout mapping; `layout` here selects which
+// one each edition renders as. Each instance gets its own
+// finalGalleryId since two render on one page here (two elements
+// sharing one id would otherwise be invalid HTML).
 //
 // CollectionsCard is reused directly from homepage-new/ rather than
 // duplicated, same as /editions-new already does -- its own classes
@@ -60,8 +65,9 @@ export default function EditionsPage() {
       {editions.map((edition) => (
         <div key={edition.slug}>
           <EditionDetailHeader data={edition} />
-          <EditionSpotlight
+          <EditionStorySummary
             data={edition}
+            layout={edition.slug === "umah-sora" ? "sora" : "tsuki"}
             finalGalleryId={`${edition.slug}-final-gallery`}
           />
         </div>

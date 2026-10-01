@@ -8339,3 +8339,27 @@ button:focus-visible,
     flex: 0 0 auto;
   }
 }
+
+/* ---------- Editions hero banner (node 325:39451) -- a single
+   full-bleed photo (edge-to-edge at the page's own full width, not
+   inset to --max-width like most sections), 80px of vertical
+   breathing room above/below it, nothing else on top. ---------- */
+.editions-hero {
+  padding: 80px 0;
+}
+
+.editions-hero__image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1440 / 473;
+}
+
+@media (max-width: 900px) {
+  .editions-hero {
+    padding: 48px 0;
+  }
+
+  .editions-hero__image {
+    aspect-ratio: 390 / 280;
+  }
+}

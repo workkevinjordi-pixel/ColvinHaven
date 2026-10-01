@@ -67,16 +67,33 @@ export default function EditionStorySummary({
     galleryRow,
     galleryRow2,
     storyB,
+    editionsStoryBImage,
     quoteBanner,
     row4,
     closingBanner,
     editionsClosingBanner,
+    editionsPortraitImage,
+    editionsRow1SideImage,
+    editionsRow4SideImage,
   } = data;
 
   const hero = detailHeroImage ?? heroImage;
   const banner1Image = editionsBanner1 ?? banner1;
   const storyAImage = editionsStoryAImage ?? storyA.image;
+  const storyBImage = editionsStoryBImage ?? storyB.image;
   const closingBannerImage = editionsClosingBanner ?? closingBanner;
+  const portrait = editionsPortraitImage ?? portraitImage;
+  // Row objects with just their `side.image` swapped for this page's own
+  // override, when one is set -- ImageTextRow takes the whole row shape,
+  // so this overlays the one field without touching row1/row4 themselves
+  // (still read directly by EditionSpotlight on /editions/[slug] and
+  // /editions-new).
+  const row1ForPage = editionsRow1SideImage
+    ? { ...row1, side: { ...row1.side, image: editionsRow1SideImage } }
+    : row1;
+  const row4ForPage = editionsRow4SideImage
+    ? { ...row4, side: { ...row4.side, image: editionsRow4SideImage } }
+    : row4;
 
   const banner1Block = (
     <div className="edition-spotlight__banner">
@@ -143,8 +160,8 @@ export default function EditionStorySummary({
           </div>
           <div className="edition-story__portrait">
             <Image
-              src={portraitImage.src}
-              alt={portraitImage.alt}
+              src={portrait.src}
+              alt={portrait.alt}
               fill
               sizes="(min-width: 900px) 253px, 100vw"
               style={{ objectFit: "cover" }}
@@ -154,7 +171,7 @@ export default function EditionStorySummary({
 
         {layout === "sora" ? (
           <>
-            <ImageTextRow row={row1} />
+            <ImageTextRow row={row1ForPage} />
             {banner1Block}
             {storyABlock}
             <GalleryRow images={galleryRow} id={finalGalleryId} />
@@ -162,8 +179,8 @@ export default function EditionStorySummary({
             <div className="edition-story__side-block edition-story__side-block--b">
               <div className="edition-story__side-block-image">
                 <Image
-                  src={storyB.image.src}
-                  alt={storyB.image.alt}
+                  src={storyBImage.src}
+                  alt={storyBImage.alt}
                   fill
                   sizes="(min-width: 900px) 313px, 100vw"
                   style={{ objectFit: "cover" }}
@@ -187,11 +204,11 @@ export default function EditionStorySummary({
               </div>
             </div>
 
-            <ImageTextRow row={row4} />
+            <ImageTextRow row={row4ForPage} />
           </>
         ) : (
           <>
-            <ImageTextRow row={row4} />
+            <ImageTextRow row={row4ForPage} />
             {banner1Block}
             {storyABlock}
 

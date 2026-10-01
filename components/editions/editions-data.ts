@@ -76,6 +76,22 @@ export type EditionData = {
    * itself still correctly shows on /editions/[slug] and
    * /editions-new, which this doesn't touch. */
   editionsStoryAImage?: { src: string; alt: string };
+  /** Optional override for the info-row portrait image on /editions
+   * specifically -- same mirror pattern as `editionsStoryAImage`
+   * above. Falls back to `portraitImage` when unset. */
+  editionsPortraitImage?: { src: string; alt: string };
+  /** Optional override for row1.side's own image on /editions
+   * specifically -- same mirror pattern. Falls back to
+   * `row1.side.image` when unset. */
+  editionsRow1SideImage?: { src: string; alt: string };
+  /** Optional override for storyB's own image on /editions
+   * specifically -- same mirror pattern. Falls back to
+   * `storyB.image` when unset. */
+  editionsStoryBImage?: { src: string; alt: string };
+  /** Optional override for row4.side's own image on /editions
+   * specifically -- same mirror pattern. Falls back to
+   * `row4.side.image` when unset. */
+  editionsRow4SideImage?: { src: string; alt: string };
 
   /** Text-left/image-right story block (node 234:4902) -- indented and
    * pushed toward the right edge in the source frame (pl-160,
@@ -408,6 +424,27 @@ const sora: EditionData = {
   // slot, which already shows its own correct closingBanner
   // (sora-closing-lounge.jpg) there.
   editionsClosingBanner: undefined,
+  // Sora's own /editions-specific overrides -- unlike the four above,
+  // these aren't inheritance guards (tsuki never sets these fields, so
+  // there's nothing to leak), they're genuinely Sora's own requested
+  // image swaps for this page: info-row portrait, row1's side image,
+  // storyB's image, and row4's side image.
+  editionsPortraitImage: {
+    src: "/assets/editions/detail/sora-portrait-stairs-koipond.jpg",
+    alt: "A koi pond and timber stairway leading up to Umah Sora's dark timber facade",
+  },
+  editionsRow1SideImage: {
+    src: "/assets/editions/detail/sora-row1-side-bench.jpg",
+    alt: "A built-in wooden bench against Umah Sora's dark timber-slatted wall",
+  },
+  editionsStoryBImage: {
+    src: "/assets/editions/detail/sora-storyB-kitchen-lantern.jpg",
+    alt: "A round paper pendant light above Umah Sora's kitchen counter",
+  },
+  editionsRow4SideImage: {
+    src: "/assets/editions/detail/sora-row4-side-artwork.jpg",
+    alt: "A framed artwork of scattered blue dots beside Umah Sora's kitchen counter",
+  },
 
   // Every image below is a genuine, distinct Sora photo (Figma node
   // 284:11715, "Editions Details" duplicated with Sora's own header

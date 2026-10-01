@@ -66,9 +66,7 @@ export default function EditionsPage() {
         <div key={edition.slug}>
           <EditionDetailHeader
             data={edition}
-            displayName={
-              edition.slug === "umah-tsuki" ? "UMAH TSUKI" : undefined
-            }
+            displayName={edition.name.toUpperCase()}
           />
           <EditionStorySummary
             data={edition}

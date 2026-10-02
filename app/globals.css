@@ -8002,14 +8002,20 @@ button:focus-visible,
 }
 
 /* ---------- Home quote row (node 371:40199): three photos, each with
-   its own caption directly beneath it -- fixed/flex/fixed widths
-   (638/1fr/449), all three at a shared 520px height. New section on
-   the current "Homepage" frame, see HomeQuoteRow.tsx's own comment. ---------- */
+   its own caption directly beneath it -- three FIXED widths (638/345/
+   449px, every slot, not just the outer two -- see HomeQuoteRow.tsx's
+   own comment on confirming this via metadata), all three at a shared
+   520px height. Full-bleed, edge-to-edge at this frame's own 1440px
+   canvas (no side gutter -- explicit "should full-screen" follow-up
+   request, confirmed by the frame's own metadata: 638+345+449 plus
+   two 4px gaps sums to exactly 1440, the frame's own full width, with
+   zero padding specced). New section on the current "Homepage" frame.
+   ---------- */
 
 .landing-quote-row {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 60px var(--gutter);
+  padding: 60px 0;
 }
 
 .landing-quote-row__inner {
@@ -8018,12 +8024,19 @@ button:focus-visible,
   gap: 4px;
 }
 
+/* flex-basis comes from HomeQuoteRow.tsx's own inline style (each
+   item's real Figma width as a percentage of 638+345+449=1432) --
+   flex-grow/shrink only here, not the `flex` shorthand, so that inline
+   basis isn't overridden by a 0% default. Shrinks together below
+   1440px (preserving the three photos' own relative proportions) down
+   to the 900px breakpoint, where they stack instead. */
 .landing-quote-row__item {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  flex: 1 1 0%;
+  flex-grow: 0;
+  flex-shrink: 1;
   min-width: 0;
 }
 
@@ -8046,10 +8059,11 @@ button:focus-visible,
   .landing-quote-row__inner {
     flex-direction: column;
     gap: 32px;
+    padding: 0 var(--gutter);
   }
 
   .landing-quote-row__item {
-    flex: 1 1 auto;
+    flex-basis: auto !important;
     width: 100%;
   }
 
@@ -8060,7 +8074,11 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .landing-quote-row {
-    padding: 40px 16px;
+    padding: 40px 0;
+  }
+
+  .landing-quote-row__inner {
+    padding: 0 16px;
   }
 
   .landing-quote-row__image {

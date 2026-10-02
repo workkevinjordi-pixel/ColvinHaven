@@ -14,9 +14,14 @@ export const metadata: Metadata = {
 };
 
 // Follows the current Figma "Editions" frame (node 325:39444) section
-// order: Navbar -> single full-bleed hero photo (EditionsHero) -> CH
-// Collections poster card -> each edition's own complete story ->
-// Footer.
+// order, EXCEPT for CollectionsCard's own position: Figma places it
+// right after EditionsHero, but it's moved to the very end of the page
+// (after both editions' full stories, right before Footer) on an
+// explicit follow-up request -- a deliberate deviation from the Figma
+// frame's own order, not a fidelity miss.
+//
+// Navbar -> single full-bleed hero photo (EditionsHero) -> each
+// edition's own complete story -> CH Collections poster card -> Footer.
 //
 // This replaces the previous frame this page was built from (173:1455
 // -> later updated to a short-summary-row version): that one showed a
@@ -61,7 +66,6 @@ export default function EditionsPage() {
     <>
       <Navbar solid />
       <EditionsHero />
-      <CollectionsCard />
       {editions.map((edition) => (
         <div key={edition.slug}>
           <EditionDetailHeader
@@ -75,6 +79,7 @@ export default function EditionsPage() {
           />
         </div>
       ))}
+      <CollectionsCard />
       <Footer />
     </>
   );

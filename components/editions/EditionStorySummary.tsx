@@ -59,6 +59,7 @@ export default function EditionStorySummary({
     portraitImage,
     heroImage,
     detailHeroImage,
+    editionsHeroImage,
     row1,
     banner1,
     editionsBanner1,
@@ -77,7 +78,7 @@ export default function EditionStorySummary({
     editionsRow4SideImage,
   } = data;
 
-  const hero = detailHeroImage ?? heroImage;
+  const hero = editionsHeroImage ?? detailHeroImage ?? heroImage;
   const banner1Image = editionsBanner1 ?? banner1;
   const storyAImage = editionsStoryAImage ?? storyA.image;
   const storyBImage = editionsStoryBImage ?? storyB.image;

@@ -40,6 +40,15 @@ export type EditionData = {
    * both contexts genuinely use the same photo, confirmed by hash, so
    * it doesn't set this). */
   detailHeroImage?: { src: string; alt: string };
+  /** Optional override for the hero banner on /editions and /editions1
+   * (EditionStorySummary) specifically -- same mirror pattern as
+   * `editionsBanner1`/`editionsStoryAImage`/`editionsClosingBanner`
+   * below. Falls back to `detailHeroImage ?? heroImage` when unset.
+   * Sora sets this on explicit request to a new pavilion/roofline
+   * photo -- `heroImage`/`detailHeroImage` themselves still show the
+   * gate photo everywhere else (the Editions-list row, /editions/[slug],
+   * /editions-new), which this doesn't touch. */
+  editionsHeroImage?: { src: string; alt: string };
   /** Optional override for the Editions-list summary row (EditionsList)
    * specifically -- the mirror image of `detailHeroImage` above.
    * Falls back to `heroImage` when unset (Sora: no override needed,
@@ -403,6 +412,16 @@ const sora: EditionData = {
   heroImage: {
     src: "/assets/editions/sora-gate.jpg",
     alt: "Umah Sora's dark timber gate with a circular wood inlay, framed by a stone wall",
+  },
+  // /editions-specific hero swap, explicit request -- a dark timber
+  // pavilion roofline seen through palms, replacing the gate photo for
+  // this one page only. Tsuki never sets this field, so there's no
+  // inheritance-leak risk from the spread the way editionsBanner1/
+  // editionsStoryAImage/editionsClosingBanner below need their own
+  // explicit `undefined` guard.
+  editionsHeroImage: {
+    src: "/assets/editions/detail/editions-sora-hero-pavilion.jpg",
+    alt: "A dark timber pavilion roofline seen through palm fronds, with a second pavilion beyond",
   },
   // Explicitly unset, not left inherited from tsuki's spread -- tsuki
   // sets this (see its own definition above) to override just its own

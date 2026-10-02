@@ -3,47 +3,19 @@ import Hero from "@/components/Hero";
 import SplashScreen from "@/components/SplashScreen";
 import Drawing from "@/components/Drawing";
 import StaticDrawing from "@/components/landing/StaticDrawing";
+import CraftingStatement from "@/components/landing/CraftingStatement";
+import HomeQuoteRow from "@/components/landing/HomeQuoteRow";
 import TextIntro from "@/components/landing/TextIntro";
-import EditionsGallery from "@/components/landing/EditionsGallery";
-import WayOfLife from "@/components/landing/WayOfLife";
-import EditionsFilmstrip, {
-  type EditionsFilmstripImage,
-} from "@/components/editions/EditionsFilmstrip";
-import MobileFilmstrip from "@/components/landing/MobileFilmstrip";
+import ApproachGallery from "@/components/landing/ApproachGallery";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 
-// Same five photos as the Editions page's own intro filmstrip (Figma
-// node 250:9164) -- this frame's own filmstrip (node 319:38000/
-// 321:39410 mobile) is a verbatim reuse for its desktop composition,
-// confirmed via hash on every image.
-const REEL: EditionsFilmstripImage[] = [
-  {
-    src: "/assets/editions/editions-filmstrip-shrine.jpg",
-    alt: "Balinese ceremonial umbrellas atop a stone shrine, seen through palm fronds",
-  },
-  {
-    src: "/assets/editions/editions-filmstrip-living-room.jpg",
-    alt: "A corner living room opening onto a jungle canopy through floor-to-ceiling glass",
-  },
-  {
-    src: "/assets/editions/editions-filmstrip-timber-wall.jpg",
-    alt: "Dark timber cladding above an outdoor daybed, seen against the surrounding jungle",
-  },
-  {
-    src: "/assets/editions/editions-filmstrip-lounge.jpg",
-    alt: "A grey sofa with an orange throw pillow beside a window looking onto banana leaves",
-  },
-  {
-    src: "/assets/editions/editions-filmstrip-koi-pond.jpg",
-    alt: "A stone-edged koi pond beneath a dark timber deck",
-  },
-];
-
-// Both text sections below (Figma nodes 319:37933 "Tsuki Editions" and
-// 319:38007 "Collective") carry this exact same body copy -- confirmed
+// Both text sections below (Figma nodes 371:40218 "Editions" and
+// 371:40234 "Collective") carry this exact same body copy -- confirmed
 // via a dedicated get_design_context call on each, not assumed from
-// one matching the other.
+// one matching the other. Unchanged from the previous build of this
+// page, which already established this exact text for the same
+// SHARED_COPY role.
 const SHARED_COPY = (
   <>
     <p>
@@ -66,44 +38,47 @@ const SHARED_COPY = (
   </>
 );
 
-// This page renders the "Homepage" Figma frame (node 319:36698 desktop
-// / 321:38045 mobile), originally built at a separate route (/landing,
-// now deleted) and folded in here on explicit request to replace this
-// page's previous content: Hero -> Drawing -> Tsuki Editions intro ->
-// captioned Editions gallery -> "A Way of Life" -> filmstrip ->
-// Collective -> Cta -> Footer. The previous frame this page was built
-// from (309:20272 -- Guiding Values/Masonry Gallery/FilmstripBand/
-// EditionsCards/CollectiveBanner/QuoteSplit) is dropped entirely --
-// those components are deleted along with /homepage-new (the
-// design-exploration page they were originally built for, also
-// deleted on the same request), not just unused.
+// Full re-sync against the current "Homepage" Figma frame (node
+// 298:11984, replacing 319:36698/321:38045 entirely on explicit
+// "implement this design from Figma" request) -- fetched metadata +
+// screenshot + per-section design context for the whole frame rather
+// than patching the previous build's own mapping.
 //
-// TextIntro/EditionsGallery/WayOfLife/MobileFilmstrip/StaticDrawing
-// all still live under components/landing/ despite that directory
-// name no longer matching a real route -- renaming the directory (or
-// the .landing-* CSS classes these components and this page's own
+// New section order: Hero -> Drawing -> "CRAFTING SPACES, LIVING
+// SLOWLY." statement (new) -> three-photo quote row (new) -> "Editions"
+// intro, now centered with no divider (SHARED_COPY, same text as
+// before) -> five-photo "Approach" gallery (new, replaces the previous
+// frame's own scattered-position EditionsGallery) -> "Collective" intro
+// (unchanged, same narrow left-aligned layout + SHARED_COPY) -> Cta ->
+// Footer.
+//
+// Three whole sections the previous build had are GONE from this frame
+// entirely, confirmed via its own screenshot: "A Way of Life"
+// (WayOfLife.tsx, deleted), the old scattered-position EditionsGallery
+// (components/landing/EditionsGallery.tsx, deleted -- replaced by
+// ApproachGallery, a different layout entirely, not a copy-edit of it),
+// and the EditionsFilmstrip/MobileFilmstrip marquee pair (MobileFilmstrip.tsx
+// deleted; EditionsFilmstrip itself stays -- still used by /editions-new
+// and /editions' own intro, just no longer imported here).
+//
+// TextIntro/StaticDrawing still live under components/landing/ despite
+// that directory name no longer matching a real route -- renaming it
+// (or the .landing-* CSS classes these components and this page's own
 // wrapper below use) is cosmetic-only churn with no behavior change,
-// so it's left as-is rather than renamed just to match.
+// so it's left as-is.
 //
-// Drawing (the shared, scroll-jacked parallax reveal every other page
-// using this sketch -- /editions, /collective, etc. -- already uses)
-// is back for desktop, on explicit request: an earlier pass had
-// replaced it outright with StaticDrawing (a plain, non-animated
-// rendering) after repeated follow-ups found the scroll-jacked
-// runway's own dead space, on a phone-sized viewport specifically,
-// too big even after shortening it -- that finding was about mobile,
-// not the parallax effect itself, which was never the actual
-// complaint. Desktop keeps the real animated Drawing; only mobile
-// still gets StaticDrawing. Both render; CSS (.home-drawing--desktop/
-// --mobile) picks one per breakpoint, same mechanism as the
-// EditionsFilmstrip/MobileFilmstrip pair right below it.
+// Drawing (desktop) / StaticDrawing (mobile) is unchanged from the
+// previous build -- CSS (.home-drawing--desktop/--mobile) still picks
+// one per breakpoint.
 //
-// .landing-page brings this frame's own gold Footer mark + wider nav
-// gap, smaller Hero title (24px/14px), and Cta's own link-style button
-// + smaller line -- all already verified correct at the old /landing.
-// (The Navbar's own gold mark isn't part of this scope -- that's a
-// separate, later "every page" request, see .navbar__index's own
-// sitewide rule -- but .landing-page's Footer/Hero/Cta overrides are.)
+// .landing-page still brings this frame's own gold Footer mark + wider
+// nav gap, smaller Hero title, and Cta's own link-style button + smaller
+// line -- all unchanged from the previous build, still correct against
+// this current frame. Cta's own height is now explicitly one-third of
+// the viewport height on this page specifically (explicit follow-up
+// request, not from Figma, which specs a fixed 444px here) -- scoped
+// via .landing-page .cta, every other page keeps Cta's own 554px
+// min-height default.
 //
 // SplashScreen is homepage-only by construction (rendered here, not in
 // the root layout) -- every other page starts directly on its own
@@ -125,20 +100,12 @@ export default function Home() {
       <div className="home-drawing home-drawing--mobile">
         <StaticDrawing />
       </div>
-      <TextIntro heading="Tsuki Editions" linkLabel="Editions" linkHref="/editions">
+      <CraftingStatement />
+      <HomeQuoteRow />
+      <TextIntro heading="Editions" linkLabel="Editions" linkHref="/editions" centered>
         {SHARED_COPY}
       </TextIntro>
-      <EditionsGallery />
-      <WayOfLife />
-      {/* Desktop keeps the standard Editions-page reel (EditionsFilmstrip);
-          Figma's own dedicated mobile frame (321:39410) uses a different,
-          genuinely mobile-specific image set instead (MobileFilmstrip's
-          own comment) -- both render, CSS decides which one is visible
-          at a given width. */}
-      <div className="hpn-filmstrip-band landing-filmstrip--desktop">
-        <EditionsFilmstrip images={REEL} />
-      </div>
-      <MobileFilmstrip />
+      <ApproachGallery />
       <TextIntro
         heading="Collective"
         linkLabel="Dive Deeper"

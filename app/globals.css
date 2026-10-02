@@ -8092,10 +8092,16 @@ button:focus-visible,
    see ApproachGallery.tsx's own comment. Replaces the previous
    frame's own scattered-position EditionsGallery entirely. ---------- */
 
+/* Edge-to-edge, no side gutter -- explicit follow-up request, same
+   full-bleed treatment HomeQuoteRow's own row just above this one
+   already got. Vertical breathing room stays (this is about the
+   section's own horizontal margin specifically, not its spacing from
+   neighboring sections) -- same pattern as every other full-bleed
+   section on this site (e.g. .editions-hero's own `padding: 80px 0`). */
 .landing-approach {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 120px var(--gutter);
+  padding: 120px 0;
 }
 
 .landing-approach__row {
@@ -8144,7 +8150,7 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .landing-approach {
-    padding: 48px 16px;
+    padding: 48px 0;
   }
 
   .landing-approach__row {

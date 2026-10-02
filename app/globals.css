@@ -6458,32 +6458,39 @@ button:focus-visible,
   }
 }
 
-/* ---------- Sora profile ---------- */
+/* ---------- Mori profile ---------- */
 
-.sora {
+/* Was .sora (the previous SORA-featuring build of this section) --
+   renamed wholesale alongside the component itself (SoraProfile.tsx ->
+   MoriProfile.tsx), not left as a stale .sora__* class name on a
+   section that no longer mentions Sora anywhere. Every pixel value
+   below is unchanged from the old .sora rules (confirmed against the
+   current Figma frame's own gap/width numbers -- 181/396/639 -- which
+   happen to match exactly), just a mechanical rename. */
+.mori {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 120px var(--gutter);
 }
 
 @media (max-width: 560px) {
-  .sora {
+  .mori {
     padding: 32px 16px;
   }
 }
 
-.sora__body {
+.mori__body {
   display: flex;
   gap: 181px;
   align-items: flex-start;
 }
 
-/* Sticks while the taller .sora__moments column beside it keeps
-   scrolling, and stops on its own once .sora__body's bottom edge (set by
-   that taller column) passes -- the standard flex "sticky sidebar next
-   to taller content" pattern, no JS needed. `top` clears the fixed
-   navbar so the sidebar doesn't stick flush under it. */
-.sora__sidebar {
+/* Sticks while the taller .mori__content column beside it keeps
+   scrolling, and stops on its own once .mori__body's bottom edge (set
+   by that taller column) passes -- the standard flex "sticky sidebar
+   next to taller content" pattern, no JS needed. `top` clears the
+   fixed navbar so the sidebar doesn't stick flush under it. */
+.mori__sidebar {
   flex: 0 0 396px;
   align-self: flex-start;
   position: sticky;
@@ -6491,7 +6498,7 @@ button:focus-visible,
   padding-top: 80px;
 }
 
-.sora__description {
+.mori__description {
   font-size: 16px;
   line-height: 24px;
   font-weight: 300;
@@ -6499,43 +6506,42 @@ button:focus-visible,
 }
 
 @media (max-width: 560px) {
-  .sora__description {
+  .mori__description {
     font-size: 14px;
   }
 }
 
-.sora__facts p {
+.mori__facts p {
   font-size: 16px;
   line-height: 24px;
   font-weight: 300;
   margin-bottom: 24px;
 }
 
-.sora__facts p:last-child {
+.mori__facts p:last-child {
   margin-bottom: 0;
 }
 
-.sora__moments {
+/* Singular now -- the old .sora__moments held a loop of several
+   photo+caption "moments" (flex-direction: column, 80px gap between
+   them); this frame only has one hero photo + one caption block, so
+   there's nothing left to put that gap between. Kept as a flex column
+   anyway (not simplified to a plain block) in case a second block is
+   ever added here the same way Sora's own moments grew over time. */
+.mori__content {
   flex: 1 1 639px;
   display: flex;
   flex-direction: column;
-  gap: 80px;
 }
 
-@media (max-width: 560px) {
-  .sora__moments {
-    gap: 24px;
-  }
-}
-
-.sora__moment-image {
+.mori__hero-image {
   position: relative;
   width: 100%;
   height: 473px;
   margin-bottom: 24px;
 }
 
-.sora__moment-text p {
+.mori__text p {
   font-size: 16px;
   line-height: 24px;
   font-weight: 300;
@@ -6543,12 +6549,12 @@ button:focus-visible,
 }
 
 @media (max-width: 560px) {
-  .sora__moment-text p {
+  .mori__text p {
     font-size: 14px;
   }
 }
 
-.sora__moment-text p:last-child {
+.mori__text p:last-child {
   margin-bottom: 0;
 }
 
@@ -6636,19 +6642,19 @@ button:focus-visible,
 }
 
 @media (max-width: 900px) {
-  .sora__body {
+  .mori__body {
     flex-direction: column;
     gap: 48px;
   }
 
-  .sora__sidebar {
+  .mori__sidebar {
     /* Stacked layout below this width -- sticky only makes sense beside
        the taller column, not above it in normal document flow. */
     position: static;
     padding-top: 0;
     width: 100%;
     /* The base rule's flex: 0 0 396px sets flex-basis: 396px, which
-       controlled *width* in the desktop row layout -- but .sora__body
+       controlled *width* in the desktop row layout -- but .mori__body
        is flex-direction: column here, so that same flex-basis instead
        pins the sidebar's *height* to 396px regardless of its actual
        content, leaving a large empty gap below it. auto lets it size
@@ -6668,21 +6674,18 @@ button:focus-visible,
 }
 
 @media (max-width: 560px) {
-  .sora__moment-image {
+  .mori__hero-image {
     height: 282px;
   }
 
-  /* Publications' Wallpaper* card and Environmental Actions' card share
-     this class but spec different mobile heights in Figma -- 480px for
-     the former's white-background magazine-cover treatment, 473px
-     (unchanged from desktop, no mobile shrink) for the latter's plain
-     photo. */
+  /* Publications' Wallpaper* card uses this class at a different mobile
+     height than the shared desktop default (480px for its white-
+     background magazine-cover treatment). Environmental Actions used to
+     share this same selector with its own 473px override -- that
+     section is gone from the current Figma frame, so its override went
+     with it. */
   .news-publications__row .publications__card-image {
     height: 480px;
-  }
-
-  .news-envaction__row .publications__card-image {
-    height: 473px;
   }
 }
 
@@ -6762,20 +6765,6 @@ button:focus-visible,
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-}
-
-/* ---------- Environmental Actions ---------- */
-
-.news-envaction__row {
-  display: flex;
-  gap: 23px;
-  align-items: flex-start;
-}
-
-.news-envaction__side {
-  position: relative;
-  flex: 1 1 403px;
-  height: 773px;
 }
 
 /* ---------- Social Action ---------- */
@@ -6860,16 +6849,6 @@ button:focus-visible,
     gap: 24px;
   }
 
-  .news-envaction__row {
-    flex-direction: column;
-  }
-
-  .news-envaction__side {
-    flex: 1 1 auto;
-    width: 100%;
-    height: 400px;
-  }
-
   .news-pull-quote {
     padding: 80px var(--gutter);
   }
@@ -6891,7 +6870,7 @@ button:focus-visible,
 }
 
 @media (max-width: 560px) {
-  .sora__body {
+  .mori__body {
     gap: 24px;
   }
 
@@ -6905,10 +6884,6 @@ button:focus-visible,
 
   .news-checklist__col {
     gap: 16px;
-  }
-
-  .news-envaction__side {
-    height: 433px;
   }
 
   /* Bare .collective-photo-band's own mobile height (see the

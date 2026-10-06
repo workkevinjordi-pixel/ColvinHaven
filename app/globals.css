@@ -7870,18 +7870,6 @@ button:focus-visible,
    links elsewhere on this page -- a plain static link, not the box
    button's tinted-background/lift hover. ---------- */
 
-/* Explicit follow-up request: the homepage's own closing banner should
-   be exactly one-third of the viewport's own height, not Cta's shared
-   554px min-height (tuned for every other page's usage, which keep
-   that default). vh-based rather than a fixed pixel value so it tracks
-   the actual viewport, and min-height is reset (not just overridden)
-   since a fixed height already pins the box -- leaving the old
-   min-height in place would fight it on short/zoomed viewports. */
-.landing-page .cta {
-  height: 33.333vh;
-  min-height: 0;
-}
-
 .landing-page .cta__text {
   font-size: 24px;
   line-height: 48px;

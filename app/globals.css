@@ -8012,9 +8012,13 @@ button:focus-visible,
    zero padding specced). New section on the current "Homepage" frame.
    ---------- */
 
+/* No max-width/margin:auto -- at exactly 1440px wide those two were a
+   no-op (indistinguishable from true edge-to-edge), but on any wider
+   viewport they capped this section at 1440px and centered it,
+   reintroducing the exact margin this was supposed to remove. True
+   full-bleed needs the cap gone entirely, not just zeroed padding. */
 .landing-quote-row {
-  max-width: var(--max-width);
-  margin: 0 auto;
+  width: 100%;
   padding: 60px 0;
 }
 
@@ -8098,9 +8102,12 @@ button:focus-visible,
    section's own horizontal margin specifically, not its spacing from
    neighboring sections) -- same pattern as every other full-bleed
    section on this site (e.g. .editions-hero's own `padding: 80px 0`). */
+/* No max-width/margin:auto -- same latent gap .landing-quote-row's own
+   comment explains: at exactly 1440px those two are a no-op, but any
+   wider viewport caps this section at 1440px and centers it, undoing
+   the edge-to-edge fix on anything wider than that one exact width. */
 .landing-approach {
-  max-width: var(--max-width);
-  margin: 0 auto;
+  width: 100%;
   padding: 120px 0;
 }
 

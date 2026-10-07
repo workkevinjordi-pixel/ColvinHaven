@@ -8099,10 +8099,11 @@ button:focus-visible,
   padding: 120px 0;
 }
 
+/* Figma: 4px between columns (node 309:23050). */
 .landing-approach__row {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 4px;
 }
 
 .landing-approach__item {
@@ -8112,6 +8113,13 @@ button:focus-visible,
   gap: 24px;
   flex: 1 1 0%;
   min-width: 0;
+}
+
+/* Figma: the "Stillness" column is a fixed 240px (node 371:40266); the
+   other four flex equally. Reset inside the wrapping breakpoints below. */
+.landing-approach__item--fixed {
+  flex: 0 0 240px;
+  width: 240px;
 }
 
 .landing-approach__image {
@@ -8125,17 +8133,22 @@ button:focus-visible,
   font-weight: 300;
   font-style: italic;
   font-size: 16px;
+  line-height: normal;
+  white-space: nowrap;
   color: var(--ink);
 }
 
 @media (max-width: 900px) {
   .landing-approach__row {
     flex-wrap: wrap;
+    gap: 24px;
     row-gap: 32px;
   }
 
-  .landing-approach__item {
+  .landing-approach__item,
+  .landing-approach__item--fixed {
     flex: 1 1 calc(50% - 12px);
+    width: auto;
   }
 
   .landing-approach__image {
@@ -8153,7 +8166,8 @@ button:focus-visible,
     row-gap: 24px;
   }
 
-  .landing-approach__item {
+  .landing-approach__item,
+  .landing-approach__item--fixed {
     flex: 1 1 100%;
   }
 

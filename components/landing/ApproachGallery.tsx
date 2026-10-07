@@ -1,7 +1,9 @@
 import Image from "next/image";
 import ScrollFade from "../ScrollFade";
 
-type GalleryItem = { src: string; alt: string; caption: string };
+// `fixed` = Figma gives this one column a fixed 240px width (node
+// 371:40266, "Stillness") while the other four flex equally (flex-[1_0_0]).
+type GalleryItem = { src: string; alt: string; caption: string; fixed?: boolean };
 
 // All five photos are the exact same assets this page's own old
 // EditionsFilmstrip reel already used (editions-filmstrip-*.jpg) --
@@ -25,6 +27,7 @@ const ITEMS: GalleryItem[] = [
     src: "/assets/editions/editions-filmstrip-timber-wall.jpg",
     alt: "Dark timber cladding above an outdoor daybed, seen against the surrounding jungle",
     caption: "Stillness",
+    fixed: true,
   },
   {
     src: "/assets/editions/editions-filmstrip-lounge.jpg",
@@ -55,7 +58,14 @@ export default function ApproachGallery() {
     <section className="landing-approach">
       <ScrollFade className="landing-approach__row">
         {ITEMS.map((item) => (
-          <div className="landing-approach__item" key={item.caption}>
+          <div
+            className={
+              item.fixed
+                ? "landing-approach__item landing-approach__item--fixed"
+                : "landing-approach__item"
+            }
+            key={item.caption}
+          >
             <div className="landing-approach__image">
               <Image
                 src={item.src}

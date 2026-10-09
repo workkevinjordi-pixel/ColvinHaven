@@ -9,34 +9,20 @@ import TextIntro from "@/components/landing/TextIntro";
 import ApproachGallery from "@/components/landing/ApproachGallery";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
+import { getHomepage } from "@/lib/sanity/homepage";
 
-// Both text sections below (Figma nodes 371:40218 "Editions" and
-// 371:40234 "Collective") carry this exact same body copy -- confirmed
-// via a dedicated get_design_context call on each, not assumed from
-// one matching the other. Unchanged from the previous build of this
-// page, which already established this exact text for the same
-// SHARED_COPY role.
-const SHARED_COPY = (
-  <>
-    <p>
-      Every CH home is a singular commission one family, one landscape,
-      one house that will never be built again.
-    </p>
-    <p>
-      The language is constant. Restraint, learned in kitchens rather
-      than classrooms. Materials chosen for how they feel, not how they
-      photograph. A kitchen at the center of every home, because
-      that&apos;s where a life is actually lived. What changes is the
-      canvas the land, the light, the hands each place gives us to build
-      with.
-    </p>
-    <p>
-      Umah Tsuki and Sora are both written in Indonesia. They are the
-      first two homes in a language built to travel one country, one
-      canvas, at a time.
-    </p>
-  </>
-);
+// Fallback only -- used when the Sanity fetch comes back empty (or a
+// field within it does), so the page still renders real content
+// instead of a blank paragraph block. Matches app/page.tsx's own
+// original SHARED_COPY, which both TextIntro instances used to share
+// before this content moved into Sanity's homepage.editionsIntro/
+// collectiveIntro (independently editable there even though they
+// still start out identical).
+const FALLBACK_COPY = [
+  "Every CH home is a singular commission one family, one landscape, one house that will never be built again.",
+  "The language is constant. Restraint, learned in kitchens rather than classrooms. Materials chosen for how they feel, not how they photograph. A kitchen at the center of every home, because that's where a life is actually lived. What changes is the canvas the land, the light, the hands each place gives us to build with.",
+  "Umah Tsuki and Sora are both written in Indonesia. They are the first two homes in a language built to travel one country, one canvas, at a time.",
+];
 
 // Full re-sync against the current "Homepage" Figma frame (node
 // 298:11984, replacing 319:36698/321:38045 entirely on explicit
@@ -69,7 +55,9 @@ const SHARED_COPY = (
 //
 // Drawing (desktop) / StaticDrawing (mobile) is unchanged from the
 // previous build -- CSS (.home-drawing--desktop/--mobile) still picks
-// one per breakpoint.
+// one per breakpoint. Not CMS-managed -- a signature piece of custom
+// SVG illustration, not a swappable content photo (see
+// lib/sanity/homepage.ts's own schema comment).
 //
 // .landing-page still brings this frame's own gold Footer mark + wider
 // nav gap, smaller Hero title, and Cta's own link-style button + smaller
@@ -83,7 +71,19 @@ const SHARED_COPY = (
 // SplashScreen is homepage-only by construction (rendered here, not in
 // the root layout) -- every other page starts directly on its own
 // content, no loading overlay.
-export default function Home() {
+//
+// Every section's own content (Hero, crafting statement, quote row,
+// both TextIntro blurbs, Approach gallery, Cta's own text) now comes
+// from Sanity (getHomepage()), fetched once here and passed down as
+// props -- Hero/Cta stay client components for their own parallax
+// scroll effect, so they can't fetch their own data the way the
+// self-fetching Server Components elsewhere on the site do (Editions/
+// Publications). Each component's own hardcoded defaults (still
+// matching this exact content) are the fallback if the fetch ever
+// comes back empty, not the source of truth.
+export default async function Home() {
+  const homepage = await getHomepage();
+
   return (
     <div className="landing-page">
       {/* Without JS the timed dismiss never runs, so keep the overlay
@@ -93,28 +93,48 @@ export default function Home() {
       </noscript>
       <SplashScreen />
       <Navbar />
-      <Hero />
+      <Hero
+        title={homepage?.hero.title}
+        tagline={homepage?.hero.tagline}
+        backgroundImage={homepage?.hero.backgroundImage}
+      />
       <div className="home-drawing home-drawing--desktop">
         <Drawing />
       </div>
       <div className="home-drawing home-drawing--mobile">
         <StaticDrawing />
       </div>
-      <CraftingStatement />
-      <HomeQuoteRow />
-      <TextIntro heading="Editions" linkLabel="Editions" linkHref="/editions" centered>
-        {SHARED_COPY}
-      </TextIntro>
-      <ApproachGallery />
+      <CraftingStatement
+        heading={homepage?.craftingStatement.heading}
+        body={homepage?.craftingStatement.body}
+      />
+      <HomeQuoteRow items={homepage?.quoteRow} />
       <TextIntro
-        heading="Collective"
-        linkLabel="Dive Deeper"
-        linkHref="/collective"
+        heading={homepage?.editionsIntro.heading ?? "Editions"}
+        linkLabel={homepage?.editionsIntro.linkLabel ?? "Editions"}
+        linkHref={homepage?.editionsIntro.linkHref ?? "/editions"}
+        centered
+      >
+        {(homepage?.editionsIntro.paragraphs ?? FALLBACK_COPY).map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+      </TextIntro>
+      <ApproachGallery items={homepage?.approachGallery} />
+      <TextIntro
+        heading={homepage?.collectiveIntro.heading ?? "Collective"}
+        linkLabel={homepage?.collectiveIntro.linkLabel ?? "Dive Deeper"}
+        linkHref={homepage?.collectiveIntro.linkHref ?? "/collective"}
         narrow
       >
-        {SHARED_COPY}
+        {(homepage?.collectiveIntro.paragraphs ?? FALLBACK_COPY).map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
       </TextIntro>
-      <Cta text={<>Those who find us, were meant to.</>} />
+      <Cta
+        text={homepage?.cta.text}
+        buttonLabel={homepage?.cta.buttonLabel}
+        buttonHref={homepage?.cta.buttonHref}
+      />
       <Footer />
     </div>
   );

@@ -1,5 +1,6 @@
 import ScrollFade from "../ScrollFade";
 import ArticleCard from "./ArticleCard";
+import { getLatestPublication } from "@/lib/sanity/publications";
 
 /**
  * "Publications" (Figma node 205:598): one article card (Wallpaper*)
@@ -12,8 +13,18 @@ import ArticleCard from "./ArticleCard";
  * container, so ArticleCard's `flex: 0 0 790px` had no effect inside it
  * and the card rendered at ~496px (whatever width remained after the
  * 720px inset) instead of 790px -- a real, visible bug this replaces.
+ *
+ * The publication itself now comes from Sanity (getLatestPublication())
+ * -- this shows whichever one has the lowest `order` in the Studio,
+ * still just its first paragraph and its own distinct editorial photo
+ * (`editorialImage`, not the magazine-cover scan /collective's own
+ * Publications section shows for the same publication -- see that
+ * field's own comment in lib/sanity/publications.ts).
  */
-export default function PublicationsSection() {
+export default async function PublicationsSection() {
+  const publication = await getLatestPublication();
+  if (!publication) return null;
+
   return (
     <section className="statement-section">
       <ScrollFade>
@@ -25,15 +36,12 @@ export default function PublicationsSection() {
             <span>WHAT’S NEW ON OUR SIDE</span>
           </div>
           <ArticleCard
-            image={{
-              src: "/assets/editions/tsuki-edition-1.png",
-              alt: "Detail of Umah Tsuki's shou sugi ban roofline and timber-framed window",
-            }}
-            date="11/22/24"
-            title="Wallpaper*"
-            description={[
-              "We are so pleased for our flagship home, Umah Tsuki, to be featured on Wallpaper.com. Wallpaper* is the global design authority, leading the way in architecture, design, art, entertaining, beauty & grooming, transport, technology, fashion, and watches & jewellery. The article, helmed by Ellie Stathaki, Architecture & Environment Director and writer Natasha Levy is featured in the Architectural Section of the website, which showcases the best of residential and non-commercial living spaces, and the most inspiring of houses and homes.",
-            ]}
+            image={
+              publication.editorialImage ?? { src: "", alt: "" }
+            }
+            date={publication.date}
+            title={publication.title}
+            description={[publication.paragraphs[0]]}
             readMore
           />
         </div>

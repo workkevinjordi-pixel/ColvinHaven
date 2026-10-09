@@ -8,6 +8,19 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
   },
+  images: {
+    // Sanity-managed images (editions/publications content, served via
+    // next/image through lib/sanity/image.ts's own urlFor()) now live
+    // on Sanity's own asset CDN, not under public/assets/ like every
+    // other image on the site.
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        pathname: "/images/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

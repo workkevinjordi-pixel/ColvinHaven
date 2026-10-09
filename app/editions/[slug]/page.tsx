@@ -7,13 +7,15 @@ import EditionSpotlight from "@/components/editions/EditionSpotlight";
 import NextEditionBand from "@/components/editions/NextEditionBand";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
-import { editions } from "@/components/editions/editions-data";
+import { getEditions } from "@/lib/sanity/editions";
 
 type Params = { slug: string };
 
-// Prerenders one static page per edition -- both entries known upfront
-// from editions-data.ts, no runtime lookup needed.
-export function generateStaticParams(): Params[] {
+// Prerenders one static page per edition -- both entries now come from
+// Sanity (getEditions()) rather than a static import, but the fetch
+// itself still only needs to happen once per build/revalidation.
+export async function generateStaticParams(): Promise<Params[]> {
+  const editions = await getEditions();
   return editions.map((edition) => ({ slug: edition.slug }));
 }
 
@@ -23,6 +25,7 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const editions = await getEditions();
   const edition = editions.find((e) => e.slug === slug);
   if (!edition) return {};
   return {
@@ -43,12 +46,16 @@ export async function generateMetadata({
 // the other edition -> the same inquiry banner the homepage closes
 // with (Cta, no overrides -- pixel-identical in the source frame) ->
 // Footer.
+//
+// `editions` comes from Sanity (getEditions()) -- see
+// lib/sanity/editions.ts's own comment for the fetch/mapping details.
 export default async function EditionDetailPage({
   params,
 }: {
   params: Promise<Params>;
 }) {
   const { slug } = await params;
+  const editions = await getEditions();
   const edition = editions.find((e) => e.slug === slug);
   if (!edition) notFound();
 

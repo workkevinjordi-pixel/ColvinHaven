@@ -5,7 +5,7 @@ import CollectionsCard from "@/components/homepage-new/CollectionsCard";
 import EditionDetailHeader from "@/components/editions/EditionDetailHeader";
 import EditionSpotlight from "@/components/editions/EditionSpotlight";
 import Footer from "@/components/Footer";
-import { editions } from "@/components/editions/editions-data";
+import { getEditions } from "@/lib/sanity/editions";
 
 export const metadata: Metadata = {
   title: "Colvin Haven — Editions (New)",
@@ -42,7 +42,14 @@ export const metadata: Metadata = {
 //
 // No sticky banner, no "Next Editions" band, and no closing Cta --
 // none of those appear anywhere in this Figma frame's own structure.
-export default function EditionsNewPage() {
+//
+// `editions` now comes from Sanity (getEditions()) rather than a
+// static import -- the two documents' canonical content is the exact
+// same data that used to live in editions-data.ts, now editable via
+// the CMS at https://colvin-haven.sanity.studio. See
+// lib/sanity/editions.ts's own comment for the fetch/mapping details.
+export default async function EditionsNewPage() {
+  const editions = await getEditions();
   return (
     <div className="edn-page">
       <Navbar solid />

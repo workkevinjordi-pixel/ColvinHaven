@@ -30,5 +30,17 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    // studio/ is a separate, self-contained Sanity Studio project --
+    // its own tsconfig.json, package.json, and node_modules (installed
+    // independently, not by this app's own root `npm install`). Without
+    // this, the root `**/*.ts` include above sweeps studio/*.ts files
+    // into THIS project's typecheck too, which then fails to resolve
+    // studio-only deps like @sanity/vision (correctly not a dependency
+    // of the Next.js app itself) -- passed locally only because
+    // studio/node_modules happened to already be installed on disk;
+    // failed on Vercel, which never runs `npm install` inside studio/.
+    "studio"
+  ]
 }

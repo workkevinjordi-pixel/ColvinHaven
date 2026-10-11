@@ -46,7 +46,7 @@ export default function Option5Page() {
       <header className="opt5-hero">
         <div className="opt5-hero__img">
           <Image
-            src="/assets/hero-bg.png"
+            src="/assets/hero-bg.jpg"
             alt=""
             fill
             priority

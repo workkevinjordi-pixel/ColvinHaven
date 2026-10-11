@@ -73,7 +73,7 @@ async function main() {
     hero: {
       title: "Colvin Haven",
       tagline: "Architectural Editions",
-      backgroundImage: await img("/assets/hero-bg.png", ""),
+      backgroundImage: await img("/assets/hero-bg.jpg", ""),
     },
     craftingStatement: {
       heading: "CRAFTING SPACES, LIVING SLOWLY.",

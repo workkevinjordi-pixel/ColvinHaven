@@ -36,7 +36,7 @@ export default function Option6Page() {
       <header className="opt6-hero">
         <div className="opt6-hero__media">
           <Image
-            src="/assets/hero-bg.png"
+            src="/assets/hero-bg.jpg"
             alt=""
             fill
             priority

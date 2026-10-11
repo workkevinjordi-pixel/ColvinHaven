@@ -38,7 +38,7 @@ export default function Option4Page() {
       <header className="opt4-hero" id="top">
         <div className="opt4-hero__media">
           <Image
-            src="/assets/hero-bg.png"
+            src="/assets/hero-bg.jpg"
             alt=""
             fill
             priority
@@ -196,7 +196,7 @@ export default function Option4Page() {
       <section className="opt4-cta" id="inquiry">
         <div className="opt4-cta__media">
           <Image
-            src="/assets/hero-bg.png"
+            src="/assets/hero-bg.jpg"
             alt=""
             fill
             sizes="100vw"

@@ -26,7 +26,7 @@ type CtaProps = {
  * since the two are pixel-identical apart from content.
  */
 export default function Cta({
-  bgSrc = "/assets/hero-bg.png",
+  bgSrc = "/assets/hero-bg.jpg",
   bgAlt = "",
   bgWidth = 3018,
   bgHeight = 1416,

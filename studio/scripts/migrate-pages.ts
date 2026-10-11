@@ -286,7 +286,7 @@ async function migrateNewsPage() {
         ],
       },
       bandImage: await img(
-        "/assets/collective/palm-trees-2.png",
+        "/assets/collective/palm-trees-2.jpg",
         "Silhouetted palm trees against a golden dusk sky",
       ),
     },

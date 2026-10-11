@@ -224,7 +224,7 @@ const TSUKI: RawEdition = {
   row4: {
     main: {
       image: {
-        src: "/assets/editions/detail/row4-main.png",
+        src: "/assets/editions/detail/row4-main.jpg",
         alt: "Umah Tsuki's peaked roofline",
       },
       text: [
@@ -233,7 +233,7 @@ const TSUKI: RawEdition = {
     },
     side: {
       image: {
-        src: "/assets/editions/detail/row4-side.png",
+        src: "/assets/editions/detail/row4-side.jpg",
         alt: "A teak-panelled interior corner of Umah Tsuki",
       },
       text: "Made up of four stilted volumes, the exterior of the house is entirely clad with ulin wood, a robust type of timber that’s indigenous to Indonesia. Internal rooms are panelled with warm-hued teak, each piece hand-cut and laid by a team of expert local woodworkers. Dark grey paras stone, which is quarried in Bali, has been used to tile some of the home’s wet areas, while all the soft furnishings have been crafted by artisans based around the region.",

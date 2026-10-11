@@ -8301,6 +8301,35 @@ button:focus-visible,
   color: rgba(29, 25, 15, 0.7);
 }
 
+/* Collective's own redesign (node 385:1370): a standalone highlighted
+   line below the body paragraphs, in Figma's own #8b6915 gold -- a
+   distinct accent from the sitewide nav-index gold (#c7a95f,
+   .splash__index/.navbar__index's own color), not reused here since
+   this is a different element in a different context (a visits-by-
+   invitation note, not a page index mark). Same body typography
+   (16px/28px/1.6px) as .landing-intro__text's own centered-variant
+   override, just this one accent color. */
+.landing-intro__note {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: #8b6915;
+}
+
+/* Collective's own redesign also narrows its body text/note column to
+   686px (Figma's own explicit width there), not the shared centered
+   shell's own 760px default that Editions' own redesign (node
+   385:1275, no explicit width given) still uses -- scoped to `note`'s
+   own presence (TextIntro.tsx's own signal for "this is the Collective
+   variant") rather than a third boolean prop. */
+.landing-intro__inner--note .landing-intro__text,
+.landing-intro__inner--note .landing-intro__note {
+  width: 686px;
+  max-width: 100%;
+}
+
 @media (max-width: 900px) {
   .landing-intro__inner--centered {
     padding-left: var(--gutter);

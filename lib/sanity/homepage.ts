@@ -9,6 +9,7 @@ type SanityTextIntro = {
   subtitle?: string;
   lead?: string;
   paragraphs?: string[];
+  note?: string;
   linkLabel?: string;
   linkHref?: string;
 };
@@ -28,6 +29,7 @@ export type HomepageTextIntro = {
   subtitle?: string;
   lead?: string;
   paragraphs?: string[];
+  note?: string;
   linkLabel?: string;
   linkHref?: string;
 };
@@ -64,6 +66,7 @@ function mapTextIntro(t?: SanityTextIntro): HomepageTextIntro {
     subtitle: t?.subtitle,
     lead: t?.lead,
     paragraphs: t?.paragraphs?.length ? t.paragraphs : undefined,
+    note: t?.note,
     linkLabel: t?.linkLabel,
     linkHref: t?.linkHref,
   };

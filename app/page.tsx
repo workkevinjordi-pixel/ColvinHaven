@@ -13,16 +13,15 @@ import { getHomepage } from "@/lib/sanity/homepage";
 
 // Fallback only -- used when the Sanity fetch comes back empty (or a
 // field within it does), so the page still renders real content
-// instead of a blank paragraph block. Collective's own fallback is
-// still app/page.tsx's original SHARED_COPY (both TextIntro instances
-// used to share this before the content moved into Sanity's
-// homepage.editionsIntro/collectiveIntro) -- Editions' own fallback
-// changed to its single new body paragraph when that variant was
-// redesigned (node 385:1275), so the two no longer share one constant.
-const COLLECTIVE_FALLBACK_COPY = [
-  "Every CH home is a singular commission one family, one landscape, one house that will never be built again.",
-  "The language is constant. Restraint, learned in kitchens rather than classrooms. Materials chosen for how they feel, not how they photograph. A kitchen at the center of every home, because that's where a life is actually lived. What changes is the canvas the land, the light, the hands each place gives us to build with.",
-  "Umah Tsuki and Sora are both written in Indonesia. They are the first two homes in a language built to travel one country, one canvas, at a time.",
+// instead of a blank paragraph block. Both TextIntro instances used to
+// share one SHARED_COPY constant before this content moved into
+// Sanity's homepage.editionsIntro/collectiveIntro -- each got its own
+// fallback once its variant was independently redesigned (Editions at
+// node 385:1275, Collective at node 385:1370), so neither shares a
+// constant with the other any more.
+const COLLECTIVE_FALLBACK_BODY = [
+  "Behind both, a small collective of designers and architects, brought together by a cook who learned to build.",
+  "Our own Indonesian craftspeople finish every detail by hand.",
 ];
 const EDITIONS_FALLBACK_BODY = [
   "Entirely turnkey. Tell us where you'd like to wake, and how many bedrooms. The rest is ours: architecture, interiors, landscape, and the build itself, managed start to finish.",
@@ -38,26 +37,39 @@ const EDITIONS_FALLBACK_BODY = [
 // SLOWLY." statement (new) -> three-photo quote row (new) -> "Editions"
 // intro, centered with no divider -> five-photo "Approach" gallery
 // (new, replaces the previous frame's own scattered-position
-// EditionsGallery) -> "Collective" intro (unchanged, same narrow
-// left-aligned layout + SHARED_COPY) -> Cta -> Footer.
+// EditionsGallery) -> "Collective" intro, also centered with no
+// divider -> Cta -> Footer.
 //
-// "Editions" intro redesigned again at node 385:1275 (explicit
-// "implement this design from Figma" follow-up, scoped to just this
-// one section): adds an "EDITIONS" eyebrow, a new heading ("TSUKI, THE
-// MOON. SORA, THE SKY") with a subtitle under it, and replaces the old
-// three-paragraph SHARED_COPY body with one italic lead sentence +
-// one body paragraph -- "Collective" keeps its own original shape
-// untouched (TextIntro.tsx's own eyebrow/subtitle/lead props are
-// optional precisely so that variant renders exactly as before). The
-// link changes from "Editions" (-> /editions) to "Request access" (->
-// /request-the-collections) -- not specified by Figma's own node data
-// (just text + an icon, no href), inferred from this site's own
-// established "request access" CTA pattern (ChCollections/
-// CollectionsCard's own "Access to CH Collections" note, same target).
-// Figma's own subtitle copy reads "Cut form the same cloth" (likely a
-// "from" typo in their source) -- kept verbatim per this project's
-// usual practice of porting Figma's own copy faithfully rather than
-// silently correcting it.
+// "Editions" intro redesigned at node 385:1275 (explicit "implement
+// this design from Figma" follow-up, scoped to just this one section):
+// adds an "EDITIONS" eyebrow, a new heading ("TSUKI, THE MOON. SORA,
+// THE SKY") with a subtitle under it, and replaces the old three-
+// paragraph SHARED_COPY body with one italic lead sentence + one body
+// paragraph. The link changes from "Editions" (-> /editions) to
+// "Request access" (-> /request-the-collections) -- not specified by
+// Figma's own node data (just text + an icon, no href), inferred from
+// this site's own established "request access" CTA pattern
+// (ChCollections/CollectionsCard's own "Access to CH Collections"
+// note, same target). Figma's own subtitle copy reads "Cut form the
+// same cloth" (likely a "from" typo in their source) -- kept verbatim
+// per this project's usual practice of porting Figma's own copy
+// faithfully rather than silently correcting it.
+//
+// "Collective" intro redesigned the same way at node 385:1370 (same
+// follow-up pattern, one section at a time): switches from its
+// original `narrow`, right-aligned, divided layout to `centered`
+// (TextIntro.tsx's own `narrow` prop is no longer used by any live
+// page after this, but stays as a documented option, not deleted).
+// Adds a "COLLECTIVE" eyebrow, a new two-line heading ("UMAH TSUKI IS
+// WHERE OUR FOUNDER LIVES,\nSORA WAS BUILT FOR OUR FIRST CLIENT." --
+// TextIntro.tsx's `heading` now splits on "\n" into a hard line break,
+// added specifically for this), a new two-paragraph body (replacing
+// the old three-paragraph SHARED_COPY), and a standalone gold "note"
+// line below it ("Visits to Umah Tsuki are by invitation", Figma's own
+// #8b6915 -- a distinct accent from the sitewide nav-index gold). The
+// link changes from "Dive Deeper" to "Meet the collective", still ->
+// /collective (Figma gives no href here either; this target already
+// matched the link's own intent, so it carries over unchanged).
 //
 // Three whole sections the previous build had are GONE from this frame
 // entirely, confirmed via its own screenshot: "A Way of Life"
@@ -145,12 +157,17 @@ export default async function Home() {
       </TextIntro>
       <ApproachGallery items={homepage?.approachGallery} />
       <TextIntro
-        heading={homepage?.collectiveIntro.heading ?? "Collective"}
-        linkLabel={homepage?.collectiveIntro.linkLabel ?? "Dive Deeper"}
+        eyebrow={homepage?.collectiveIntro.eyebrow ?? "COLLECTIVE"}
+        heading={
+          homepage?.collectiveIntro.heading ??
+          "UMAH TSUKI IS WHERE OUR FOUNDER LIVES,\nSORA WAS BUILT FOR OUR FIRST CLIENT."
+        }
+        note={homepage?.collectiveIntro.note ?? "Visits to Umah Tsuki are by invitation"}
+        linkLabel={homepage?.collectiveIntro.linkLabel ?? "Meet the collective"}
         linkHref={homepage?.collectiveIntro.linkHref ?? "/collective"}
-        narrow
+        centered
       >
-        {(homepage?.collectiveIntro.paragraphs ?? COLLECTIVE_FALLBACK_COPY).map((p, i) => (
+        {(homepage?.collectiveIntro.paragraphs ?? COLLECTIVE_FALLBACK_BODY).map((p, i) => (
           <p key={i}>{p}</p>
         ))}
       </TextIntro>

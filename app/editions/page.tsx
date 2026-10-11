@@ -6,6 +6,7 @@ import EditionDetailHeader from "@/components/editions/EditionDetailHeader";
 import EditionStorySummary from "@/components/editions/EditionStorySummary";
 import Footer from "@/components/Footer";
 import { getEditions } from "@/lib/sanity/editions";
+import { getEditionsPage } from "@/lib/sanity/editionsPage";
 
 export const metadata: Metadata = {
   title: "Colvin Haven — Editions",
@@ -63,13 +64,15 @@ export const metadata: Metadata = {
 // (same as /editions-new).
 //
 // `editions` now comes from Sanity (getEditions()) -- see
-// /editions-new's own comment above for the same note.
+// /editions-new's own comment above for the same note. EditionsHero's
+// own opening photo now comes from Sanity too (editionsPage.heroImage),
+// fetched alongside the editions list.
 export default async function EditionsPage() {
-  const editions = await getEditions();
+  const [editions, editionsPage] = await Promise.all([getEditions(), getEditionsPage()]);
   return (
     <>
       <Navbar solid />
-      <EditionsHero />
+      <EditionsHero image={editionsPage?.heroImage} />
       {editions.map((edition) => (
         <div key={edition.slug}>
           <EditionDetailHeader

@@ -3,6 +3,26 @@
 import Image from "next/image";
 import ScrollFade from "../ScrollFade";
 
+type RequestCollectionsSectionProps = {
+  heading?: string;
+  image?: { src: string; alt: string };
+  tag?: string;
+  intro?: string;
+  submitLabel?: string;
+  privacyNote?: string;
+};
+
+// Matches the content migrated into Sanity's requestCollectionsPage
+// (see lib/sanity/requestCollections.ts and
+// app/request-the-collections/page.tsx) -- kept as a fallback here in
+// case the fetch ever comes back empty, not the source of truth. Form
+// field labels/placeholders stay hardcoded below -- structural form
+// chrome, not editorial content.
+const DEFAULT_IMAGE = {
+  src: "/assets/request-collection/porch-detail.jpg",
+  alt: "A shou sugi ban-clad entrance with a timber bench, seen beneath an overhanging shingled roof",
+};
+
 /**
  * "The Collections" lead-magnet request form (Figma node 274:11373):
  * a tall photo beside a label + intro paragraph, three fields (Name,
@@ -19,9 +39,18 @@ import ScrollFade from "../ScrollFade";
  * matches. Fields are real, typeable inputs/textarea -- the Figma
  * "placeholder" text becomes an actual HTML placeholder rather than
  * static copy. Submit is wired (preventDefault, no-op) but doesn't
- * send anywhere yet -- that action is defined later.
+ * send anywhere yet -- that action is defined later. Heading/image/
+ * tag/intro/submit label/privacy note now come from Sanity's
+ * requestCollectionsPage.
  */
-export default function RequestCollectionsSection() {
+export default function RequestCollectionsSection({
+  heading = "The Collections",
+  image = DEFAULT_IMAGE,
+  tag = "Access to CH Collections",
+  intro = "Seven Editions, total, ever. A private look at where each one stands today, and which are still able to be claimed.",
+  submitLabel = "Request the collections",
+  privacyNote = "Sent privately. Never shared. Never published.",
+}: RequestCollectionsSectionProps) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // Intentionally a no-op for now -- the send action is defined later.
@@ -30,13 +59,13 @@ export default function RequestCollectionsSection() {
   return (
     <section className="request-collections">
       <ScrollFade>
-        <h1 className="section-heading">The Collections</h1>
+        <h1 className="section-heading">{heading}</h1>
         <hr className="values__divider" />
         <div className="request-collections__row">
           <div className="request-collections__image">
             <Image
-              src="/assets/request-collection/porch-detail.jpg"
-              alt="A shou sugi ban-clad entrance with a timber bench, seen beneath an overhanging shingled roof"
+              src={image.src}
+              alt={image.alt}
               fill
               sizes="(min-width: 900px) 470px, 100vw"
               style={{ objectFit: "cover" }}
@@ -48,12 +77,9 @@ export default function RequestCollectionsSection() {
             <div className="request-collections__intro">
               <div className="values__tag">
                 <span className="values__dot" />
-                <span>Access to CH Collections</span>
+                <span>{tag}</span>
               </div>
-              <p>
-                Seven Editions, total, ever. A private look at where each
-                one stands today, and which are still able to be claimed.
-              </p>
+              <p>{intro}</p>
             </div>
 
             <div className="request-collections__fields">
@@ -97,11 +123,9 @@ export default function RequestCollectionsSection() {
 
             <div className="request-collections__submit-row">
               <button type="submit" className="request-collections__submit">
-                Request the collections
+                {submitLabel}
               </button>
-              <p className="request-collections__note">
-                Sent privately. Never shared. Never published.
-              </p>
+              <p className="request-collections__note">{privacyNote}</p>
             </div>
           </form>
         </div>

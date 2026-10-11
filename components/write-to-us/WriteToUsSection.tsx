@@ -3,6 +3,25 @@
 import Image from "next/image";
 import ScrollFade from "../ScrollFade";
 
+type WriteToUsSectionProps = {
+  heading?: string;
+  image?: { src: string; alt: string };
+  tag?: string;
+  intro?: string;
+  submitLabel?: string;
+};
+
+// Matches the content migrated into Sanity's contactPage (see
+// lib/sanity/contact.ts and app/write-to-us/page.tsx) -- kept as a
+// fallback here in case the fetch ever comes back empty, not the
+// source of truth. Form field labels/placeholders (Name, Email,
+// Message) stay hardcoded below -- structural form chrome, not
+// editorial content.
+const DEFAULT_IMAGE = {
+  src: "/assets/write-to-us-water.jpg",
+  alt: "Dark, textured ocean water seen from above",
+};
+
 /**
  * "Write to Us" contact form (Figma node 205:625, image re-synced
  * against node 288:11889 -- a dark ocean-water photo, not the palm-
@@ -11,9 +30,16 @@ import ScrollFade from "../ScrollFade";
  * a Send button. Fields are real, typeable inputs/textarea -- the
  * Figma "placeholder" text becomes an actual HTML placeholder rather
  * than static copy. Submit is wired (preventDefault, no-op) but
- * doesn't send anywhere yet -- that action is defined later.
+ * doesn't send anywhere yet -- that action is defined later. Heading/
+ * image/tag/intro/submit label now come from Sanity's contactPage.
  */
-export default function WriteToUsSection() {
+export default function WriteToUsSection({
+  heading = "Write to Us",
+  image = DEFAULT_IMAGE,
+  tag = "LET US KNOW YOUR THOUGHTS",
+  intro = "Whether one of the remaining Editions feels right, or you'd simply like to know more about the practice, we'd genuinely love to hear from you.",
+  submitLabel = "Send",
+}: WriteToUsSectionProps) {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // Intentionally a no-op for now -- the send action is defined later.
@@ -22,13 +48,13 @@ export default function WriteToUsSection() {
   return (
     <section className="write-to-us">
       <ScrollFade>
-        <h1 className="section-heading">Write to Us</h1>
+        <h1 className="section-heading">{heading}</h1>
         <hr className="values__divider" />
         <div className="write-to-us__row">
           <div className="write-to-us__image">
             <Image
-              src="/assets/write-to-us-water.jpg"
-              alt="Dark, textured ocean water seen from above"
+              src={image.src}
+              alt={image.alt}
               fill
               sizes="(min-width: 900px) 470px, 100vw"
               style={{ objectFit: "cover" }}
@@ -39,13 +65,9 @@ export default function WriteToUsSection() {
             <div className="write-to-us__intro">
               <div className="values__tag">
                 <span className="values__dot" />
-                <span>LET US KNOW YOUR THOUGHTS</span>
+                <span>{tag}</span>
               </div>
-              <p>
-                Whether one of the remaining Editions feels right, or
-                you&apos;d simply like to know more about the practice,
-                we&apos;d genuinely love to hear from you.
-              </p>
+              <p>{intro}</p>
             </div>
 
             <div className="write-to-us__fields">
@@ -86,7 +108,7 @@ export default function WriteToUsSection() {
             </div>
 
             <button type="submit" className="write-to-us__submit">
-              Send
+              {submitLabel}
             </button>
           </form>
         </div>

@@ -5,19 +5,21 @@ type ChecklistItem = {
   description: string;
 };
 
-// Re-synced against the current "News" Figma frame (node 368:40022,
-// replacing 205:468/250:10858): three items now, not four -- the
-// Environmental Actions checklist entry is gone from this frame
-// entirely (matching that section's own removal further down the page,
-// see app/news/page.tsx's own comment), and the featured edition is
-// now Mori, not Sora. Figma's own copy still literally says "the
-// second express" for Mori here, even though Mori's own section
-// further down calls itself "the third express" -- an inconsistency in
-// Figma's own source text, not something introduced by this port --
-// kept verbatim rather than silently reconciled, same as this file's
-// established practice of porting Figma's own repeated/inconsistent
-// copy faithfully rather than inventing a fix.
-const COLUMN_1: ChecklistItem[] = [
+type WhatsCookingProps = {
+  heading?: string;
+  subtitle?: string;
+  column1?: ChecklistItem[];
+  column2?: ChecklistItem[];
+};
+
+// Matches the content migrated into Sanity's newsPage.whatsCooking
+// (see lib/sanity/newsPage.ts and app/news/page.tsx) -- kept as a
+// fallback here in case the fetch ever comes back empty, not the
+// source of truth. Figma's own copy still literally says "the second
+// express" for Mori here, even though Mori's own section further down
+// calls itself "the third express" -- an inconsistency in Figma's own
+// source text, kept verbatim rather than silently reconciled.
+const DEFAULT_COLUMN_1: ChecklistItem[] = [
   {
     title: "Edition III/VII: MORI (森 - Jungle)",
     description:
@@ -30,7 +32,7 @@ const COLUMN_1: ChecklistItem[] = [
   },
 ];
 
-const COLUMN_2: ChecklistItem[] = [
+const DEFAULT_COLUMN_2: ChecklistItem[] = [
   {
     title: "Social Action: Colvin Haven Foundation",
     description:
@@ -60,22 +62,26 @@ function ChecklistColumn({ items }: { items: ChecklistItem[] }) {
  * before, body is still a 2-column checklist -- just three items now
  * (two in column 1, one in column 2) instead of four evenly split, so
  * this no longer reuses StatementSection wholesale, just its
- * heading-row/divider pieces, same as before.
+ * heading-row/divider pieces, same as before. Content now comes from
+ * Sanity's newsPage.whatsCooking.
  */
-export default function WhatsCooking() {
+export default function WhatsCooking({
+  heading = "What’s Cooking",
+  subtitle = "A taste of what’s happening",
+  column1 = DEFAULT_COLUMN_1,
+  column2 = DEFAULT_COLUMN_2,
+}: WhatsCookingProps) {
   return (
     <section className="statement-section">
       <ScrollFade>
         <div className="statement-section__heading-row">
-          <h2 className="section-heading">What’s Cooking</h2>
-          <p className="statement-section__subtitle">
-            – A taste of what’s happening
-          </p>
+          <h2 className="section-heading">{heading}</h2>
+          <p className="statement-section__subtitle">– {subtitle}</p>
         </div>
         <hr className="values__divider" />
         <div className="news-checklist">
-          <ChecklistColumn items={COLUMN_1} />
-          <ChecklistColumn items={COLUMN_2} />
+          <ChecklistColumn items={column1} />
+          <ChecklistColumn items={column2} />
         </div>
       </ScrollFade>
     </section>

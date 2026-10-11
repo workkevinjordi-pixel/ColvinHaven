@@ -7,6 +7,7 @@ import Inspiration from "@/components/collective/Inspiration";
 import Publications from "@/components/collective/Publications";
 import Filmstrip, { type FilmstripImage } from "@/components/Filmstrip";
 import Footer from "@/components/Footer";
+import { getCollectivePage } from "@/lib/sanity/collective";
 
 export const metadata: Metadata = {
   title: "Colvin Haven — Collective",
@@ -14,17 +15,11 @@ export const metadata: Metadata = {
     "The Colvin Haven collective: a practice devoted to the complete experience of home.",
 };
 
-// Unchanged from the previous build (re-synced against node 250:10541):
-// five genuinely distinct photos, kept exactly as they already were --
-// the current Figma frame's own filmstrip (within node 334:39906) still
-// shows these same five photos in the same order, just at slightly
-// different individual pixel widths (four fixed ~280px images and one
-// flexible narrow one, rather than this file's alternating 284/443 --
-// close enough in spirit, and visually near-identical given the same
-// photos in the same order, that it isn't worth a bespoke non-marquee
-// component just to chase that one difference) -- see Filmstrip.tsx's
-// own comment for why this reuses it rather than a page-specific layout.
-const REEL: FilmstripImage[] = [
+// Fallback only -- used when the Sanity fetch comes back empty. Same
+// five photos as the live collectivePage.filmstrip document; see
+// lib/sanity/collective.ts's own comment on why each page keeps its
+// own independently-editable copy of this REEL rather than sharing one.
+const DEFAULT_REEL: FilmstripImage[] = [
   {
     src: "/assets/collective/filmstrip-lounge-chair.jpg",
     alt: "A dark timber lounge chair on a deck backed by bamboo",
@@ -51,6 +46,10 @@ const REEL: FilmstripImage[] = [
     wide: false,
   },
 ];
+const DEFAULT_PHOTO_BAND = {
+  src: "/assets/collective/collective-mountain-dusk.jpg",
+  alt: "A mountain silhouette against an amber dusk sky",
+};
 
 // Rebuilt against the current "Collective" Figma frame (node 334:39855),
 // replacing the previous build (node 203:208, extended by 222:4394 and
@@ -88,16 +87,29 @@ const REEL: FilmstripImage[] = [
 // height (this frame's own value, not the shared 649px default) stays
 // off News' SocialAction, which reuses this same PhotoBand component
 // at that original height.
-export default function CollectivePage() {
+//
+// Foundation/Craft/Inspiration/the filmstrip's own content now comes
+// from Sanity (getCollectivePage()), fetched once here and passed down
+// as props -- same pattern as app/page.tsx. Publications stays its own
+// self-fetching Server Component (it's shared with /news).
+export default async function CollectivePage() {
+  const page = await getCollectivePage();
+
   return (
     <>
       <Navbar solid />
-      <Foundation />
-      <Craft />
+      <Foundation
+        heading={page?.foundation.heading}
+        tag={page?.foundation.tag}
+        collageImageA={page?.foundation.collageImageA}
+        collageImageB={page?.foundation.collageImageB}
+        paragraphs={page?.foundation.paragraphs}
+      />
+      <Craft heading={page?.craft.heading} tag={page?.craft.tag} row={page?.craft.row} />
       <div className="collective-band-section collective-mountain-band">
         <PhotoBand
-          src="/assets/collective/collective-mountain-dusk.jpg"
-          alt="A mountain silhouette against an amber dusk sky"
+          src={page?.photoBand?.src ?? DEFAULT_PHOTO_BAND.src}
+          alt={page?.photoBand?.alt ?? DEFAULT_PHOTO_BAND.alt}
         />
       </div>
       {/* Figma nests Inspiration and the filmstrip in one shared group
@@ -105,8 +117,12 @@ export default function CollectivePage() {
           independently-spaced sections -- .collective-inspiration
           scopes StatementSection's bottom padding down to match. */}
       <div className="collective-inspiration">
-        <Inspiration />
-        <Filmstrip images={REEL} />
+        <Inspiration
+          heading={page?.inspiration.heading}
+          tag={page?.inspiration.tag}
+          paragraphs={page?.inspiration.paragraphs}
+        />
+        <Filmstrip images={page?.filmstrip ?? DEFAULT_REEL} />
       </div>
       <Publications />
       <Footer />

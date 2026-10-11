@@ -1,5 +1,18 @@
 import Image from "next/image";
 
+type EditionsHeroProps = {
+  image?: { src: string; alt: string };
+};
+
+// Matches the content migrated into Sanity's editionsPage.heroImage
+// (see lib/sanity/editionsPage.ts and app/editions/page.tsx) -- kept
+// as a fallback here in case the fetch ever comes back empty, not the
+// source of truth.
+const DEFAULT_IMAGE = {
+  src: "/assets/editions/editions-hero-palms-sunset.jpg",
+  alt: "Silhouetted palm trees against an amber sunset sky",
+};
+
 /**
  * Top-of-page banner (Figma node 325:39451): a single full-bleed photo,
  * nothing else -- replaces the previous frame's own centered-statement
@@ -14,15 +27,16 @@ import Image from "next/image";
  * or content matches silhouetted palms against an amber sunset sky) --
  * downloaded and run through this project's own export pipeline
  * (sips jpeg/resample/recompress), not used directly from Figma's own
- * temporary asset URL.
+ * temporary asset URL. Content now comes from Sanity's
+ * editionsPage.heroImage.
  */
-export default function EditionsHero() {
+export default function EditionsHero({ image = DEFAULT_IMAGE }: EditionsHeroProps) {
   return (
     <section className="editions-hero">
       <div className="editions-hero__image">
         <Image
-          src="/assets/editions/editions-hero-palms-sunset.jpg"
-          alt="Silhouetted palm trees against an amber sunset sky"
+          src={image.src}
+          alt={image.alt}
           fill
           sizes="100vw"
           style={{ objectFit: "cover" }}

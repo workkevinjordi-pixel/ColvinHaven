@@ -1,6 +1,29 @@
 import Image from "next/image";
 import ScrollFade from "../ScrollFade";
 
+type MoriProfileProps = {
+  heading?: string;
+  description?: string;
+  landSize?: string;
+  timeToComplete?: string;
+  heroImage?: { src: string; alt: string };
+  paragraphs?: string[];
+};
+
+// Matches the content migrated into Sanity's newsPage.moriProfile (see
+// lib/sanity/newsPage.ts and app/news/page.tsx) -- kept as a fallback
+// here in case the fetch ever comes back empty, not the source of
+// truth.
+const DEFAULT_HERO_IMAGE = {
+  src: "/assets/news/news-craftsman-timber.jpg",
+  alt: "A craftsman measuring timber against a dark board-and-batten wall",
+};
+const DEFAULT_PARAGRAPHS = [
+  "Every Colvin Haven home is built by Indonesian master craftsmen and artisans whose knowledge of local timber, stone, and joinery has passed through generations.",
+  "It's the core of how these homes get made. Colvin Haven doesn't design a home and then have it built. The two happen together, craftsman and founder, on site, for as long as each home takes. We offer a limited turnkey home to our clients.",
+  "Materials are chosen the same way ingredients once were — for provenance, not convenience. Paras stone quarried in Bali. Ulin hardwood, reclaimed rather than freshly felled. Teak, hand-cut and laid by local woodworkers who've done this for generations. Nothing shipped in that the island couldn't already give.",
+];
+
 /**
  * "MORI (森 - Jungle)" profile (Figma node 368:40092, replacing the
  * previous "SORA (空 - Sky)" section this page used to feature, nodes
@@ -13,80 +36,46 @@ import ScrollFade from "../ScrollFade";
  * "moments" -- SoraProfile's own MOMENTS array is gone, replaced with
  * a single hero image.
  *
- * The hero photo (node 368:40102) is the same craftsman-measuring-
- * timber photo already on the site (news-craftsman-timber.jpg,
- * confirmed via visual match against Figma's own asset, just a
- * different crop) -- reused directly, not re-downloaded as a
- * duplicate file.
- *
- * Caption text: paragraphs 1-2 are this site's own established real
- * copy (same "Every Colvin Haven home is built..."/"It's the core..."
- * pair Foundation/Craft/EditionSpotlight all already use verbatim).
- * Paragraph 3 is still literal Lorem Ipsum in this Figma frame --
- * replaced with Craft's own third paragraph (the "paras stone/ulin
- * hardwood/teak" provenance copy), same practice already used to
- * replace a stale Lorem Ipsum placeholder with real, already-approved
- * copy grounded in the same material facts (see EditionSpotlight
- * storyA's own third paragraph for the precedent).
- *
  * "Mori" (森, "forest"/"jungle") is a genuinely new third edition this
  * frame introduces -- "Land Size: 2000 m2" / "Time to complete: 2028"
  * (an upcoming home, not yet built, unlike Tsuki/Sora's own completed-
- * year facts) -- confirmed consistent across both this section and
- * What's Cooking's own checklist above it, not a stale leftover from
- * an earlier iteration of this frame (unlike the old Kawa/Sora
- * inconsistency the previous build's own comment had to reason through).
+ * year facts). Content now comes from Sanity's newsPage.moriProfile.
  */
-export default function MoriProfile() {
+export default function MoriProfile({
+  heading = "MORI (森 - Jungle)",
+  description = "The third express in our collection. Not a smaller version of Tsuki, but its true essence distilled. Mori distils the same philosophy into an intimate, human scale. Every metre purposeful.",
+  landSize = "Land Size: 2000 m2",
+  timeToComplete = "Time to complete: 2028",
+  heroImage = DEFAULT_HERO_IMAGE,
+  paragraphs = DEFAULT_PARAGRAPHS,
+}: MoriProfileProps) {
   return (
     <section className="mori" id="mori">
       <ScrollFade className="mori__body">
         <div className="mori__sidebar">
-          <h2 className="section-heading">MORI (森 - Jungle)</h2>
+          <h2 className="section-heading">{heading}</h2>
           <hr className="values__divider" />
-          <p className="mori__description">
-            The third express in our collection. Not a smaller version of
-            Tsuki, but its true essence distilled. Mori distils the same
-            philosophy into an intimate, human scale. Every metre
-            purposeful.
-          </p>
+          <p className="mori__description">{description}</p>
           <div className="mori__facts">
-            <p>Land Size: 2000 m2</p>
-            <p>Time to complete: 2028</p>
+            <p>{landSize}</p>
+            <p>{timeToComplete}</p>
           </div>
         </div>
 
         <div className="mori__content">
           <div className="mori__hero-image">
             <Image
-              src="/assets/news/news-craftsman-timber.jpg"
-              alt="A craftsman measuring timber against a dark board-and-batten wall"
+              src={heroImage.src}
+              alt={heroImage.alt}
               fill
               sizes="(min-width: 900px) 639px, 100vw"
               style={{ objectFit: "cover" }}
             />
           </div>
           <div className="mori__text">
-            <p>
-              Every Colvin Haven home is built by Indonesian master
-              craftsmen and artisans whose knowledge of local timber,
-              stone, and joinery has passed through generations.
-            </p>
-            <p>
-              It&apos;s the core of how these homes get made. Colvin
-              Haven doesn&apos;t design a home and then have it built.
-              The two happen together, craftsman and founder, on site,
-              for as long as each home takes. We offer a limited
-              turnkey home to our clients.
-            </p>
-            <p>
-              Materials are chosen the same way ingredients once were —
-              for provenance, not convenience. Paras stone quarried in
-              Bali. Ulin hardwood, reclaimed rather than freshly felled.
-              Teak, hand-cut and laid by local woodworkers who&apos;ve
-              done this for generations. Nothing shipped in that the
-              island couldn&apos;t already give.
-            </p>
+            {paragraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
           </div>
         </div>
       </ScrollFade>

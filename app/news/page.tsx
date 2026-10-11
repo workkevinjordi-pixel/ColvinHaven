@@ -7,6 +7,7 @@ import PublicationsSection from "@/components/news/PublicationsSection";
 import SocialAction from "@/components/news/SocialAction";
 import PullQuote from "@/components/news/PullQuote";
 import Footer from "@/components/Footer";
+import { getNewsPage } from "@/lib/sanity/newsPage";
 
 export const metadata: Metadata = {
   title: "Colvin Haven — What’s Cooking",
@@ -31,7 +32,15 @@ export const metadata: Metadata = {
 // both its own screenshot and metadata (What's Cooking's own checklist
 // no longer previews it either) -- its component and now-orphaned
 // photo assets are deleted, not just unused.
-export default function NewsPage() {
+//
+// WhatsCooking/NewsFilmstripBand/MoriProfile/SocialAction/PullQuote's
+// own content now comes from Sanity (getNewsPage()), fetched once here
+// and passed down as props -- same pattern as app/page.tsx and
+// app/collective/page.tsx. PublicationsSection stays its own
+// self-fetching Server Component (shared with Collective's own
+// Publications usage).
+export default async function NewsPage() {
+  const page = await getNewsPage();
   return (
     <>
       <Navbar solid />
@@ -40,13 +49,33 @@ export default function NewsPage() {
           page's first section -- needs the same fixed-navbar clearance
           .editions-intro/.collective-intro/.write-to-us use. */}
       <div className="news-first-section">
-        <WhatsCooking />
+        <WhatsCooking
+          heading={page?.whatsCooking.heading}
+          subtitle={page?.whatsCooking.subtitle}
+          column1={page?.whatsCooking.column1}
+          column2={page?.whatsCooking.column2}
+        />
       </div>
-      <NewsFilmstripBand />
-      <MoriProfile />
+      <NewsFilmstripBand
+        eyebrow={page?.filmstripBand.eyebrow}
+        lead={page?.filmstripBand.lead}
+        images={page?.filmstripBand.images}
+      />
+      <MoriProfile
+        heading={page?.moriProfile.heading}
+        description={page?.moriProfile.description}
+        landSize={page?.moriProfile.landSize}
+        timeToComplete={page?.moriProfile.timeToComplete}
+        heroImage={page?.moriProfile.heroImage}
+        paragraphs={page?.moriProfile.paragraphs}
+      />
       <PublicationsSection />
-      <SocialAction />
-      <PullQuote />
+      <SocialAction statement={page?.socialAction.statement} bandImage={page?.socialAction.bandImage} />
+      <PullQuote
+        collageImageA={page?.pullQuote.collageImageA}
+        collageImageB={page?.pullQuote.collageImageB}
+        quoteText={page?.pullQuote.quoteText}
+      />
       <Footer />
     </>
   );

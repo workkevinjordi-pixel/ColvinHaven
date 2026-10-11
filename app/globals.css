@@ -8250,6 +8250,57 @@ button:focus-visible,
   text-align: center;
 }
 
+/* Editions' redesign (node 385:1275): a looser 32px gap between its
+   own four blocks (eyebrow, heading-group, body, link) -- vs. the
+   shared shell's own default 24px, which stays correct for
+   Collective's own untouched layout -- plus a tighter 8px gap between
+   heading and subtitle, a smaller 24px/2.4px-tracking heading (not the
+   shared shell's own 32px/0 default), and the body paragraph's own
+   line-height/tracking (28px/1.6px, not the shared shell's 24px/0),
+   all per this same frame. */
+.landing-intro__inner--centered {
+  gap: 32px;
+}
+
+.landing-intro__inner--centered .landing-intro__heading-group {
+  gap: 8px;
+}
+
+.landing-intro__inner--centered .landing-intro__heading {
+  font-size: 24px;
+  letter-spacing: 2.4px;
+}
+
+.landing-intro__inner--centered .landing-intro__text {
+  line-height: 28px;
+  letter-spacing: 1.6px;
+}
+
+.landing-intro__eyebrow {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.landing-intro__subtitle {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 1.4px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+.landing-intro__lead {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 2px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
 @media (max-width: 900px) {
   .landing-intro__inner--centered {
     padding-left: var(--gutter);

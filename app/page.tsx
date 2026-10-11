@@ -13,15 +13,19 @@ import { getHomepage } from "@/lib/sanity/homepage";
 
 // Fallback only -- used when the Sanity fetch comes back empty (or a
 // field within it does), so the page still renders real content
-// instead of a blank paragraph block. Matches app/page.tsx's own
-// original SHARED_COPY, which both TextIntro instances used to share
-// before this content moved into Sanity's homepage.editionsIntro/
-// collectiveIntro (independently editable there even though they
-// still start out identical).
-const FALLBACK_COPY = [
+// instead of a blank paragraph block. Collective's own fallback is
+// still app/page.tsx's original SHARED_COPY (both TextIntro instances
+// used to share this before the content moved into Sanity's
+// homepage.editionsIntro/collectiveIntro) -- Editions' own fallback
+// changed to its single new body paragraph when that variant was
+// redesigned (node 385:1275), so the two no longer share one constant.
+const COLLECTIVE_FALLBACK_COPY = [
   "Every CH home is a singular commission one family, one landscape, one house that will never be built again.",
   "The language is constant. Restraint, learned in kitchens rather than classrooms. Materials chosen for how they feel, not how they photograph. A kitchen at the center of every home, because that's where a life is actually lived. What changes is the canvas the land, the light, the hands each place gives us to build with.",
   "Umah Tsuki and Sora are both written in Indonesia. They are the first two homes in a language built to travel one country, one canvas, at a time.",
+];
+const EDITIONS_FALLBACK_BODY = [
+  "Entirely turnkey. Tell us where you'd like to wake, and how many bedrooms. The rest is ours: architecture, interiors, landscape, and the build itself, managed start to finish.",
 ];
 
 // Full re-sync against the current "Homepage" Figma frame (node
@@ -32,11 +36,28 @@ const FALLBACK_COPY = [
 //
 // New section order: Hero -> Drawing -> "CRAFTING SPACES, LIVING
 // SLOWLY." statement (new) -> three-photo quote row (new) -> "Editions"
-// intro, now centered with no divider (SHARED_COPY, same text as
-// before) -> five-photo "Approach" gallery (new, replaces the previous
-// frame's own scattered-position EditionsGallery) -> "Collective" intro
-// (unchanged, same narrow left-aligned layout + SHARED_COPY) -> Cta ->
-// Footer.
+// intro, centered with no divider -> five-photo "Approach" gallery
+// (new, replaces the previous frame's own scattered-position
+// EditionsGallery) -> "Collective" intro (unchanged, same narrow
+// left-aligned layout + SHARED_COPY) -> Cta -> Footer.
+//
+// "Editions" intro redesigned again at node 385:1275 (explicit
+// "implement this design from Figma" follow-up, scoped to just this
+// one section): adds an "EDITIONS" eyebrow, a new heading ("TSUKI, THE
+// MOON. SORA, THE SKY") with a subtitle under it, and replaces the old
+// three-paragraph SHARED_COPY body with one italic lead sentence +
+// one body paragraph -- "Collective" keeps its own original shape
+// untouched (TextIntro.tsx's own eyebrow/subtitle/lead props are
+// optional precisely so that variant renders exactly as before). The
+// link changes from "Editions" (-> /editions) to "Request access" (->
+// /request-the-collections) -- not specified by Figma's own node data
+// (just text + an icon, no href), inferred from this site's own
+// established "request access" CTA pattern (ChCollections/
+// CollectionsCard's own "Access to CH Collections" note, same target).
+// Figma's own subtitle copy reads "Cut form the same cloth" (likely a
+// "from" typo in their source) -- kept verbatim per this project's
+// usual practice of porting Figma's own copy faithfully rather than
+// silently correcting it.
 //
 // Three whole sections the previous build had are GONE from this frame
 // entirely, confirmed via its own screenshot: "A Way of Life"
@@ -110,12 +131,15 @@ export default async function Home() {
       />
       <HomeQuoteRow items={homepage?.quoteRow} />
       <TextIntro
-        heading={homepage?.editionsIntro.heading ?? "Editions"}
-        linkLabel={homepage?.editionsIntro.linkLabel ?? "Editions"}
-        linkHref={homepage?.editionsIntro.linkHref ?? "/editions"}
+        eyebrow={homepage?.editionsIntro.eyebrow ?? "EDITIONS"}
+        heading={homepage?.editionsIntro.heading ?? "TSUKI, THE MOON. SORA, THE SKY"}
+        subtitle={homepage?.editionsIntro.subtitle ?? "Cut form the same cloth, different in size"}
+        lead={homepage?.editionsIntro.lead ?? "Stillness and wellness, built into every room."}
+        linkLabel={homepage?.editionsIntro.linkLabel ?? "Request access"}
+        linkHref={homepage?.editionsIntro.linkHref ?? "/request-the-collections"}
         centered
       >
-        {(homepage?.editionsIntro.paragraphs ?? FALLBACK_COPY).map((p, i) => (
+        {(homepage?.editionsIntro.paragraphs ?? EDITIONS_FALLBACK_BODY).map((p, i) => (
           <p key={i}>{p}</p>
         ))}
       </TextIntro>
@@ -126,7 +150,7 @@ export default async function Home() {
         linkHref={homepage?.collectiveIntro.linkHref ?? "/collective"}
         narrow
       >
-        {(homepage?.collectiveIntro.paragraphs ?? FALLBACK_COPY).map((p, i) => (
+        {(homepage?.collectiveIntro.paragraphs ?? COLLECTIVE_FALLBACK_COPY).map((p, i) => (
           <p key={i}>{p}</p>
         ))}
       </TextIntro>

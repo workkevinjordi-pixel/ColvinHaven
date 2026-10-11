@@ -4,7 +4,10 @@ import { toSrcAlt } from "./image";
 
 type SanityImg = { asset?: Image; alt?: string };
 type SanityTextIntro = {
+  eyebrow?: string;
   heading?: string;
+  subtitle?: string;
+  lead?: string;
   paragraphs?: string[];
   linkLabel?: string;
   linkHref?: string;
@@ -20,7 +23,10 @@ type SanityHomepage = {
 };
 
 export type HomepageTextIntro = {
+  eyebrow?: string;
   heading?: string;
+  subtitle?: string;
+  lead?: string;
   paragraphs?: string[];
   linkLabel?: string;
   linkHref?: string;
@@ -53,7 +59,10 @@ export type Homepage = {
 
 function mapTextIntro(t?: SanityTextIntro): HomepageTextIntro {
   return {
+    eyebrow: t?.eyebrow,
     heading: t?.heading,
+    subtitle: t?.subtitle,
+    lead: t?.lead,
     paragraphs: t?.paragraphs?.length ? t.paragraphs : undefined,
     linkLabel: t?.linkLabel,
     linkHref: t?.linkHref,

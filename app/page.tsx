@@ -45,12 +45,11 @@ const EDITIONS_FALLBACK_BODY = [
 // adds an "EDITIONS" eyebrow, a new heading ("TSUKI, THE MOON. SORA,
 // THE SKY") with a subtitle under it, and replaces the old three-
 // paragraph SHARED_COPY body with one italic lead sentence + one body
-// paragraph. The link changes from "Editions" (-> /editions) to
-// "Request access" (-> /request-the-collections) -- not specified by
-// Figma's own node data (just text + an icon, no href), inferred from
-// this site's own established "request access" CTA pattern
-// (ChCollections/CollectionsCard's own "Access to CH Collections"
-// note, same target). Figma's own subtitle copy reads "Cut form the
+// paragraph. The link reads "Deep Diver" and goes to /editions (direct
+// instruction). It briefly read "Request access" ->
+// /request-the-collections -- a guess, since Figma's own node data
+// specifies no href at all (just text + an icon) -- before being set
+// explicitly. Figma's own subtitle copy reads "Cut form the
 // same cloth" (likely a "from" typo in their source) -- kept verbatim
 // per this project's usual practice of porting Figma's own copy
 // faithfully rather than silently correcting it.
@@ -147,8 +146,8 @@ export default async function Home() {
         heading={homepage?.editionsIntro.heading ?? "TSUKI, THE MOON. SORA, THE SKY"}
         subtitle={homepage?.editionsIntro.subtitle ?? "Cut form the same cloth, different in size"}
         lead={homepage?.editionsIntro.lead ?? "Stillness and wellness, built into every room."}
-        linkLabel={homepage?.editionsIntro.linkLabel ?? "Request access"}
-        linkHref={homepage?.editionsIntro.linkHref ?? "/request-the-collections"}
+        linkLabel={homepage?.editionsIntro.linkLabel ?? "Deep Diver"}
+        linkHref={homepage?.editionsIntro.linkHref ?? "/editions"}
         centered
       >
         {(homepage?.editionsIntro.paragraphs ?? EDITIONS_FALLBACK_BODY).map((p, i) => (

@@ -6267,13 +6267,22 @@ button:focus-visible,
 /* Re-synced against the current Figma frame (node 391:1394, second
    pass): a plain side-by-side row now, not the previous overlapping
    collage (two absolutely-positioned photos at different offsets/
-   sizes) -- two equal-width photos, 4px gap, both 485px tall. */
+   sizes) -- two equal-width photos, 4px gap, both 485px tall.
+   `position: sticky` (explicit follow-up request, not from Figma):
+   the collage is much shorter than the text column beside it, so it
+   docks at `top` and rides along as the much taller text scrolls past,
+   un-sticking on its own once .foundation__body's bottom edge (set by
+   that taller column) passes -- the same flex "sticky sidebar next to
+   taller content" pattern .mori__sidebar already uses elsewhere on the
+   site, including the same top: 120px navbar clearance. */
 .foundation__collage {
   display: flex;
   gap: 4px;
   flex: 0 0 637px;
   width: 637px;
   height: 485px;
+  position: sticky;
+  top: 120px;
 }
 
 .foundation__collage-img {
@@ -6420,6 +6429,11 @@ button:focus-visible,
   }
 
   .foundation__collage {
+    /* Stacked layout below this width -- sticky only makes sense
+       beside the taller text column, not above it in normal document
+       flow (same reasoning .mori__sidebar's own mobile override
+       already applies). */
+    position: static;
     width: 100%;
     max-width: 752px;
   }

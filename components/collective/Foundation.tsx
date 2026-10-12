@@ -49,6 +49,21 @@ const DEFAULT_CLOSING_NOTE = "He once fed people. Now he gives them somewhere to
  * background story on the right -- eyebrow, a large serif heading
  * sentence, the body paragraphs, and a closing italic note. Content now
  * comes from Sanity's collectivePage.foundation.
+ *
+ * The collage is `position: sticky` (explicit follow-up request, not
+ * from Figma) -- it rides along as the much taller text column scrolls
+ * past, un-sticking once the column's bottom edge is reached. That only
+ * works if nothing between the sticky element and the viewport has its
+ * own `transform` (a CSS containing-block gotcha: a transformed
+ * ancestor breaks sticky/fixed positioning for its descendants). A
+ * single ScrollFade wrapping both the collage and the text -- the
+ * previous shape here, and still .mori__sidebar's own shape on /news,
+ * which turns out to have the identical bug, confirmed while building
+ * this -- would do exactly that, since ScrollFade's own reveal
+ * animation is itself a `transform`. Each column gets its own separate
+ * ScrollFade instead, both plain siblings inside a plain (untransformed)
+ * .foundation__body, so the collage's sticky containing block is the
+ * real viewport, not an animated ancestor.
  */
 export default function Foundation({
   eyebrow = DEFAULT_EYEBROW,
@@ -60,8 +75,8 @@ export default function Foundation({
 }: FoundationProps) {
   return (
     <section className="foundation">
-      <ScrollFade className="foundation__body">
-        <div className="foundation__collage">
+      <div className="foundation__body">
+        <ScrollFade className="foundation__collage">
           <div className="foundation__collage-img">
             <Image
               src={collageImageA.src}
@@ -80,9 +95,9 @@ export default function Foundation({
               style={{ objectFit: "cover" }}
             />
           </div>
-        </div>
+        </ScrollFade>
 
-        <div className="foundation__text">
+        <ScrollFade className="foundation__text">
           <div className="foundation__heading-group">
             <p className="foundation__eyebrow">{eyebrow}</p>
             <h2 className="foundation__heading">{heading}</h2>
@@ -93,8 +108,8 @@ export default function Foundation({
             ))}
           </div>
           {closingNote && <p className="foundation__note">{closingNote}</p>}
-        </div>
-      </ScrollFade>
+        </ScrollFade>
+      </div>
     </section>
   );
 }

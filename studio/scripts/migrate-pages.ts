@@ -155,8 +155,8 @@ async function migrateCollectivePage() {
       },
     },
     photoBand: await img(
-      "/assets/collective/collective-mountain-dusk.jpg",
-      "A mountain silhouette against an amber dusk sky",
+      "/assets/collective/collective-sunset-palms.webp",
+      "Silhouetted coconut palms along a ridge, the sun glowing hazy orange behind them at dusk",
     ),
     inspiration: {
       heading: "Inspiration",

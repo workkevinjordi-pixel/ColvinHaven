@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 };
 
 const DEFAULT_PHOTO_BAND = {
-  src: "/assets/collective/collective-mountain-dusk.jpg",
-  alt: "A mountain silhouette against an amber dusk sky",
+  src: "/assets/collective/collective-sunset-palms.webp",
+  alt: "Silhouetted coconut palms along a ridge, the sun glowing hazy orange behind them at dusk",
 };
 
 // Rebuilt against the current "Collective" Figma frame (node 334:39855),

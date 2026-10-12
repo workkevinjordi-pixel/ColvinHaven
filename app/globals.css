@@ -295,11 +295,12 @@ button:focus-visible,
   padding: 80px var(--gutter) 200px;
 }
 
-/* Confirmed uniform 32px 16px across both pages that use this wrapper
-   (Editions' CH Collections, Collective's Inspiration) in Figma's
-   mobile frames. Collective's Inspiration zeroes out the bottom half of
-   this via .collective-inspiration .statement-section below and
-   supplies its own trailing gap instead. */
+/* Confirmed uniform 32px 16px in Figma's mobile frames for every page
+   that uses this wrapper (Editions' CH Collections, News' What's
+   Cooking/Social Action). Collective's own Inspiration section used to
+   be one of these too, but no longer reuses this shell at all since
+   its own redesign (node 391:1394) -- see .collective-inspiration-v2's
+   own rules instead. */
 @media (max-width: 560px) {
   .statement-section {
     padding: 32px 16px;
@@ -6037,68 +6038,152 @@ button:focus-visible,
   padding: 120px 0;
 }
 
-/* Figma groups Inspiration and the filmstrip into one w-1834 block with
-   a tight 24px gap between them -- StatementSection's shared 200px
-   bottom padding (right for Editions/News, where it's the section's own
-   trailing gap) is too generous here. Zeroed out entirely (not just
-   reduced) so the filmstrip's own 24px top margin (.filmstrip) is the
-   *only* gap -- the filmstrip reads as part of Inspiration, not a
-   separate section with roughly-equal space on both sides of it. */
-.collective-inspiration .statement-section {
-  padding-bottom: 0;
+/* ---------- Inspiration v2 (Figma node 391:1394) -- heading/
+   paragraphs side by side, no label tag, and its own five-photo
+   gallery row folded directly into this section (previously a
+   separate <Filmstrip> marquee call) ---------- */
+
+.collective-inspiration-v2 {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 120px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
 }
 
-/* The filmstrip is the last thing in this wrapper, immediately followed
-   by Publications (there's no longer a Cta banner on this page at all
-   -- the current Figma frame drops it entirely). Matches the same
-   120px rhythm .collective-band-section already uses elsewhere on this
-   page for a bare full-width element. */
-.collective-inspiration {
-  padding-bottom: 120px;
+.collective-inspiration-v2__intro {
+  width: 1216px;
+  max-width: 100%;
+  padding: 0 var(--gutter) 32px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
 }
 
-/* ---------- Publications (Figma node 222:4394) ---------- */
+.collective-inspiration-v2__heading {
+  flex: 1 1 0%;
+}
 
-/* Two publication mentions, one viewport of space each, in plain
-   normal document flow -- no scroll-jacked pin, no scroll-triggered
-   animation, just a static section. */
+.collective-inspiration-v2__text {
+  width: 855px;
+  max-width: 100%;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.collective-inspiration-v2__text p {
+  margin-bottom: 24px;
+}
+
+.collective-inspiration-v2__text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Full-bleed to this section's own 1440px canvas -- no --gutter inset,
+   unlike the intro row right above it. */
+.collective-inspiration-v2__gallery {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.collective-inspiration-v2__gallery-item {
+  position: relative;
+  flex: 0 0 280px;
+  height: 473px;
+}
+
+/* The middle slot (index 2) flexes to fill the row's remaining width
+   instead of a fixed 280px -- Figma's own layout, not an editable
+   Sanity field, same reasoning as ApproachGallery's own FIXED_INDEX. */
+.collective-inspiration-v2__gallery-item--flex {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .collective-inspiration-v2__intro {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .collective-inspiration-v2__text {
+    width: 100%;
+  }
+
+  .collective-inspiration-v2__gallery {
+    flex-wrap: wrap;
+    padding: 0 var(--gutter);
+  }
+
+  .collective-inspiration-v2__gallery-item,
+  .collective-inspiration-v2__gallery-item--flex {
+    flex: 1 1 calc(50% - 12px);
+    height: 280px;
+  }
+}
+
+@media (max-width: 560px) {
+  .collective-inspiration-v2 {
+    padding: 64px 0;
+    gap: 16px;
+  }
+
+  .collective-inspiration-v2__intro {
+    padding: 0 16px 24px;
+  }
+
+  .collective-inspiration-v2__gallery {
+    padding: 0 16px;
+  }
+
+  .collective-inspiration-v2__gallery-item,
+  .collective-inspiration-v2__gallery-item--flex {
+    flex: 1 1 100%;
+    height: 240px;
+  }
+}
+
+/* ---------- Publications (Figma node 391:1394, replacing the sizing
+   from 222:4394 -- same shared component, smaller cover/compact
+   padding) ---------- */
+
 .collective-publications {
   background: var(--bg);
 }
 
-.collective-publications__intro {
+.collective-publications__inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 120px var(--gutter) 0;
+  padding: 120px var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.collective-publications__intro {
+  text-align: center;
 }
 
 .collective-publications__slide {
   display: flex;
   align-items: flex-start;
   gap: 120px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  min-height: 100vh;
-  padding: 120px var(--gutter) 80px;
-}
-
-/* Publications is now the page's last section before Footer (no Cta
-   banner between them any more) -- the site-wide rule is 120px there,
-   not every slide's own shared 80px (which stays as-is for the gap
-   between the two slides themselves). */
-.collective-publications__slide:last-child {
-  padding-bottom: 120px;
+  padding: 60px 80px 60px 120px;
 }
 
 .collective-publications__cover {
   position: relative;
-  /* Capped at 400px -- the source covers are 542x767, so this never
-     upscales them (the earlier 340px cap was fine resolution-wise, but
-     shrunk them more than the actual asset size called for). */
-  flex: 0 0 clamp(220px, 28vw, 400px);
-  width: clamp(220px, 28vw, 400px);
-  /* Matches the cover images' own 542x767 aspect ratio. */
-  aspect-ratio: 542 / 767;
+  /* Capped at 452px -- the source covers are 542x767 (same ~0.707
+     aspect ratio as this frame's own 452.257x640 spec), so this still
+     never upscales them. */
+  flex: 0 0 clamp(200px, 26vw, 452px);
+  width: clamp(200px, 26vw, 452px);
+  aspect-ratio: 452 / 640;
   overflow: hidden;
 }
 
@@ -6142,7 +6227,7 @@ button:focus-visible,
 }
 
 .collective-publications__link {
-  margin-top: 24px;
+  margin-top: 32px;
   align-self: flex-start;
   font-weight: 300;
   font-size: 16px;
@@ -6225,10 +6310,6 @@ button:focus-visible,
   margin-bottom: 0;
 }
 
-.foundation__copy p.foundation__copy-spaced {
-  margin-bottom: 48px;
-}
-
 /* ---------- Craft ---------- */
 
 .craft {
@@ -6273,10 +6354,6 @@ button:focus-visible,
   margin-bottom: 0;
 }
 
-.craft__row-text p.craft__row-text-spaced {
-  margin-bottom: 48px;
-}
-
 .craft__row-side {
   position: relative;
   flex: 1 1 403px;
@@ -6313,11 +6390,14 @@ button:focus-visible,
   }
 
   /* Below 900px there isn't room for a side-by-side cover + text
-     column, so each slide stacks its cover above its text instead. */
+     column, so each slide stacks its cover above its text instead --
+     __inner's own gutter already supplies horizontal spacing here, so
+     this just needs vertical breathing room, not the old 100vh-layout's
+     own 110px top clearance. */
   .collective-publications__slide {
     flex-direction: column;
-    padding-top: 110px;
     gap: 24px;
+    padding: 24px 0;
   }
 
   .collective-publications__cover {
@@ -6370,43 +6450,28 @@ button:focus-visible,
     height: 429px;
   }
 
-  /* Inspiration's own bottom gap before Publications -- the shared
-     .statement-section's 32px bottom padding is zeroed out for this
-     instance (see .collective-inspiration .statement-section above),
-     so this is the only source of that trailing space on mobile. */
-  .collective-inspiration {
-    padding-bottom: 32px;
-  }
-
-  .collective-publications__intro {
-    padding: 32px 16px 0;
+  .collective-publications__inner {
+    padding: 64px 16px;
+    gap: 16px;
   }
 
   /* Figma's mobile frame gives the whole publications block one 24px
-     gap after the heading, then 48px between the two entries, and 80px
-     of trailing space after the last one -- not each slide's own
-     desktop-derived top/bottom padding. */
+     gap after the heading, then 48px between the two entries -- not
+     each slide's own desktop-derived top/bottom padding (__inner's own
+     padding above already supplies the page-edge gutter). */
   .collective-publications__slide {
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 24px;
-    padding-bottom: 0;
-    min-height: 0;
+    padding: 16px 0;
   }
 
   .collective-publications__slide + .collective-publications__slide {
     padding-top: 48px;
   }
 
-  .collective-publications__slide:last-child {
-    padding-bottom: 80px;
-  }
-
   .collective-publications__cover {
     width: 100%;
     flex: 0 0 auto;
     aspect-ratio: auto;
-    height: 480px;
+    height: 420px;
   }
 
   .collective-publications__title {
@@ -6769,10 +6834,12 @@ button:focus-visible,
 
 /* ---------- Social Action ---------- */
 
-/* Mirrors .collective-inspiration: zero the StatementSection's own
-   bottom padding so the photo band right after it sits close (24px,
-   the band's own margin-top below), instead of two independently-
-   spaced sections. */
+/* Zero the StatementSection's own bottom padding so the photo band
+   right after it sits close (24px, the band's own margin-top below),
+   instead of two independently-spaced sections -- same "fold two
+   pieces into one tight group" pattern Collective's own Inspiration
+   section used before its redesign (node 391:1394) replaced
+   StatementSection there entirely. */
 .news-social-action .statement-section {
   padding-bottom: 0;
 }

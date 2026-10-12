@@ -13,7 +13,10 @@ type CraftProps = {
 // Matches the content migrated into Sanity's collectivePage.craft (see
 // lib/sanity/collective.ts and app/collective/page.tsx) -- kept as a
 // fallback here in case the fetch ever comes back empty, not the
-// source of truth.
+// source of truth. Re-synced against the current Figma frame (node
+// 391:1394): same tag/images as before, but the heading is now
+// "COLLECTIVE" (not "Craft") and the body copy is a full rewrite --
+// the team's own bios, not the old craftsmanship-materials copy.
 const DEFAULT_ROW: Required<CraftProps>["row"] = {
   main: {
     image: {
@@ -21,9 +24,12 @@ const DEFAULT_ROW: Required<CraftProps>["row"] = {
       alt: "A timber A-frame hoist unloading materials from a delivery truck on site",
     },
     text: [
-      "Every Colvin Haven home is built by Indonesian master craftsmen and artisans whose knowledge of local timber, stone, and joinery has passed through generations.",
-      "It's the core of how these homes get made. Colvin Haven doesn't design a home and then have it built. The two happen together, craftsman and founder, on site, for as long as each home takes. We offer a limited turnkey home to our clients.",
-      "Materials are chosen the same way ingredients once were — for provenance, not convenience. Paras stone quarried in Bali. Ulin hardwood, reclaimed rather than freshly felled. Teak, hand-cut and laid by local woodworkers who've done this for generations. Nothing shipped in that the island couldn't already give.",
+      "Behind every home is the same team.",
+      "Astrid leads the architecture.",
+      "Nyoman leads the build.",
+      "Runta is the master of the gardens.",
+      "Around them, Indonesian designers and engineers, joiners and stonemasons, all local to the land they build on, working on site beside the founder for as long as each home takes.",
+      "We plant the trees before we build. We carry into every home the same sustainable design approaches the founder first practiced at Mixt: responsible materials, light on the land. The most sustainable home is the one that is never torn down, so we build slowly, to last.",
     ],
   },
   side: {
@@ -35,19 +41,25 @@ const DEFAULT_ROW: Required<CraftProps>["row"] = {
 };
 
 /**
- * "CRAFT" section (Figma node 205:335): heading/divider/tag, then a
- * two-column row -- a captioned photo + copy on the left, a single tall
- * uncaptioned photo on the right. Structurally close to
- * EditionSpotlight's row, but the side photo here is taller (773px, not
- * 473px) and carries no caption, so it gets its own scoped classes
- * rather than reusing edition-spotlight__row directly. Content now
- * comes from Sanity's collectivePage.craft. The middle paragraph's own
- * extra top spacing (.craft__row-text-spaced) is a fixed layout
- * decision tied to that position, not content -- stays here in code,
- * zipped onto index 1 regardless of how many paragraphs come back.
+ * Heading/divider/tag, then a two-column row -- a captioned photo +
+ * copy on the left, a single tall uncaptioned photo on the right.
+ * Structurally close to EditionSpotlight's row, but the side photo
+ * here is taller (773px, not 473px) and carries no caption, so it
+ * gets its own scoped classes rather than reusing edition-spotlight__
+ * row directly. Content now comes from Sanity's collectivePage.craft.
+ *
+ * Still named/scoped "Craft" internally (.craft, CraftProps, this
+ * file's own name) even though the current Figma frame's own heading
+ * for this section reads "COLLECTIVE" -- renaming the component/CSS
+ * for a copy-only change is unrelated churn, same reasoning
+ * EditionsHero's own doc comment already applies elsewhere on this
+ * site. The earlier "middle paragraph gets extra top spacing" per-index
+ * class doesn't carry forward -- the new team-bio copy has no
+ * equivalent break worth special-casing, every paragraph here reads
+ * fine with this shell's uniform 24px gap.
  */
 export default function Craft({
-  heading = "Craft",
+  heading = "COLLECTIVE",
   tag = "THE CORE",
   row = DEFAULT_ROW,
 }: CraftProps) {
@@ -78,9 +90,7 @@ export default function Craft({
             </div>
             <div className="craft__row-text">
               {mainText.map((p, i) => (
-                <p key={i} className={i === 1 ? "craft__row-text-spaced" : undefined}>
-                  {p}
-                </p>
+                <p key={i}>{p}</p>
               ))}
             </div>
           </div>

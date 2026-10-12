@@ -12,37 +12,46 @@ type FoundationProps = {
 // Matches the content migrated into Sanity's collectivePage.foundation
 // (see lib/sanity/collective.ts and app/collective/page.tsx) -- kept
 // as a fallback here in case the fetch ever comes back empty, not the
-// source of truth.
+// source of truth. Re-synced against the current Figma frame (node
+// 391:1394): new tag, new collage photos, and a full rewrite of the
+// bio copy -- see that node's own get_design_context dump for the
+// verbatim source text this was transcribed from.
 const DEFAULT_COLLAGE_A = {
-  src: "/assets/collective/foundation-river-stones.jpg",
-  alt: "River stones and a large boulder against a black timber base",
+  src: "/assets/collective/foundation-rope-chair-deck.jpg",
+  alt: "A woven rope lounge chair on a dark timber deck, backed by lush ferns",
 };
 const DEFAULT_COLLAGE_B = {
-  src: "/assets/collective/foundation-portrait.jpg",
-  alt: "A black-and-white portrait of a man descending timber stairs beside a Colvin Haven home",
+  src: "/assets/collective/foundation-man-stairs-garden.jpg",
+  alt: "A man descending timber stairs beside a stone-edged pond, palms overhead",
 };
 const DEFAULT_PARAGRAPHS = [
-  "Twenty years in kitchens, not classrooms Gramercy Tavern, Gary Danko, and co-founding Mixt before the first Colvin Haven home was ever built. No architecture degree, no design training. What came instead was real: building out Mixt's restaurants, then designing Umah Tsuki from nothing. The discipline every good kitchen teaches carried straight through the best result is never the largest, it's the most precisely composed.",
-  "That instinct is the entire practice. Every material chosen for what it does, not what it announces. Every room built around how a body actually wants to move through a day. Nothing added that isn't earning its place the same rule that once applied to a plate, now applied to a home.",
-  "The philosophy hasn't changed. Only the medium.",
-  "Where Andrew once asked how food could nourish a person's body, mind, community. He now asks the same of the spaces they inhabit. A Colvin Haven home is, at its heart, an act of nourishment. Conceived entirely for one family. Completed entirely by hand.",
+  "Andrew trained as a cook at the Culinary Institute of America and worked in Michelin-starred restaurants in New York and San Francisco. In 2006 he helped open the first Mixt in San Francisco's Financial District, his first restaurant business. Chef-driven, it brought farm-to-table seasonality, sustainability and health to everyday eating, part of the first wave of American restaurants to do it, with spaces built to LEED green-building guidelines.",
+  "In time, designing restaurants became the part of the work he loved most. So he left, to chase it fully.",
+  "He stepped away from Mixt for the thing he could no longer ignore: architecture and design. His first project was designing and building Umah Tsuki, a home on a sloping site in Bali. From it grew Colvin Haven, a quiet collective of designers, architects and craftspeople, its name a coinage of his middle name and his daughter's first, built on one belief: that a home, like a dish, should be felt before it's seen.",
+  "Umah Tsuki became the proof, a sanctuary praised by Wallpaper* and Design Anthology for the quiet intentionality he once brought to a plate. Today it is both Colvin Haven's showroom and his family's home. Sora followed, built for the collective's first client, and two more homes are taking shape. Only a limited number will ever be built, never meant to scale.",
+  "The medium changed. The instinct never did.",
+  "The kitchen grew into a home.",
+  "Today, with Colvin Haven, he creates limited-edition homes in Indonesia, built from local materials and made for wellness. He curates the whole experience, from architecture to table.",
+  "He once fed people. Now he gives them somewhere to be still.",
 ];
 
 /**
- * "FOUNDATION" section (Figma node 203:329, re-synced against node
- * 250:10541): a two-photo collage on the left, the founder's
- * background story on the right. The collage is two absolutely-
- * positioned, overlapping photos inside a fixed box -- a new pattern
- * on this site, so it gets its own scoped classes rather than reusing
- * gallery/edition-spotlight's single-image layouts. Content now comes
- * from Sanity's collectivePage.foundation. The second paragraph's own
- * extra top spacing (.foundation__copy-spaced) is a fixed layout
- * decision tied to that position, not content -- stays here in code,
- * zipped onto index 1 regardless of how many paragraphs come back.
+ * "FOUNDATION" section (Figma node 203:329, re-synced against 250:10541,
+ * then again against the current frame, 391:1394): a two-photo collage
+ * on the left, the founder's background story on the right. The
+ * collage is two absolutely-positioned, overlapping photos inside a
+ * fixed box. Content now comes from Sanity's collectivePage.foundation.
+ * The earlier "second paragraph gets extra top spacing" treatment
+ * (.foundation__copy-spaced) was tied to the previous, much shorter
+ * copy's own specific paragraph break -- the current frame's own much
+ * longer bio has no equivalent single break worth special-casing (its
+ * own blank-line spacing between every paragraph pair reads close
+ * enough to this shell's uniform 24px paragraph gap), so that per-index
+ * class is dropped here, not carried forward.
  */
 export default function Foundation({
   heading = "Foundation",
-  tag = "BACKGROUND STORY",
+  tag = "A cook who learned to build homes.",
   collageImageA = DEFAULT_COLLAGE_A,
   collageImageB = DEFAULT_COLLAGE_B,
   paragraphs = DEFAULT_PARAGRAPHS,
@@ -80,9 +89,7 @@ export default function Foundation({
               <span>{tag}</span>
             </div>
             {paragraphs.map((p, i) => (
-              <p key={i} className={i === 1 ? "foundation__copy-spaced" : undefined}>
-                {p}
-              </p>
+              <p key={i}>{p}</p>
             ))}
           </div>
         </div>

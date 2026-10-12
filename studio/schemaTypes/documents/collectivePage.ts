@@ -2,10 +2,16 @@ import { defineField, defineType } from "sanity";
 
 /**
  * Singleton (_id: "collectivePage") for the /collective page's own
- * content: Foundation -> Craft -> standalone photo band -> Inspiration
- * -> filmstrip. Publications (the same list every edition/news page
- * reuses) is its own "publication" document type, not part of this
- * singleton -- see studio/schemaTypes/documents/publication.ts.
+ * content: Foundation -> Craft (its own heading now reads "COLLECTIVE"
+ * on the current Figma frame, node 391:1394 -- the field/component are
+ * still named "craft" internally, not renamed, to avoid unrelated
+ * churn) -> standalone photo band -> Inspiration, now with its own
+ * gallery row folded in (node 391:1394 redesign: no more tag, no more
+ * marquee -- a static row, so `inspirationGallery` replaced the old
+ * `filmstrip` field entirely, dropping the now-unused `wide` toggle).
+ * Publications (the same list every edition/news page reuses) is its
+ * own "publication" document type, not part of this singleton -- see
+ * studio/schemaTypes/documents/publication.ts.
  */
 export default defineType({
   name: "collectivePage",
@@ -43,13 +49,15 @@ export default defineType({
     defineField({
       name: "inspiration",
       title: "Inspiration",
+      description: "No label tag in this section's current design -- the tag field below stays unused.",
       type: "statementBlock",
     }),
     defineField({
-      name: "filmstrip",
-      title: "Filmstrip (Inspiration row)",
+      name: "inspirationGallery",
+      title: "Inspiration gallery (5 photos, no captions)",
       type: "array",
-      of: [{ type: "filmstripImage" }],
+      of: [{ type: "imageWithAlt" }],
+      validation: (Rule) => Rule.length(5),
     }),
   ],
   preview: { prepare() { return { title: "Collective Page" }; } },

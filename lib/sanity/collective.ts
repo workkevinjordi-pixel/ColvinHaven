@@ -7,7 +7,6 @@ type SanityRow = {
   main?: { image?: SanityImg; text?: string[] };
   side?: { image?: SanityImg; text?: string };
 };
-type SanityFilmstripItem = { image?: SanityImg; wide?: boolean };
 type SanityCollectivePage = {
   foundation?: {
     heading?: string;
@@ -18,16 +17,17 @@ type SanityCollectivePage = {
   };
   craft?: { heading?: string; tag?: string; row?: SanityRow };
   photoBand?: SanityImg;
-  inspiration?: { heading?: string; tag?: string; paragraphs?: string[] };
-  filmstrip?: SanityFilmstripItem[];
+  inspiration?: { heading?: string; paragraphs?: string[] };
+  inspirationGallery?: SanityImg[];
 };
 
-export type FilmstripImg = { src: string; alt: string; wide: boolean };
+export type SrcAlt = { src: string; alt: string };
 
 /**
  * Shape for /collective's own page-level sections (Foundation, Craft,
- * standalone photo band, Inspiration, filmstrip). Publications stays
- * its own self-fetching component (lib/sanity/publications.ts).
+ * standalone photo band, Inspiration + its own gallery row).
+ * Publications stays its own self-fetching component
+ * (lib/sanity/publications.ts).
  *
  * Every leaf field is optional and left `undefined` (not coerced to ""
  * or []) when Sanity doesn't have a value -- same discipline as
@@ -38,21 +38,24 @@ export type CollectivePage = {
   foundation: {
     heading?: string;
     tag?: string;
-    collageImageA?: { src: string; alt: string };
-    collageImageB?: { src: string; alt: string };
+    collageImageA?: SrcAlt;
+    collageImageB?: SrcAlt;
     paragraphs?: string[];
   };
   craft: {
     heading?: string;
     tag?: string;
     row?: {
-      main?: { image?: { src: string; alt: string }; text?: string[] };
-      side?: { image?: { src: string; alt: string } };
+      main?: { image?: SrcAlt; text?: string[] };
+      side?: { image?: SrcAlt };
     };
   };
-  photoBand?: { src: string; alt: string };
-  inspiration: { heading?: string; tag?: string; paragraphs?: string[] };
-  filmstrip?: FilmstripImg[];
+  photoBand?: SrcAlt;
+  // No `tag` any more -- node 391:1394's own Inspiration redesign drops
+  // it entirely (the Sanity field itself still exists on
+  // collectivePage.inspiration for schema continuity, just unused here).
+  inspiration: { heading?: string; paragraphs?: string[] };
+  inspirationGallery?: SrcAlt[];
 };
 
 export async function getCollectivePage(): Promise<CollectivePage | undefined> {
@@ -63,12 +66,9 @@ export async function getCollectivePage(): Promise<CollectivePage | undefined> {
   );
   if (!doc) return undefined;
 
-  const filmstrip = doc.filmstrip
-    ?.map((item) => {
-      const image = toSrcAlt(item.image);
-      return image ? { ...image, wide: item.wide ?? false } : undefined;
-    })
-    .filter((x): x is FilmstripImg => Boolean(x));
+  const inspirationGallery = doc.inspirationGallery
+    ?.map((img) => toSrcAlt(img))
+    .filter((x): x is SrcAlt => Boolean(x));
 
   return {
     foundation: {
@@ -94,9 +94,8 @@ export async function getCollectivePage(): Promise<CollectivePage | undefined> {
     photoBand: toSrcAlt(doc.photoBand),
     inspiration: {
       heading: doc.inspiration?.heading,
-      tag: doc.inspiration?.tag,
       paragraphs: doc.inspiration?.paragraphs?.length ? doc.inspiration.paragraphs : undefined,
     },
-    filmstrip: filmstrip?.length ? filmstrip : undefined,
+    inspirationGallery: inspirationGallery?.length ? inspirationGallery : undefined,
   };
 }

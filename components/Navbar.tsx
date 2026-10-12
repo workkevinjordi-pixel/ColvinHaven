@@ -55,10 +55,10 @@ export default function Navbar({ solid = false }: NavbarProps) {
         className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}`}
       >
         <div className="navbar__inner">
-          {/* The "II/VII" index mark doubles as the entry point to News --
+          {/* The "I/V" index mark doubles as the entry point to News --
               per direct instruction, this is how that page gets reached. */}
           <a href="/news" className="navbar__index" aria-label="News">
-            II/VII
+            I/V
           </a>
 
           <div className="navbar__actions">

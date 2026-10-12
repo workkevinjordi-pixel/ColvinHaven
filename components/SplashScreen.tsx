@@ -4,14 +4,14 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const SESSION_KEY = "ch-splash-seen";
 
-// Three beats, ~7s total: hold on the solid color, then the "II/VII"
+// Three beats, ~7s total: hold on the solid color, then the "I/V"
 // mark travels to the navbar's corner while the field is STILL fully
 // opaque, then the field dissolves to reveal the Hero underneath (the
 // mark, already home, just sits there through this last beat).
 //
 // This used to be two beats instead of three: the mark's move and the
 // field's fade ran *simultaneously*, both starting the instant "leaving"
-// began. That looked broken -- a ghosted double "II/VII" -- because
+// began. That looked broken -- a ghosted double "I/V" -- because
 // opacity on the outer .splash div affects everything inside it,
 // including the moving mark: as the field thinned, the real navbar mark
 // underneath became visible through it at the same time the splash's
@@ -124,7 +124,7 @@ export default function SplashScreen() {
   }, []);
 
   // The moment the hold ends, slide the mark from its centered position
-  // to wherever the real navbar's own "II/VII" corner mark sits
+  // to wherever the real navbar's own "I/V" corner mark sits
   // (measured live, so it's exact at any viewport size) -- a FLIP. The
   // solid field is still fully opaque through this whole beat (opacity
   // only starts changing in the "revealing" phase below), so nothing
@@ -158,7 +158,7 @@ export default function SplashScreen() {
       aria-hidden="true"
     >
       <span className="splash__index" ref={indexRef}>
-        II/VII
+        I/V
       </span>
     </div>
   );

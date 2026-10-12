@@ -505,7 +505,7 @@ button:focus-visible,
   white-space: nowrap;
 }
 
-/* Sitewide gold "II/VII" mark (was a per-page .hpn-page-scoped accent
+/* Sitewide gold "I/V" mark (was a per-page .hpn-page-scoped accent
    for homepage-new/editions-new/landing only -- now every page's own
    index mark, on an explicit "all pages" request). Unconditional --
    an earlier version only applied this in the *unscrolled, transparent*

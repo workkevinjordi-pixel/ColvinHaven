@@ -6088,11 +6088,14 @@ button:focus-visible,
 }
 
 /* Full-bleed to this section's own 1440px canvas -- no --gutter inset,
-   unlike the intro row right above it. */
+   unlike the intro row right above it -- and edge to edge of that
+   canvas itself: no margin on the row or its items, just a tight 4px
+   gap between photos (explicit follow-up request, down from 24px). */
 .collective-inspiration-v2__gallery {
   width: 100%;
+  margin: 0;
   display: flex;
-  gap: 24px;
+  gap: 4px;
   align-items: center;
 }
 
@@ -6100,6 +6103,7 @@ button:focus-visible,
   position: relative;
   flex: 0 0 280px;
   height: 473px;
+  margin: 0;
 }
 
 /* The middle slot (index 2) flexes to fill the row's remaining width
@@ -6127,7 +6131,9 @@ button:focus-visible,
 
   .collective-inspiration-v2__gallery-item,
   .collective-inspiration-v2__gallery-item--flex {
-    flex: 1 1 calc(50% - 12px);
+    /* Half the row's own 4px gap, not the old 24px gap this was
+       originally derived from. */
+    flex: 1 1 calc(50% - 2px);
     height: 280px;
   }
 }

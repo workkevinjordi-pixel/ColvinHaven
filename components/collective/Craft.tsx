@@ -2,8 +2,8 @@ import Image from "next/image";
 import ScrollFade from "../ScrollFade";
 
 type CraftProps = {
+  eyebrow?: string;
   heading?: string;
-  tag?: string;
   row?: {
     main?: { image?: { src: string; alt: string }; text?: string[] };
     side?: { image?: { src: string; alt: string } };
@@ -13,10 +13,15 @@ type CraftProps = {
 // Matches the content migrated into Sanity's collectivePage.craft (see
 // lib/sanity/collective.ts and app/collective/page.tsx) -- kept as a
 // fallback here in case the fetch ever comes back empty, not the
-// source of truth. Re-synced against the current Figma frame (node
-// 391:1394): same tag/images as before, but the heading is now
-// "COLLECTIVE" (not "Craft") and the body copy is a full rewrite --
-// the team's own bios, not the old craftsmanship-materials copy.
+// source of truth. Re-synced twice against the same Figma frame (node
+// 391:1394) as it kept evolving -- this second pass drops the dot-tag
+// "THE CORE" row entirely (same shell Foundation's own second pass
+// dropped) in favor of a small eyebrow + a longer heading sentence,
+// and promotes the body's own old opening line ("Behind every home is
+// the same team.") into that new heading, reworded slightly ("...same
+// LOCAL team") -- it's no longer one of the body paragraphs.
+const DEFAULT_EYEBROW = "COLLECTIVE";
+const DEFAULT_HEADING = "Behind every home is the same local team";
 const DEFAULT_ROW: Required<CraftProps>["row"] = {
   main: {
     image: {
@@ -24,7 +29,6 @@ const DEFAULT_ROW: Required<CraftProps>["row"] = {
       alt: "A timber A-frame hoist unloading materials from a delivery truck on site",
     },
     text: [
-      "Behind every home is the same team.",
       "Astrid leads the architecture.",
       "Nyoman leads the build.",
       "Runta is the master of the gardens.",
@@ -41,7 +45,7 @@ const DEFAULT_ROW: Required<CraftProps>["row"] = {
 };
 
 /**
- * Heading/divider/tag, then a two-column row -- a captioned photo +
+ * Heading/eyebrow group, then a two-column row -- a captioned photo +
  * copy on the left, a single tall uncaptioned photo on the right.
  * Structurally close to EditionSpotlight's row, but the side photo
  * here is taller (773px, not 473px) and carries no caption, so it
@@ -49,18 +53,15 @@ const DEFAULT_ROW: Required<CraftProps>["row"] = {
  * row directly. Content now comes from Sanity's collectivePage.craft.
  *
  * Still named/scoped "Craft" internally (.craft, CraftProps, this
- * file's own name) even though the current Figma frame's own heading
+ * file's own name) even though the current Figma frame's own eyebrow
  * for this section reads "COLLECTIVE" -- renaming the component/CSS
  * for a copy-only change is unrelated churn, same reasoning
  * EditionsHero's own doc comment already applies elsewhere on this
- * site. The earlier "middle paragraph gets extra top spacing" per-index
- * class doesn't carry forward -- the new team-bio copy has no
- * equivalent break worth special-casing, every paragraph here reads
- * fine with this shell's uniform 24px gap.
+ * site.
  */
 export default function Craft({
-  heading = "COLLECTIVE",
-  tag = "THE CORE",
+  eyebrow = DEFAULT_EYEBROW,
+  heading = DEFAULT_HEADING,
   row = DEFAULT_ROW,
 }: CraftProps) {
   const mainImage = row.main?.image ?? DEFAULT_ROW.main!.image!;
@@ -69,12 +70,10 @@ export default function Craft({
 
   return (
     <section className="craft">
-      <ScrollFade>
-        <h2 className="section-heading">{heading}</h2>
-        <hr className="values__divider" />
-        <div className="values__tag craft__tag">
-          <span className="values__dot" />
-          <span>{tag}</span>
+      <ScrollFade className="craft__body">
+        <div className="craft__heading-group">
+          <p className="craft__eyebrow">{eyebrow}</p>
+          <h2 className="craft__heading">{heading}</h2>
         </div>
 
         <div className="craft__row">

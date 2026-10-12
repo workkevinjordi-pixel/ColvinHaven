@@ -6064,6 +6064,11 @@ button:focus-visible,
 
 .collective-inspiration-v2__heading {
   flex: 1 1 0%;
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 2.4px;
+  color: var(--ink);
 }
 
 .collective-inspiration-v2__text {
@@ -6173,7 +6178,9 @@ button:focus-visible,
   display: flex;
   align-items: flex-start;
   gap: 120px;
-  padding: 60px 80px 60px 120px;
+  /* Re-synced against the current Figma frame -- symmetric 120px both
+     sides now (was 120px left / 80px right). */
+  padding: 60px 120px;
 }
 
 .collective-publications__cover {
@@ -6257,46 +6264,53 @@ button:focus-visible,
   align-items: flex-start;
 }
 
+/* Re-synced against the current Figma frame (node 391:1394, second
+   pass): a plain side-by-side row now, not the previous overlapping
+   collage (two absolutely-positioned photos at different offsets/
+   sizes) -- two equal-width photos, 4px gap, both 485px tall. */
 .foundation__collage {
-  position: relative;
-  /* Re-synced against node 334:39878 (within the current /collective
-     Figma frame, 334:39855): the container's own real bounding size
-     to hold both --a/--b images (0,0,305,423 and 332,99,305,485,
-     already correct below) is 637x584, not the previous 752x473 --
-     that stale box was both too wide (clipping nothing, just empty
-     space) and too short (actually clipping image --b, whose own
-     99+485=584 bottom edge overflowed the old 473px height). */
+  display: flex;
+  gap: 4px;
   flex: 0 0 637px;
   width: 637px;
-  height: 584px;
+  height: 485px;
 }
 
 .foundation__collage-img {
-  position: absolute;
+  position: relative;
+  flex: 1 1 0%;
   overflow: hidden;
-}
-
-.foundation__collage-img--a {
-  left: 0;
-  top: 0;
-  width: 305px;
-  height: 423px;
-}
-
-.foundation__collage-img--b {
-  left: 332px;
-  top: 99px;
-  width: 305px;
-  height: 485px;
 }
 
 .foundation__text {
   flex: 1 1 0%;
-  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.foundation__copy .values__tag {
-  margin-bottom: 24px;
+/* Eyebrow + heading sentence, replacing the previous plain
+   .section-heading + divider + dot-tag row entirely. */
+.foundation__heading-group {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.foundation__eyebrow {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.foundation__heading {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--ink);
 }
 
 .foundation__copy p {
@@ -6310,6 +6324,19 @@ button:focus-visible,
   margin-bottom: 0;
 }
 
+/* Standalone closing line, same gold accent as the homepage's own
+   Collective intro note (.landing-intro__note, #8b6915) -- a distinct
+   accent from the sitewide nav-index gold, #c7a95f. */
+.foundation__note {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: #8b6915;
+}
+
 /* ---------- Craft ---------- */
 
 .craft {
@@ -6318,8 +6345,35 @@ button:focus-visible,
   padding: 120px var(--gutter);
 }
 
-.craft__tag {
-  margin-bottom: 24px;
+.craft__body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Eyebrow + heading sentence, replacing the previous plain
+   .section-heading + divider + dot-tag ("THE CORE") row entirely --
+   same pattern as Foundation's own second-pass redesign. */
+.craft__heading-group {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.craft__eyebrow {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.craft__heading {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--ink);
 }
 
 .craft__row {
@@ -6371,7 +6425,6 @@ button:focus-visible,
   }
 
   .foundation__text {
-    padding-top: 0;
     width: 100%;
   }
 
@@ -6424,18 +6477,6 @@ button:focus-visible,
 
   .foundation__collage {
     height: 328px;
-  }
-
-  .foundation__collage-img--a {
-    width: 48%;
-    height: 72%;
-  }
-
-  .foundation__collage-img--b {
-    left: 52%;
-    top: 17%;
-    width: 48%;
-    height: 83%;
   }
 
   .craft {
@@ -6970,8 +7011,7 @@ button:focus-visible,
 
   /* Percentage-based instead of the fixed pixel offsets/sizes the
      desktop layout uses (left: 332px etc.) -- at this width those would
-     overflow the now-much-narrower collage box entirely, exactly as
-     .foundation__collage-img--a/--b already handle the same problem. */
+     overflow the now-much-narrower collage box entirely. */
   .news-pull-quote__collage {
     height: 328px;
   }

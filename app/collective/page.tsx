@@ -38,20 +38,33 @@ const DEFAULT_PHOTO_BAND = {
 // 120px apart per the site-wide rule every other page's Footer
 // already follows.
 //
-// Re-synced again against node 391:1394 (explicit "implement this
-// design from Figma" follow-up): Foundation's own tag + bio copy fully
-// rewritten (new, much longer founder biography) with two new collage
-// photos; Craft's own heading now reads "COLLECTIVE" (component/CSS
-// still named "craft" internally -- see Craft.tsx's own comment) with
-// an entirely new team-bio copy, same images/layout otherwise;
-// Inspiration drops its label tag and switches to a side-by-side
-// heading/paragraph layout with new copy, and now owns its own
-// five-photo gallery row directly (new photos throughout, static not
-// marquee) -- the separate <Filmstrip> call and its own
-// .collective-inspiration wrapper are gone, folded into Inspiration
-// itself since Figma treats the text block and the gallery as one
-// 24px-gapped section. The standalone photo band and Publications are
-// unchanged from the previous sync.
+// Re-synced against node 391:1394 twice as that frame itself kept
+// evolving (both explicit "implement this design from Figma" follow-
+// ups, not incrementally patched from assumptions):
+//
+// First pass: Foundation's own tag + bio copy fully rewritten (new,
+// much longer founder biography) with two new collage photos; Craft's
+// own heading changed to "COLLECTIVE" with an entirely new team-bio
+// copy, same images/layout otherwise; Inspiration dropped its label
+// tag and switched to a side-by-side heading/paragraph layout with new
+// copy, gaining its own five-photo gallery row directly (new photos,
+// static not marquee) -- the separate <Filmstrip> call and its own
+// .collective-inspiration wrapper were removed, folded into
+// Inspiration itself.
+//
+// Second pass: Foundation and Craft both moved from a plain-heading +
+// divider + dot-tag shell to a shared "small eyebrow + large serif
+// heading sentence" pattern instead (Foundation: "FOUNDATION" / "A
+// chef who learned to design and build homes."; Craft: "COLLECTIVE" /
+// "Behind every home is the same local team", promoting that line out
+// of the body paragraphs). Foundation's own collage switched from two
+// overlapping photos to a plain side-by-side row, and gained a
+// standalone italic closing note. Inspiration's own heading switched
+// from the shared 32px .section-heading class to the same 24px
+// Cormorant treatment Foundation/Craft's new headings use. Publications'
+// own slide padding corrected to symmetric 120px (was asymmetric
+// 120px/80px). The standalone photo band is unchanged throughout both
+// passes.
 //
 // Foundation/Craft/Inspiration/its own gallery content all come from
 // Sanity (getCollectivePage()), fetched once here and passed down as
@@ -64,13 +77,18 @@ export default async function CollectivePage() {
     <>
       <Navbar solid />
       <Foundation
+        eyebrow={page?.foundation.tag}
         heading={page?.foundation.heading}
-        tag={page?.foundation.tag}
         collageImageA={page?.foundation.collageImageA}
         collageImageB={page?.foundation.collageImageB}
         paragraphs={page?.foundation.paragraphs}
+        closingNote={page?.foundation.closingNote}
       />
-      <Craft heading={page?.craft.heading} tag={page?.craft.tag} row={page?.craft.row} />
+      <Craft
+        eyebrow={page?.craft.tag}
+        heading={page?.craft.heading}
+        row={page?.craft.row}
+      />
       <div className="collective-band-section collective-mountain-band">
         <PhotoBand
           src={page?.photoBand?.src ?? DEFAULT_PHOTO_BAND.src}

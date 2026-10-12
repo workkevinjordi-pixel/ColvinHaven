@@ -2,16 +2,23 @@ import { defineField, defineType } from "sanity";
 
 /**
  * Singleton (_id: "collectivePage") for the /collective page's own
- * content: Foundation -> Craft (its own heading now reads "COLLECTIVE"
- * on the current Figma frame, node 391:1394 -- the field/component are
- * still named "craft" internally, not renamed, to avoid unrelated
- * churn) -> standalone photo band -> Inspiration, now with its own
- * gallery row folded in (node 391:1394 redesign: no more tag, no more
- * marquee -- a static row, so `inspirationGallery` replaced the old
- * `filmstrip` field entirely, dropping the now-unused `wide` toggle).
- * Publications (the same list every edition/news page reuses) is its
- * own "publication" document type, not part of this singleton -- see
- * studio/schemaTypes/documents/publication.ts.
+ * content: Foundation -> Craft (component/field still named "craft"
+ * internally -- a copy-only change doesn't warrant renaming it, see
+ * Craft.tsx's own comment) -> standalone photo band -> Inspiration,
+ * with its own gallery row folded in -> Publications (its own
+ * "publication" document type, not part of this singleton -- see
+ * studio/schemaTypes/documents/publication.ts).
+ *
+ * Re-synced twice against the same Figma frame (node 391:1394) as it
+ * kept evolving: Foundation and Craft both now follow a shared
+ * "eyebrow label + a short, large serif heading" pattern instead of
+ * their original "big plain heading + divider + dot-tag" shell --
+ * `tag` on each now holds that short eyebrow text (e.g. "FOUNDATION"),
+ * and `heading` holds the new, longer heading sentence (e.g. "A chef
+ * who learned to design and build homes.") rather than the single-word
+ * section name it used to. Foundation also gained `closingNote`, a
+ * standalone italic line in the same gold as the homepage's own
+ * Collective intro note.
  */
 export default defineType({
   name: "collectivePage",
@@ -23,11 +30,16 @@ export default defineType({
       title: "Foundation",
       type: "object",
       fields: [
-        defineField({ name: "heading", type: "string" }),
-        defineField({ name: "tag", title: "Label tag", type: "string" }),
-        defineField({ name: "collageImageA", title: "Collage image (back)", type: "imageWithAlt" }),
-        defineField({ name: "collageImageB", title: "Collage image (front)", type: "imageWithAlt" }),
+        defineField({ name: "tag", title: "Eyebrow label", description: 'e.g. "FOUNDATION"', type: "string" }),
+        defineField({ name: "heading", title: "Heading sentence", type: "text" }),
+        defineField({ name: "collageImageA", title: "Collage image (left)", type: "imageWithAlt" }),
+        defineField({ name: "collageImageB", title: "Collage image (right)", type: "imageWithAlt" }),
         defineField({ name: "paragraphs", type: "array", of: [{ type: "text" }] }),
+        defineField({
+          name: "closingNote",
+          title: "Closing note (italic, gold)",
+          type: "text",
+        }),
       ],
     }),
     defineField({
@@ -35,8 +47,8 @@ export default defineType({
       title: "Craft",
       type: "object",
       fields: [
-        defineField({ name: "heading", type: "string" }),
-        defineField({ name: "tag", title: "Label tag", type: "string" }),
+        defineField({ name: "tag", title: "Eyebrow label", description: 'e.g. "COLLECTIVE"', type: "string" }),
+        defineField({ name: "heading", title: "Heading sentence", type: "text" }),
         defineField({ name: "row", title: "Image + text row", type: "imageTextRow" }),
       ],
     }),

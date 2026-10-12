@@ -56,6 +56,14 @@ const FLEX_INDEX = 2;
  * component via StatementSection, plus a separate <Filmstrip> call in
  * app/collective/page.tsx); now one component owns the whole section
  * since Figma treats them as a single 24px-gapped block.
+ *
+ * The heading's own typography was re-synced on a second pass against
+ * this same frame: now a 24px Cormorant Garamond/2.4px-tracking
+ * sentence-style heading (its own scoped
+ * .collective-inspiration-v2__heading rule), not the shared 32px Plus
+ * Jakarta Sans .section-heading class every other big section heading
+ * on the site still uses -- matches the same shift Foundation/Craft's
+ * own headings just went through on this page.
  */
 export default function Inspiration({
   heading = "Inspiration",
@@ -65,7 +73,7 @@ export default function Inspiration({
   return (
     <section className="collective-inspiration-v2">
       <ScrollFade className="collective-inspiration-v2__intro">
-        <h2 className="section-heading collective-inspiration-v2__heading">{heading}</h2>
+        <h2 className="collective-inspiration-v2__heading">{heading}</h2>
         <div className="collective-inspiration-v2__text">
           {paragraphs.map((p, i) => (
             <p key={i}>{p}</p>

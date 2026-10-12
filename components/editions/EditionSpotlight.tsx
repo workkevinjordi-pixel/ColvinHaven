@@ -1,9 +1,19 @@
 import Image from "next/image";
 import type { EditionData } from "./editions-data";
 
-export function ImageTextRow({ row }: { row: EditionData["row1"] }) {
+export function ImageTextRow({
+  row,
+  id,
+}: {
+  row: EditionData["row1"];
+  /** Same role as GalleryRow's own `id` -- lets a layout mark whichever
+   * block happens to be its last piece of edition content, which is
+   * what EditionStickyBanner watches to know when to hide itself. In
+   * Sora's layout that's this row, not a gallery. */
+  id?: string;
+}) {
   return (
-    <div className="edition-spotlight__row">
+    <div className="edition-spotlight__row" id={id}>
       <div className="edition-spotlight__row-main">
         <div className="edition-spotlight__row-image">
           <Image

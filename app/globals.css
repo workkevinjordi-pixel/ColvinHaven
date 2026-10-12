@@ -5742,6 +5742,21 @@ button:focus-visible,
   min-width: 0;
 }
 
+/* Sora's frame repeats the edition title above its craft paragraphs
+   (node 371:40340) -- same 32px Medium treatment as
+   .edition-story__title itself, with that frame's own 24px gap down to
+   the first paragraph. Only rendered for the sora layout. Scoped under
+   the column rather than left bare: it IS a <p>, so the sibling
+   `.edition-story__craft-text p` rule below would otherwise outrank a
+   lone class selector and force it back to 16px. */
+.edition-story__craft-text .edition-story__craft-heading {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: normal;
+  color: #1d190f;
+  margin-bottom: 24px;
+}
+
 .edition-story__craft-text p {
   font-size: 16px;
   line-height: 24px;

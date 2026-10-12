@@ -155,6 +155,15 @@ export default function EditionStorySummary({
             ))}
           </div>
           <div className="edition-story__craft-text">
+            {/* Sora's frame repeats the edition title here, above the
+                craft paragraphs, on top of the title block over the
+                divider further up (node 371:40340 -- a later addition
+                to that frame than the rest of its 325:* nodes). Tsuki's
+                own frame has no such node, so this is sora-only rather
+                than a shared change. */}
+            {layout === "sora" && (
+              <p className="edition-story__craft-heading">{title}</p>
+            )}
             {craftText.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
@@ -175,7 +184,7 @@ export default function EditionStorySummary({
             <ImageTextRow row={row1ForPage} />
             {banner1Block}
             {storyABlock}
-            <GalleryRow images={galleryRow} id={finalGalleryId} />
+            <GalleryRow images={galleryRow} />
 
             <div className="edition-story__side-block edition-story__side-block--b">
               <div className="edition-story__side-block-image">
@@ -205,7 +214,12 @@ export default function EditionStorySummary({
               </div>
             </div>
 
-            <ImageTextRow row={row4ForPage} />
+            {/* The gallery sits mid-story in this layout, so the marker
+                EditionStickyBanner watches goes here instead -- this
+                row really is the last edition content before the
+                closing banner. (On /editions the id is inert, just
+                keeping the two editions' markers unique.) */}
+            <ImageTextRow row={row4ForPage} id={finalGalleryId} />
           </>
         ) : (
           <>

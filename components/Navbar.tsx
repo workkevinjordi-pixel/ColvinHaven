@@ -55,9 +55,15 @@ export default function Navbar({ solid = false }: NavbarProps) {
         className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}`}
       >
         <div className="navbar__inner">
-          {/* The "I/V" index mark doubles as the entry point to News --
-              per direct instruction, this is how that page gets reached. */}
-          <a href="/news" className="navbar__index" aria-label="News">
+          {/* The "I/V" index mark doubles as the entry point to the Sora
+              edition -- per direct instruction, this is how that page gets
+              reached. (It previously pointed at /news, which now has no
+              nav entry point of its own.) */}
+          <a
+            href="/editions/umah-sora"
+            className="navbar__index"
+            aria-label="Umah Sora"
+          >
             I/V
           </a>
 

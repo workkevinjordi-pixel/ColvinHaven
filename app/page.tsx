@@ -45,11 +45,11 @@ const EDITIONS_FALLBACK_BODY = [
 // adds an "EDITIONS" eyebrow, a new heading ("TSUKI, THE MOON. SORA,
 // THE SKY") with a subtitle under it, and replaces the old three-
 // paragraph SHARED_COPY body with one italic lead sentence + one body
-// paragraph. The link reads "Deep Diver" and goes to /editions (direct
-// instruction). It briefly read "Request access" ->
+// paragraph. The link reads "Dive deeper" and goes to /editions
+// (direct instruction). It briefly read "Request access" ->
 // /request-the-collections -- a guess, since Figma's own node data
-// specifies no href at all (just text + an icon) -- before being set
-// explicitly. Figma's own subtitle copy reads "Cut form the
+// specifies no href at all (just text + an icon) -- and then "Deep
+// Diver", before the label was settled. Figma's own subtitle copy reads "Cut form the
 // same cloth" (likely a "from" typo in their source) -- kept verbatim
 // per this project's usual practice of porting Figma's own copy
 // faithfully rather than silently correcting it.
@@ -146,7 +146,7 @@ export default async function Home() {
         heading={homepage?.editionsIntro.heading ?? "TSUKI, THE MOON. SORA, THE SKY"}
         subtitle={homepage?.editionsIntro.subtitle ?? "Cut form the same cloth, different in size"}
         lead={homepage?.editionsIntro.lead ?? "Stillness and wellness, built into every room."}
-        linkLabel={homepage?.editionsIntro.linkLabel ?? "Deep Diver"}
+        linkLabel={homepage?.editionsIntro.linkLabel ?? "Dive deeper"}
         linkHref={homepage?.editionsIntro.linkHref ?? "/editions"}
         centered
       >

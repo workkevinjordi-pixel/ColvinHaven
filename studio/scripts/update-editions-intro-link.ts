@@ -1,8 +1,10 @@
 /**
  * One-time update: repoints the homepage's "Editions" intro CTA from
- * "Request access" (-> /request-the-collections) to "Deep Diver"
- * (-> /editions), per direct instruction. Only the two link fields are
- * touched -- the eyebrow/heading/subtitle/lead/paragraphs set by
+ * "Request access" (-> /request-the-collections) to "Dive deeper"
+ * (-> /editions), per direct instruction. The label briefly read "Deep
+ * Diver" before being corrected here; the href was right from the
+ * start. Only the two link fields are touched -- the
+ * eyebrow/heading/subtitle/lead/paragraphs set by
  * scripts/update-editions-intro.ts all stay exactly as they are.
  *
  * Run via `npx sanity exec scripts/update-editions-intro-link.ts
@@ -29,7 +31,7 @@ async function main() {
   const result = await client
     .patch("homepage")
     .set({
-      "editionsIntro.linkLabel": "Deep Diver",
+      "editionsIntro.linkLabel": "Dive deeper",
       "editionsIntro.linkHref": "/editions",
     })
     .commit();

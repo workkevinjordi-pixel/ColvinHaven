@@ -8600,3 +8600,81 @@ button:focus-visible,
     aspect-ratio: 390 / 280;
   }
 }
+
+/* ---------- Global link interaction ----------
+   Every link underlines on hover (explicit request) and dips to 0.6
+   opacity while pressed -- the same value .next-edition-band__link and
+   the other opacity-dip links already use, so press feedback reads
+   consistently sitewide rather than introducing a second idiom. 3px
+   offset matches .editions-list__explore / .collective-publications__
+   link, the two links that were already permanently underlined.
+
+   Deliberately last in the file: plenty of components set
+   `text-decoration: none` through a `.class a` selector, which ties
+   `a:hover` on specificity (0,1,1) -- source order is what breaks the
+   tie, so these have to come after all of them.
+
+   The :not() list sits inside :where() so it contributes no
+   specificity of its own and the rule stays at that same 0,1,1,
+   beating nothing it shouldn't. What's excluded, and why:
+   - bordered buttons (.cta__button and friends) -- an underline inside
+     a button's box reads as a mistake, and each already has its own
+     background-tint + lift treatment for both hover and press.
+   - links already underlined by a border-bottom (.opt3-link,
+     .opt4-textlink, ...) -- they'd otherwise show two rules at once.
+   Links already carrying `text-decoration: underline` are left in:
+   the hover rule is simply a no-op for them. */
+a:where(
+    :not(
+        .statement-section__cta,
+        .centered-statement__cta,
+        .cta__button,
+        .gallery__link,
+        .request-collections__submit,
+        .opt2-btn,
+        .opt2-navbar__cta,
+        .opt3-btn,
+        .opt4-cta__button,
+        .opt3-link,
+        .opt4-textlink,
+        .opt4-nav__enquire,
+        .opt5-textlink
+      )
+  ):hover,
+a:where(
+    :not(
+        .statement-section__cta,
+        .centered-statement__cta,
+        .cta__button,
+        .gallery__link,
+        .request-collections__submit,
+        .opt2-btn,
+        .opt2-navbar__cta,
+        .opt3-btn,
+        .opt4-cta__button,
+        .opt3-link,
+        .opt4-textlink,
+        .opt4-nav__enquire,
+        .opt5-textlink
+      )
+  ):focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:where(
+    :not(
+        .statement-section__cta,
+        .centered-statement__cta,
+        .cta__button,
+        .gallery__link,
+        .request-collections__submit,
+        .opt2-btn,
+        .opt2-navbar__cta,
+        .opt3-btn,
+        .opt4-cta__button
+      )
+  ):active {
+  opacity: 0.6;
+}

@@ -6089,13 +6089,16 @@ button:focus-visible,
 
 /* Full-bleed to this section's own 1440px canvas -- no --gutter inset,
    unlike the intro row right above it -- and edge to edge of that
-   canvas itself: no margin on the row or its items, just a tight 4px
-   gap between photos (explicit follow-up request, down from 24px). */
+   canvas itself: no margin on the row or its items (Figma's own node
+   391:1451 is `size-full` with no margin/padding of its own), 24px
+   gap between photos. A brief detour to 4px happened here on an
+   explicit instruction before this node was re-checked directly --
+   corrected back to 24px to match what Figma actually specifies. */
 .collective-inspiration-v2__gallery {
   width: 100%;
   margin: 0;
   display: flex;
-  gap: 4px;
+  gap: 24px;
   align-items: center;
 }
 
@@ -6131,9 +6134,8 @@ button:focus-visible,
 
   .collective-inspiration-v2__gallery-item,
   .collective-inspiration-v2__gallery-item--flex {
-    /* Half the row's own 4px gap, not the old 24px gap this was
-       originally derived from. */
-    flex: 1 1 calc(50% - 2px);
+    /* Half the row's own 24px gap. */
+    flex: 1 1 calc(50% - 12px);
     height: 280px;
   }
 }

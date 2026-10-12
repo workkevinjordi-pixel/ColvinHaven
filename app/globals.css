@@ -6087,18 +6087,25 @@ button:focus-visible,
   margin-bottom: 0;
 }
 
-/* Full-bleed to this section's own 1440px canvas -- no --gutter inset,
-   unlike the intro row right above it -- and edge to edge of that
-   canvas itself: no margin on the row or its items (Figma's own node
-   391:1451 is `size-full` with no margin/padding of its own), 24px
-   gap between photos. A brief detour to 4px happened here on an
-   explicit instruction before this node was re-checked directly --
-   corrected back to 24px to match what Figma actually specifies. */
+/* Edge to edge of the actual browser viewport -- explicit instruction,
+   overriding Figma node 391:1451's own 1440px-canvas-relative framing.
+   .collective-inspiration-v2 (the ancestor) is centered via `margin:
+   0 auto` under a max-width, so on any screen wider than that max-width
+   the row would otherwise sit inset with whitespace on both sides. The
+   `width: 100vw` + `margin: 0 calc(50% - 50vw)` pair is the standard
+   "break out of a centered container" technique: the negative
+   left/right margin isn't a stray margin left on the row, it's what
+   pulls a 100vw-wide box back so it's centered under the real viewport
+   instead of under its own narrower parent -- the row and its items
+   otherwise carry zero margin/padding, full-bleed at every breakpoint.
+   4px gap between photos, per explicit instruction (not Figma's own
+   24px for this node -- asked for twice now, so taken as a deliberate
+   override rather than the literal spec). */
 .collective-inspiration-v2__gallery {
-  width: 100%;
-  margin: 0;
+  width: 100vw;
+  margin: 0 calc(50% - 50vw);
   display: flex;
-  gap: 24px;
+  gap: 4px;
   align-items: center;
 }
 
@@ -6129,13 +6136,12 @@ button:focus-visible,
 
   .collective-inspiration-v2__gallery {
     flex-wrap: wrap;
-    padding: 0 var(--gutter);
   }
 
   .collective-inspiration-v2__gallery-item,
   .collective-inspiration-v2__gallery-item--flex {
-    /* Half the row's own 24px gap. */
-    flex: 1 1 calc(50% - 12px);
+    /* Half the row's own 4px gap. */
+    flex: 1 1 calc(50% - 2px);
     height: 280px;
   }
 }
@@ -6148,10 +6154,6 @@ button:focus-visible,
 
   .collective-inspiration-v2__intro {
     padding: 0 16px 24px;
-  }
-
-  .collective-inspiration-v2__gallery {
-    padding: 0 16px;
   }
 
   .collective-inspiration-v2__gallery-item,

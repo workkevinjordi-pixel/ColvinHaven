@@ -5742,21 +5742,6 @@ button:focus-visible,
   min-width: 0;
 }
 
-/* Sora's frame repeats the edition title above its craft paragraphs
-   (node 371:40340) -- same 32px Medium treatment as
-   .edition-story__title itself, with that frame's own 24px gap down to
-   the first paragraph. Only rendered for the sora layout. Scoped under
-   the column rather than left bare: it IS a <p>, so the sibling
-   `.edition-story__craft-text p` rule below would otherwise outrank a
-   lone class selector and force it back to 16px. */
-.edition-story__craft-text .edition-story__craft-heading {
-  font-weight: 500;
-  font-size: 32px;
-  line-height: normal;
-  color: #1d190f;
-  margin-bottom: 24px;
-}
-
 .edition-story__craft-text p {
   font-size: 16px;
   line-height: 24px;
@@ -5766,6 +5751,28 @@ button:focus-visible,
 }
 
 .edition-story__craft-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Sora's own frame for this row (node 325:39582) differs from the
+   shared treatment above in three ways: the three columns are top
+   aligned rather than centered, the craft paragraphs sit a full blank
+   line apart (24px, matching that frame's own empty-paragraph break)
+   instead of 16px, and they're 70% ink rather than solid. Scoped to a
+   modifier rather than changed on the base rules because only Sora's
+   frame has actually been checked -- Tsuki's sections (here and on its
+   own detail page, from the older node 232:4674) keep the centered,
+   16px, solid-ink version until its own frame says otherwise. */
+.edition-story__info-row--sora {
+  align-items: flex-start;
+}
+
+.edition-story__info-row--sora .edition-story__craft-text p {
+  color: rgba(29, 25, 15, 0.7);
+  margin-bottom: 24px;
+}
+
+.edition-story__info-row--sora .edition-story__craft-text p:last-child {
   margin-bottom: 0;
 }
 

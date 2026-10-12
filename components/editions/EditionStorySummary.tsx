@@ -145,7 +145,9 @@ export default function EditionStorySummary({
           <hr className="values__divider" />
         </div>
 
-        <div className="edition-story__info-row">
+        <div
+          className={`edition-story__info-row${layout === "sora" ? " edition-story__info-row--sora" : ""}`}
+        >
           <div className="edition-story__specs">
             {specs.map((spec) => (
               <div className="edition-story__spec" key={spec.label}>
@@ -155,15 +157,6 @@ export default function EditionStorySummary({
             ))}
           </div>
           <div className="edition-story__craft-text">
-            {/* Sora's frame repeats the edition title here, above the
-                craft paragraphs, on top of the title block over the
-                divider further up (node 371:40340 -- a later addition
-                to that frame than the rest of its 325:* nodes). Tsuki's
-                own frame has no such node, so this is sora-only rather
-                than a shared change. */}
-            {layout === "sora" && (
-              <p className="edition-story__craft-heading">{title}</p>
-            )}
             {craftText.map((p, i) => (
               <p key={i}>{p}</p>
             ))}

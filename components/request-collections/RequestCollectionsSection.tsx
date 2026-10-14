@@ -19,8 +19,8 @@ type RequestCollectionsSectionProps = {
 // field labels/placeholders stay hardcoded below -- structural form
 // chrome, not editorial content.
 const DEFAULT_IMAGE = {
-  src: "/assets/request-collection/porch-detail.jpg",
-  alt: "A shou sugi ban-clad entrance with a timber bench, seen beneath an overhanging shingled roof",
+  src: "/assets/write-to-us-water.jpg",
+  alt: "Dark, rippling water at dusk, in grayscale",
 };
 
 /**

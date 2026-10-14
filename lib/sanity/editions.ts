@@ -146,9 +146,9 @@ function mapEdition(doc: SanityEdition): EditionData {
 
 /**
  * Fetches both editions from Sanity, ordered the same way the old
- * static `editions` array was (Tsuki, then Sora) -- `index` sorts
- * correctly for that today ("I/VII" < "II/VII") and for any future
- * edition added in sequence.
+ * static `editions` array was (Tsuki, then Sora) -- by `index`, then
+ * by creation time, since both editions currently share the numeral
+ * "I/V" and the tie must still resolve Tsuki first.
  *
  * Revalidates every 60s (time-based -- no webhook/tag-based
  * invalidation wired up yet, matching this integration's own "focused
@@ -157,7 +157,7 @@ function mapEdition(doc: SanityEdition): EditionData {
  */
 export async function getEditions(): Promise<EditionData[]> {
   const docs = await client.fetch<SanityEdition[]>(
-    `*[_type == "edition"] | order(index asc) ${EDITION_PROJECTION}`,
+    `*[_type == "edition"] | order(index asc, _createdAt asc) ${EDITION_PROJECTION}`,
     {},
     { next: { revalidate: 60, tags: ["edition"] } },
   );

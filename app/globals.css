@@ -4530,6 +4530,23 @@ button:focus-visible,
   letter-spacing: 1.6px;
 }
 
+/* Gold note stacked directly over the link (node 407:673) -- no gap
+   between them beyond the link's own 12px padding. */
+.hpn-collections__cta {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hpn-collections__note {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: #a78224;
+}
+
 .hpn-collections__link {
   padding: 12px 0;
   font-weight: 300;

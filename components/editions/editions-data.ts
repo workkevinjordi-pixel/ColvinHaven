@@ -115,9 +115,21 @@ export type EditionData = {
   editionsRow4MainText?: string[];
   /** Same pattern, for the second photo's caption (row4's side image). */
   editionsRow4SideText?: string;
+  /** Captions under the two-photo row near the top of Sora's story
+   * (row1's main and side images) -- same mirror pattern. A "\n" in a
+   * caption renders as a line break. Fall back to row1's own text. */
+  editionsRow1MainText?: string[];
+  editionsRow1SideText?: string;
+  /** Same pattern, for storyB.paragraphs. When set, storyB's own link
+   * paragraph is dropped too (Sora's frame has no link there). */
+  editionsStoryBParagraphs?: string[];
   /** Same pattern, for storyA.paragraphs. Falls back to
    * `storyA.paragraphs` when unset. */
   editionsStoryAParagraphs?: string[];
+  /** Gold note + italic arrow link under the storyA copy on /editions
+   * and /editions/[slug] (Sora's frame, node 325:39611) -- same mirror
+   * pattern. Omitted for editions whose storyA has no call to action. */
+  editionsStoryACta?: { note: string; label: string; href: string };
   /** Same pattern, for quoteBanner.heading. Falls back to
    * `quoteBanner.heading` when unset. */
   editionsQuoteHeading?: string;
@@ -234,17 +246,42 @@ export const EDITIONS_PAGE_OVERRIDES: Record<string, Partial<EditionData>> = {
       "“Designed to belong, Tsuki editions disappear into the landscape, honoring the land rather than overtaking it”",
   },
   "umah-sora": {
-    editionsHeroImage: {
-      src: "/assets/editions/detail/editions-sora-hero-pavilion.jpg",
-      alt: "A dark timber pavilion roofline seen through palm fronds, with a second pavilion beyond",
+    // storyA copy, note and link from Sora's own frame, node 325:39611
+    // (copy verbatim, including "though the paddies").
+    editionsStoryAParagraphs: [
+      "Sora floats over its natural landscape. We studied older Japanese facades to give this house a timeless feel, where the new meets the old. Classic, refined by our local craftsmen, and not one line out of order.",
+      "There are many places here to sit and be still, and this is one of the best for the morning. Bring a coffee. Watch the gardens wake up, the farmers move though the paddies and the light reach Mount Batukaru. It’s a view that has been here long before the house",
+    ],
+    editionsStoryACta: {
+      note: "Visits to Sora are by invitation.",
+      label: "Write to us",
+      href: "/write-to-us",
     },
+    editionsHeroImage: {
+      src: "/assets/editions/detail/sora-hero-slats.jpg",
+      alt: "Charred timber slats beside a covered walkway, with a shingled pavilion roof among tropical foliage",
+    },
+    editionsRow1MainText: [
+      "An open-air corridor keeps you connected to the elements, every step of the way. The roof gives shades, and the garden stays within reach. Step slowly: the walkway was made for it.",
+    ],
+    editionsRow1SideText:
+      "An old piece of solid teak, brought back to life.\nSit here and be still",
+    editionsRow4MainText: [
+      "Welcome to the living room: the place to go gather with friends and family. When the day warms up, the natural salt pool is just beyond the sofa.",
+    ],
+    editionsRow4SideText:
+      "Seven steps down come up and the day gets quitter. Welcome to Sora.",
+    editionsStoryBParagraphs: [
+      "Every home has a room where everyone ends up and here it is the kitchen. Designing a home is a lot like cooking, you start with blank canvas then you decide how it should taste, feel, and look.",
+      "The design is one thing, but lighting is where the magic comes from. The washi lantern above the counter comes from an old paper lamp company in Japan, made with traditional techniques that have been passed down for generations. We source many of the lights in our home, and now we design number of them ourselves.",
+    ],
     // Info-row copy and portrait from Sora's own frame, node 325:39582.
     editionsPortraitImage: {
       src: "/assets/editions/detail/gallery-1.jpg",
       alt: "Ferns arching over a still koi pond edged with river stones",
     },
     editionsCraftText: [
-      "Sora carries the same quiet reverence for nature as Tsuki: a two-bedroom home and guest house with a separate office.",
+      "Across 300 square metres, Sora carries the same quiet reverence for nature as Tsuki: a two-bedroom home and guest house with a separate office.",
       "Recycled ulin timber, charred in the yakisugi tradition, turns the cladding a deep, quiet black, a Colvin Haven signature, set against warm local teak and river stone from Bali. Restraint does the work: nothing more is needed, and nothing can be taken away. A wellness centre and a koi pond settle into gardens planted long before the house was finished. The office stands apart, so the working day can end when you close its door.",
     ],
     editionsRow1SideImage: {

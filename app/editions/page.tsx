@@ -84,6 +84,7 @@ export default async function EditionsPage() {
             data={edition}
             layout={edition.slug === "umah-sora" ? "sora" : "tsuki"}
             finalGalleryId={`${edition.slug}-final-gallery`}
+            tightBottom={edition.slug === "umah-sora"}
           />
         </div>
       ))}

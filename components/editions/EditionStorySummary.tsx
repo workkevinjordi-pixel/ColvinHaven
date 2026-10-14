@@ -51,10 +51,14 @@ export default function EditionStorySummary({
   data,
   layout = "tsuki",
   finalGalleryId = "edition-final-gallery",
+  tightBottom = false,
 }: {
   data: EditionData;
   layout?: "tsuki" | "sora";
   finalGalleryId?: string;
+  /** 60px (not 120px) of bottom padding -- /editions passes this for
+   * Sora, the last story before the Collection section. */
+  tightBottom?: boolean;
 }) {
   const {
     title,
@@ -82,9 +86,13 @@ export default function EditionStorySummary({
     editionsRow4SideImage,
     editionsCraftText,
     editionsStoryAParagraphs,
+    editionsStoryACta,
     editionsQuoteHeading,
+    editionsRow1MainText,
+    editionsRow1SideText,
     editionsRow4MainText,
     editionsRow4SideText,
+    editionsStoryBParagraphs,
   } = data;
 
   const hero = editionsHeroImage ?? detailHeroImage ?? heroImage;
@@ -98,12 +106,30 @@ export default function EditionStorySummary({
   // so this overlays the one field without touching row1/row4 themselves
   // (still read directly by EditionSpotlight on /editions/[slug] and
   // /editions-new).
-  const row1ForPage = editionsRow1SideImage
-    ? { ...row1, side: { ...row1.side, image: editionsRow1SideImage } }
-    : row1;
-  const row4ForPage = editionsRow4SideImage
-    ? { ...row4, side: { ...row4.side, image: editionsRow4SideImage } }
-    : row4;
+  const row1ForPage = {
+    main: {
+      ...row1.main,
+      text: editionsRow1MainText ?? row1.main.text,
+    },
+    side: {
+      ...row1.side,
+      image: editionsRow1SideImage ?? row1.side.image,
+      text: editionsRow1SideText ?? row1.side.text,
+    },
+  };
+  // Sora's closing two-photo row takes its captions from the page
+  // overrides too (Tsuki's own row, below, starts blank instead).
+  const row4ForPage = {
+    main: {
+      ...row4.main,
+      text: layout === "sora" ? (editionsRow4MainText ?? row4.main.text) : row4.main.text,
+    },
+    side: {
+      ...row4.side,
+      image: editionsRow4SideImage ?? row4.side.image,
+      text: layout === "sora" ? (editionsRow4SideText ?? row4.side.text) : row4.side.text,
+    },
+  };
 
   const isTsuki = layout === "tsuki";
   const craftParagraphs = editionsCraftText ?? craftText;
@@ -132,12 +158,20 @@ export default function EditionStorySummary({
 
   const storyABlock = (
     <div
-      className={`edition-story__side-block edition-story__side-block--a${isTsuki ? " edition-story__side-block--tsuki" : ""}`}
+      className={`edition-story__side-block edition-story__side-block--a${isTsuki ? " edition-story__side-block--tsuki" : " edition-story__side-block--sora"}`}
     >
       <div className="edition-story__side-block-text">
         {storyAParagraphs.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
+        {editionsStoryACta && (
+          <div className="edition-story__cta">
+            <p className="edition-story__cta-note">{editionsStoryACta.note}</p>
+            <a href={editionsStoryACta.href} className="edition-story__cta-link">
+              {editionsStoryACta.label} <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        )}
       </div>
       <div className="edition-story__side-block-image">
         <Image
@@ -152,7 +186,7 @@ export default function EditionStorySummary({
   );
 
   return (
-    <section className="edition-spotlight">
+    <section className={`edition-spotlight${tightBottom ? " edition-spotlight--tight-bottom" : ""}`}>
       <div className="edition-spotlight__body">
         <div className="edition-spotlight__hero-image">
           <Image
@@ -210,20 +244,22 @@ export default function EditionStorySummary({
                 />
               </div>
               <div className="edition-story__side-block-text">
-                {storyB.paragraphs.map((p, i) => (
+                {(editionsStoryBParagraphs ?? storyB.paragraphs).map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
-                <p>
-                  {storyB.linkParagraph.before}
-                  <a
-                    href={storyB.linkParagraph.linkHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {storyB.linkParagraph.linkText}
-                  </a>
-                  {storyB.linkParagraph.after}
-                </p>
+                {!editionsStoryBParagraphs && (
+                  <p>
+                    {storyB.linkParagraph.before}
+                    <a
+                      href={storyB.linkParagraph.linkHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {storyB.linkParagraph.linkText}
+                    </a>
+                    {storyB.linkParagraph.after}
+                  </p>
+                )}
               </div>
             </div>
 

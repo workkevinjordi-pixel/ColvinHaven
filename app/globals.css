@@ -2308,6 +2308,12 @@ button:focus-visible,
   font-family: var(--font-plus-jakarta-sans), sans-serif;
 }
 
+/* Sora's story on /editions (explicit request): 60px bottom padding
+   instead of 120px. */
+.edition-spotlight--tight-bottom {
+  padding-bottom: 60px;
+}
+
 .edition-spotlight__body {
   display: flex;
   flex-direction: column;
@@ -2347,6 +2353,7 @@ button:focus-visible,
 
 .edition-spotlight__row-text p,
 .edition-spotlight__row-side > p {
+  white-space: pre-line;
   font-size: 16px;
   line-height: 24px;
   font-weight: 300;
@@ -2559,6 +2566,71 @@ button:focus-visible,
   margin-bottom: 0;
 }
 
+/* Sora's own frame (node 325:39611): the same 160px between copy and
+   portrait and blank-line (24px) paragraph gaps as Tsuki's, but 70%-ink
+   copy and the portrait keeps the shared 313x375 size. */
+.edition-story__side-block--sora {
+  gap: 160px;
+}
+
+.edition-story__side-block--sora .edition-story__side-block-text > p {
+  color: rgba(29, 25, 15, 0.7);
+  margin-bottom: 24px;
+}
+
+.edition-story__side-block--sora .edition-story__side-block-text > p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Sora's storyB block (node 325:39623): 160px between the portrait and
+   the copy, a 313x473 portrait (not 375), blank-line paragraph gaps and
+   70%-ink copy. */
+.edition-story__side-block--b {
+  gap: 160px;
+}
+
+.edition-story__side-block--b .edition-story__side-block-image {
+  height: 473px;
+}
+
+.edition-story__side-block--b .edition-story__side-block-text > p {
+  color: rgba(29, 25, 15, 0.7);
+  margin-bottom: 24px;
+}
+
+.edition-story__side-block--b .edition-story__side-block-text > p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Gold note over an italic arrow link, 32px under the copy (nodes
+   408:684/408:679). */
+.edition-story__cta {
+  margin-top: 32px;
+}
+
+.edition-story__side-block-text .edition-story__cta-note {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+  color: #8b6915;
+  margin-bottom: 0;
+}
+
+.edition-story__side-block-text a.edition-story__cta-link {
+  display: inline-block;
+  padding: 12px 0;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.edition-story__cta-link span {
+  display: inline-block;
+  margin-left: 4px;
+}
+
 .edition-story__side-block-text {
   flex: 0 1 493px;
 }
@@ -2707,7 +2779,8 @@ button:focus-visible,
     width: 100%;
   }
 
-  .edition-story__side-block--tsuki .edition-story__side-block-image {
+  .edition-story__side-block--tsuki .edition-story__side-block-image,
+  .edition-story__side-block--b .edition-story__side-block-image {
     height: 320px;
   }
 
@@ -3901,10 +3974,10 @@ button:focus-visible,
 .write-to-us {
   max-width: var(--max-width);
   margin: 0 auto;
-  /* Top padding clears the fixed navbar, same reasoning as
-     .editions-intro/.collective-intro -- this is the page's first (and
-     only) section. */
-  padding: 200px var(--gutter) 120px;
+  /* Top padding clears the fixed navbar (80px) with a 60px gap -- this
+     is the page's first (and only) section. Was 200px, which left a
+     120px gap and read as too much empty space above the title. */
+  padding: 140px var(--gutter) 120px;
 }
 
 .write-to-us__row {
@@ -4060,7 +4133,7 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .write-to-us {
-    padding-top: 160px;
+    padding-top: 112px;
   }
 
   .write-to-us__image {

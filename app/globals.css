@@ -5136,13 +5136,13 @@ button:focus-visible,
   max-width: 100%;
 }
 
-/* Collective's own vertical padding: 80px top and bottom (explicit
-   request), down from the shared shell's 120px. Desktop only; the
-   <=900px rules below set their own smaller padding. */
+/* Collective's own vertical padding: 80px top, 180px bottom (explicit
+   requests), vs. the shared shell's 120px. Desktop only; the <=900px
+   rules below set their own smaller padding. */
 @media (min-width: 901px) {
   .landing-intro__inner--compact {
     padding-top: 80px;
-    padding-bottom: 80px;
+    padding-bottom: 180px;
   }
 }
 

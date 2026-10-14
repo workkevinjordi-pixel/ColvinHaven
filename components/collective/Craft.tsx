@@ -84,14 +84,14 @@ export default function Craft({
             <div className="craft__row-text">
               {mainText.map((p, i) => {
                 // The three short "<Name> leads/is …" lines open with
-                // the person's name in Medium weight (node 391:1435).
-                const m = /^(\S+)( (?:leads|is) .*)$/.exec(p);
+                // the person's name in Medium weight, then the role in
+                // Light Italic (node 391:1435).
+                const m = /^(\S+) ((?:leads|is) .*)$/.exec(p);
                 return (
                   <p key={i}>
                     {m ? (
                       <>
-                        <strong>{m[1]}</strong>
-                        {m[2]}
+                        <strong>{m[1]}</strong> <em>{m[2]}</em>
                       </>
                     ) : (
                       p

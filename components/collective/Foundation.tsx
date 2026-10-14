@@ -25,12 +25,12 @@ type FoundationProps = {
 // 391:1394) -- removed, along with their styles.
 const DEFAULT_HEADING = "A chef who learned to design and build homes.";
 const DEFAULT_COLLAGE_A = {
-  src: "/assets/collective/foundation-rope-chair-deck.jpg",
-  alt: "A woven rope lounge chair on a dark timber deck, backed by lush ferns",
+  src: "/assets/collective/foundation-stair-landing.jpg",
+  alt: "A dark timber house with a round window above a garden path and timber stair",
 };
 const DEFAULT_COLLAGE_B = {
-  src: "/assets/collective/foundation-man-stairs-garden.jpg",
-  alt: "A man descending timber stairs beside a stone-edged pond, palms overhead",
+  src: "/assets/collective/foundation-man-doorway.jpg",
+  alt: "A man standing in the doorway of a dark timber-clad building",
 };
 const DEFAULT_PARAGRAPHS = [
   "Andrew trained as a cook at the Culinary Institute of America and worked in Michelin-starred restaurants in New York and San Francisco. In 2006 he helped open the first Mixt in San Francisco's Financial District, his first restaurant business. Chef-driven, it brought farm-to-table seasonality, sustainability and health to everyday eating, part of the first wave of American restaurants to do it, with spaces built to LEED green-building guidelines.",

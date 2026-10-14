@@ -13,14 +13,18 @@ import { ImageTextRow, GalleryRow } from "./EditionSpotlight";
  * own distinct, bespoke order here (not one shared template reused
  * twice):
  *
- * Tsuki (node 325:39482, `layout="tsuki"`, the default): hero -> title
- * -> info-row -> ImageTextRow(row4, not row1) -> banner1 -> storyA
- * side-block -> quoteBanner (heading only -- its body text node is
- * hidden on this frame) -> GalleryRow(galleryRow2, not galleryRow) ->
- * closingBanner. row1's own content, storyB, and the first
+ * Tsuki (node 325:39482, `layout="tsuki"`, the default): hero ->
+ * info-row (its own "TSUKI (月 - Moon)" title now sits inside the copy
+ * column -- no separate title block/divider on this frame) ->
+ * ImageTextRow(row4's photos, captions left blank) -> banner1 ->
+ * storyA side-block -> quoteBanner (heading only -- its body text node
+ * is hidden on this frame) -> GalleryRow(galleryRow2, not galleryRow)
+ * -> closingBanner. Its copy comes from the `editionsXxx` overrides in
+ * editions-data.ts. Also rendered by /editions/umah-tsuki, matching
+ * how Sora's own detail page already shares this component. row1's own content, storyB, and the first
  * `galleryRow` don't appear anywhere on this edition's frame at all.
  *
- * Sora (node 325:39567, `layout="sora"`): hero -> title -> info-row ->
+ * Sora (node 325:39567, `layout="sora"`): hero -> info-row ->
  * ImageTextRow(row1) -> banner1 -> storyA side-block ->
  * GalleryRow(galleryRow) -> storyB side-block -> ImageTextRow(row4) ->
  * closingBanner. No quoteBanner at all on this edition's frame.
@@ -76,6 +80,11 @@ export default function EditionStorySummary({
     editionsPortraitImage,
     editionsRow1SideImage,
     editionsRow4SideImage,
+    editionsCraftText,
+    editionsStoryAParagraphs,
+    editionsQuoteHeading,
+    editionsRow4MainText,
+    editionsRow4SideText,
   } = data;
 
   const hero = editionsHeroImage ?? detailHeroImage ?? heroImage;
@@ -96,6 +105,19 @@ export default function EditionStorySummary({
     ? { ...row4, side: { ...row4.side, image: editionsRow4SideImage } }
     : row4;
 
+  const isTsuki = layout === "tsuki";
+  const craftParagraphs = editionsCraftText ?? craftText;
+  const storyAParagraphs = editionsStoryAParagraphs ?? storyA.paragraphs;
+  const quoteHeading = editionsQuoteHeading ?? quoteBanner.heading;
+  // Tsuki's own frame (node 332:39788) gives each photo its own caption
+  // (ImageTextRow drops empty text blocks, and the row's own no-text
+  // spacing when both are empty). Sora's layout still uses row4's real
+  // copy.
+  const row4Tsuki = {
+    main: { ...row4ForPage.main, text: editionsRow4MainText ?? [] },
+    side: { ...row4ForPage.side, text: editionsRow4SideText ?? "" },
+  };
+
   const banner1Block = (
     <div className="edition-spotlight__banner">
       <Image
@@ -109,9 +131,11 @@ export default function EditionStorySummary({
   );
 
   const storyABlock = (
-    <div className="edition-story__side-block edition-story__side-block--a">
+    <div
+      className={`edition-story__side-block edition-story__side-block--a${isTsuki ? " edition-story__side-block--tsuki" : ""}`}
+    >
       <div className="edition-story__side-block-text">
-        {storyA.paragraphs.map((p, i) => (
+        {storyAParagraphs.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
       </div>
@@ -140,13 +164,8 @@ export default function EditionStorySummary({
           />
         </div>
 
-        <div className="edition-story__title-block">
-          <h3 className="edition-story__title">{title}</h3>
-          <hr className="values__divider" />
-        </div>
-
         <div
-          className={`edition-story__info-row${layout === "sora" ? " edition-story__info-row--sora" : ""}`}
+          className={`edition-story__info-row edition-story__info-row--titled${layout === "sora" ? " edition-story__info-row--sora" : ""}`}
         >
           <div className="edition-story__specs">
             {specs.map((spec) => (
@@ -157,7 +176,8 @@ export default function EditionStorySummary({
             ))}
           </div>
           <div className="edition-story__craft-text">
-            {craftText.map((p, i) => (
+            <h3 className="edition-story__title">{title}</h3>
+            {craftParagraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
@@ -216,11 +236,11 @@ export default function EditionStorySummary({
           </>
         ) : (
           <>
-            <ImageTextRow row={row4ForPage} />
+            <ImageTextRow row={row4Tsuki} />
             {banner1Block}
             {storyABlock}
 
-            <div className="edition-story__quote-banner">
+            <div className="edition-story__quote-banner edition-story__quote-banner--tsuki">
               <div className="edition-story__quote-image">
                 <Image
                   src={quoteBanner.image.src}
@@ -232,7 +252,7 @@ export default function EditionStorySummary({
               </div>
               <div className="edition-story__quote-text">
                 <p className="edition-story__quote-heading">
-                  {quoteBanner.heading}
+                  {quoteHeading}
                 </p>
               </div>
             </div>

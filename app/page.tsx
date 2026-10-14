@@ -63,9 +63,10 @@ const EDITIONS_FALLBACK_BODY = [
 // WHERE OUR FOUNDER LIVES,\nSORA WAS BUILT FOR OUR FIRST CLIENT." --
 // TextIntro.tsx's `heading` now splits on "\n" into a hard line break,
 // added specifically for this), a new two-paragraph body (replacing
-// the old three-paragraph SHARED_COPY), and a standalone gold "note"
-// line below it ("Visits to Umah Tsuki are by invitation", Figma's own
-// #8b6915 -- a distinct accent from the sitewide nav-index gold). The
+// the old three-paragraph SHARED_COPY) in a narrower 686px column
+// (`compact`). A standalone gold "Visits to Umah Tsuki are by
+// invitation" note the first pass added is gone from the current
+// frame, so it was removed. The
 // link changes from "Dive Deeper" to "Meet the collective", still ->
 // /collective (Figma gives no href here either; this target already
 // matched the link's own intent, so it carries over unchanged).
@@ -161,10 +162,10 @@ export default async function Home() {
           homepage?.collectiveIntro.heading ??
           "UMAH TSUKI IS WHERE OUR FOUNDER LIVES,\nSORA WAS BUILT FOR OUR FIRST CLIENT."
         }
-        note={homepage?.collectiveIntro.note ?? "Visits to Umah Tsuki are by invitation"}
         linkLabel={homepage?.collectiveIntro.linkLabel ?? "Meet the collective"}
         linkHref={homepage?.collectiveIntro.linkHref ?? "/collective"}
         centered
+        compact
       >
         {(homepage?.collectiveIntro.paragraphs ?? COLLECTIVE_FALLBACK_BODY).map((p, i) => (
           <p key={i}>{p}</p>

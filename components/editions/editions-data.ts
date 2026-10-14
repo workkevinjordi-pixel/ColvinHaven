@@ -102,6 +102,26 @@ export type EditionData = {
    * `row4.side.image` when unset. */
   editionsRow4SideImage?: { src: string; alt: string };
 
+  /** Optional override for craftText on /editions and
+   * /editions/[slug] (EditionStorySummary) specifically -- same mirror
+   * pattern as the editionsXxx image fields above. Falls back to
+   * `craftText` when unset. Tsuki sets this to the new copy from its
+   * own frame (node 325:39482); `craftText` itself still shows the
+   * older copy on /editions-new, which this doesn't touch. */
+  editionsCraftText?: string[];
+  /** Caption under the first photo of the two-photo row (row4's main
+   * image) on /editions and /editions/[slug] -- same mirror pattern.
+   * Unset leaves that caption blank. */
+  editionsRow4MainText?: string[];
+  /** Same pattern, for the second photo's caption (row4's side image). */
+  editionsRow4SideText?: string;
+  /** Same pattern, for storyA.paragraphs. Falls back to
+   * `storyA.paragraphs` when unset. */
+  editionsStoryAParagraphs?: string[];
+  /** Same pattern, for quoteBanner.heading. Falls back to
+   * `quoteBanner.heading` when unset. */
+  editionsQuoteHeading?: string;
+
   /** Text-left/image-right story block (node 234:4902) -- indented and
    * pushed toward the right edge in the source frame (pl-160,
    * justify-end). */
@@ -193,18 +213,40 @@ export const EDITIONS_PAGE_OVERRIDES: Record<string, Partial<EditionData>> = {
     },
     editionsClosingBanner: {
       src: "/assets/editions/detail/tsuki-closing-pool-deck.jpg",
-      alt: "An outdoor lounge with a sectional sofa beside a stone retaining wall and garden stairs",
+      alt: "Umah Tsuki's timber pool deck beneath a dark roof overhang, opening onto the jungle",
     },
+    // Copy from Tsuki's own frame (node 325:39482), body paragraphs
+    // re-synced to node 325:39512.
+    editionsCraftText: [
+      "Our first expression, and the seed from which a growing collection has since grown, each edition shaped by the same quiet reverence for nature and the pace of slow living.",
+      "Set into a sloping site in Tumbak Bayuh, Bali, Umah Tsuki is a four-bedroom, four-level family home, conceived by a former chef whose pursuit of a simpler, richer life closer to nature led him to design. Encased in shou sugi ban cladding under a sweeping roofline, a set of cantilevered volumes reference an archetypal Japanese wood cabin. Across 600 square metres, the constellation of spaces appears to float above a tranquil rock garden and koi pond. A chef’s kitchen anchors the home, and an open-air wellness centre sits alongside the river. Extensive windows keep the rewilded jungle in constant view.",
+    ],
+    editionsRow4MainText: [
+      "Tsuki floats in the Jungle: Teak overhead, green on every side, and somewhere pass the trees the rice fields glow. Sit down, and the whole green world comes in to join you.",
+    ],
+    editionsRow4SideText:
+      "One round window, and the whole garden looks back. Charred timber, warm teak, and a stair that barely touches the ground.",
+    editionsStoryAParagraphs: [
+      "In both materials and construction, Umah Tsuki emphasizes provenance hand-built on site from locally sourced paras stone and recycled ulin hardwood, its traditional techniques and meticulous finishes set the scene for a quality of life attuned to the essential.",
+      "Twenty years of service taught one thing above all a home doesn't gather around a view, it gathers around a kitchen. So Tsuki's kitchen was never an afterthought. It sits at the heart of the home.",
+    ],
+    editionsQuoteHeading:
+      "“Designed to belong, Tsuki editions disappear into the landscape, honoring the land rather than overtaking it”",
   },
   "umah-sora": {
     editionsHeroImage: {
       src: "/assets/editions/detail/editions-sora-hero-pavilion.jpg",
       alt: "A dark timber pavilion roofline seen through palm fronds, with a second pavilion beyond",
     },
+    // Info-row copy and portrait from Sora's own frame, node 325:39582.
     editionsPortraitImage: {
-      src: "/assets/editions/detail/sora-portrait-stairs-koipond.jpg",
-      alt: "A koi pond and timber stairway leading up to Umah Sora's dark timber facade",
+      src: "/assets/editions/detail/gallery-1.jpg",
+      alt: "Ferns arching over a still koi pond edged with river stones",
     },
+    editionsCraftText: [
+      "Sora carries the same quiet reverence for nature as Tsuki: a two-bedroom home and guest house with a separate office.",
+      "Recycled ulin timber, charred in the yakisugi tradition, turns the cladding a deep, quiet black, a Colvin Haven signature, set against warm local teak and river stone from Bali. Restraint does the work: nothing more is needed, and nothing can be taken away. A wellness centre and a koi pond settle into gardens planted long before the house was finished. The office stands apart, so the working day can end when you close its door.",
+    ],
     editionsRow1SideImage: {
       src: "/assets/editions/detail/sora-row1-side-bench.jpg",
       alt: "A built-in wooden bench against Umah Sora's dark timber-slatted wall",

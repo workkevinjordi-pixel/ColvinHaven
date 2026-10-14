@@ -14,7 +14,6 @@ type SanityCollectivePage = {
     collageImageA?: SanityImg;
     collageImageB?: SanityImg;
     paragraphs?: string[];
-    closingNote?: string;
   };
   craft?: { heading?: string; tag?: string; row?: SanityRow };
   photoBand?: SanityImg;
@@ -42,7 +41,6 @@ export type CollectivePage = {
     collageImageA?: SrcAlt;
     collageImageB?: SrcAlt;
     paragraphs?: string[];
-    closingNote?: string;
   };
   craft: {
     heading?: string;
@@ -79,7 +77,6 @@ export async function getCollectivePage(): Promise<CollectivePage | undefined> {
       collageImageA: toSrcAlt(doc.foundation?.collageImageA),
       collageImageB: toSrcAlt(doc.foundation?.collageImageB),
       paragraphs: doc.foundation?.paragraphs?.length ? doc.foundation.paragraphs : undefined,
-      closingNote: doc.foundation?.closingNote,
     },
     craft: {
       heading: doc.craft?.heading,

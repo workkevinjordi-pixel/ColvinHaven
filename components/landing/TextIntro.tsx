@@ -16,12 +16,10 @@ type TextIntroProps = {
   /** Italic lead sentence above the body paragraphs (Editions' own
    * redesign) -- optional, Collective's own redesign has no lead. */
   lead?: string;
-  /** Standalone highlighted line below the body paragraphs, above the
-   * link (Collective's own redesign: "Visits to Umah Tsuki are by
-   * invitation", in Figma's own #8b6915 gold -- a distinct accent from
-   * the sitewide nav-index gold, #c7a95f, so it's not reused here) --
-   * optional, Editions' own redesign has none. */
-  note?: string;
+  /** Narrows the body text column to 686px (Collective's own redesign,
+   * node 385:1370) instead of the shared centered shell's 760px --
+   * optional, Editions' own redesign keeps the wider column. */
+  compact?: boolean;
   linkLabel: string;
   linkHref: string;
   children: ReactNode;
@@ -52,8 +50,7 @@ type TextIntroProps = {
  * both centered variants also carry their own optional eyebrow label
  * above the heading -- Editions additionally has a subtitle under the
  * heading and an italic lead sentence above its body paragraph;
- * Collective additionally has a standalone highlighted note line below
- * its body paragraphs. Each optional block stays undefined on the
+ * Collective additionally has a narrower 686px body column. Each optional block stays undefined on the
  * variant that doesn't use it.
  */
 export default function TextIntro({
@@ -61,7 +58,7 @@ export default function TextIntro({
   heading,
   subtitle,
   lead,
-  note,
+  compact = false,
   linkLabel,
   linkHref,
   children,
@@ -73,12 +70,12 @@ export default function TextIntro({
     : narrow
       ? " landing-intro__inner--narrow"
       : "";
-  const noteModifier = note ? " landing-intro__inner--note" : "";
+  const compactModifier = compact ? " landing-intro__inner--compact" : "";
   const headingLines = heading.split("\n");
 
   return (
     <section className="landing-intro">
-      <ScrollFade className={`landing-intro__inner${modifier}${noteModifier}`}>
+      <ScrollFade className={`landing-intro__inner${modifier}${compactModifier}`}>
         {eyebrow && <p className="landing-intro__eyebrow">{eyebrow}</p>}
         <div className="landing-intro__heading-group">
           <h2 className="landing-intro__heading">
@@ -95,7 +92,6 @@ export default function TextIntro({
         <div className="landing-intro__body">
           {lead && <p className="landing-intro__lead">{lead}</p>}
           <div className="landing-intro__text">{children}</div>
-          {note && <p className="landing-intro__note">{note}</p>}
           <a href={linkHref} className="landing-intro__link">
             {linkLabel} <span aria-hidden="true">→</span>
           </a>

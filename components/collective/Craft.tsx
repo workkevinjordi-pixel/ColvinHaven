@@ -2,7 +2,6 @@ import Image from "next/image";
 import ScrollFade from "../ScrollFade";
 
 type CraftProps = {
-  eyebrow?: string;
   heading?: string;
   row?: {
     main?: { image?: { src: string; alt: string }; text?: string[] };
@@ -20,7 +19,6 @@ type CraftProps = {
 // and promotes the body's own old opening line ("Behind every home is
 // the same team.") into that new heading, reworded slightly ("...same
 // LOCAL team") -- it's no longer one of the body paragraphs.
-const DEFAULT_EYEBROW = "COLLECTIVE";
 const DEFAULT_HEADING = "Behind every home is the same local team";
 const DEFAULT_ROW: Required<CraftProps>["row"] = {
   main: {
@@ -60,7 +58,6 @@ const DEFAULT_ROW: Required<CraftProps>["row"] = {
  * site.
  */
 export default function Craft({
-  eyebrow = DEFAULT_EYEBROW,
   heading = DEFAULT_HEADING,
   row = DEFAULT_ROW,
 }: CraftProps) {
@@ -71,10 +68,7 @@ export default function Craft({
   return (
     <section className="craft">
       <ScrollFade className="craft__body">
-        <div className="craft__heading-group">
-          <p className="craft__eyebrow">{eyebrow}</p>
-          <h2 className="craft__heading">{heading}</h2>
-        </div>
+        <h2 className="craft__heading">{heading}</h2>
 
         <div className="craft__row">
           <div className="craft__row-main">
@@ -88,9 +82,23 @@ export default function Craft({
               />
             </div>
             <div className="craft__row-text">
-              {mainText.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
+              {mainText.map((p, i) => {
+                // The three short "<Name> leads/is …" lines open with
+                // the person's name in Medium weight (node 391:1435).
+                const m = /^(\S+)( (?:leads|is) .*)$/.exec(p);
+                return (
+                  <p key={i}>
+                    {m ? (
+                      <>
+                        <strong>{m[1]}</strong>
+                        {m[2]}
+                      </>
+                    ) : (
+                      p
+                    )}
+                  </p>
+                );
+              })}
             </div>
           </div>
           <div className="craft__row-side">

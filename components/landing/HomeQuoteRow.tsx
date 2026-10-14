@@ -24,7 +24,7 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
       alt: "A warm timber ceiling and roofline overhang above a dark board-and-batten facade",
     },
     caption:
-      "“Designed to belong, Tsuki editions disappear into the landscape, honoring the land rather than overtaking it”",
+      "Designed to belong, Tsuki disappear into the landscape, honoring the land rather than overtaking it",
   },
   {
     image: {
@@ -32,21 +32,21 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
       alt: "A covered timber walkway leading down a staircase toward a garden gate",
     },
     caption:
-      "Twenty years of service taught one thing above all a home doesn't gather around a view, it gathers around a kitchen.",
+      "Seven steps down come up and the day gets quitter. Welcome to Sora.",
   },
   {
     image: {
       src: "/assets/homequoterow-shoji-bedroom.jpg",
       alt: "A shoji-screened bedroom corner with a low bed and two wall sconces",
     },
-    caption:
-      "Twenty years of service taught one thing above all a home doesn't gather around a view, it gathers around a kitchen.",
+    caption: "A door left open, and the room is already warm.\nA place to settle in.",
   },
 ];
 
 /**
  * Three-photo captioned row (Figma node 371:40199), full-bleed edge-
- * to-edge at this frame's own 1440px canvas width. Content now comes
+ * to-edge at this frame's own 1440px canvas width (captions re-synced
+ * to node 385:1262). Content now comes
  * from Sanity's homepage.quoteRow.
  */
 export default function HomeQuoteRow({ items = DEFAULT_ITEMS }: QuoteRowProps) {

@@ -1,49 +1,22 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-// The footer's own nav is a curated pair, not the full site map -- News
-// and Write to Us have never appeared here, matching the footer's prior
-// (static) Editions + Collective behavior. Now that pair is dynamic:
-// whichever of these three sections you're currently on drops out,
-// leaving the other two.
+// The footer's own nav is a fixed pair on every page (Figma node
+// 325:39474): Editions + Collective. It used to drop whichever of
+// Editions/Collective/Discover you were currently on; the current frame
+// shows the same two links everywhere instead.
 const FOOTER_LINKS = [
-  { href: "/", label: "Discover" },
   { href: "/editions", label: "Editions" },
   { href: "/collective", label: "Collective" },
 ];
 
-function isCurrentSection(pathname: string, href: string) {
-  if (href === "/") return pathname === "/";
-  // Covers an edition's own detail page (/editions/umah-tsuki) too --
-  // still "on Editions" as far as this nav is concerned.
-  return pathname === href || pathname.startsWith(`${href}/`);
-}
-
 export default function Footer() {
-  const pathname = usePathname() ?? "/";
-  const current = FOOTER_LINKS.find((link) =>
-    isCurrentSection(pathname, link.href),
-  );
-  // Pages outside the three listed above (News, Write to Us) match
-  // none of them -- default to excluding "/" there, so the footer still
-  // reads as Editions + Collective rather than growing a third link.
-  const excludeHref = current?.href ?? "/";
-  // "Discover" ("/") always comes second when it's one of the two shown
-  // -- e.g. "Editions, Discover", never "Discover, Editions" -- rather
-  // than just keeping FOOTER_LINKS' own declaration order.
-  const links = FOOTER_LINKS.filter((link) => link.href !== excludeHref).sort(
-    (a, b) => (a.href === "/" ? 1 : 0) - (b.href === "/" ? 1 : 0),
-  );
-
   return (
     <footer className="footer">
       <p className="footer__mark" aria-label="Colvin Haven">
         CH
       </p>
       <nav className="footer__nav">
-        {links.map((link) => (
+        {FOOTER_LINKS.map((link) => (
           <Link key={link.href} href={link.href}>
             {link.label}
           </Link>

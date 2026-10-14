@@ -77,15 +77,12 @@ export default async function CollectivePage() {
     <>
       <Navbar solid />
       <Foundation
-        eyebrow={page?.foundation.tag}
         heading={page?.foundation.heading}
         collageImageA={page?.foundation.collageImageA}
         collageImageB={page?.foundation.collageImageB}
         paragraphs={page?.foundation.paragraphs}
-        closingNote={page?.foundation.closingNote}
       />
       <Craft
-        eyebrow={page?.craft.tag}
         heading={page?.craft.heading}
         row={page?.craft.row}
       />

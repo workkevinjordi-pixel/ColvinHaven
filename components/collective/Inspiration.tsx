@@ -66,7 +66,7 @@ const FLEX_INDEX = 2;
  * own headings just went through on this page.
  */
 export default function Inspiration({
-  heading = "Inspiration",
+  heading = "INSPIRATIONS",
   paragraphs = DEFAULT_PARAGRAPHS,
   images = DEFAULT_IMAGES,
 }: InspirationProps) {

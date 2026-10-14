@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import EditionDetailHeader from "@/components/editions/EditionDetailHeader";
 import EditionStickyBanner from "@/components/editions/EditionStickyBanner";
-import EditionSpotlight from "@/components/editions/EditionSpotlight";
 import EditionStorySummary from "@/components/editions/EditionStorySummary";
 import NextEditionBand from "@/components/editions/NextEditionBand";
 import Cta from "@/components/Cta";
@@ -65,7 +64,9 @@ export default async function EditionDetailPage({
   // one the /editions page's Sora section renders -- so this page now
   // shares EditionStorySummary's "sora" layout with it instead of
   // EditionSpotlight's fixed default order, per direct instruction that
-  // the two should match. Tsuki keeps EditionSpotlight (node 232:4674).
+  // the two should match. Tsuki now does the same (its own frame, node
+  // 325:39482, is what /editions renders), also on explicit request --
+  // EditionSpotlight is only used by /editions-new now.
   const isSora = edition.slug === "umah-sora";
 
   return (
@@ -74,13 +75,10 @@ export default async function EditionDetailPage({
       <EditionDetailHeader
         data={edition}
         displayName={isSora ? edition.name.toUpperCase() : undefined}
+        hideMeta
       />
       <EditionStickyBanner data={edition} />
-      {isSora ? (
-        <EditionStorySummary data={edition} layout="sora" />
-      ) : (
-        <EditionSpotlight data={edition} />
-      )}
+      <EditionStorySummary data={edition} layout={isSora ? "sora" : "tsuki"} />
       <NextEditionBand next={edition.nextEdition} />
       <Cta />
       <Footer />

@@ -2,12 +2,10 @@ import Image from "next/image";
 import ScrollFade from "../ScrollFade";
 
 type FoundationProps = {
-  eyebrow?: string;
   heading?: string;
   collageImageA?: { src: string; alt: string };
   collageImageB?: { src: string; alt: string };
   paragraphs?: string[];
-  closingNote?: string;
 };
 
 // Matches the content migrated into Sanity's collectivePage.foundation
@@ -22,8 +20,9 @@ type FoundationProps = {
 // ("The medium changed..."/"The kitchen grew...") dropped out of the
 // body entirely, and a new standalone italic closing line appears
 // below the body, in the same gold as the homepage's own Collective
-// intro note.
-const DEFAULT_EYEBROW = "FOUNDATION";
+// intro note. That closing line, and the small "FOUNDATION" eyebrow
+// above the heading, are both gone from the current frame (node
+// 391:1394) -- removed, along with their styles.
 const DEFAULT_HEADING = "A chef who learned to design and build homes.";
 const DEFAULT_COLLAGE_A = {
   src: "/assets/collective/foundation-rope-chair-deck.jpg",
@@ -40,7 +39,6 @@ const DEFAULT_PARAGRAPHS = [
   "Umah Tsuki became the proof, a sanctuary praised by Wallpaper* and Design Anthology for the quiet intentionality he once brought to a plate. Today it is both Colvin Haven's showroom and his family's home. Sora followed, built for the collective's first client, and two more homes are taking shape. Only a limited number will ever be built, never meant to scale.",
   "Today, with Colvin Haven, he creates limited-edition homes in Indonesia, built from local materials and made for wellness. He curates the whole experience, from architecture to table.",
 ];
-const DEFAULT_CLOSING_NOTE = "He once fed people. Now he gives them somewhere to be still";
 
 /**
  * "FOUNDATION" section (Figma node 203:329, re-synced against 250:10541,
@@ -66,12 +64,10 @@ const DEFAULT_CLOSING_NOTE = "He once fed people. Now he gives them somewhere to
  * real viewport, not an animated ancestor.
  */
 export default function Foundation({
-  eyebrow = DEFAULT_EYEBROW,
   heading = DEFAULT_HEADING,
   collageImageA = DEFAULT_COLLAGE_A,
   collageImageB = DEFAULT_COLLAGE_B,
   paragraphs = DEFAULT_PARAGRAPHS,
-  closingNote = DEFAULT_CLOSING_NOTE,
 }: FoundationProps) {
   return (
     <section className="foundation">
@@ -98,16 +94,12 @@ export default function Foundation({
         </ScrollFade>
 
         <ScrollFade className="foundation__text">
-          <div className="foundation__heading-group">
-            <p className="foundation__eyebrow">{eyebrow}</p>
-            <h2 className="foundation__heading">{heading}</h2>
-          </div>
+          <h2 className="foundation__heading">{heading}</h2>
           <div className="foundation__copy">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
-          {closingNote && <p className="foundation__note">{closingNote}</p>}
         </ScrollFade>
       </div>
     </section>

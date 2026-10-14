@@ -78,6 +78,7 @@ export default async function EditionsPage() {
           <EditionDetailHeader
             data={edition}
             displayName={edition.name.toUpperCase()}
+            hideMeta
           />
           <EditionStorySummary
             data={edition}

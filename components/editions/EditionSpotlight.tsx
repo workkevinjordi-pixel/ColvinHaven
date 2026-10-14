@@ -12,8 +12,15 @@ export function ImageTextRow({
    * Sora's layout that's this row, not a gallery. */
   id?: string;
 }) {
+  // A row whose captions are all empty (Tsuki's own frame leaves them as
+  // placeholders) drops its text blocks entirely, and the images' own
+  // 24px caption gap with them.
+  const hasText = row.main.text.length > 0 || row.side.text !== "";
   return (
-    <div className="edition-spotlight__row" id={id}>
+    <div
+      className={`edition-spotlight__row${hasText ? "" : " edition-spotlight__row--no-text"}`}
+      id={id}
+    >
       <div className="edition-spotlight__row-main">
         <div className="edition-spotlight__row-image">
           <Image
@@ -24,11 +31,13 @@ export function ImageTextRow({
             style={{ objectFit: "cover" }}
           />
         </div>
-        <div className="edition-spotlight__row-text">
-          {row.main.text.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
+        {row.main.text.length > 0 && (
+          <div className="edition-spotlight__row-text">
+            {row.main.text.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        )}
       </div>
       <div className="edition-spotlight__row-side">
         <div className="edition-spotlight__row-image">
@@ -40,7 +49,7 @@ export function ImageTextRow({
             style={{ objectFit: "cover" }}
           />
         </div>
-        <p>{row.side.text}</p>
+        {row.side.text !== "" && <p>{row.side.text}</p>}
       </div>
     </div>
   );
@@ -67,217 +76,5 @@ export function GalleryRow({
         </div>
       ))}
     </div>
-  );
-}
-
-/**
- * The detail page's body content (Figma node 232:4674, everything below
- * its own centered header -- see EditionDetailHeader). Used by
- * app/editions/[slug]/page.tsx and by /editions-new (Figma node
- * 303:15060 -- a different frame, but one whose own full-story section
- * order matches this component's, confirmed via that frame's own
- * get_design_context).
- *
- * NOT used by /editions or /editions1 (Figma node 325:39444/325:39482)
- * -- that frame's own Umah Tsuki/Sora story blocks are reordered and
- * trimmed relative to this fixed sequence (row4's content appears where
- * row1 normally would, storyB and the first `galleryRow` don't appear
- * at all, and the quote banner's body paragraph is hidden) -- see
- * EditionStorySummary, which renders that frame's own distinct
- * sequence instead, reusing this file's ImageTextRow/GalleryRow
- * sub-components and the exact same CSS classes rather than
- * duplicating either.
- */
-export default function EditionSpotlight({
-  data,
-  finalGalleryId = "edition-final-gallery",
-}: {
-  data: EditionData;
-  /** Defaults to "edition-final-gallery" (what EditionStickyBanner's
-   * own IntersectionObserver watches on each standalone detail page).
-   * /editions-new renders two EditionSpotlights on one page and has no
-   * sticky banner to satisfy, so it passes a per-edition id instead --
-   * two elements sharing one id would otherwise be invalid HTML. */
-  finalGalleryId?: string;
-}) {
-  const {
-    title,
-    specs,
-    craftText,
-    portraitImage,
-    heroImage,
-    detailHeroImage,
-    row1,
-    banner1,
-    storyA,
-    galleryRow,
-    galleryRow2,
-    storyB,
-    quoteBanner,
-    row4,
-    closingBanner,
-  } = data;
-
-  // Falls back to the shared `heroImage` (what the Editions-list row
-  // also uses) when an edition hasn't specced a distinct photo for its
-  // own detail-page hero specifically -- see the field's own comment.
-  const hero = detailHeroImage ?? heroImage;
-
-  return (
-    <section className="edition-spotlight">
-      {/* No ScrollFade here (unlike most other sections on the site) --
-          it wraps its whole target as a single fade unit, gated by a
-          15%-of-target-height intersection threshold. That's fine for a
-          normal, roughly-viewport-scale section, but this page's body
-          runs 6000px+ tall: 15% of that is taller than the viewport
-          itself, so the threshold is float-precision-close to
-          unreachable and the entire story would stay invisible through
-          most of the scroll. Plain content instead. */}
-      <div className="edition-spotlight__body">
-        <div className="edition-spotlight__hero-image">
-          <Image
-            src={hero.src}
-            alt={hero.alt}
-            fill
-            sizes="(min-width: 900px) 1216px, 100vw"
-            style={{ objectFit: "cover" }}
-          />
-        </div>
-
-        <div className="edition-story__title-block">
-          <h3 className="edition-story__title">{title}</h3>
-          <hr className="values__divider" />
-        </div>
-
-        <div className="edition-story__info-row">
-          <div className="edition-story__specs">
-            {specs.map((spec) => (
-              <div className="edition-story__spec" key={spec.label}>
-                <p className="edition-story__spec-label">{spec.label}</p>
-                <p className="edition-story__spec-value">{spec.value}</p>
-              </div>
-            ))}
-          </div>
-          <div className="edition-story__craft-text">
-            {craftText.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-          <div className="edition-story__portrait">
-            <Image
-              src={portraitImage.src}
-              alt={portraitImage.alt}
-              fill
-              sizes="(min-width: 900px) 253px, 100vw"
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-        </div>
-
-        <ImageTextRow row={row1} />
-
-        <div className="edition-spotlight__banner">
-          <Image
-            src={banner1.src}
-            alt={banner1.alt}
-            fill
-            sizes="(min-width: 900px) 1216px, 100vw"
-            style={{ objectFit: "cover" }}
-          />
-        </div>
-
-        <div className="edition-story__side-block edition-story__side-block--a">
-          <div className="edition-story__side-block-text">
-            {storyA.paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-          <div className="edition-story__side-block-image">
-            <Image
-              src={storyA.image.src}
-              alt={storyA.image.alt}
-              fill
-              sizes="(min-width: 900px) 313px, 100vw"
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-        </div>
-
-        <GalleryRow images={galleryRow} />
-
-        <div className="edition-story__side-block edition-story__side-block--b">
-          <div className="edition-story__side-block-image">
-            <Image
-              src={storyB.image.src}
-              alt={storyB.image.alt}
-              fill
-              sizes="(min-width: 900px) 313px, 100vw"
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-          <div className="edition-story__side-block-text">
-            {storyB.paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-            <p>
-              {storyB.linkParagraph.before}
-              <a
-                href={storyB.linkParagraph.linkHref}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {storyB.linkParagraph.linkText}
-              </a>
-              {storyB.linkParagraph.after}
-            </p>
-          </div>
-        </div>
-
-        <div className="edition-story__quote-banner">
-          <div className="edition-story__quote-image">
-            <Image
-              src={quoteBanner.image.src}
-              alt={quoteBanner.image.alt}
-              fill
-              sizes="(min-width: 900px) 1216px, 100vw"
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-          <div className="edition-story__quote-text">
-            <p className="edition-story__quote-heading">
-              {quoteBanner.heading}
-            </p>
-            <p className="edition-story__quote-body">{quoteBanner.body}</p>
-          </div>
-        </div>
-
-        <ImageTextRow row={row4} />
-
-        {/* Marked with an id -- EditionStickyBanner watches this exact
-            element (the page's very last content block before
-            closingBanner/NextEditionBand) to hide itself once it's
-            reached, so the sticky banner doesn't keep competing for
-            attention with what follows. Figma now specs a genuinely
-            different second set of three photos here (galleryRow2),
-            not the same three repeated -- falls back to the first
-            gallery's images if an edition hasn't specced its own. */}
-        <GalleryRow
-          images={galleryRow2 ?? galleryRow}
-          id={finalGalleryId}
-        />
-
-        {closingBanner && (
-          <div className="edition-spotlight__banner">
-            <Image
-              src={closingBanner.src}
-              alt={closingBanner.alt}
-              fill
-              sizes="(min-width: 900px) 1216px, 100vw"
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-        )}
-      </div>
-    </section>
   );
 }

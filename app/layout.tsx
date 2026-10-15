@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import { Cormorant_Garamond, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -42,9 +43,23 @@ const fraunces = Fraunces({
 // developer) that both search engines and answer engines (ChatGPT,
 // Perplexity, Google AI Overviews) can lift cleanly as a citable fact.
 export const metadata: Metadata = {
+  // Resolves every relative metadata URL (canonical, Open Graph and
+  // Twitter images from app/opengraph-image.jpg / twitter-image.jpg)
+  // against the production domain.
+  metadataBase: new URL(SITE_URL),
   title: "Colvin Haven — Wellness Home Brand",
   description:
     "Colvin Haven is the world's first wellness home brand — homes designed around restoration, not just residence.",
+  // "./" is each route's own path, so every page canonicalises to
+  // itself on the production domain (the .vercel.app alias included).
+  alternates: { canonical: "./" },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_US",
+  },
+  twitter: { card: "summary_large_image" },
+  robots: { index: true, follow: true },
 };
 
 // Matches --bg -- tints the mobile browser's own address-bar/status-bar

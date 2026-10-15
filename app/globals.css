@@ -5452,3 +5452,61 @@ a:where(
   ):active {
   opacity: 0.6;
 }
+
+/* ---------- 404 page (app/not-found.tsx): the same centered text-block
+   language as the home page's intro sections. ---------- */
+
+.not-found {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  min-height: 70vh;
+  padding: 200px var(--gutter) 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+}
+
+.not-found__eyebrow {
+  font-weight: 300;
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.not-found__heading {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 2.4px;
+  color: var(--ink);
+}
+
+.not-found__text {
+  max-width: 520px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+.not-found__link {
+  padding: 12px 0;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.not-found__link span {
+  display: inline-block;
+  margin-left: 4px;
+}
+
+@media (max-width: 900px) {
+  .not-found {
+    padding-top: 140px;
+  }
+}

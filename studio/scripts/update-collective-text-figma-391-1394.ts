@@ -1,7 +1,7 @@
 /**
  * One-time update (Figma node 391:1394): Craft names list and the two
  * publications' copy, ported verbatim from the current frame --
- * including "leads the craftman", "Runta master of the gardens" and
+ * including "Runta master of the gardens" and
  * "Tsuki Edition be featured", which look like typos in Figma.
  *
  * Run via `npx sanity exec scripts/update-collective-text-figma-391-1394.ts
@@ -25,7 +25,7 @@ async function main() {
   await client
     .patch("collectivePage")
     .set({
-      "craft.row.main.text[1]": "Nyoman leads the craftman.",
+      "craft.row.main.text[1]": "Nyoman leads the craftsman.",
       "craft.row.main.text[2]": "Runta master of the gardens.",
     })
     .commit();

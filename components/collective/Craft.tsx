@@ -28,7 +28,7 @@ const DEFAULT_ROW: Required<CraftProps>["row"] = {
     },
     text: [
       "Astrid leads the architecture.",
-      "Nyoman leads the craftman.",
+      "Nyoman leads the craftsman.",
       "Runta master of the gardens.",
       "Around them, Indonesian designers and engineers, joiners and stonemasons, all local to the land they build on, working on site beside the founder for as long as each home takes.",
       "We plant the trees before we build. We carry into every home the same sustainable design approaches the founder first practiced at Mixt: responsible materials, light on the land. The most sustainable home is the one that is never torn down, so we build slowly, to last.",

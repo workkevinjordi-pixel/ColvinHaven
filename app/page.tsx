@@ -124,7 +124,7 @@ export default async function Home() {
 
   return (
     <div className="landing-page">
-      <Navbar heroBrand />
+      <Navbar />
       <Hero
         title={homepage?.hero.title}
         tagline={homepage?.hero.tagline}

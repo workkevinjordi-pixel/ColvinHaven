@@ -480,13 +480,13 @@ button:focus-visible,
   /* Full-bleed, not constrained to --max-width like the rest of the
      site's sections -- the hero it overlays is full-bleed too, so this
      padding is what actually pins the index/dot at the true viewport
-     edge on screens wider than --max-width. Fixed 24px (not --gutter),
-     same as .navbar__overlay-panel, so the "II/VII" mark lines up
-     exactly with the mega menu's link list underneath it. */
+     edge on screens wider than --max-width. Fixed 48px (16px on mobile,
+     not --gutter), same as .navbar__overlay-panel, so the mark lines
+     up exactly with the mega menu's link list underneath it. */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32px 24px;
+  padding: 32px 48px;
   transition: padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -496,16 +496,17 @@ button:focus-visible,
 }
 
 .navbar__index {
-  font-family: var(--font-cormorant), serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-weight: 300;
-  font-size: 24px;
-  letter-spacing: 3.6px;
+  font-size: 20px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
   text-decoration: none;
   color: inherit;
   white-space: nowrap;
 }
 
-/* Sitewide gold "I/V" mark (was a per-page .hpn-page-scoped accent
+/* Sitewide gold "COLVIN HAVEN" mark (formerly the "I/V" index; was a per-page .hpn-page-scoped accent
    for homepage-new/editions-new/landing only -- now every page's own
    index mark, on an explicit "all pages" request). Unconditional --
    an earlier version only applied this in the *unscrolled, transparent*
@@ -601,7 +602,7 @@ button:focus-visible,
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 80px 24px;
+  padding: 80px 48px;
 }
 
 .navbar__overlay-brand {
@@ -667,7 +668,7 @@ button:focus-visible,
    not a third item fighting that centering for space. */
 .navbar__overlay-apply {
   position: absolute;
-  left: 24px;
+  left: 48px;
   bottom: 80px;
   display: flex;
   flex-direction: column;
@@ -728,7 +729,7 @@ button:focus-visible,
 @media (max-width: 900px) {
   .navbar__overlay-panel {
     flex-basis: 100%;
-    padding: 60px 24px;
+    padding: 60px 48px;
   }
 
   .navbar__overlay-media {
@@ -742,8 +743,17 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .navbar__inner {
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding: 24px 16px;
+  }
+
+  .navbar__index {
+    font-size: 14px;
+    letter-spacing: 2.1px;
+  }
+
+  .navbar__dot-trigger {
+    width: 32px;
+    height: 32px;
   }
 
   .navbar--scrolled .navbar__inner {
@@ -752,7 +762,7 @@ button:focus-visible,
   }
 
   .navbar__overlay-panel {
-    padding: 40px 24px;
+    padding: 40px 16px;
   }
 
   .navbar__overlay-brand {
@@ -4582,6 +4592,14 @@ button:focus-visible,
   }
 }
 
+/* Phones: no house sketch at all (explicit request) -- tablets between
+   561 and 900px keep the static one above. */
+@media (max-width: 560px) {
+  .home-drawing--mobile {
+    display: none;
+  }
+}
+
 /* StaticDrawing.tsx -- a non-scroll-jacked rendering of the same
    sketch, mobile-only (above). The sketch just renders fully drawn, in
    normal document flow, with its own small section padding standing
@@ -5468,16 +5486,10 @@ a:where(
 }
 
 /* Homepage hero (Figma node 385:15 desktop / 426:703 mobile): the photo
-   runs full-bleed with the 50% ink overlay, the centered title/tagline
-   are gone, and a gold "COLVIN HAVEN" wordmark sits top-left in the
-   navbar in place of the "I/V" mark (which returns once the navbar is
-   scrolled or the menu is open). The title/tagline stay in the DOM,
-   visually hidden, so the page keeps its name for crawlers and screen
-   readers. */
-.navbar__wordmark {
-  display: none;
-}
-
+   runs full-bleed with the 50% ink overlay and the centered
+   title/tagline are gone -- the gold "COLVIN HAVEN" mark lives in the
+   navbar on every page now. The title/tagline stay in the DOM, visually
+   hidden, so the page keeps its name for crawlers and screen readers. */
 .landing-page .hero__content {
   position: absolute;
   width: 1px;
@@ -5486,27 +5498,6 @@ a:where(
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
-}
-
-.navbar--hero-brand .navbar__inner {
-  padding-left: 48px;
-  padding-right: 48px;
-}
-
-.navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__index {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__wordmark {
-  display: block;
-  font-weight: 300;
-  font-size: 20px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: #c7a95f;
 }
 
 @media (max-width: 560px) {
@@ -5526,20 +5517,5 @@ a:where(
     left: -25.78% !important;
     right: auto !important;
     object-fit: fill;
-  }
-
-  .navbar--hero-brand .navbar__inner {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__wordmark {
-    font-size: 14px;
-    letter-spacing: 2.1px;
-  }
-
-  .navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__dot-trigger {
-    width: 32px;
-    height: 32px;
   }
 }

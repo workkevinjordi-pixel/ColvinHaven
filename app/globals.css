@@ -1467,61 +1467,6 @@ button:focus-visible,
   }
 }
 
-/* ---------- Editions "Welcome" statement (node 371:40300) ---------- */
-
-.editions-welcome {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 160px 120px;
-}
-
-.editions-welcome__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-  text-align: center;
-  color: var(--ink);
-}
-
-.editions-welcome__heading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-.editions-welcome__title {
-  font-family: var(--font-cormorant), serif;
-  font-weight: 500;
-  font-size: 24px;
-  letter-spacing: 2.4px;
-}
-
-.editions-welcome__tagline {
-  font-weight: 300;
-  font-style: italic;
-  font-size: 16px;
-}
-
-.editions-welcome__body {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  max-width: 800px;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 28px;
-  letter-spacing: 1.6px;
-  color: rgba(29, 25, 15, 0.7);
-}
-
-@media (max-width: 900px) {
-  .editions-welcome {
-    padding: 96px var(--gutter);
-  }
-}
-
 /* ---------- Footer ---------- */
 
 .footer {
@@ -5438,16 +5383,6 @@ a:where(
    three-photo gallery as a swipeable row instead of three stacked
    320px photos. */
 @media (max-width: 560px) {
-  .editions-welcome {
-    padding: 72px 20px;
-  }
-
-  .editions-welcome__body {
-    font-size: 15px;
-    line-height: 26px;
-    letter-spacing: 1.2px;
-  }
-
   .edition-spotlight {
     padding: 24px 16px 80px;
   }

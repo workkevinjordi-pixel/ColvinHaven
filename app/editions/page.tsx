@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import EditionsHero from "@/components/editions/EditionsHero";
-import EditionsWelcome from "@/components/editions/EditionsWelcome";
 import CollectionsCard from "@/components/homepage-new/CollectionsCard";
 import EditionDetailHeader from "@/components/editions/EditionDetailHeader";
 import EditionStorySummary from "@/components/editions/EditionStorySummary";
@@ -74,7 +73,6 @@ export default async function EditionsPage() {
     <>
       <Navbar solid />
       <EditionsHero image={editionsPage?.heroImage} />
-      <EditionsWelcome />
       {editions.map((edition) => (
         <div key={edition.slug}>
           <EditionDetailHeader

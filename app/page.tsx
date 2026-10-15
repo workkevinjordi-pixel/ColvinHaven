@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import SplashScreen from "@/components/SplashScreen";
 import Drawing from "@/components/Drawing";
 import StaticDrawing from "@/components/landing/StaticDrawing";
 import CraftingStatement from "@/components/landing/CraftingStatement";
@@ -102,9 +101,8 @@ const EDITIONS_FALLBACK_BODY = [
 // via .landing-page .cta, every other page keeps Cta's own 554px
 // min-height default.
 //
-// SplashScreen is homepage-only by construction (rendered here, not in
-// the root layout) -- every other page starts directly on its own
-// content, no loading overlay.
+// No splash/loading overlay: every page, this one included, starts
+// directly on its own content.
 //
 // Every section's own content (Hero, crafting statement, quote row,
 // both TextIntro blurbs, Approach gallery, Cta's own text) now comes
@@ -126,12 +124,6 @@ export default async function Home() {
 
   return (
     <div className="landing-page">
-      {/* Without JS the timed dismiss never runs, so keep the overlay
-          from permanently covering the page. */}
-      <noscript>
-        <style>{`.splash{display:none!important}`}</style>
-      </noscript>
-      <SplashScreen />
       <Navbar heroBrand />
       <Hero
         title={homepage?.hero.title}

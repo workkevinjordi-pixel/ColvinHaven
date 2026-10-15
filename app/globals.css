@@ -849,69 +849,6 @@ button:focus-visible,
   white-space: nowrap;
 }
 
-/* ---------- Splash ---------- */
-
-/* One-time loading screen -- shown once per session, then dismissed by
-   SplashScreen.tsx. A solid field with a small centered roman-numeral
-   mark that travels to the navbar's corner (while the field is still
-   fully opaque -- see the component for why that sequencing matters),
-   then the field dissolves to reveal the real Hero section underneath,
-   already rendering the whole time. Sits above the fixed navbar
-   (z-index 100). */
-.splash {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--ink);
-  opacity: 1;
-  /* ease-in-out, not the site's usual punchy ease-out curve -- that one
-     front-loads almost the entire opacity drop into the first second or
-     so, which reads as a quick reveal that then just sits there. This
-     spreads the dissolve evenly across the full duration instead.
-     No duration here on purpose -- SplashScreen sets transition-duration
-     inline from its own FADE_MS constant, the single source of truth. */
-  transition-property: opacity;
-  transition-timing-function: ease-in-out;
-}
-
-.splash--revealing {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Same size/weight/tracking as .navbar__index, and the same color
-   (gold, #c7a95f -- kept in sync with that sitewide rule, not
-   hardcoded independently) as its own unscrolled-navbar state -- so
-   once the mark arrives at the navbar's position and the field
-   dissolves around it, there's no visible size or color jump. It reads
-   as this mark becoming the real one, not two different elements
-   crossfading. */
-.splash__index {
-  font-family: var(--font-cormorant), serif;
-  font-weight: 300;
-  font-size: 24px;
-  letter-spacing: 3.6px;
-  color: #c7a95f;
-  /* No duration here on purpose -- SplashScreen sets transition-duration
-     inline from its own MOVE_MS constant, so this can't drift out of
-     sync with a separately hardcoded value. */
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .splash {
-    transition: opacity 0.3s linear;
-  }
-
-  .splash__index {
-    transition: none;
-  }
-}
-
 /* ---------- Silence / Luxury ---------- */
 
 .feature-split {
@@ -5536,8 +5473,7 @@ a:where(
    navbar in place of the "I/V" mark (which returns once the navbar is
    scrolled or the menu is open). The title/tagline stay in the DOM,
    visually hidden, so the page keeps its name for crawlers and screen
-   readers. The index also stays in the DOM, invisible, because the
-   splash screen measures it as its landing target. */
+   readers. */
 .navbar__wordmark {
   display: none;
 }
@@ -5566,8 +5502,8 @@ a:where(
 .navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__wordmark {
   display: block;
   font-weight: 300;
-  font-size: 24px;
-  letter-spacing: 3.6px;
+  font-size: 20px;
+  letter-spacing: 3px;
   text-transform: uppercase;
   white-space: nowrap;
   color: #c7a95f;

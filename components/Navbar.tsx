@@ -20,9 +20,16 @@ type NavbarProps = {
    * until the visitor scrolled past 60px.
    */
   solid?: boolean;
+  /**
+   * Homepage only. On mobile, while the navbar is still over the hero
+   * photo (not scrolled, menu closed), the gold "COLVIN HAVEN" wordmark
+   * takes the "I/V" mark's place (Figma node 426:703). Desktop and the
+   * scrolled/open states keep the "I/V" mark.
+   */
+  heroBrand?: boolean;
 };
 
-export default function Navbar({ solid = false }: NavbarProps) {
+export default function Navbar({ solid = false, heroBrand = false }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -52,7 +59,7 @@ export default function Navbar({ solid = false }: NavbarProps) {
   return (
     <>
       <header
-        className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}`}
+        className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}${heroBrand ? " navbar--hero-brand" : ""}`}
       >
         <div className="navbar__inner">
           {/* The "I/V" index mark doubles as the entry point to the Sora
@@ -66,6 +73,11 @@ export default function Navbar({ solid = false }: NavbarProps) {
           >
             I/V
           </a>
+          {heroBrand && (
+            <span className="navbar__wordmark" aria-hidden="true">
+              Colvin Haven
+            </span>
+          )}
 
           <div className="navbar__actions">
             <button

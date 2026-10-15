@@ -132,7 +132,7 @@ export default async function Home() {
         <style>{`.splash{display:none!important}`}</style>
       </noscript>
       <SplashScreen />
-      <Navbar />
+      <Navbar heroBrand />
       <Hero
         title={homepage?.hero.title}
         tagline={homepage?.hero.tagline}

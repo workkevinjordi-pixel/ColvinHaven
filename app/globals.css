@@ -5526,3 +5526,63 @@ a:where(
     scroll-snap-align: start;
   }
 }
+
+/* Homepage hero, mobile only (Figma node 426:703): the photo runs
+   full-bleed at full screen height with the 50% ink overlay, cropped to
+   the wave on the right; the centered title/tagline are gone and a gold
+   "COLVIN HAVEN" wordmark sits top-left in the navbar in place of the
+   "I/V" mark (which returns once the navbar is scrolled or the menu is
+   open). The index stays in the DOM, invisible, because the splash
+   screen measures it as its landing target. */
+.navbar__wordmark {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .landing-page .hero {
+    height: 100svh;
+    min-height: 0;
+  }
+
+  /* Figma places the 3018x1416 photo at 151.56% of the screen width and
+     the full height, offset -25.78% left -- so it is deliberately
+     squeezed horizontally (steeper wave), not cover-cropped. */
+  /* !important: ParallaxImage sets left/right/width inline. */
+  .landing-page .hero__bg {
+    width: 151.56% !important;
+    max-width: none;
+    left: -25.78% !important;
+    right: auto !important;
+    object-fit: fill;
+  }
+
+  .landing-page .hero__content {
+    display: none;
+  }
+
+  .navbar--hero-brand .navbar__inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__index {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__wordmark {
+    display: block;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 2.1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #c7a95f;
+  }
+
+  .navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__dot-trigger {
+    width: 32px;
+    height: 32px;
+  }
+}

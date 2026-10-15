@@ -40,7 +40,9 @@ export default defineConfig([
   {
     name: "default",
     title: "Colvin Haven",
-    basePath: "/",
+    // Every workspace's basePath needs the same number of segments, so
+    // the main one can't stay at "/" once there are two.
+    basePath: "/production",
 
     projectId: "2gbg82w2",
     dataset: "production",

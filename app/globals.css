@@ -3341,11 +3341,13 @@ button:focus-visible,
     padding-top: 48px;
   }
 
+  /* Keeps the cover's own 452x640 ratio (source art is 542x767) so the
+     whole thumbnail shows -- a fixed 420px height cropped both. */
   .collective-publications__cover {
     width: 100%;
     flex: 0 0 auto;
-    aspect-ratio: auto;
-    height: 420px;
+    aspect-ratio: 452 / 640;
+    height: auto;
   }
 
   .collective-publications__title {

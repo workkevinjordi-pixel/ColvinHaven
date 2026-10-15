@@ -172,6 +172,7 @@ export default async function Home() {
         ))}
       </TextIntro>
       <Cta
+        variant="link"
         text={homepage?.cta.text}
         buttonLabel={homepage?.cta.buttonLabel}
         buttonHref={homepage?.cta.buttonHref}

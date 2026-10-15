@@ -8,6 +8,7 @@ import NextEditionBand from "@/components/editions/NextEditionBand";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import { getEditions } from "@/lib/sanity/editions";
+import { getHomepage } from "@/lib/sanity/homepage";
 
 type Params = { slug: string };
 
@@ -55,7 +56,7 @@ export default async function EditionDetailPage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const editions = await getEditions();
+  const [editions, homepage] = await Promise.all([getEditions(), getHomepage()]);
   const edition = editions.find((e) => e.slug === slug);
   if (!edition) notFound();
 
@@ -80,7 +81,14 @@ export default async function EditionDetailPage({
       <EditionStickyBanner data={edition} />
       <EditionStorySummary data={edition} layout={isSora ? "sora" : "tsuki"} />
       <NextEditionBand next={edition.nextEdition} />
-      <Cta />
+      {/* Same inquiry banner as the home page (copy comes from the same
+          Sanity homepage.cta, link-style button). */}
+      <Cta
+        variant="link"
+        text={homepage?.cta.text}
+        buttonLabel={homepage?.cta.buttonLabel}
+        buttonHref={homepage?.cta.buttonHref}
+      />
       <Footer />
     </>
   );

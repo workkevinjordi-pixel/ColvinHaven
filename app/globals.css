@@ -4812,21 +4812,20 @@ button:focus-visible,
    sits at 24px/48px line-height here, not Cta's usual 32px (used
    as-is by the real homepage's own "seven Editions" line); and its own
    button is a plain italic arrow-link ("Write to Us  →"), not Cta's
-   usual bordered box. Both are scoped to .landing-page rather than
-   touching Cta.tsx or its shared classes, since the real homepage and
-   every Editions detail page keep the box-button treatment. The arrow
+   usual bordered box. Both are scoped to the Cta's `link` variant
+   (.cta--link), used by the home page and the Editions detail pages. The arrow
    is a CSS ::after (not a Cta.tsx markup change) specifically so nothing
    about Cta's own component code has to change for one page's link
    style. No hover state, same as .landing-intro__link's own arrow
    links elsewhere on this page -- a plain static link, not the box
    button's tinted-background/lift hover. ---------- */
 
-.landing-page .cta__text {
+.cta--link .cta__text {
   font-size: 24px;
   line-height: 48px;
 }
 
-.landing-page .cta__button {
+.cta--link .cta__button {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -4837,12 +4836,12 @@ button:focus-visible,
   transition: none;
 }
 
-.landing-page .cta__button::after {
+.cta--link .cta__button::after {
   content: "→";
 }
 
-.landing-page .cta__button:hover,
-.landing-page .cta__button:active {
+.cta--link .cta__button:hover,
+.cta--link .cta__button:active {
   background: none;
   transform: none;
 }

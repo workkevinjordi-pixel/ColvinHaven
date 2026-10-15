@@ -15,6 +15,10 @@ type CtaProps = {
   buttonHref?: string;
   buttonLabel?: string;
   id?: string;
+  /** "link" renders the button as a plain italic "Write to Us →" link
+   * with a 24px line (the home page's treatment, node 319:37948);
+   * "box" is the original bordered button. */
+  variant?: "box" | "link";
 };
 
 /**
@@ -39,11 +43,16 @@ export default function Cta({
   buttonHref = "/write-to-us",
   buttonLabel = "Write to Us",
   id = "inquiry",
+  variant = "box",
 }: CtaProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   return (
-    <section className="cta" id={id} ref={sectionRef}>
+    <section
+      className={`cta${variant === "link" ? " cta--link" : ""}`}
+      id={id}
+      ref={sectionRef}
+    >
       <ParallaxImage
         sectionRef={sectionRef}
         className="cta__bg"

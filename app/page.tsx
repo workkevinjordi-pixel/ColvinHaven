@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SplashScreen from "@/components/SplashScreen";
@@ -114,6 +115,12 @@ const EDITIONS_FALLBACK_BODY = [
 // Publications). Each component's own hardcoded defaults (still
 // matching this exact content) are the fallback if the fetch ever
 // comes back empty, not the source of truth.
+// The layout's "./" canonical resolves to "/index" on the root route, so
+// the homepage pins its own.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
 export default async function Home() {
   const homepage = await getHomepage();
 

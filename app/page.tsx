@@ -119,6 +119,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+// The house sketch (scroll-drawn on desktop, static on mobile) is hidden
+// for now. Drawing/ScrollDrawing/StaticDrawing are kept intact -- the
+// scroll effect is slated to move to the Collective page later.
+const SHOW_HOME_DRAWING = false;
+
 export default async function Home() {
   const homepage = await getHomepage();
 
@@ -130,12 +135,16 @@ export default async function Home() {
         tagline={homepage?.hero.tagline}
         backgroundImage={homepage?.hero.backgroundImage}
       />
-      <div className="home-drawing home-drawing--desktop">
-        <Drawing />
-      </div>
-      <div className="home-drawing home-drawing--mobile">
-        <StaticDrawing />
-      </div>
+      {SHOW_HOME_DRAWING && (
+        <>
+          <div className="home-drawing home-drawing--desktop">
+            <Drawing />
+          </div>
+          <div className="home-drawing home-drawing--mobile">
+            <StaticDrawing />
+          </div>
+        </>
+      )}
       <CraftingStatement
         heading={homepage?.craftingStatement.heading}
         body={homepage?.craftingStatement.body}

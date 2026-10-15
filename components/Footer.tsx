@@ -9,7 +9,14 @@ const FOOTER_LINKS = [
   { href: "/collective", label: "Collective" },
 ];
 
+// Footer is switched off sitewide for now (explicit request). Flip this
+// back to true to bring it back on every page -- every page still renders
+// <Footer />, it just returns nothing while this is false.
+const FOOTER_ENABLED = false;
+
 export default function Footer() {
+  if (!FOOTER_ENABLED) return null;
+
   return (
     <footer className="footer">
       <p className="footer__mark" aria-label="Colvin Haven">

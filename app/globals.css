@@ -1520,6 +1520,61 @@ button:focus-visible,
   }
 }
 
+/* ---------- Editions "Welcome" statement (node 371:40300) ---------- */
+
+.editions-welcome {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 160px 120px;
+}
+
+.editions-welcome__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+  color: var(--ink);
+}
+
+.editions-welcome__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.editions-welcome__title {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 2.4px;
+}
+
+.editions-welcome__tagline {
+  font-weight: 300;
+  font-style: italic;
+  font-size: 16px;
+}
+
+.editions-welcome__body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 800px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+@media (max-width: 900px) {
+  .editions-welcome {
+    padding: 96px var(--gutter);
+  }
+}
+
 /* ---------- Footer ---------- */
 
 .footer {
@@ -2519,6 +2574,12 @@ button:focus-visible,
   font-size: 16px;
   color: var(--ink);
   text-decoration: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.edition-story__side-block-text a.edition-story__cta-link:hover,
+.edition-story__side-block-text a.edition-story__cta-link:active {
+  opacity: 0.6;
 }
 
 .edition-story__cta-link span {
@@ -4501,6 +4562,12 @@ button:focus-visible,
   font-size: 16px;
   color: var(--ink);
   text-decoration: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hpn-collections__link:hover,
+.hpn-collections__link:active {
+  opacity: 0.6;
 }
 
 .hpn-collections__link span {
@@ -4658,9 +4725,8 @@ button:focus-visible,
    (.cta--link), used by the home page and the Editions detail pages. The arrow
    is a CSS ::after (not a Cta.tsx markup change) specifically so nothing
    about Cta's own component code has to change for one page's link
-   style. No hover state, same as .landing-intro__link's own arrow
-   links elsewhere on this page -- a plain static link, not the box
-   button's tinted-background/lift hover. ---------- */
+   style. Hover fades to 60% opacity (the same treatment as the other
+   text links), not the box button's tinted-background/lift hover. ---------- */
 
 .cta--link .cta__text {
   font-size: 24px;
@@ -4675,7 +4741,7 @@ button:focus-visible,
   border: none;
   font-style: italic;
   background: none;
-  transition: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cta--link .cta__button::after {
@@ -4686,6 +4752,7 @@ button:focus-visible,
 .cta--link .cta__button:active {
   background: none;
   transform: none;
+  opacity: 0.6;
 }
 
 /* WayOfLife (node 319:37991 desktop, 321:39394 mobile) reuses

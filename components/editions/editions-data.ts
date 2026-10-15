@@ -250,7 +250,7 @@ export const EDITIONS_PAGE_OVERRIDES: Record<string, Partial<EditionData>> = {
     // (copy verbatim, including "though the paddies").
     editionsStoryAParagraphs: [
       "Sora floats over its natural landscape. We studied older Japanese facades to give this house a timeless feel, where the new meets the old. Classic, refined by our local craftsmen, and not one line out of order.",
-      "There are many places here to sit and be still, and this is one of the best for the morning. Bring a coffee. Watch the gardens wake up, the farmers move though the paddies and the light reach Mount Batukaru. It’s a view that has been here long before the house",
+      "There are many places here to sit and be still, and this is one of the best for the morning. Bring a coffee. Watch the gardens wake up, the farmers move though the paddies and the light reach Mount Batukaru. It’s a view that has been here long before the house.",
     ],
     editionsStoryACta: {
       note: "Visits to Sora are by invitation.",
@@ -265,7 +265,7 @@ export const EDITIONS_PAGE_OVERRIDES: Record<string, Partial<EditionData>> = {
       "An open-air corridor keeps you connected to the elements, every step of the way. The roof gives shades, and the garden stays within reach. Step slowly: the walkway was made for it.",
     ],
     editionsRow1SideText:
-      "An old piece of solid teak, brought back to life.\nSit here and be still",
+      "An old piece of solid teak, brought back to life.\nSit here and be still.",
     editionsRow4MainText: [
       "Welcome to the living room: the place to go gather with friends and family. When the day warms up, the natural salt pool is just beyond the sofa.",
     ],

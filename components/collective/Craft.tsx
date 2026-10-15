@@ -28,8 +28,8 @@ const DEFAULT_ROW: Required<CraftProps>["row"] = {
     },
     text: [
       "Astrid leads the architecture.",
-      "Nyoman leads the build.",
-      "Runta is the master of the gardens.",
+      "Nyoman leads the craftman.",
+      "Runta master of the gardens.",
       "Around them, Indonesian designers and engineers, joiners and stonemasons, all local to the land they build on, working on site beside the founder for as long as each home takes.",
       "We plant the trees before we build. We carry into every home the same sustainable design approaches the founder first practiced at Mixt: responsible materials, light on the land. The most sustainable home is the one that is never torn down, so we build slowly, to last.",
     ],
@@ -86,7 +86,7 @@ export default function Craft({
                 // The three short "<Name> leads/is …" lines open with
                 // the person's name in Medium weight, then the role in
                 // Light Italic (node 391:1435).
-                const m = /^(\S+) ((?:leads|is) .*)$/.exec(p);
+                const m = /^(\S+) ((?:leads|is|master) .*)$/.exec(p);
                 return (
                   <p key={i}>
                     {m ? (

@@ -27,7 +27,7 @@ export default function CollectionsCard() {
           <div className="hpn-collections__text">
             <p>Some are complete,</p>
             <p>Some are under construction,</p>
-            <p>Some are still waiting for their land</p>
+            <p>Some are still waiting for their land.</p>
           </div>
         </div>
         <div className="hpn-collections__cta">

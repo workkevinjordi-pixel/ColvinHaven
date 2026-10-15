@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import ScrollFade from "../ScrollFade";
 
@@ -29,9 +30,9 @@ const DEFAULT_IMAGE = {
  * a label + intro paragraph, three fields (Name, Email, Message), and
  * a Send button. Fields are real, typeable inputs/textarea -- the
  * Figma "placeholder" text becomes an actual HTML placeholder rather
- * than static copy. Submit is wired (preventDefault, no-op) but
- * doesn't send anywhere yet -- that action is defined later. Heading/
- * image/tag/intro/submit label now come from Sanity's contactPage.
+ * than static copy. Submit posts to /api/write-to-us, which stores a
+ * `lead` in the private leads dataset (see lib/sanity/leadsClient.ts).
+ * Heading/image/tag/intro/submit label come from Sanity's contactPage.
  */
 export default function WriteToUsSection({
   heading = "Write to Us",
@@ -40,9 +41,33 @@ export default function WriteToUsSection({
   intro = "Whether one of the remaining Editions feels right, or you'd simply like to know more about the practice, we'd genuinely love to hear from you.",
   submitLabel = "Send",
 }: WriteToUsSectionProps) {
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Intentionally a no-op for now -- the send action is defined later.
+    if (status === "sending") return;
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/write-to-us", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          message: data.get("message"),
+          website: data.get("website"), // honeypot, left empty by real visitors
+        }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -105,11 +130,41 @@ export default function WriteToUsSection({
                   required
                 />
               </div>
+
+              {/* Honeypot -- hidden from people and assistive tech; bots that
+                fill every field give themselves away. */}
+              <div className="write-to-us__hp" aria-hidden="true">
+                <label htmlFor="write-to-us-website">Website</label>
+                <input
+                  id="write-to-us-website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
             </div>
 
-            <button type="submit" className="write-to-us__submit">
-              {submitLabel}
-            </button>
+            <div className="write-to-us__actions">
+              <button
+                type="submit"
+                className="write-to-us__submit"
+                disabled={status === "sending"}
+              >
+                {status === "sending" ? "Sending…" : submitLabel}
+              </button>
+
+              <p
+                className="write-to-us__status"
+                role="status"
+                aria-live="polite"
+              >
+                {status === "sent" &&
+                  "Thank you. Your message has been received, and we'll be in touch."}
+                {status === "error" &&
+                  "Something went wrong. Please try again, or write to info@colvinhaven.com."}
+              </p>
+            </div>
           </form>
         </div>
       </ScrollFade>

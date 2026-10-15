@@ -3,6 +3,7 @@ import { structureTool } from "sanity/structure";
 import type { StructureResolver } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./schemaTypes";
+import lead from "./schemaTypes/documents/lead";
 
 // Every page-level document below is a singleton -- exactly one
 // instance, explicit `_id` set by its own migration script -- so each
@@ -35,16 +36,36 @@ const structure: StructureResolver = (S) =>
       ),
     ]);
 
-export default defineConfig({
-  name: "default",
-  title: "Colvin Haven",
+export default defineConfig([
+  {
+    name: "default",
+    title: "Colvin Haven",
+    basePath: "/",
 
-  projectId: "2gbg82w2",
-  dataset: "production",
+    projectId: "2gbg82w2",
+    dataset: "production",
 
-  plugins: [structureTool({ structure }), visionTool()],
+    plugins: [structureTool({ structure }), visionTool()],
 
-  schema: {
-    types: schemaTypes,
+    schema: {
+      types: schemaTypes,
+    },
   },
-});
+  // Form submissions (names, emails, messages) live in a separate
+  // PRIVATE dataset -- `production` is publicly readable, so personal
+  // data must never be stored there. Opened at /leads in the Studio.
+  {
+    name: "leads",
+    title: "Leads (private)",
+    basePath: "/leads",
+
+    projectId: "2gbg82w2",
+    dataset: "leads",
+
+    plugins: [structureTool()],
+
+    schema: {
+      types: [lead],
+    },
+  },
+]);

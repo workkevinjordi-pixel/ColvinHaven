@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import RequestCollectionsSection from "@/components/request-collections/RequestCollectionsSection";
 import Footer from "@/components/Footer";
 import { getRequestCollectionsPage } from "@/lib/sanity/requestCollections";
+
+const REQUEST_COLLECTIONS_ENABLED = false;
 
 export const metadata: Metadata = {
   title: "Colvin Haven — Request the Collections",
@@ -20,6 +23,11 @@ export const metadata: Metadata = {
 // client component for its onSubmit handler, same pattern as
 // WriteToUsSection.
 export default async function RequestTheCollectionsPage() {
+  // Switched off until the form actually sends somewhere (its submit is
+  // still a no-op) -- the URL 404s instead of showing a form that
+  // silently drops what people type. Flip to true to bring it back.
+  if (!REQUEST_COLLECTIONS_ENABLED) notFound();
+
   const page = await getRequestCollectionsPage();
   return (
     <>

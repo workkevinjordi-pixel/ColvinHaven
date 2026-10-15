@@ -4096,6 +4096,38 @@ button:focus-visible,
   transform: translateY(-1px);
 }
 
+.write-to-us__submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+.write-to-us__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* Shown after a send attempt (success or error); empty -- and so
+   zero-height -- until then. */
+.write-to-us__status {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+/* Honeypot: off-screen rather than display:none, since some bots skip
+   fields that are display:none. */
+.write-to-us__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .write-to-us__field input,
   .write-to-us__field textarea,

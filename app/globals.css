@@ -1413,21 +1413,22 @@ button:focus-visible,
   padding: 0 var(--gutter);
 }
 
-/* Centered both ways: the frame is a full-width flex item and the
-   content block sits in the middle of it, text centered inside. The
+/* Right-aligned, vertically centered: the content block hugs the right
+   edge of the frame (the section itself centers it vertically) with
+   its text right-aligned inside. The
    text layer's scroll parallax (inline transform) is switched off so it
    stays exactly centered at every scroll position -- the background
    photo keeps its own drift. */
 .cta__content {
   transform: none !important;
   max-width: 711px;
-  margin: 0 auto;
+  margin: 0 0 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 32px;
   padding: 60px 0;
-  text-align: center;
+  text-align: right;
 }
 
 .cta__text {

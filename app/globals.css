@@ -4679,20 +4679,23 @@ button:focus-visible,
   text-align: center;
 }
 
+/* Desktop type is 20% below the Figma sizes (32/24px) for a quieter,
+   more elegant read -- explicit request. Tablet and phone sizes below
+   were already smaller and are unchanged. */
 .landing-crafting__heading {
   font-family: var(--font-cormorant), serif;
   font-weight: 500;
-  font-size: 32px;
-  letter-spacing: 3.2px;
+  font-size: 25.6px;
+  letter-spacing: 2.56px;
   color: var(--ink);
 }
 
 .landing-crafting__body {
   max-width: 920px;
   font-weight: 300;
-  font-size: 24px;
-  line-height: 40px;
-  letter-spacing: 2.4px;
+  font-size: 19.2px;
+  line-height: 32px;
+  letter-spacing: 1.92px;
   color: rgba(29, 25, 15, 0.7);
 }
 

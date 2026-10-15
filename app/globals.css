@@ -5527,15 +5527,47 @@ a:where(
   }
 }
 
-/* Homepage hero, mobile only (Figma node 426:703): the photo runs
-   full-bleed at full screen height with the 50% ink overlay, cropped to
-   the wave on the right; the centered title/tagline are gone and a gold
-   "COLVIN HAVEN" wordmark sits top-left in the navbar in place of the
-   "I/V" mark (which returns once the navbar is scrolled or the menu is
-   open). The index stays in the DOM, invisible, because the splash
-   screen measures it as its landing target. */
+/* Homepage hero (Figma node 385:15 desktop / 426:703 mobile): the photo
+   runs full-bleed with the 50% ink overlay, the centered title/tagline
+   are gone, and a gold "COLVIN HAVEN" wordmark sits top-left in the
+   navbar in place of the "I/V" mark (which returns once the navbar is
+   scrolled or the menu is open). The title/tagline stay in the DOM,
+   visually hidden, so the page keeps its name for crawlers and screen
+   readers. The index also stays in the DOM, invisible, because the
+   splash screen measures it as its landing target. */
 .navbar__wordmark {
   display: none;
+}
+
+.landing-page .hero__content {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.navbar--hero-brand .navbar__inner {
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__index {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__wordmark {
+  display: block;
+  font-weight: 300;
+  font-size: 24px;
+  letter-spacing: 3.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #c7a95f;
 }
 
 @media (max-width: 560px) {
@@ -5544,10 +5576,11 @@ a:where(
     min-height: 0;
   }
 
-  /* Figma places the 3018x1416 photo at 151.56% of the screen width and
-     the full height, offset -25.78% left -- so it is deliberately
-     squeezed horizontally (steeper wave), not cover-cropped. */
-  /* !important: ParallaxImage sets left/right/width inline. */
+  /* Mobile Figma places the 3018x1416 photo at 151.56% of the screen
+     width and the full height, offset -25.78% left -- so it is
+     deliberately squeezed horizontally (steeper wave), not
+     cover-cropped. !important: ParallaxImage sets left/right/width
+     inline. */
   .landing-page .hero__bg {
     width: 151.56% !important;
     max-width: none;
@@ -5556,29 +5589,14 @@ a:where(
     object-fit: fill;
   }
 
-  .landing-page .hero__content {
-    display: none;
-  }
-
   .navbar--hero-brand .navbar__inner {
     padding-left: 16px;
     padding-right: 16px;
   }
 
-  .navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__index {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
   .navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__wordmark {
-    display: block;
-    font-weight: 300;
     font-size: 14px;
     letter-spacing: 2.1px;
-    text-transform: uppercase;
-    white-space: nowrap;
-    color: #c7a95f;
   }
 
   .navbar--hero-brand:not(.navbar--scrolled):not(.navbar--open) .navbar__dot-trigger {

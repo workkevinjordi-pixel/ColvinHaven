@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import EditionDetailHeader from "@/components/editions/EditionDetailHeader";
-import EditionStickyBanner from "@/components/editions/EditionStickyBanner";
 import EditionStorySummary from "@/components/editions/EditionStorySummary";
-import NextEditionBand from "@/components/editions/NextEditionBand";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import { getEditions } from "@/lib/sanity/editions";
@@ -78,9 +76,7 @@ export default async function EditionDetailPage({
         displayName={isSora ? edition.name.toUpperCase() : undefined}
         hideMeta
       />
-      <EditionStickyBanner data={edition} />
       <EditionStorySummary data={edition} layout={isSora ? "sora" : "tsuki"} />
-      <NextEditionBand next={edition.nextEdition} />
       {/* Same inquiry banner as the home page (copy comes from the same
           Sanity homepage.cta, link-style button). */}
       <Cta

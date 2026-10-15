@@ -5388,3 +5388,141 @@ a:where(
     padding-top: 140px;
   }
 }
+
+/* ==========================================================================
+   Mobile redesign (staging) -- <=560px only. Layout cues borrowed from
+   Norm Architects' mobile site: horizontally swipeable image rows with
+   a peek of the next card, two-column image grids, small left-aligned
+   captions. Desktop and tablet are untouched.
+   ========================================================================== */
+@media (max-width: 560px) {
+  /* Home quote row: one swipeable row instead of three tall stacked
+     photos (~1000px of scrolling saved). 78% card width leaves the next
+     card peeking in so the swipe is discoverable. */
+  .landing-quote-row {
+    padding: 56px 0;
+  }
+
+  .landing-quote-row__inner {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .landing-quote-row__inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .landing-quote-row__item {
+    flex: 0 0 78% !important;
+    width: auto;
+    align-items: flex-start;
+    gap: 16px;
+    scroll-snap-align: start;
+  }
+
+  .landing-quote-row__image {
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+
+  .landing-quote-row__caption {
+    padding: 0;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: left;
+  }
+
+  /* Approach gallery: two columns, the odd fifth photo spans the row. */
+  .landing-approach {
+    padding: 56px 0;
+  }
+
+  .landing-approach__row {
+    gap: 12px;
+    row-gap: 28px;
+    padding: 0 16px;
+    align-items: flex-start;
+  }
+
+  .landing-approach__item,
+  .landing-approach__item--fixed {
+    flex: 1 1 calc(50% - 6px);
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .landing-approach__item:last-child {
+    flex-basis: 100%;
+  }
+
+  .landing-approach__image {
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+
+  .landing-approach__item:last-child .landing-approach__image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .landing-approach__caption {
+    font-size: 14px;
+  }
+}
+
+/* Editions / edition detail stories (mobile redesign, staging): tighter
+   16px gutters to match the homepage, a calmer vertical rhythm, and the
+   three-photo gallery as a swipeable row instead of three stacked
+   320px photos. */
+@media (max-width: 560px) {
+  .editions-welcome {
+    padding: 72px 20px;
+  }
+
+  .editions-welcome__body {
+    font-size: 15px;
+    line-height: 26px;
+    letter-spacing: 1.2px;
+  }
+
+  .edition-spotlight {
+    padding: 24px 16px 80px;
+  }
+
+  .edition-spotlight--tight-bottom {
+    padding-bottom: 48px;
+  }
+
+  .edition-spotlight__body {
+    gap: 32px;
+  }
+
+  .edition-story__gallery {
+    flex-direction: row;
+    gap: 12px;
+    margin: 0 -16px;
+    padding: 0 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+    scrollbar-width: none;
+  }
+
+  .edition-story__gallery::-webkit-scrollbar {
+    display: none;
+  }
+
+  .edition-story__gallery-image {
+    flex: 0 0 78%;
+    width: auto;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    scroll-snap-align: start;
+  }
+}

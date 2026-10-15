@@ -5456,21 +5456,19 @@ a:where(
     min-height: 0;
   }
 
-  /* Mobile Figma (node 426:703) places the 3018x1416 photo at 151.56%
-     of the screen width and the full height, flush with the left edge
-     (0.01%) -- so it is deliberately squeezed horizontally, not
-     cover-cropped, and the left two-thirds of the photo shows (the
-     pale sand wisp), with the wave entering at the lower right.
-     No parallax drift/zoom here, so the photo sits exactly as framed.
-     !important: ParallaxImage sets its geometry and transform inline. */
+  /* Mobile Figma (node 426:703): the 3018x1416 photo fills the 390x844
+     frame as a plain centered cover crop (the middle strip of the photo,
+     wave entering at the lower right). No parallax drift/zoom here, so
+     the photo sits exactly as framed. !important: ParallaxImage sets its
+     geometry and transform inline. */
   .landing-page .hero__bg {
-    width: 151.56% !important;
-    max-width: none;
-    left: 0.01% !important;
-    right: auto !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
     top: 0 !important;
     height: 100% !important;
     transform: none !important;
-    object-fit: fill;
+    object-fit: cover;
+    object-position: center;
   }
 }

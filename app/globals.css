@@ -1706,11 +1706,6 @@ button:focus-visible,
   .quote {
     padding-left: var(--gutter);
   }
-
-  .footer {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
 
 /* Figma's mobile "Homepage" frame (node 250:7843, gallery node
@@ -1796,18 +1791,6 @@ button:focus-visible,
 
   .gallery__col--right > *:nth-child(2) .gallery__card-media {
     aspect-ratio: 167 / 182;
-  }
-}
-
-/* Figma node 250:10844: centered, not the <=900px rule's left-aligned
-   stack above (that tablet-range treatment stays as-is) -- mark above
-   nav, both centered, with its own distinct padding/gap rather than
-   the shared desktop values. */
-@media (max-width: 560px) {
-  .footer {
-    align-items: center;
-    padding: 64px 20px;
-    gap: 48px;
   }
 }
 
@@ -4695,25 +4678,9 @@ button:focus-visible,
   stroke-dashoffset: 0;
 }
 
-/* This page's own mobile Footer frame (node 321:39424) keeps the same
-   single row (mark left, nav right) as desktop -- confirmed via a
-   dedicated get_design_context call on that exact mobile frame, not
-   assumed -- unlike the shared Footer's own dedicated mobile frame
-   elsewhere on the site (node 250:10844, a centered mark-above-nav
-   stack, kept as every other page's default below 900px). Two class
-   selectors beat that shared rule's one on specificity regardless of
-   which appears later in the file, so this one rule at 900px covers
-   both that rule's own 900px and 560px tiers. */
-@media (max-width: 900px) {
-  .landing-page .footer {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-    padding: 40px 20px;
-    gap: 24px;
-  }
-}
+/* The footer keeps the same single row (mark left, nav right) at every
+   width on every page, matching the homepage's mobile Footer frame
+   (node 321:39424). */
 
 /* ---------- Cta (node 319:37948) -- a follow-up fidelity pass found
    two things this frame specs that the shared Cta component's own

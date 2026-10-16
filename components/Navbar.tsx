@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const PRIMARY_LINKS = [
   { href: "/editions", label: "Editions" },
@@ -24,10 +25,22 @@ type NavbarProps = {
 
 export default function Navbar({ solid = false }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [markHidden, setMarkHidden] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 60);
+      // The wordmark tucks away while scrolling down and returns on any
+      // upward scroll (and at the very top); the dot stays. Small jitter
+      // is ignored, and the CSS only applies this on phones.
+      const delta = y - lastY;
+      if (y < 80 || delta < -4) setMarkHidden(false);
+      else if (delta > 4) setMarkHidden(true);
+      if (Math.abs(delta) > 4) lastY = y;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -52,12 +65,12 @@ export default function Navbar({ solid = false }: NavbarProps) {
   return (
     <>
       <header
-        className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}`}
+        className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}${markHidden ? " navbar--mark-hidden" : ""}${scrolled && !markHidden ? " navbar--bar" : ""}`}
       >
         <div className="navbar__inner">
-          <a href="/" className="navbar__index" aria-label="Colvin Haven">
+          <Link href="/" className="navbar__index" aria-label="Colvin Haven">
             Colvin Haven
-          </a>
+          </Link>
 
           <div className="navbar__actions">
             <button
@@ -79,17 +92,24 @@ export default function Navbar({ solid = false }: NavbarProps) {
         </div>
       </header>
 
-      <div className={`navbar__overlay${open ? " navbar__overlay--visible" : ""}`}>
+      <div
+        className={`navbar__overlay${open ? " navbar__overlay--visible" : ""}`}
+      >
         <div className="navbar__overlay-panel">
-          {/* Brand and every link fade in together (no per-item stagger,
-              no slide) -- matches the reference recording, where the
-              whole text block settles in one plain opacity fade before
-              the photo crossfades in after it (see .navbar__overlay-
-              media's own delay in globals.css). */}
-          <p className="navbar__overlay-brand">Colvin Haven</p>
+          {/* Every link fades in together (no per-item stagger, no
+              slide) -- matches the reference recording, where the whole
+              text block settles in one plain opacity fade before the
+              photo crossfades in after it (see .navbar__overlay-media's
+              own delay in globals.css). The big "Colvin Haven" label
+              that used to sit above the list is gone; the gold wordmark
+              in the bar above already says it. */}
           <nav className="navbar__overlay-links">
             {PRIMARY_LINKS.map((link) => (
-              <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+              >
                 {link.label}
               </a>
             ))}

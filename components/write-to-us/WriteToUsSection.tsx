@@ -73,8 +73,7 @@ export default function WriteToUsSection({
   return (
     <section className="write-to-us">
       <ScrollFade>
-        <h1 className="section-heading">{heading}</h1>
-        <hr className="values__divider" />
+        <h1 className="write-to-us__heading">{heading}</h1>
         <div className="write-to-us__row">
           <div className="write-to-us__image">
             <Image
@@ -88,10 +87,7 @@ export default function WriteToUsSection({
 
           <form className="write-to-us__form-col" onSubmit={handleSubmit}>
             <div className="write-to-us__intro">
-              <div className="values__tag">
-                <span className="values__dot" />
-                <span>{tag}</span>
-              </div>
+              <p className="write-to-us__eyebrow">{tag}</p>
               <p>{intro}</p>
             </div>
 

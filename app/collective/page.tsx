@@ -6,6 +6,9 @@ import PhotoBand from "@/components/collective/PhotoBand";
 import Inspiration from "@/components/collective/Inspiration";
 import Publications from "@/components/collective/Publications";
 import Footer from "@/components/Footer";
+import CollectiveMobile from "@/components/collective-mobile/CollectiveMobile";
+import { buildCollectivePlan } from "@/components/collective-mobile/plan";
+import { getPublications } from "@/lib/sanity/publications";
 import { getCollectivePage } from "@/lib/sanity/collective";
 
 export const metadata: Metadata = {
@@ -71,34 +74,38 @@ const DEFAULT_PHOTO_BAND = {
 // props -- same pattern as app/page.tsx. Publications stays its own
 // self-fetching Server Component (it's shared with /news).
 export default async function CollectivePage() {
-  const page = await getCollectivePage();
+  const [page, publications] = await Promise.all([
+    getCollectivePage(),
+    getPublications(),
+  ]);
 
   return (
     <>
       <Navbar solid />
-      <Foundation
-        heading={page?.foundation.heading}
-        collageImageA={page?.foundation.collageImageA}
-        collageImageB={page?.foundation.collageImageB}
-        paragraphs={page?.foundation.paragraphs}
-      />
-      <Craft
-        heading={page?.craft.heading}
-        row={page?.craft.row}
-      />
-      <div className="collective-band-section collective-mountain-band">
-        <PhotoBand
-          src={page?.photoBand?.src ?? DEFAULT_PHOTO_BAND.src}
-          alt={page?.photoBand?.alt ?? DEFAULT_PHOTO_BAND.alt}
+      {/* Phone layout: full-screen sections with pinned photos (<=560px). */}
+      <CollectiveMobile sections={buildCollectivePlan(page, publications)} />
+      <div className="collective-desktop">
+        <Foundation
+          heading={page?.foundation.heading}
+          collageImageA={page?.foundation.collageImageA}
+          collageImageB={page?.foundation.collageImageB}
+          paragraphs={page?.foundation.paragraphs}
         />
+        <Craft heading={page?.craft.heading} row={page?.craft.row} />
+        <div className="collective-band-section collective-mountain-band">
+          <PhotoBand
+            src={page?.photoBand?.src ?? DEFAULT_PHOTO_BAND.src}
+            alt={page?.photoBand?.alt ?? DEFAULT_PHOTO_BAND.alt}
+          />
+        </div>
+        <Inspiration
+          heading={page?.inspiration.heading}
+          paragraphs={page?.inspiration.paragraphs}
+          images={page?.inspirationGallery}
+        />
+        <Publications />
+        <Footer />
       </div>
-      <Inspiration
-        heading={page?.inspiration.heading}
-        paragraphs={page?.inspiration.paragraphs}
-        images={page?.inspirationGallery}
-      />
-      <Publications />
-      <Footer />
     </>
   );
 }

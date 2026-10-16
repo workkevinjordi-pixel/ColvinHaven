@@ -32,7 +32,10 @@ const DEFAULT_BAND_IMAGE = {
  * generic (just src/alt props, no Collective-specific coupling).
  * Content now comes from Sanity's newsPage.socialAction.
  */
-export default function SocialAction({ statement, bandImage = DEFAULT_BAND_IMAGE }: SocialActionProps) {
+export default function SocialAction({
+  statement,
+  bandImage = DEFAULT_BAND_IMAGE,
+}: SocialActionProps) {
   return (
     <div className="news-social-action">
       <StatementSection

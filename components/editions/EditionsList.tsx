@@ -45,7 +45,11 @@ function EditionRow({ edition }: { edition: EditionData }) {
  * inline here; that full story moved to the detail page, and this is
  * just the teaser. Plain static section, no scroll-triggered animation.
  */
-export default function EditionsList({ editions }: { editions: EditionData[] }) {
+export default function EditionsList({
+  editions,
+}: {
+  editions: EditionData[];
+}) {
   return (
     <section className="editions-list">
       <div className="editions-list__intro">

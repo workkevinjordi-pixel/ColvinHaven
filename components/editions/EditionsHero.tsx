@@ -30,7 +30,9 @@ const DEFAULT_IMAGE = {
  * temporary asset URL. Content now comes from Sanity's
  * editionsPage.heroImage.
  */
-export default function EditionsHero({ image = DEFAULT_IMAGE }: EditionsHeroProps) {
+export default function EditionsHero({
+  image = DEFAULT_IMAGE,
+}: EditionsHeroProps) {
   return (
     <section className="editions-hero">
       <div className="editions-hero__image">

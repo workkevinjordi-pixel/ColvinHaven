@@ -43,7 +43,11 @@ export default function ParallaxLayer({
   });
 
   return (
-    <div ref={ref} className={className} style={{ ...style, willChange: "transform" }}>
+    <div
+      ref={ref}
+      className={className}
+      style={{ ...style, willChange: "transform" }}
+    >
       {children}
     </div>
   );

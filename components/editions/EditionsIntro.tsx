@@ -49,10 +49,10 @@ export default function EditionsIntro() {
       <ScrollFade className="centered-statement">
         <p className="centered-statement__eyebrow">II/VII</p>
         <p className="centered-statement__lead">
-          There will only ever be seven Editions in this first series —
-          each one a singular commission, conceived for a single family and
-          built entirely by hand. Some are already complete. Others are
-          still taking shape. This is where they stand today.
+          There will only ever be seven Editions in this first series — each one
+          a singular commission, conceived for a single family and built
+          entirely by hand. Some are already complete. Others are still taking
+          shape. This is where they stand today.
         </p>
         <a href="#editions" className="centered-statement__cta">
           Explore II/VII

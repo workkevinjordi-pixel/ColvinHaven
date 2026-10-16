@@ -1,6 +1,8 @@
 :root {
   --ink: #1d190f;
   --bg: #f0ebe3;
+  /* Soft cream for text set over photos / the phone layout. */
+  --cream: #f2eee8;
   --max-width: 1440px;
   --gutter: 112px;
 }
@@ -66,7 +68,9 @@ button:focus-visible,
 .scroll-fade {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .scroll-fade--visible {
@@ -345,7 +349,8 @@ button:focus-visible,
   font-size: 16px;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -416,7 +421,8 @@ button:focus-visible,
   font-size: 16px;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -448,7 +454,8 @@ button:focus-visible,
   z-index: 100;
   color: #fff;
   background: transparent;
-  transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -486,13 +493,13 @@ button:focus-visible,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32px 48px;
+  padding: 38.4px 48px;
   transition: padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar--scrolled .navbar__inner {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 .navbar__index {
@@ -584,14 +591,18 @@ button:focus-visible,
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.5s;
+  transition:
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0.5s;
 }
 
 .navbar__overlay--visible {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
+  transition:
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0s;
 }
 
 .navbar__overlay-panel {
@@ -603,24 +614,6 @@ button:focus-visible,
   flex-direction: column;
   justify-content: center;
   padding: 80px 48px;
-}
-
-.navbar__overlay-brand {
-  font-family: var(--font-plus-jakarta-sans), sans-serif;
-  font-weight: 300;
-  font-size: 32px;
-  text-transform: uppercase;
-  margin-bottom: 48px;
-  opacity: 0;
-  /* Plain opacity, no slide -- matches the reference recording, where
-     the panel's text settles in place with no vertical motion, all of
-     it (brand + every link) fading together rather than cascading in
-     one item at a time. */
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.navbar__overlay--visible .navbar__overlay-brand {
-  opacity: 1;
 }
 
 .navbar__overlay-links {
@@ -649,7 +642,8 @@ button:focus-visible,
   /* Same plain-opacity, no-slide, no-stagger fade as .navbar__overlay-
      brand -- every link appears together with it, not one after
      another (see that rule's comment). */
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     background-size 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -743,12 +737,12 @@ button:focus-visible,
 
 @media (max-width: 560px) {
   .navbar__inner {
-    padding: 24px 16px;
+    padding: 28.8px 16px;
   }
 
   .navbar__index {
-    font-size: 14px;
-    letter-spacing: 2.1px;
+    font-size: var(--t-wordmark);
+    letter-spacing: var(--t-wordmark-ls);
   }
 
   .navbar__dot-trigger {
@@ -757,30 +751,26 @@ button:focus-visible,
   }
 
   .navbar--scrolled .navbar__inner {
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 19.2px;
+    padding-bottom: 19.2px;
   }
 
   .navbar__overlay-panel {
     padding: 40px 16px;
   }
 
-  .navbar__overlay-brand {
-    font-size: 26px;
-    margin-bottom: 32px;
-  }
-
   .navbar__overlay-links a {
-    font-size: 18px;
+    font-size: var(--t-menu);
   }
 
   .navbar__overlay-apply {
+    left: 16px;
     bottom: 40px;
   }
 
   .navbar__overlay-apply-label,
   .navbar__overlay-apply a {
-    font-size: 15px;
+    font-size: var(--t-menu-note);
   }
 }
 
@@ -789,14 +779,12 @@ button:focus-visible,
   .navbar__inner,
   .navbar__dot-trigger,
   .navbar__overlay,
-  .navbar__overlay-brand,
   .navbar__overlay-links a,
   .navbar__overlay-media,
   .navbar__overlay-apply {
     transition: none;
   }
 
-  .navbar__overlay-brand,
   .navbar__overlay-links a,
   .navbar__overlay-media,
   .navbar__overlay-apply {
@@ -1237,7 +1225,8 @@ button:focus-visible,
   font-size: 16px;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1316,7 +1305,9 @@ button:focus-visible,
   margin-top: 16px;
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 
 .gallery__card:hover .gallery__caption,
@@ -1456,7 +1447,8 @@ button:focus-visible,
   font-size: 16px;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -2328,7 +2320,9 @@ button:focus-visible,
    first line's top to cap height makes the visible tops line up with
    the portrait. Browsers without text-box-trim just keep the Figma
    box-aligned offset. */
-.edition-story__info-row--titled .edition-story__spec:first-child .edition-story__spec-label,
+.edition-story__info-row--titled
+  .edition-story__spec:first-child
+  .edition-story__spec-label,
 .edition-story__info-row--titled .edition-story__title {
   text-box-trim: trim-start;
   text-box-edge: cap alphabetic;
@@ -2412,7 +2406,9 @@ button:focus-visible,
   margin-bottom: 24px;
 }
 
-.edition-story__side-block--sora .edition-story__side-block-text > p:last-of-type {
+.edition-story__side-block--sora
+  .edition-story__side-block-text
+  > p:last-of-type {
   margin-bottom: 0;
 }
 
@@ -3875,7 +3871,8 @@ button:focus-visible,
   font-weight: 300;
   font-size: 16px;
   cursor: pointer;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -4093,7 +4090,8 @@ button:focus-visible,
   font-weight: 300;
   font-size: 16px;
   cursor: pointer;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -5165,7 +5163,6 @@ button:focus-visible,
   }
 }
 
-
 /* ---------- Editions hero banner (node 325:39451) -- a single
    full-bleed photo (edge-to-edge at the page's own full width, not
    inset to --max-width like most sections), 80px of vertical
@@ -5213,21 +5210,21 @@ button:focus-visible,
    the hover rule is simply a no-op for them. */
 a:where(
     :not(
-        .statement-section__cta,
-        .centered-statement__cta,
-        .cta__button,
-        .gallery__link,
-        .request-collections__submit
-      )
+      .statement-section__cta,
+      .centered-statement__cta,
+      .cta__button,
+      .gallery__link,
+      .request-collections__submit
+    )
   ):hover,
 a:where(
     :not(
-        .statement-section__cta,
-        .centered-statement__cta,
-        .cta__button,
-        .gallery__link,
-        .request-collections__submit
-      )
+      .statement-section__cta,
+      .centered-statement__cta,
+      .cta__button,
+      .gallery__link,
+      .request-collections__submit
+    )
   ):focus-visible {
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -5236,12 +5233,12 @@ a:where(
 
 a:where(
     :not(
-        .statement-section__cta,
-        .centered-statement__cta,
-        .cta__button,
-        .gallery__link,
-        .request-collections__submit
-      )
+      .statement-section__cta,
+      .centered-statement__cta,
+      .cta__button,
+      .gallery__link,
+      .request-collections__submit
+    )
   ):active {
   opacity: 0.6;
 }
@@ -5410,10 +5407,14 @@ a:where(
     gap: 32px;
   }
 
+  .edition-story__gallery-swiper {
+    margin: 0 -16px;
+  }
+
   .edition-story__gallery {
     flex-direction: row;
     gap: 0;
-    margin: 0 -16px;
+    margin: 0;
     padding: 0;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -5472,5 +5473,1597 @@ a:where(
     height: 100% !important;
     transform: none !important;
     object-fit: fill;
+  }
+}
+
+/* ==========================================================================
+   Phone homepage (<=560px) -- components/home-mobile/HomeMobile.tsx.
+   Layout follows the "Homepage Mobile scroll" design reference: one
+   full-screen sections that scroll normally (no snapping), staggered text reveal and
+   a slow image settle per section, an edition photo swiper with a pager,
+   a progress rail, a tap-to-expand gallery and a closing invitation.
+   Copy and type styles are the desktop homepage's. Hidden everywhere else.
+   ========================================================================== */
+.hm {
+  display: none;
+}
+
+.hm-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  /* The desktop flow gives way to the phone layout. */
+  .home-desktop {
+    display: none;
+  }
+
+  .hm {
+    display: block;
+    background: var(--bg);
+    color: var(--ink);
+    font-weight: 300;
+  }
+
+  .hm-sec {
+    position: relative;
+    min-height: 100svh;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  /* ---- Reveal / image settle (only once JS has mounted) ---- */
+  .hm-r {
+    transition: none;
+  }
+
+  .hm--ready .hm-r {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .hm--ready .hm-sec.is-seen .hm-r {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Stagger: each step is 140ms. */
+  .hm--ready .hm-sec.is-seen .hm-r--1 {
+    transition-delay: 140ms;
+  }
+
+  .hm--ready .hm-sec.is-seen .hm-r--2 {
+    transition-delay: 280ms;
+  }
+
+  .hm--ready .hm-sec.is-seen .hm-r--3 {
+    transition-delay: 420ms;
+  }
+
+  .hm--ready .hm-sec.is-seen .hm-r--4 {
+    transition-delay: 560ms;
+  }
+
+  .hm-img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hm--ready .hm-img {
+    transform: scale(1.14);
+    transition: transform 2.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .hm--ready .hm-sec.is-seen .hm-img,
+  .hm--ready .hm-swiper__slide.is-on .hm-img {
+    transform: scale(1);
+  }
+
+  /* ---- 1 Hero ---- */
+  .hm-hero {
+    background: #2e2a1f;
+  }
+
+  .hm-hero__shade,
+  .hm-invite__shade {
+    position: absolute;
+    inset: 0;
+    background: rgba(29, 25, 15, 0.5);
+  }
+
+  /* ---- 2 Statement ---- */
+  .hm-statement {
+    min-height: 0;
+    padding: 120px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hm-statement__heading {
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: var(--t-display);
+    line-height: var(--t-display-lh);
+    letter-spacing: 0.1em;
+    color: var(--ink);
+  }
+
+  .hm-statement__body {
+    margin-top: 24px;
+    font-weight: 300;
+    font-size: var(--t-lede);
+    line-height: var(--t-lede-lh);
+    letter-spacing: 0.05em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  /* ---- 3 Edition swiper ---- */
+  .hm-swiper {
+    height: 100svh;
+    background: #2c2b25;
+  }
+
+  .hm-swiper__swp {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hm-swiper__swp .swp__controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 28px;
+    z-index: 5;
+  }
+
+  .hm-swiper__track {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .hm-swiper__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hm-swiper__slide {
+    position: relative;
+    flex: 0 0 100%;
+    height: 100%;
+    overflow: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .hm-swiper__shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 420px;
+    background: linear-gradient(
+      to bottom,
+      rgba(29, 25, 15, 0),
+      rgba(29, 25, 15, 0.78)
+    );
+  }
+
+  .hm-swiper__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 0 32px 104px;
+    text-align: center;
+    white-space: pre-line;
+    font-weight: 300;
+    font-size: var(--t-caption);
+    line-height: var(--t-caption-lh);
+    letter-spacing: 0.03em;
+    color: var(--cream);
+  }
+
+  .hm--ready .hm-swiper__caption {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .hm--ready .hm-swiper__slide.is-on .hm-swiper__caption {
+    opacity: 1;
+    transform: none;
+    transition-delay: 200ms;
+  }
+
+  /* ---- 4 / 8 Text intros (Editions, Collective) ---- */
+  .hm-intro {
+    min-height: 0;
+    padding: 80px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .hm-intro--collective {
+    gap: 28px;
+  }
+
+  .hm-intro__eyebrow {
+    font-weight: 500;
+    font-size: var(--t-label);
+    letter-spacing: 0.28em;
+    color: var(--ink);
+  }
+
+  .hm-intro__titles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .hm-intro__heading {
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: var(--t-h2);
+    line-height: var(--t-h2-lh);
+    letter-spacing: 0.1em;
+    color: var(--ink);
+  }
+
+  .hm-intro--collective .hm-intro__heading {
+    line-height: var(--t-h2-lh-tall);
+  }
+
+  .hm-intro__subtitle {
+    font-weight: 300;
+    font-size: var(--t-sub);
+    line-height: var(--t-sub-lh);
+    letter-spacing: 0.08em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .hm-intro__lead {
+    margin-top: 8px;
+    font-style: italic;
+    font-weight: 300;
+    font-size: var(--t-lead);
+    line-height: var(--t-lead-lh);
+    letter-spacing: 0.05em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .hm-intro__text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-weight: 300;
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
+    letter-spacing: 0.05em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .hm-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    font-style: italic;
+    font-weight: 300;
+    font-size: var(--t-body);
+    letter-spacing: normal;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  /* ---- 5 Pool photo ---- */
+  .hm-photo {
+    height: 100svh;
+    background: #26302a;
+  }
+
+  /* The homepage's own wide photo band: shorter than a full screen. */
+  .hm-photo--band {
+    min-height: 0;
+    height: 56svh;
+  }
+
+  /* ---- 6 Gallery ---- */
+  /* Editorial two-column grid (client reference: Norm's mobile project
+     list): side margins, a narrow gutter, portrait photos, and a spaced
+     serif title set well below each photo, flush left. */
+  .hm-gallery {
+    min-height: 0;
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hm-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 14px;
+    row-gap: 32px;
+  }
+
+  /* An odd last photo spans the full row rather than hanging alone. */
+  .hm-gallery__tile:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .hm-gallery__tile {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    width: 80%;
+    justify-self: center;
+    text-align: left;
+    font-family: inherit;
+    color: var(--ink);
+  }
+
+  .hm-gallery__img {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 11 / 15;
+    overflow: hidden;
+  }
+
+  .hm-gallery__name {
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--t-tile);
+    line-height: var(--t-tile-lh);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* ---- 7 Stories ---- */
+  .hm-stories {
+    min-height: 0;
+    padding: 0 24px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .hm-stories__item {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .hm-stories__img {
+    position: relative;
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+  }
+
+  .hm-stories__item figcaption {
+    font-weight: 300;
+    letter-spacing: normal;
+    font-size: var(--t-note);
+    line-height: var(--t-note-lh);
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  /* ---- 9 Invitation ---- */
+  /* Closing invitation: compact, content height with 80px above and
+     below, the photo filling the band behind it. */
+  .hm-invite {
+    min-height: 0;
+    background: #2e2a1f;
+  }
+
+  .hm-invite__content {
+    position: relative;
+    box-sizing: border-box;
+    padding: 80px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    color: #fff;
+  }
+
+  .hm-invite__text {
+    letter-spacing: normal;
+    font-weight: 300;
+    font-size: var(--t-cta);
+    line-height: var(--t-cta-lh);
+    color: #fff;
+  }
+
+  .hm-invite__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: normal;
+    font-size: var(--t-cta-link);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* ---- Gallery focus ---- */
+  .hm-focus {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    opacity: 0;
+    visibility: hidden;
+    background: #2c2b25;
+    transition:
+      opacity 0.45s ease,
+      visibility 0s linear 0.45s;
+  }
+
+  .hm-focus.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.45s ease,
+      visibility 0s linear 0s;
+  }
+
+  .hm-focus__img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hm-focus__shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 300px;
+    background: linear-gradient(
+      to bottom,
+      rgba(29, 25, 15, 0),
+      rgba(29, 25, 15, 0.78)
+    );
+  }
+
+  .hm-focus__name {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 0 28px 92px;
+    text-align: center;
+    font-style: italic;
+    font-weight: 300;
+    font-size: var(--t-focus);
+    line-height: var(--t-focus-lh);
+    color: var(--cream);
+  }
+
+  .hm-focus__close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---- Navbar on this page: transparent over every section, tone by
+     section (set on <html data-hm> by HomeMobile), wordmark 18px/0.15em,
+     breathing dot ---- */
+  html[data-hm] .navbar,
+  html[data-hm] .navbar--scrolled {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  html[data-hm] .navbar__inner,
+  html[data-hm] .navbar--scrolled .navbar__inner {
+    padding: 0 24px;
+    height: 86.4px;
+  }
+
+  html[data-hm] .navbar__index {
+    font-size: var(--t-wordmark);
+    letter-spacing: var(--t-wordmark-ls);
+    transition: color 0.5s ease;
+  }
+
+  html[data-hm="dark"] .navbar__index {
+    color: var(--cream);
+  }
+
+  /* Over the opening banner: the brand gold. */
+  html[data-hm="hero"] .navbar__index {
+    color: #c7a95f;
+  }
+
+  /* #7d6325 on cream is 4.9:1 (the design's #8a6d26 is 4.2:1, under the
+     4.5:1 minimum for text this size). */
+  html[data-hm="light"] .navbar__index {
+    color: #7d6325;
+  }
+
+  /* Menu open: the plain gold wordmark, as on every other page. */
+  html[data-hm] .navbar--open .navbar__index {
+    color: #c7a95f;
+  }
+
+  /* These layouts pad the bar 24px, so the menu text lines up with it. */
+  html[data-hm] .navbar__overlay-panel {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  html[data-hm] .navbar__overlay-apply {
+    left: 24px;
+  }
+
+  html[data-hm] .navbar__dot-trigger-img {
+    animation: hm-pulse 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes hm-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.14);
+  }
+}
+
+@media (max-width: 560px) and (prefers-reduced-motion: reduce) {
+  .hm--ready .hm-r,
+  .hm--ready .hm-img,
+  .hm--ready .hm-swiper__caption {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  html[data-hm] .navbar__dot-trigger-img {
+    animation: none;
+  }
+}
+
+/* ---- Shared swiper controls (components/ui/Swiper.tsx): previous/next
+   buttons around a position indicator. Hidden unless the track really
+   scrolls horizontally (.swp--scrollable), so a row that is a plain
+   flex row on desktop/tablet never shows them. ---- */
+.swp__controls {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.swp--scrollable .swp__controls {
+  display: flex;
+}
+
+.swp--dark {
+  --swp-ink: var(--ink);
+}
+
+.swp--light {
+  --swp-ink: var(--cream);
+}
+
+/* Arrows: a hairline ring with a thin chevron. Resting is quiet,
+   hover/press warm it slightly, disabled recedes almost to nothing. The
+   44px touch area comes from the invisible ::after. */
+.swp__arrow {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  margin: 0 5px;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--swp-ink) 38%, transparent);
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--swp-ink);
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.swp__arrow::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+}
+
+.swp__arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (hover: hover) {
+  .swp__arrow:not(:disabled):hover {
+    border-color: color-mix(in srgb, var(--swp-ink) 75%, transparent);
+  }
+}
+
+.swp__arrow:not(:disabled):active {
+  background-color: color-mix(in srgb, var(--swp-ink) 10%, transparent);
+  border-color: color-mix(in srgb, var(--swp-ink) 75%, transparent);
+}
+
+.swp__arrow:focus-visible,
+.swp__pips button:focus-visible {
+  outline: 1px solid var(--swp-ink);
+  outline-offset: 2px;
+}
+
+.swp__arrow:disabled {
+  opacity: 0.35;
+  border-color: color-mix(in srgb, var(--swp-ink) 20%, transparent);
+  cursor: default;
+}
+
+.swp__pips {
+  display: flex;
+  align-items: center;
+}
+
+.swp__pips button {
+  width: 32px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.swp__pips span {
+  display: block;
+  width: 6px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--swp-ink);
+  opacity: 0.4;
+  transition:
+    width 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.4s ease;
+}
+
+.swp__pips span.is-on {
+  width: 22px;
+  opacity: 0.95;
+}
+
+/* Below the photos on the Editions pages. */
+.edition-story__gallery-swiper .swp__controls {
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   Phone /editions (<=560px) -- components/editions-mobile/EditionsMobile.tsx.
+   Layout and type follow the "Editions Mobile scroll" design; it shares the
+   full-screen/reveal/swiper rules above (.hm-*) and adds the edition-
+   specific sections here. The desktop page gives way to it.
+   ========================================================================== */
+@media (max-width: 560px) {
+  .editions-desktop {
+    display: none;
+  }
+
+  /* Title photo + "I/V" + name, bottom-centred over a scrim. */
+  .em-title {
+    height: 100svh;
+    background: #2b3327;
+  }
+
+  .em-title__shade,
+  .em-quote__shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 380px;
+    background: linear-gradient(
+      to bottom,
+      rgba(29, 25, 15, 0),
+      rgba(29, 25, 15, 0.78)
+    );
+  }
+
+  .em-quote__shade {
+    height: 420px;
+  }
+
+  .em-title__text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 0 28px 96px;
+    text-align: center;
+    color: var(--cream);
+  }
+
+  .em-title__index {
+    margin: 0 0 12px;
+    font-family: var(--font-cormorant), serif;
+    font-weight: 300;
+    font-size: var(--t-index);
+    letter-spacing: 0.15em;
+    opacity: 0.8;
+  }
+
+  .hm--ready .em-title .em-title__index {
+    opacity: 0;
+  }
+
+  .hm--ready .em-title.is-seen .em-title__index {
+    opacity: 0.8;
+  }
+
+  .em-title__name {
+    font-weight: 400;
+    font-size: var(--t-title);
+    line-height: var(--t-title-lh);
+  }
+
+  /* Drawing, specs and the poetic title with two paragraphs. */
+  .em-details,
+  .em-story {
+    min-height: 0;
+    padding: 80px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .em-details {
+    gap: 28px;
+  }
+
+  .em-details__drawing {
+    position: relative;
+    flex: none;
+    width: 112px;
+    height: 149px;
+    overflow: hidden;
+    background: #cfc7b6;
+  }
+
+  .em-details__specs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .em-details__label {
+    margin: 0 0 4px;
+    font-weight: 300;
+    font-size: var(--t-label);
+    line-height: var(--t-spec-lh);
+    letter-spacing: 0.08em;
+    color: rgba(29, 25, 15, 0.6);
+  }
+
+  .em-details__value {
+    font-weight: 300;
+    font-size: var(--t-label);
+    line-height: var(--t-spec-lh);
+    color: var(--ink);
+  }
+
+  .em-details__heading {
+    margin: 4px 0 -16px;
+    font-weight: 500;
+    font-size: var(--t-h3);
+    line-height: var(--t-h3-lh);
+    color: var(--ink);
+  }
+
+  .em-text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .em-text p {
+    font-weight: 300;
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .em-text--ink p {
+    color: var(--ink);
+  }
+
+  /* Photo over text stories (provenance, kitchens, Sora morning). */
+  .em-story {
+    gap: 20px;
+  }
+
+  .em-story__photo {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .em-story__photo[data-height="230"] {
+    height: 230px;
+  }
+
+  .em-story__note {
+    margin: 4px 0 0;
+    font-weight: 300;
+    font-size: var(--t-note);
+    line-height: var(--t-note-lh);
+    color: #7d6325;
+  }
+
+  .em-story__link {
+    align-self: flex-start;
+    margin-top: -12px;
+  }
+
+  /* Quote over a full-screen photo. */
+  .em-quote {
+    height: 100svh;
+    background: #26302a;
+  }
+
+  .em-quote__text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 0 32px 92px;
+    text-align: center;
+    font-weight: 500;
+    font-size: var(--t-quote);
+    line-height: var(--t-quote-lh);
+    color: var(--cream);
+  }
+
+  /* The Collection. */
+  .em-collection {
+    min-height: 0;
+    padding: 80px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    text-align: center;
+  }
+
+  .em-collection__eyebrow {
+    font-weight: 500;
+    font-size: var(--t-label);
+    letter-spacing: 0.28em;
+    color: var(--ink);
+  }
+
+  .em-collection__titles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .em-collection__kicker {
+    font-weight: 300;
+    font-size: var(--t-sub);
+    line-height: var(--t-sub-lh);
+    letter-spacing: 0.08em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .em-collection__heading {
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: var(--t-h2);
+    line-height: var(--t-h2-lh);
+    letter-spacing: 0.1em;
+    color: var(--ink);
+  }
+
+  .em-collection__lead {
+    margin-top: 6px;
+    font-style: italic;
+    font-weight: 300;
+    font-size: var(--t-lead);
+    line-height: var(--t-lead-lh);
+    letter-spacing: 0.05em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .em-collection__list {
+    font-weight: 300;
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
+    letter-spacing: 0.05em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .em-collection__note {
+    margin-bottom: -20px;
+    font-weight: 300;
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
+    letter-spacing: 0.04em;
+    color: #7d6325;
+  }
+
+  .em-collection__link {
+    font-size: var(--t-body);
+  }
+}
+
+/* ==========================================================================
+   Phone /collective (<=560px) -- components/collective-mobile/
+   CollectiveMobile.tsx, after the "Collective Mobile scroll" design.
+   Shares the full-screen/reveal/swiper rules (.hm-*) and adds the sticky
+   founder and publication patterns plus the text sections here.
+   ========================================================================== */
+@media (max-width: 560px) {
+  .collective-desktop {
+    display: none;
+  }
+
+  /* Taller-than-a-screen sections scroll normally (the snap area is
+     larger than the viewport) and must not clip, or their pinned blocks
+     would stop sticking. */
+  .hm-sec.cm-tall {
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .cm-pin {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    box-sizing: border-box;
+    padding: 76px 28px 14px;
+    background: var(--cream);
+  }
+
+  .cm-pin__fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -16px;
+    height: 16px;
+    background: linear-gradient(
+      to bottom,
+      var(--cream),
+      rgba(242, 238, 232, 0)
+    );
+  }
+
+  .cm-pin__photos {
+    display: flex;
+    gap: 4px;
+  }
+
+  .cm-pin__photo {
+    position: relative;
+    height: 210px;
+    overflow: hidden;
+    background: #2b2a26;
+  }
+
+  .cm-pin__photo--a {
+    flex: none;
+    width: 190px;
+  }
+
+  .cm-pin__photo--b {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .cm-body {
+    box-sizing: border-box;
+    padding: 28px 28px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cm-heading {
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: var(--t-h2);
+    line-height: var(--t-h2-lh);
+    letter-spacing: 0.1em;
+    color: var(--ink);
+  }
+
+  .cm-heading--upper {
+    text-transform: uppercase;
+  }
+
+  .cm-text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .cm-text p,
+  .cm-team__text p {
+    font-weight: 300;
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
+    color: var(--ink);
+  }
+
+  /* Team */
+  .cm-team,
+  .cm-inspirations {
+    min-height: 0;
+    padding: 80px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cm-team {
+    gap: 16px;
+  }
+
+  .cm-team__photo {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background: #55524b;
+  }
+
+  .cm-team__text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .cm-team__people {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cm-team__people strong {
+    font-weight: 500;
+  }
+
+  .cm-team__people em {
+    font-style: italic;
+  }
+
+  .cm-inspirations {
+    gap: 24px;
+  }
+
+  /* Publications */
+  .cm-pub__title-top {
+    padding: 80px 28px 20px;
+    text-align: center;
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: var(--t-h2);
+    line-height: var(--t-h2-lh);
+    letter-spacing: 0.1em;
+    color: var(--ink);
+  }
+
+  .cm-pin__pub {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .cm-pub__cover {
+    position: relative;
+    flex: none;
+    width: 170px;
+    height: 240px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .cm-pub__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 4px;
+  }
+
+  .cm-pub__date {
+    font-weight: 300;
+    font-size: var(--t-label);
+    line-height: var(--t-spec-lh);
+    color: var(--ink);
+  }
+
+  .cm-pub__name {
+    font-weight: 400;
+    font-size: var(--t-card);
+    line-height: var(--t-card-lh);
+    color: var(--ink);
+  }
+
+  .cm-body .cm-text {
+    gap: 14px;
+  }
+
+  .cm-pub__link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 300;
+    font-size: var(--t-body);
+    color: var(--ink);
+    text-decoration: none;
+  }
+}
+
+/* ==========================================================================
+   Phone type scale -- ONE set of sizes for every phone layout (homepage,
+   /editions, /collective, the navbar wordmark and the menu), so the same
+   role is the same size on every page. Referenced to normcph.com's mobile
+   site (measured at 390px: serif titles 13px, body 10px/16px, meta 9px,
+   nav 11px); body and labels are rounded up a notch for legibility.
+   ========================================================================== */
+@media (max-width: 560px) {
+  :root {
+    --t-wordmark: 17px; /* navbar wordmark: ~185px wide like Norm's logo (12px caps, wide tracking) */
+    --t-wordmark-ls: 0.3em;
+    --t-display: 16px; /* statement heading */
+    --t-display-lh: 24px;
+    --t-lede: 11px; /* statement body */
+    --t-lede-lh: 19px;
+    --t-caption: 11px; /* captions over photos (Norm: 10/16) */
+    --t-caption-lh: 18px;
+    --t-label: 10px; /* eyebrows, spec labels, dates, small caps (Norm: 9) */
+    --t-h2: 13px; /* section headings (Norm: titles 13) */
+    --t-h2-lh: 20px;
+    --t-h2-lh-tall: 21px;
+    --t-h3: 13px; /* edition poetic title */
+    --t-h3-lh: 20px;
+    --t-sub: 10px; /* subtitles */
+    --t-sub-lh: 16px;
+    --t-lead: 12px; /* italic lead */
+    --t-lead-lh: 19px;
+    --t-body: 11px; /* paragraphs, links, lists (Norm: 10/16) */
+    --t-body-lh: 18px;
+    --t-tile: 10px; /* gallery tile titles */
+    --t-tile-lh: 14px;
+    --t-note: 10px; /* story captions and notes */
+    --t-note-lh: 16px;
+    --t-spec-lh: 14px;
+    --t-cta: 18px; /* closing invitation */
+    --t-cta-lh: 26px;
+    --t-cta-link: 12px;
+    --t-focus: 14px; /* expanded gallery photo name */
+    --t-focus-lh: 20px;
+    --t-index: 14px; /* edition index */
+    --t-title: 20px; /* edition title */
+    --t-title-lh: 28px;
+    --t-quote: 13px; /* edition quote */
+    --t-quote-lh: 21px;
+    --t-card: 15px; /* publication name */
+    --t-card-lh: 21px;
+    --t-menu: 13px; /* megamenu links */
+    --t-menu-note: 10px; /* "Join the collective" */
+  }
+}
+
+/* All widths: the wordmark tucks away while scrolling down and fades back
+   on any upward scroll; the red dot always stays. Never while the menu is
+   open. The cream bar background follows the same rhythm: it is up only
+   while the wordmark shows (scrolling up), see-through while scrolling
+   down. */
+.navbar__index {
+  transition:
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.5s ease;
+}
+
+.navbar--mark-hidden:not(.navbar--open) .navbar__index {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
+
+.navbar--mark-hidden.navbar--scrolled:not(.navbar--open) {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar__index {
+    transition: none;
+  }
+
+  .navbar--mark-hidden:not(.navbar--open) .navbar__index {
+    transform: none;
+  }
+}
+
+/* Phones: once the page has scrolled and the wordmark is showing again
+   (scrolling up), the bar gets the same cream, slightly translucent
+   background as desktop's scrolled navbar. While the wordmark is tucked
+   away (scrolling down) and at the very top it stays see-through. The
+   wordmark turns dark while the bar is up, whatever photo is behind it. */
+@media (max-width: 560px) {
+  html[data-hm] .navbar--bar:not(.navbar--open) {
+    background: rgba(240, 235, 227, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  html[data-hm] .navbar--bar:not(.navbar--open) .navbar__index {
+    color: #7d6325;
+  }
+}
+
+/* Phones, Editions + Collective: same rhythm as the homepage (Norm-style
+   spacing). Plain photo sections are shorter bands rather than full
+   screens, the opening photo and the swipers stay full-screen, and any
+   two photo blocks that touch are separated by an 80px cream gap (text
+   sections already carry their own 80px). */
+@media (max-width: 560px) {
+  .em .hm-photo:not(:first-child),
+  .cm .hm-photo {
+    min-height: 0;
+    height: 56svh;
+  }
+
+  .em
+    :is(.hm-photo, .em-title, .em-quote, .hm-swiper)
+    + :is(.hm-photo, .em-title, .em-quote, .hm-swiper),
+  .cm :is(.hm-photo, .hm-swiper) + :is(.hm-photo, .hm-swiper) {
+    margin-top: 80px;
+  }
+}
+
+/* Phones, Editions: a larger break between the end of Umah Tsuki (its last
+   swiper) and the start of Umah Sora. */
+@media (max-width: 560px) {
+  .em .hm-swiper + .em-title {
+    margin-top: 160px;
+  }
+}
+
+/* Phones, Collective: no sticky/pinned photos -- the founder photos and
+   publication covers scroll with the page like everything else. */
+@media (max-width: 560px) {
+  .cm-pin {
+    position: static;
+    padding: 80px 28px 0;
+    background: transparent;
+  }
+
+  .cm-pin__fade {
+    display: none;
+  }
+
+  .cm-pub__title-top + .cm-pin {
+    padding-top: 0;
+  }
+}
+
+/* Phones, Collective: publications sit closer together (about 80px
+   between one article's "Read more" and the next cover, down from 160px);
+   the last one keeps the full 80px below. */
+@media (max-width: 560px) {
+  .cm-pub .cm-body {
+    padding-bottom: 40px;
+  }
+
+  .cm-pub:last-child .cm-body {
+    padding-bottom: 80px;
+  }
+
+  .cm-pub + .cm-pub .cm-pin {
+    padding-top: 40px;
+  }
+}
+
+/* /write-to-us restyled to the current design system (desktop + phone):
+   a centered Cormorant title with no divider rule, a plain letter-spaced
+   eyebrow instead of the square-dot tag, and the site's lighter body
+   type. */
+.write-to-us__heading {
+  margin-bottom: 72px;
+  text-align: center;
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 32px;
+  letter-spacing: 3.2px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.write-to-us .write-to-us__eyebrow {
+  font-weight: 300;
+  font-size: 12px;
+  line-height: normal;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+
+.write-to-us .write-to-us__intro p:not(.write-to-us__eyebrow) {
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+.write-to-us__field label {
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+@media (max-width: 560px) {
+  .write-to-us {
+    padding: 112px 20px 80px;
+  }
+
+  .write-to-us__heading {
+    margin-bottom: 48px;
+    font-size: var(--t-h2);
+    line-height: var(--t-h2-lh);
+    letter-spacing: 0.1em;
+  }
+
+  .write-to-us .write-to-us__eyebrow {
+    font-size: var(--t-label);
+  }
+
+  .write-to-us .write-to-us__intro p:not(.write-to-us__eyebrow) {
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
+    letter-spacing: 0.05em;
+  }
+
+  .write-to-us__field label {
+    font-size: var(--t-label);
+  }
+}
+
+/* Homepage desktop/tablet additions (Figma 385:14): the wide photo band and
+   the two-photo story row. Phones use components/home-mobile instead. */
+.home-photo-band {
+  width: 100%;
+}
+
+.home-photo-band__inner {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.home-photo-band__frame {
+  position: relative;
+  width: 100%;
+  height: var(--band-h, 583px);
+}
+
+.home-stories {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 60px;
+}
+
+.home-stories__row {
+  display: flex;
+  gap: 23px;
+  align-items: flex-start;
+}
+
+.home-stories__item {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.home-stories__image {
+  position: relative;
+  width: 100%;
+  height: 473px;
+}
+
+.home-stories__caption {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+@media (max-width: 900px) {
+  .home-photo-band__frame {
+    height: 360px;
+  }
+
+  .home-stories {
+    padding: 48px var(--gutter);
+  }
+
+  .home-stories__row {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .home-stories__image {
+    height: 360px;
+  }
+}
+
+/* Phones, Editions: the opening photo and the edition title photos are
+   full-width (edge to edge) but not full-screen -- a fixed-height band --
+   and the pool band under the homepage stories. */
+@media (max-width: 560px) {
+  .em-title {
+    min-height: 0;
+    height: 72svh;
+    background: var(--bg);
+  }
+
+  .em-title .hm-img {
+    inset: 0;
+  }
+
+  .em-title__shade {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 260px;
+  }
+
+  .em-title__text {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 20px 40px;
+  }
+
+  /* Opening photo: full-width, sitting right under the navbar (86.4px of
+     cream above it, so the wordmark is never over the picture), 56% of
+     the screen high (20% shorter than before, cropped from the bottom
+     rather than squeezed). */
+  .em .hm-photo:first-child {
+    height: calc(45svh + 86.4px);
+    min-height: 0;
+    padding: 86.4px 0 0;
+    background: transparent;
+  }
+
+  .em .hm-photo:first-child .hm-img img {
+    object-position: center top !important;
+  }
+
+  .em .hm-photo:first-child .hm-img {
+    position: absolute;
+    top: 86.4px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: auto;
+  }
+
+  /* Pool band under the homepage stories. */
+  .hm-photo--pool {
+    min-height: 0;
+    height: 47.6svh; /* 15% shorter than the 56svh band; width unchanged */
+  }
+}
+
+/* Homepage desktop/tablet: more air around the pool band -- 120px between
+   the story captions and the band, and a further 60px (on top of the
+   Collective intro's own 120px) between the band and "Collective". */
+.home-stories {
+  padding-bottom: 120px;
+}
+
+.home-photo-band + .landing-intro {
+  margin-top: 60px;
+}
+
+/* Homepage desktop: the gap from the corridor band to the Approach photos
+   matches the gap from those photos to the stories below (224px photo to
+   photo): the gallery gets 104px more on top of its own 120px. */
+.home-photo-band + .landing-approach {
+  padding-top: 224px;
+}
+
+/* Phones, edition detail pages: the photo swiper is the same size as the
+   swipers on the homepage, /editions and /collective (.hm-swiper): one
+   full-screen photo per swipe, edge to edge, cream controls over the photo. */
+@media (max-width: 560px) {
+  .edition-story__gallery-swiper {
+    --swp-ink: var(--cream);
+    position: relative;
+    height: 100svh;
+    background: #2c2b25;
+  }
+
+  .edition-story__gallery-swiper .edition-story__gallery {
+    height: 100%;
+  }
+
+  .edition-story__gallery-swiper .edition-story__gallery-image {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .edition-story__gallery-swiper .swp__controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 28px;
+    z-index: 5;
+    margin-top: 0;
   }
 }

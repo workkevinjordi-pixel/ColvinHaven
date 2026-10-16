@@ -248,7 +248,10 @@ export default function HomeMobile({ homepage }: Props) {
       </section>
 
       {/* 5 POOL */}
-      <section className={`${sec(4)} hm-photo hm-photo--band`} data-hm-section={4}>
+      <section
+        className={`${sec(4)} hm-photo hm-photo--band`}
+        data-hm-section={4}
+      >
         <div className="hm-img">
           <Image
             src={POOL_IMAGE.src}
@@ -359,13 +362,6 @@ export default function HomeMobile({ homepage }: Props) {
             {cta?.buttonLabel ?? "Write to Us"}{" "}
             <span aria-hidden="true">→</span>
           </Link>
-          <button
-            type="button"
-            className="hm-invite__top hm-r hm-r--2"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            BACK TO TOP
-          </button>
         </div>
       </section>
 

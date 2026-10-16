@@ -41,8 +41,8 @@ const HIDDEN_GALLERY_CAPTIONS = new Set(["stillness"]);
 // the tall, high-resolution Sora pool-deck shot: the wide Tsuki pool
 // banner is only 611px tall and goes soft at full-screen height.)
 const POOL_IMAGE: Img = {
-  src: "/assets/editions/detail/sora-gallery2-pooldeck.jpg",
-  alt: "A shingled pavilion roof and timber deck beside a still pool under a clear sky",
+  src: "/assets/home-corridor-bedroom.jpg",
+  alt: "A dark timber-slatted corridor beside a warm teak bedroom with shoji screens",
 };
 const STORIES: { image: Img; caption: string }[] = [
   {
@@ -248,7 +248,7 @@ export default function HomeMobile({ homepage }: Props) {
       </section>
 
       {/* 5 POOL */}
-      <section className={`${sec(4)} hm-photo`} data-hm-section={4}>
+      <section className={`${sec(4)} hm-photo hm-photo--band`} data-hm-section={4}>
         <div className="hm-img">
           <Image
             src={POOL_IMAGE.src}

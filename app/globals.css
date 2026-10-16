@@ -5758,6 +5758,11 @@ a:where(
     background: #26302a;
   }
 
+  /* The homepage's own wide photo band: shorter than a full screen. */
+  .hm-photo--band {
+    height: 56svh;
+  }
+
   /* ---- 6 Gallery ---- */
   /* Editorial two-column grid (client reference: Norm's mobile project
      list): side margins, a narrow gutter, portrait photos, and a spaced

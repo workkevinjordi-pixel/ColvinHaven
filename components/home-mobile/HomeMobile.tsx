@@ -58,7 +58,8 @@ const STORIES: { image: Img; caption: string }[] = [
       src: "/assets/homequoterow-corridor-steps.jpg",
       alt: "A covered timber walkway leading down a staircase toward a garden gate",
     },
-    caption: "Seven steps down come up and the day gets quieter. Welcome to Sora.",
+    caption:
+      "Seven steps down come up and the day gets quieter. Welcome to Sora.",
   },
 ];
 
@@ -84,7 +85,10 @@ const COPY_FIXES: [RegExp, string][] = [
 ];
 
 function mobileCopy(text: string): string {
-  return COPY_FIXES.reduce((out, [pattern, fix]) => out.replace(pattern, fix), text);
+  return COPY_FIXES.reduce(
+    (out, [pattern, fix]) => out.replace(pattern, fix),
+    text,
+  );
 }
 
 export default function HomeMobile({ homepage }: Props) {
@@ -118,7 +122,14 @@ export default function HomeMobile({ homepage }: Props) {
   // brown over the cream sections). Only this page ever sets it.
   useEffect(() => {
     const el = document.documentElement;
-    el.dataset.hm = DARK_SECTIONS.has(active) && focus === null ? "dark" : "light";
+    // "hero" = over the opening banner (gold wordmark), "dark" = over any
+    // other photo section, "light" = over cream sections.
+    el.dataset.hm =
+      active === 0 && focus === null
+        ? "hero"
+        : DARK_SECTIONS.has(active) && focus === null
+          ? "dark"
+          : "light";
   }, [active, focus]);
   useEffect(() => {
     return () => {
@@ -139,13 +150,11 @@ export default function HomeMobile({ homepage }: Props) {
 
   const onSlideChange = useCallback((i: number) => setSlide(i), []);
 
-  const sec = (i: number) =>
-    `hm-sec${seen.has(i) ? " is-seen" : ""}`;
+  const sec = (i: number) => `hm-sec${seen.has(i) ? " is-seen" : ""}`;
 
-  const editionsHeading = (editions?.heading ?? "TSUKI, THE MOON. SORA, THE SKY").replace(
-    /\.\s+/,
-    ".\n",
-  );
+  const editionsHeading = (
+    editions?.heading ?? "TSUKI, THE MOON. SORA, THE SKY"
+  ).replace(/\.\s+/, ".\n");
 
   return (
     <div ref={rootRef} className="hm">
@@ -217,7 +226,9 @@ export default function HomeMobile({ homepage }: Props) {
         <div className="hm-intro__titles hm-r hm-r--1">
           <h2 className="hm-intro__heading">{lines(editionsHeading)}</h2>
           {editions?.subtitle && (
-            <p className="hm-intro__subtitle">{mobileCopy(editions.subtitle)}</p>
+            <p className="hm-intro__subtitle">
+              {mobileCopy(editions.subtitle)}
+            </p>
           )}
         </div>
         <p className="hm-intro__lead hm-r hm-r--2">
@@ -232,7 +243,8 @@ export default function HomeMobile({ homepage }: Props) {
           href={editions?.linkHref ?? "/editions"}
           className="hm-link hm-r hm-r--4"
         >
-          {editions?.linkLabel ?? "Dive deeper"} <span aria-hidden="true">→</span>
+          {editions?.linkLabel ?? "Dive deeper"}{" "}
+          <span aria-hidden="true">→</span>
         </Link>
       </section>
 
@@ -270,7 +282,9 @@ export default function HomeMobile({ homepage }: Props) {
                     style={{ objectFit: "cover" }}
                   />
                 </span>
-                <span className="hm-gallery__name">{mobileCopy(g.caption)}</span>
+                <span className="hm-gallery__name">
+                  {mobileCopy(g.caption)}
+                </span>
               </button>
             ))}
           </div>
@@ -296,7 +310,10 @@ export default function HomeMobile({ homepage }: Props) {
       </section>
 
       {/* 8 COLLECTIVE */}
-      <section className={`${sec(7)} hm-intro hm-intro--collective`} data-hm-section={7}>
+      <section
+        className={`${sec(7)} hm-intro hm-intro--collective`}
+        data-hm-section={7}
+      >
         <span className="hm-intro__eyebrow hm-r hm-r--0">
           {collective?.eyebrow ?? "COLLECTIVE"}
         </span>
@@ -315,7 +332,8 @@ export default function HomeMobile({ homepage }: Props) {
           href={collective?.linkHref ?? "/collective"}
           className="hm-link hm-r hm-r--3"
         >
-          {collective?.linkLabel ?? "Meet the collective"} <span aria-hidden="true">→</span>
+          {collective?.linkLabel ?? "Meet the collective"}{" "}
+          <span aria-hidden="true">→</span>
         </Link>
       </section>
 
@@ -339,7 +357,8 @@ export default function HomeMobile({ homepage }: Props) {
             href={cta?.buttonHref ?? "/write-to-us"}
             className="hm-invite__link hm-r hm-r--1"
           >
-            {cta?.buttonLabel ?? "Write to Us"} <span aria-hidden="true">→</span>
+            {cta?.buttonLabel ?? "Write to Us"}{" "}
+            <span aria-hidden="true">→</span>
           </Link>
           <button
             type="button"
@@ -368,7 +387,9 @@ export default function HomeMobile({ homepage }: Props) {
               />
             </div>
             <div className="hm-focus__shade" />
-            <p className="hm-focus__name">{mobileCopy(gallery[focus].caption)}</p>
+            <p className="hm-focus__name">
+              {mobileCopy(gallery[focus].caption)}
+            </p>
           </>
         )}
         <button
@@ -377,7 +398,16 @@ export default function HomeMobile({ homepage }: Props) {
           aria-label="Close photo"
           onClick={() => setFocus(null)}
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f2eee8" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#f2eee8"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            aria-hidden="true"
+          >
             <path d="M5 5l14 14M19 5L5 19" />
           </svg>
         </button>

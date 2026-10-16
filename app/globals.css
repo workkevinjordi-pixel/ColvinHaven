@@ -5820,9 +5820,9 @@ a:where(
   }
 
   .hm-gallery__name {
-    font-family: var(--font-cormorant), serif;
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     font-size: var(--t-tile);
     line-height: var(--t-tile-lh);
     letter-spacing: 0.14em;
@@ -6000,6 +6000,11 @@ a:where(
 
   html[data-hm="dark"] .navbar__index {
     color: var(--cream);
+  }
+
+  /* Over the opening banner: the brand gold. */
+  html[data-hm="hero"] .navbar__index {
+    color: #c7a95f;
   }
 
   /* #7d6325 on cream is 4.9:1 (the design's #8a6d26 is 4.2:1, under the
@@ -6638,50 +6643,50 @@ a:where(
 /* ==========================================================================
    Phone type scale -- ONE set of sizes for every phone layout (homepage,
    /editions, /collective, the navbar wordmark and the menu), so the same
-   role is the same size on every page. Each is 20% below the size the
-   homepage layout used (the reference); labels are floored at 10px so the
-   smallest text stays readable.
+   role is the same size on every page. Referenced to normcph.com's mobile
+   site (measured at 390px: serif titles 13px, body 10px/16px, meta 9px,
+   nav 11px); body and labels are rounded up a notch for legibility.
    ========================================================================== */
 @media (max-width: 560px) {
   :root {
-    --t-wordmark: 14.4px; /* was 18 */
-    --t-display: 22.4px; /* statement heading, was 28 */
-    --t-display-lh: 30.4px;
-    --t-lede: 13.6px; /* statement body, was 17 */
-    --t-lede-lh: 24px;
-    --t-caption: 15.2px; /* captions over photos, was 19 */
-    --t-caption-lh: 24px;
-    --t-label: 10px; /* eyebrows, spec labels, small caps (floor) */
-    --t-h2: 20.8px; /* section headings, was 26 */
-    --t-h2-lh: 27.2px;
-    --t-h2-lh-tall: 28.8px;
-    --t-h3: 16px; /* edition poetic title, was 20 */
-    --t-h3-lh: 22.4px;
-    --t-sub: 11.2px; /* subtitles, was 14 */
-    --t-sub-lh: 19.2px;
-    --t-lead: 16px; /* italic lead, was 20 */
-    --t-lead-lh: 22.4px;
-    --t-body: 12.8px; /* paragraphs, links, lists, was 16 (14 on Editions/Collective) */
-    --t-body-lh: 22.4px;
-    --t-tile: 14.4px; /* gallery tile titles */
-    --t-tile-lh: 18px;
-    --t-note: 12px; /* story captions and notes, was 15 */
-    --t-note-lh: 19.2px;
-    --t-spec-lh: 14.4px;
-    --t-cta: 24px; /* closing invitation, was 30 */
-    --t-cta-lh: 33.6px;
-    --t-cta-link: 13.6px; /* was 17 */
-    --t-focus: 17.6px; /* expanded gallery photo name, was 22 */
-    --t-focus-lh: 24px;
-    --t-index: 16px; /* edition index, was 20 */
-    --t-title: 27.2px; /* edition title, was 34 */
-    --t-title-lh: 33.6px;
-    --t-quote: 16px; /* edition quote, was 20 */
-    --t-quote-lh: 25.6px;
-    --t-card: 19.2px; /* publication name, was 24 */
-    --t-card-lh: 24px;
-    --t-menu: 14.4px; /* megamenu links, was 18 */
-    --t-menu-note: 12px; /* "Join the collective", was 15 */
+    --t-wordmark: 10.5px; /* navbar wordmark (Norm nav: 11) */
+    --t-display: 16px; /* statement heading */
+    --t-display-lh: 24px;
+    --t-lede: 11px; /* statement body */
+    --t-lede-lh: 19px;
+    --t-caption: 11px; /* captions over photos (Norm: 10/16) */
+    --t-caption-lh: 18px;
+    --t-label: 10px; /* eyebrows, spec labels, dates, small caps (Norm: 9) */
+    --t-h2: 13px; /* section headings (Norm: titles 13) */
+    --t-h2-lh: 20px;
+    --t-h2-lh-tall: 21px;
+    --t-h3: 13px; /* edition poetic title */
+    --t-h3-lh: 20px;
+    --t-sub: 10px; /* subtitles */
+    --t-sub-lh: 16px;
+    --t-lead: 12px; /* italic lead */
+    --t-lead-lh: 19px;
+    --t-body: 11px; /* paragraphs, links, lists (Norm: 10/16) */
+    --t-body-lh: 18px;
+    --t-tile: 10px; /* gallery tile titles */
+    --t-tile-lh: 14px;
+    --t-note: 10px; /* story captions and notes */
+    --t-note-lh: 16px;
+    --t-spec-lh: 14px;
+    --t-cta: 18px; /* closing invitation */
+    --t-cta-lh: 26px;
+    --t-cta-link: 12px;
+    --t-focus: 14px; /* expanded gallery photo name */
+    --t-focus-lh: 20px;
+    --t-index: 14px; /* edition index */
+    --t-title: 20px; /* edition title */
+    --t-title-lh: 28px;
+    --t-quote: 13px; /* edition quote */
+    --t-quote-lh: 21px;
+    --t-card: 15px; /* publication name */
+    --t-card-lh: 21px;
+    --t-menu: 13px; /* megamenu links */
+    --t-menu-note: 10px; /* "Join the collective" */
   }
 }
 
@@ -6708,5 +6713,22 @@ a:where(
 
   .navbar--mark-hidden:not(.navbar--open) .navbar__index {
     transform: none;
+  }
+}
+
+/* Phones: once the page has scrolled and the wordmark is showing again
+   (scrolling up), the bar gets the same cream, slightly translucent
+   background as desktop's scrolled navbar. While the wordmark is tucked
+   away (scrolling down) and at the very top it stays see-through. The
+   wordmark turns dark while the bar is up, whatever photo is behind it. */
+@media (max-width: 560px) {
+  html[data-hm] .navbar--bar:not(.navbar--open) {
+    background: rgba(240, 235, 227, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  html[data-hm] .navbar--bar:not(.navbar--open) .navbar__index {
+    color: #7d6325;
   }
 }

@@ -102,8 +102,13 @@ export default function EditionsMobile({
   // Tells the shared navbar which tone to use over the current section.
   useEffect(() => {
     const kind = sections[active]?.kind;
+    // "hero" = over the opening banner photo (gold wordmark).
     document.documentElement.dataset.hm =
-      kind && DARK_KINDS.has(kind) ? "dark" : "light";
+      active === 0 && kind === "photo"
+        ? "hero"
+        : kind && DARK_KINDS.has(kind)
+          ? "dark"
+          : "light";
   }, [active, sections]);
   useEffect(() => {
     return () => {

@@ -65,7 +65,7 @@ export default function Navbar({ solid = false }: NavbarProps) {
   return (
     <>
       <header
-        className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}${markHidden ? " navbar--mark-hidden" : ""}`}
+        className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}${markHidden ? " navbar--mark-hidden" : ""}${scrolled && !markHidden ? " navbar--bar" : ""}`}
       >
         <div className="navbar__inner">
           <Link href="/" className="navbar__index" aria-label="Colvin Haven">

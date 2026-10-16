@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const PRIMARY_LINKS = [
   { href: "/editions", label: "Editions" },
@@ -55,9 +56,9 @@ export default function Navbar({ solid = false }: NavbarProps) {
         className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}`}
       >
         <div className="navbar__inner">
-          <a href="/" className="navbar__index" aria-label="Colvin Haven">
+          <Link href="/" className="navbar__index" aria-label="Colvin Haven">
             Colvin Haven
-          </a>
+          </Link>
 
           <div className="navbar__actions">
             <button

@@ -1,6 +1,8 @@
 :root {
   --ink: #1d190f;
   --bg: #f0ebe3;
+  /* Soft cream for text set over photos / the phone layout. */
+  --cream: #f2eee8;
   --max-width: 1440px;
   --gutter: 112px;
 }
@@ -5541,7 +5543,23 @@ a:where(
   .hm--ready .hm-sec.is-active .hm-r {
     opacity: 1;
     transform: none;
-    transition-delay: calc(var(--i, 0) * 140ms);
+  }
+
+  /* Stagger: each step is 140ms. */
+  .hm--ready .hm-sec.is-active .hm-r--1 {
+    transition-delay: 140ms;
+  }
+
+  .hm--ready .hm-sec.is-active .hm-r--2 {
+    transition-delay: 280ms;
+  }
+
+  .hm--ready .hm-sec.is-active .hm-r--3 {
+    transition-delay: 420ms;
+  }
+
+  .hm--ready .hm-sec.is-active .hm-r--4 {
+    transition-delay: 560ms;
   }
 
   .hm-img {
@@ -5584,9 +5602,9 @@ a:where(
   .hm-statement__heading {
     font-family: var(--font-cormorant), serif;
     font-weight: 500;
-    font-size: 25.6px;
-    line-height: 1.3;
-    letter-spacing: 2.56px;
+    font-size: 28px;
+    line-height: 38px;
+    letter-spacing: 0.1em;
     color: var(--ink);
   }
 
@@ -5610,9 +5628,9 @@ a:where(
 
   .hm-statement__body {
     font-weight: 300;
-    font-size: 19.2px;
-    line-height: 32px;
-    letter-spacing: 1.92px;
+    font-size: 17px;
+    line-height: 30px;
+    letter-spacing: 0.05em;
     color: rgba(29, 25, 15, 0.7);
   }
 
@@ -5678,9 +5696,10 @@ a:where(
     text-align: center;
     white-space: pre-line;
     font-weight: 300;
-    font-size: 16px;
-    line-height: 24px;
-    color: var(--bg);
+    font-size: 19px;
+    line-height: 30px;
+    letter-spacing: 0.03em;
+    color: var(--cream);
   }
 
   .hm--ready .hm-swiper__caption {
@@ -5712,8 +5731,9 @@ a:where(
   }
 
   .hm-intro__eyebrow {
-    font-weight: 300;
+    font-weight: 500;
     font-size: 12px;
+    letter-spacing: 0.28em;
     color: var(--ink);
   }
 
@@ -5726,17 +5746,21 @@ a:where(
   .hm-intro__heading {
     font-family: var(--font-cormorant), serif;
     font-weight: 500;
-    font-size: 24px;
-    line-height: 1.4;
-    letter-spacing: 2.4px;
+    font-size: 26px;
+    line-height: 34px;
+    letter-spacing: 0.1em;
     color: var(--ink);
+  }
+
+  .hm-intro--collective .hm-intro__heading {
+    line-height: 36px;
   }
 
   .hm-intro__subtitle {
     font-weight: 300;
     font-size: 14px;
     line-height: 24px;
-    letter-spacing: 1.4px;
+    letter-spacing: 0.08em;
     color: rgba(29, 25, 15, 0.7);
   }
 
@@ -5746,7 +5770,7 @@ a:where(
     font-weight: 300;
     font-size: 20px;
     line-height: 28px;
-    letter-spacing: 2px;
+    letter-spacing: 0.05em;
     color: rgba(29, 25, 15, 0.7);
   }
 
@@ -5757,7 +5781,7 @@ a:where(
     font-weight: 300;
     font-size: 16px;
     line-height: 28px;
-    letter-spacing: 1.6px;
+    letter-spacing: 0.05em;
     color: rgba(29, 25, 15, 0.7);
   }
 
@@ -5769,6 +5793,7 @@ a:where(
     font-style: italic;
     font-weight: 300;
     font-size: 16px;
+    letter-spacing: normal;
     color: var(--ink);
     text-decoration: none;
   }
@@ -5809,6 +5834,7 @@ a:where(
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    font-family: inherit;
     color: var(--ink);
   }
 
@@ -5825,6 +5851,7 @@ a:where(
     font-weight: 300;
     font-size: 16px;
     line-height: 20px;
+    letter-spacing: normal;
   }
 
   /* ---- 7 Stories ---- */
@@ -5852,7 +5879,8 @@ a:where(
 
   .hm-stories__item figcaption {
     font-weight: 300;
-    font-size: 16px;
+    letter-spacing: normal;
+    font-size: 15px;
     line-height: 24px;
     color: rgba(29, 25, 15, 0.7);
   }
@@ -5878,9 +5906,10 @@ a:where(
   }
 
   .hm-invite__text {
+    letter-spacing: normal;
     font-weight: 300;
-    font-size: 24px;
-    line-height: 36px;
+    font-size: 30px;
+    line-height: 42px;
     color: #fff;
   }
 
@@ -5891,7 +5920,8 @@ a:where(
     min-height: 44px;
     font-style: italic;
     font-weight: 300;
-    font-size: 16px;
+    letter-spacing: normal;
+    font-size: 17px;
     color: #fff;
     text-decoration: none;
   }
@@ -5953,7 +5983,7 @@ a:where(
     font-weight: 300;
     font-size: 22px;
     line-height: 30px;
-    color: var(--bg);
+    color: var(--cream);
   }
 
   .hm-focus__close {
@@ -5994,12 +6024,14 @@ a:where(
   }
 
   html[data-hm="dark"] .navbar__index {
-    color: var(--bg);
+    color: var(--cream);
   }
 
+  /* #7d6325 on cream is 4.9:1 (the design's #8a6d26 is 4.2:1, under the
+     4.5:1 minimum for text this size). */
   html[data-hm="light"] .navbar__index,
   html[data-hm] .navbar--open .navbar__index {
-    color: #8a6d26;
+    color: #7d6325;
   }
 
   html[data-hm] .navbar__dot-trigger-img {
@@ -6088,25 +6120,60 @@ a:where(
 }
 
 .swp--light {
-  --swp-ink: var(--bg);
+  --swp-ink: var(--cream);
 }
 
+/* Arrows: a hairline ring with a thin chevron. Resting is quiet,
+   hover/press warm it slightly, disabled recedes almost to nothing. The
+   44px touch area comes from the invisible ::after. */
 .swp__arrow {
-  width: 44px;
-  height: 44px;
+  position: relative;
+  width: 34px;
+  height: 34px;
+  margin: 0 5px;
   padding: 0;
-  border: 0;
+  border: 1px solid color-mix(in srgb, var(--swp-ink) 38%, transparent);
+  border-radius: 50%;
   background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--swp-ink);
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  transition: border-color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.swp__arrow::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+}
+
+.swp__arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (hover: hover) {
+  .swp__arrow:not(:disabled):hover {
+    border-color: color-mix(in srgb, var(--swp-ink) 75%, transparent);
+  }
+}
+
+.swp__arrow:not(:disabled):active {
+  background-color: color-mix(in srgb, var(--swp-ink) 10%, transparent);
+  border-color: color-mix(in srgb, var(--swp-ink) 75%, transparent);
+}
+
+.swp__arrow:focus-visible,
+.swp__pips button:focus-visible {
+  outline: 1px solid var(--swp-ink);
+  outline-offset: 2px;
 }
 
 .swp__arrow:disabled {
-  opacity: 0.3;
+  opacity: 0.35;
+  border-color: color-mix(in srgb, var(--swp-ink) 20%, transparent);
   cursor: default;
 }
 

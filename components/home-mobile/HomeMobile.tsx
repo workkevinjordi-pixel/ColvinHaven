@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import type { Homepage } from "@/lib/sanity/homepage";
 import Swiper from "@/components/ui/Swiper";
 
@@ -57,7 +57,7 @@ const STORIES: { image: Img; caption: string }[] = [
       src: "/assets/homequoterow-corridor-steps.jpg",
       alt: "A covered timber walkway leading down a staircase toward a garden gate",
     },
-    caption: "Seven steps down come up and the day gets quitter. Welcome to Sora.",
+    caption: "Seven steps down come up and the day gets quieter. Welcome to Sora.",
   },
 ];
 
@@ -72,9 +72,18 @@ function lines(text: string): ReactNode {
   ));
 }
 
-/** Staggered reveal: --i is the delay slot (140ms apart). */
-function r(i: number): CSSProperties {
-  return { "--i": i } as CSSProperties;
+/**
+ * Spelling fixes for the phone layout only. The shared homepage copy
+ * (Sanity, also shown on desktop) is left untouched on purpose.
+ */
+const COPY_FIXES: [RegExp, string][] = [
+  [/Cut form /g, "Cut from "],
+  [/Tresholds/g, "Thresholds"],
+  [/quitter/g, "quieter"],
+];
+
+function mobileCopy(text: string): string {
+  return COPY_FIXES.reduce((out, [pattern, fix]) => out.replace(pattern, fix), text);
 }
 
 export default function HomeMobile({ homepage }: Props) {
@@ -82,7 +91,6 @@ export default function HomeMobile({ homepage }: Props) {
   const [active, setActive] = useState(0);
   const [slide, setSlide] = useState(0);
   const [focus, setFocus] = useState<number | null>(null);
-  const [ready, setReady] = useState(false);
 
   const hero = homepage?.hero.backgroundImage ?? FALLBACK_HERO;
   const statement = homepage?.craftingStatement;
@@ -95,8 +103,12 @@ export default function HomeMobile({ homepage }: Props) {
   const cta = homepage?.cta;
 
   // Enables the hidden "before reveal" state only once JS is running, so
-  // the page is fully readable without it.
-  useEffect(() => setReady(true), []);
+  // the page is fully readable without it. (A class added on the DOM node
+  // rather than state: the className prop never changes, so React leaves
+  // it alone.)
+  useEffect(() => {
+    rootRef.current?.classList.add("hm--ready");
+  }, []);
 
   // Active section = the one under the middle of the screen.
   useEffect(() => {
@@ -151,7 +163,7 @@ export default function HomeMobile({ homepage }: Props) {
   );
 
   return (
-    <div ref={rootRef} className={`hm${ready ? " hm--ready" : ""}`}>
+    <div ref={rootRef} className="hm">
       {/* 1 HERO */}
       <section className={`${sec(0)} hm-hero`} data-hm-section={0}>
         <div className="hm-img">
@@ -170,11 +182,11 @@ export default function HomeMobile({ homepage }: Props) {
 
       {/* 2 STATEMENT */}
       <section className={`${sec(1)} hm-statement`} data-hm-section={1}>
-        <h2 className="hm-statement__heading hm-r" style={r(0)}>
+        <h2 className="hm-statement__heading hm-r hm-r--0">
           {statement?.heading ?? "CRAFTING SPACES, LIVING SLOWLY."}
         </h2>
         <span className="hm-line" />
-        <p className="hm-statement__body hm-r" style={r(2)}>
+        <p className="hm-statement__body hm-r hm-r--2">
           {statement?.body ??
             "Colvin Haven creates limited edition homes designed for the next chapter of living, where silence is luxury and presence is a new power."}
         </p>
@@ -205,7 +217,7 @@ export default function HomeMobile({ homepage }: Props) {
                   />
                 </div>
                 <div className="hm-swiper__shade" />
-                <p className="hm-swiper__caption">{s.caption}</p>
+                <p className="hm-swiper__caption">{mobileCopy(s.caption)}</p>
               </div>
             ))}
           </Swiper>
@@ -214,25 +226,26 @@ export default function HomeMobile({ homepage }: Props) {
 
       {/* 4 EDITIONS */}
       <section className={`${sec(3)} hm-intro`} data-hm-section={3}>
-        <span className="hm-intro__eyebrow hm-r" style={r(0)}>
+        <span className="hm-intro__eyebrow hm-r hm-r--0">
           {editions?.eyebrow ?? "EDITIONS"}
         </span>
-        <div className="hm-intro__titles hm-r" style={r(1)}>
+        <div className="hm-intro__titles hm-r hm-r--1">
           <h2 className="hm-intro__heading">{lines(editionsHeading)}</h2>
-          {editions?.subtitle && <p className="hm-intro__subtitle">{editions.subtitle}</p>}
+          {editions?.subtitle && (
+            <p className="hm-intro__subtitle">{mobileCopy(editions.subtitle)}</p>
+          )}
         </div>
-        <p className="hm-intro__lead hm-r" style={r(2)}>
+        <p className="hm-intro__lead hm-r hm-r--2">
           {editions?.lead ?? "Stillness and wellness, built into every room."}
         </p>
-        <div className="hm-intro__text hm-r" style={r(3)}>
+        <div className="hm-intro__text hm-r hm-r--3">
           {(editions?.paragraphs ?? []).map((p, i) => (
             <p key={i}>{p}</p>
           ))}
         </div>
         <Link
           href={editions?.linkHref ?? "/editions"}
-          className="hm-link hm-r"
-          style={r(4)}
+          className="hm-link hm-r hm-r--4"
         >
           {editions?.linkLabel ?? "Dive deeper"} <span aria-hidden="true">→</span>
         </Link>
@@ -254,13 +267,13 @@ export default function HomeMobile({ homepage }: Props) {
       {/* 6 GALLERY */}
       {gallery.length > 0 && (
         <section className={`${sec(5)} hm-gallery`} data-hm-section={5}>
-          <div className="hm-gallery__grid hm-r" style={r(0)}>
+          <div className="hm-gallery__grid hm-r hm-r--0">
             {gallery.map((g, i) => (
               <button
                 key={i}
                 type="button"
                 className="hm-gallery__tile"
-                aria-label={`View ${g.caption}`}
+                aria-label={`View ${mobileCopy(g.caption)}`}
                 onClick={() => setFocus(i)}
               >
                 <span className="hm-gallery__img">
@@ -272,7 +285,7 @@ export default function HomeMobile({ homepage }: Props) {
                     style={{ objectFit: "cover" }}
                   />
                 </span>
-                <span className="hm-gallery__name">{g.caption}</span>
+                <span className="hm-gallery__name">{mobileCopy(g.caption)}</span>
               </button>
             ))}
           </div>
@@ -282,7 +295,7 @@ export default function HomeMobile({ homepage }: Props) {
       {/* 7 STORIES */}
       <section className={`${sec(6)} hm-stories`} data-hm-section={6}>
         {STORIES.map((s, i) => (
-          <figure key={i} className="hm-stories__item hm-r" style={r(i)}>
+          <figure key={i} className={`hm-stories__item hm-r hm-r--${i}`}>
             <div className="hm-stories__img">
               <Image
                 src={s.image.src}
@@ -299,24 +312,23 @@ export default function HomeMobile({ homepage }: Props) {
 
       {/* 8 COLLECTIVE */}
       <section className={`${sec(7)} hm-intro hm-intro--collective`} data-hm-section={7}>
-        <span className="hm-intro__eyebrow hm-r" style={r(0)}>
+        <span className="hm-intro__eyebrow hm-r hm-r--0">
           {collective?.eyebrow ?? "COLLECTIVE"}
         </span>
-        <h2 className="hm-intro__heading hm-r" style={r(1)}>
+        <h2 className="hm-intro__heading hm-r hm-r--1">
           {lines(
             collective?.heading ??
               "UMAH TSUKI IS WHERE OUR FOUNDER LIVES,\nSORA WAS BUILT FOR OUR FIRST CLIENT.",
           )}
         </h2>
-        <div className="hm-intro__text hm-r" style={r(2)}>
+        <div className="hm-intro__text hm-r hm-r--2">
           {(collective?.paragraphs ?? []).map((p, i) => (
             <p key={i}>{p}</p>
           ))}
         </div>
         <Link
           href={collective?.linkHref ?? "/collective"}
-          className="hm-link hm-r"
-          style={r(3)}
+          className="hm-link hm-r hm-r--3"
         >
           {collective?.linkLabel ?? "Meet the collective"} <span aria-hidden="true">→</span>
         </Link>
@@ -335,20 +347,18 @@ export default function HomeMobile({ homepage }: Props) {
         </div>
         <div className="hm-invite__shade" />
         <div className="hm-invite__content">
-          <h2 className="hm-invite__text hm-r" style={r(0)}>
+          <h2 className="hm-invite__text hm-r hm-r--0">
             {cta?.text ?? "Visit one of our projects by invitation"}
           </h2>
           <Link
             href={cta?.buttonHref ?? "/write-to-us"}
-            className="hm-invite__link hm-r"
-            style={r(1)}
+            className="hm-invite__link hm-r hm-r--1"
           >
             {cta?.buttonLabel ?? "Write to Us"} <span aria-hidden="true">→</span>
           </Link>
           <button
             type="button"
-            className="hm-invite__top hm-r"
-            style={r(2)}
+            className="hm-invite__top hm-r hm-r--2"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             BACK TO TOP
@@ -373,7 +383,7 @@ export default function HomeMobile({ homepage }: Props) {
               />
             </div>
             <div className="hm-focus__shade" />
-            <p className="hm-focus__name">{gallery[focus].caption}</p>
+            <p className="hm-focus__name">{mobileCopy(gallery[focus].caption)}</p>
           </>
         )}
         <button

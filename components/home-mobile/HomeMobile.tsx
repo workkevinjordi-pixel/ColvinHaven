@@ -179,7 +179,6 @@ export default function HomeMobile({ homepage }: Props) {
         <h2 className="hm-statement__heading hm-r hm-r--0">
           {statement?.heading ?? "CRAFTING SPACES, LIVING SLOWLY."}
         </h2>
-        <span className="hm-line" />
         <p className="hm-statement__body hm-r hm-r--2">
           {statement?.body ??
             "Colvin Haven creates limited edition homes designed for the next chapter of living, where silence is luxury and presence is a new power."}

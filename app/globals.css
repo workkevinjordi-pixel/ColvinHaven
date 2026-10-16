@@ -5560,7 +5560,8 @@ a:where(
 
   /* ---- 2 Statement ---- */
   .hm-statement {
-    padding: 0 28px;
+    min-height: 0;
+    padding: 80px 28px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5577,25 +5578,8 @@ a:where(
     color: var(--ink);
   }
 
-  .hm-line {
-    display: block;
-    height: 1px;
-    width: 40px;
-    margin: 32px 0;
-    background: rgba(29, 25, 15, 0.4);
-  }
-
-  .hm--ready .hm-line {
-    width: 0;
-    transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-
-  .hm--ready .hm-sec.is-seen .hm-line {
-    width: 40px;
-    transition-delay: 280ms;
-  }
-
   .hm-statement__body {
+    margin-top: 24px;
     font-weight: 300;
     font-size: var(--t-lede);
     line-height: var(--t-lede-lh);
@@ -5686,7 +5670,8 @@ a:where(
 
   /* ---- 4 / 8 Text intros (Editions, Collective) ---- */
   .hm-intro {
-    padding: 72px 28px 40px;
+    min-height: 0;
+    padding: 80px 28px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5778,7 +5763,8 @@ a:where(
      list): side margins, a narrow gutter, portrait photos, and a spaced
      serif title set well below each photo, flush left. */
   .hm-gallery {
-    padding: 96px 20px;
+    min-height: 0;
+    padding: 80px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -5831,7 +5817,8 @@ a:where(
 
   /* ---- 7 Stories ---- */
   .hm-stories {
-    padding: 92px 24px 88px;
+    min-height: 0;
+    padding: 80px 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6046,15 +6033,10 @@ a:where(
 @media (max-width: 560px) and (prefers-reduced-motion: reduce) {
   .hm--ready .hm-r,
   .hm--ready .hm-img,
-  .hm--ready .hm-line,
   .hm--ready .hm-swiper__caption {
     opacity: 1;
     transform: none;
     transition: none;
-  }
-
-  .hm--ready .hm-line {
-    width: 40px;
   }
 
   html[data-hm] .navbar__dot-trigger-img {
@@ -6244,7 +6226,8 @@ a:where(
   /* Drawing, specs and the poetic title with two paragraphs. */
   .em-details,
   .em-story {
-    padding: 92px 28px 56px;
+    min-height: 0;
+    padding: 80px 28px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6362,7 +6345,8 @@ a:where(
 
   /* The Collection. */
   .em-collection {
-    padding: 72px 28px 0;
+    min-height: 0;
+    padding: 80px 28px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6494,7 +6478,7 @@ a:where(
 
   .cm-body {
     box-sizing: border-box;
-    padding: 28px 28px 0;
+    padding: 28px 28px 80px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -6530,7 +6514,8 @@ a:where(
   /* Team */
   .cm-team,
   .cm-inspirations {
-    padding: 92px 28px 56px;
+    min-height: 0;
+    padding: 80px 28px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6573,12 +6558,8 @@ a:where(
   }
 
   /* Publications */
-  .cm-pub {
-    padding-bottom: 40px;
-  }
-
   .cm-pub__title-top {
-    padding: 92px 28px 20px;
+    padding: 80px 28px 20px;
     text-align: center;
     font-family: var(--font-cormorant), serif;
     font-weight: 500;

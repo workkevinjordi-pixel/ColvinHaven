@@ -144,7 +144,7 @@ export default function EditionsMobile({
                 </div>
                 <div className="em-title__shade" />
                 <div className="em-title__text">
-                  <h2 className="em-title__name hm-r">{s.title}</h2>
+                  <p className="em-title__index hm-r">{s.index}</p>
                 </div>
               </section>
             );

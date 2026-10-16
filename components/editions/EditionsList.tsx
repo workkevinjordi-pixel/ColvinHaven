@@ -17,6 +17,7 @@ function EditionRow({ edition }: { edition: EditionData }) {
       </div>
       <div className="editions-list__body">
         <div className="editions-list__meta">
+          <p className="editions-list__eyebrow">{edition.index}</p>
           <div className="editions-list__heading">
             <p className="editions-list__name">{edition.name}</p>
             <div className="editions-list__summary">

@@ -6,7 +6,8 @@ import { getContactPage } from "@/lib/sanity/contact";
 
 export const metadata: Metadata = {
   title: "Colvin Haven — Write to Us",
-  description: "Get in touch with Colvin Haven.",
+  description:
+    "Write to Colvin Haven about Umah Tsuki, Umah Sora and the homes still waiting for their land. Visits are by invitation.",
 };
 
 // Follows the Figma "Contact" frame (node 205:625): Navbar -> form ->

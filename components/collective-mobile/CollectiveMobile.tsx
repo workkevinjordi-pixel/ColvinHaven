@@ -233,11 +233,11 @@ export default function CollectiveMobile({
                     <a
                       href={s.href}
                       className="cm-pub__link"
-                      aria-label={`Read more: ${s.title}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       Read more
+                      <span className="hm-sr">: {s.title}</span>
                     </a>
                   )}
                 </div>

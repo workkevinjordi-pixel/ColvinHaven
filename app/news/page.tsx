@@ -11,7 +11,8 @@ import { getNewsPage } from "@/lib/sanity/newsPage";
 
 export const metadata: Metadata = {
   title: "Colvin Haven — What’s Cooking",
-  description: "News and publications from Colvin Haven.",
+  description:
+    "News, press and publications from Colvin Haven, the world's first wellness home brand.",
 };
 
 // Full rebuild against the current Figma "News" frame (node 368:40022,
@@ -44,6 +45,7 @@ export default async function NewsPage() {
   return (
     <>
       <Navbar solid />
+      <h1 className="hm-sr">News</h1>
       {/* .statement-section's shared 80px top padding is right for every
           other usage (always follows another section), but this is the
           page's first section -- needs the same fixed-navbar clearance
@@ -70,7 +72,10 @@ export default async function NewsPage() {
         paragraphs={page?.moriProfile.paragraphs}
       />
       <PublicationsSection />
-      <SocialAction statement={page?.socialAction.statement} bandImage={page?.socialAction.bandImage} />
+      <SocialAction
+        statement={page?.socialAction.statement}
+        bandImage={page?.socialAction.bandImage}
+      />
       <PullQuote
         collageImageA={page?.pullQuote.collageImageA}
         collageImageB={page?.pullQuote.collageImageB}

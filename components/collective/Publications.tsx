@@ -28,9 +28,9 @@ function PublicationSlide({ pub }: { pub: Publication }) {
           target="_blank"
           rel="noopener noreferrer"
           className="collective-publications__link"
-          aria-label={`Read more: ${pub.title}`}
         >
           Read more
+          <span className="hm-sr">: {pub.title}</span>
         </a>
       </div>
     </div>

@@ -78,6 +78,7 @@ export default async function EditionsPage() {
     <>
       <Navbar solid />
       <main className="page-main">
+        <h1 className="hm-sr">Editions</h1>
         {/* Phone layout: one full-screen section per swipe (<=560px). It
           starts straight at the first edition: the palm-trees opening photo
           is desktop-only. */}

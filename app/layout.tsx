@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
-import { Cormorant_Garamond, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import {
+  Cormorant_Garamond,
+  Fraunces,
+  Plus_Jakarta_Sans,
+} from "next/font/google";
 import "./globals.css";
 
 // The site's one sans-serif face -- used everywhere `var(--font-plus-
@@ -70,6 +74,31 @@ export const viewport: Viewport = {
   themeColor: "#f0ebe3",
 };
 
+// Site-wide structured data: who the brand is and what the site is. Only
+// facts already on the site (name, domain, the category line from the
+// description above) -- nothing invented.
+const STRUCTURED_DATA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      description:
+        "Colvin Haven is the world's first wellness home brand — homes designed around restoration, not just residence.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      inLanguage: "en",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -91,7 +120,13 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${plusJakartaSans.variable} ${cormorant.variable} ${fraunces.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

@@ -54,7 +54,10 @@ export default async function EditionDetailPage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const [editions, homepage] = await Promise.all([getEditions(), getHomepage()]);
+  const [editions, homepage] = await Promise.all([
+    getEditions(),
+    getHomepage(),
+  ]);
   const edition = editions.find((e) => e.slug === slug);
   if (!edition) notFound();
 
@@ -71,6 +74,7 @@ export default async function EditionDetailPage({
   return (
     <>
       <Navbar solid />
+      <h1 className="hm-sr">{edition.name}</h1>
       <EditionDetailHeader
         data={edition}
         displayName={isSora ? edition.name.toUpperCase() : undefined}

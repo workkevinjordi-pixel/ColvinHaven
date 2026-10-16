@@ -83,6 +83,7 @@ export default async function CollectivePage() {
     <>
       <Navbar solid />
       <main className="page-main">
+        <h1 className="hm-sr">Collective</h1>
         {/* Phone layout: full-screen sections with pinned photos (<=560px). */}
         <CollectiveMobile sections={buildCollectivePlan(page, publications)} />
         <div className="collective-desktop">

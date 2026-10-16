@@ -6902,3 +6902,69 @@ a:where(
     margin-top: 16px;
   }
 }
+
+/* Homepage desktop/tablet additions (Figma 385:14): the wide photo band and
+   the two-photo story row. Phones use components/home-mobile instead. */
+.home-photo-band {
+  width: 100%;
+}
+
+.home-photo-band__inner {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  height: 583px;
+  margin: 0 auto;
+}
+
+.home-stories {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 60px;
+}
+
+.home-stories__row {
+  display: flex;
+  gap: 23px;
+  align-items: flex-start;
+}
+
+.home-stories__item {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.home-stories__image {
+  position: relative;
+  width: 100%;
+  height: 473px;
+}
+
+.home-stories__caption {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+@media (max-width: 900px) {
+  .home-photo-band__inner {
+    height: 360px;
+  }
+
+  .home-stories {
+    padding: 48px var(--gutter);
+  }
+
+  .home-stories__row {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .home-stories__image {
+    height: 360px;
+  }
+}

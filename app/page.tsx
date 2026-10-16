@@ -7,6 +7,8 @@ import CraftingStatement from "@/components/landing/CraftingStatement";
 import HomeQuoteRow from "@/components/landing/HomeQuoteRow";
 import TextIntro from "@/components/landing/TextIntro";
 import ApproachGallery from "@/components/landing/ApproachGallery";
+import HomePhotoBand from "@/components/landing/HomePhotoBand";
+import HomeStories from "@/components/landing/HomeStories";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
 import HomeMobile from "@/components/home-mobile/HomeMobile";
@@ -177,7 +179,9 @@ export default async function Home() {
             ),
           )}
         </TextIntro>
+        <HomePhotoBand />
         <ApproachGallery items={homepage?.approachGallery} />
+        <HomeStories />
         <TextIntro
           eyebrow={homepage?.collectiveIntro.eyebrow ?? "COLLECTIVE"}
           heading={

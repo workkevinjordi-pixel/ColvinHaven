@@ -9,7 +9,7 @@ type ApproachGalleryProps = {
 // (node 371:40266) while the other four flex equally -- a pure layout
 // decision, not content, so it stays here in code (tied to array
 // index 2) rather than becoming an editable Sanity field.
-const FIXED_INDEX = 2;
+// (Previously the middle column was a fixed 240px; all four are equal now.)
 
 // Matches the content migrated into Sanity's homepage.approachGallery
 // (see lib/sanity/homepage.ts and app/page.tsx) -- kept as a fallback
@@ -61,19 +61,19 @@ const DEFAULT_ITEMS: ApproachGalleryProps["items"] = [
  * caption underneath (not a link). Content now comes from Sanity's
  * homepage.approachGallery.
  */
-export default function ApproachGallery({ items = DEFAULT_ITEMS }: ApproachGalleryProps) {
+export default function ApproachGallery({
+  items: all = DEFAULT_ITEMS,
+}: ApproachGalleryProps) {
+  // The latest homepage frame (Figma 385:14) shows four equal columns:
+  // the "Stillness" photo is left out (it stays in Sanity, just not shown).
+  const items = all!.filter(
+    (item) => item.caption.trim().toLowerCase() !== "stillness",
+  );
   return (
     <section className="landing-approach">
       <ScrollFade className="landing-approach__row">
-        {items!.map((item, i) => (
-          <div
-            className={
-              i === FIXED_INDEX
-                ? "landing-approach__item landing-approach__item--fixed"
-                : "landing-approach__item"
-            }
-            key={i}
-          >
+        {items.map((item, i) => (
+          <div className="landing-approach__item" key={i}>
             <div className="landing-approach__image">
               <Image
                 src={item.image.src}

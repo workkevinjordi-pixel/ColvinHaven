@@ -6068,38 +6068,6 @@ a:where(
   }
 }
 
-/* ---- Menu overlay on phones (every page): the design's full-screen cream
-   panel with large Cormorant items; the oversized brand label and the
-   side photo are dropped (the wordmark above already says it). ---- */
-@media (max-width: 560px) {
-  .navbar__overlay-panel {
-    padding: 0 28px;
-  }
-
-  .navbar__overlay-brand {
-    display: none;
-  }
-
-  .navbar__overlay-apply {
-    left: 28px;
-  }
-
-  .navbar__overlay-links {
-    gap: 8px;
-  }
-
-  .navbar__overlay-links a {
-    display: flex;
-    align-items: center;
-    min-height: 64px;
-    font-family: var(--font-cormorant), serif;
-    font-weight: 500;
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: 0.1em;
-  }
-}
-
 /* ---- Shared swiper controls (components/ui/Swiper.tsx): previous/next
    buttons around a position indicator. Hidden unless the track really
    scrolls horizontally (.swp--scrollable), so a row that is a plain

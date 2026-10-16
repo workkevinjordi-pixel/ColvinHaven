@@ -71,8 +71,8 @@ const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
   },
   {
     image: {
-      src: "/assets/home-quote-6-artwork.jpg",
-      alt: "A framed dark seascape painting on a grey wall beside a timber panel",
+      src: "/assets/home-quote-6-kitchen.jpg",
+      alt: "A teak kitchen with a black stone island, a tall gridded window opening onto tropical foliage",
     },
     caption: "",
   },

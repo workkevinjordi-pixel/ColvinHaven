@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ScrollFade from "../ScrollFade";
+import Swiper from "../ui/Swiper";
 
 type QuoteRowProps = {
   items?: { image: { src: string; alt: string }; caption: string }[];
@@ -39,7 +40,8 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
       src: "/assets/homequoterow-shoji-bedroom.jpg",
       alt: "A shoji-screened bedroom corner with a low bed and two wall sconces",
     },
-    caption: "A door left open, and the room is already warm.\nA place to settle in.",
+    caption:
+      "A door left open, and the room is already warm.\nA place to settle in.",
   },
 ];
 
@@ -52,25 +54,37 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
 export default function HomeQuoteRow({ items = DEFAULT_ITEMS }: QuoteRowProps) {
   return (
     <section className="landing-quote-row">
-      <ScrollFade className="landing-quote-row__inner">
-        {items!.map((item, i) => (
-          <div
-            className="landing-quote-row__item"
-            key={i}
-            style={{ flexBasis: `${(WIDTHS[i] / 1432) * 100}%` }}
-          >
-            <div className="landing-quote-row__image">
-              <Image
-                src={item.image.src}
-                alt={item.image.alt}
-                fill
-                sizes="(min-width: 900px) 45vw, 100vw"
-                style={{ objectFit: "cover" }}
-              />
+      <ScrollFade>
+        {/* Swiper: shows up to three photos at once at their Figma widths
+            (638/345/449, repeating for any further photos) and scrolls in
+            steps; the arrows only appear when there are more than three. */}
+        <Swiper
+          className="landing-quote-row__swiper"
+          trackClassName="landing-quote-row__inner"
+          tone="dark"
+          label="Photos"
+        >
+          {items!.map((item, i) => (
+            <div
+              className="landing-quote-row__item"
+              key={i}
+              style={{
+                flexBasis: `calc(${(WIDTHS[i % WIDTHS.length] / 1432) * 100}% - 2.67px)`,
+              }}
+            >
+              <div className="landing-quote-row__image">
+                <Image
+                  src={item.image.src}
+                  alt={item.image.alt}
+                  fill
+                  sizes="(min-width: 900px) 45vw, 100vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <p className="landing-quote-row__caption">{item.caption}</p>
             </div>
-            <p className="landing-quote-row__caption">{item.caption}</p>
-          </div>
-        ))}
+          ))}
+        </Swiper>
       </ScrollFade>
     </section>
   );

@@ -6878,3 +6878,26 @@ a:where(
     font-size: var(--t-label);
   }
 }
+
+/* Home quote row as a swiper (desktop/tablet): the three photos keep their
+   Figma widths and fit exactly; extra photos scroll in steps of one. */
+@media (min-width: 901px) {
+  .landing-quote-row__inner {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .landing-quote-row__inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .landing-quote-row__item {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .landing-quote-row__swiper .swp__controls {
+    margin-top: 16px;
+  }
+}

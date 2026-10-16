@@ -140,7 +140,7 @@ export default function EditionsMobile({
                 data-hm-section={i}
               >
                 <div className="hm-img">
-                  <Photo image={s.image} priority={i === 0} />
+                  <Photo image={s.image} />
                 </div>
                 <div className="em-title__shade" />
                 <div className="em-title__text">

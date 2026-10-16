@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Swiper from "@/components/ui/Swiper";
+import { useSectionState } from "@/components/ui/useSectionState";
 import type { Img, MobileSection, Slide } from "./plan";
 
 /**
@@ -87,7 +88,6 @@ export default function EditionsMobile({
   sections: MobileSection[];
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
 
   // Reveal state is only enabled once JS runs, so the page reads fine
   // without it.
@@ -95,26 +95,9 @@ export default function EditionsMobile({
     rootRef.current?.classList.add("hm--ready");
   }, []);
 
-  // The section under the middle of the screen is the active one.
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-    const els = Array.from(
-      root.querySelectorAll<HTMLElement>("[data-hm-section]"),
-    );
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(Number((entry.target as HTMLElement).dataset.hmSection));
-          }
-        });
-      },
-      { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
-    );
-    els.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+  // Active section (nav tone) and sections seen so far (reveals); the page
+  // scrolls normally.
+  const { active, seen } = useSectionState(rootRef);
 
   // Tells the shared navbar which tone to use over the current section.
   useEffect(() => {
@@ -129,7 +112,7 @@ export default function EditionsMobile({
   }, []);
 
   const cls = (i: number, extra: string) =>
-    `hm-sec ${extra}${active === i ? " is-active" : ""}`;
+    `hm-sec ${extra}${seen.has(i) ? " is-seen" : ""}`;
 
   return (
     <div ref={rootRef} className="hm em">
@@ -207,7 +190,7 @@ export default function EditionsMobile({
                 <SwiperSection
                   slides={s.slides}
                   label={s.label}
-                  active={active === i}
+                  active={seen.has(i)}
                 />
               </section>
             );

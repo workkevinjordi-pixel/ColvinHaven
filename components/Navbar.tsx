@@ -25,10 +25,22 @@ type NavbarProps = {
 
 export default function Navbar({ solid = false }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [markHidden, setMarkHidden] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 60);
+      // The wordmark tucks away while scrolling down and returns on any
+      // upward scroll (and at the very top); the dot stays. Small jitter
+      // is ignored, and the CSS only applies this on phones.
+      const delta = y - lastY;
+      if (y < 80 || delta < -4) setMarkHidden(false);
+      else if (delta > 4) setMarkHidden(true);
+      if (Math.abs(delta) > 4) lastY = y;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -53,7 +65,7 @@ export default function Navbar({ solid = false }: NavbarProps) {
   return (
     <>
       <header
-        className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}`}
+        className={`navbar${scrolled || solid ? " navbar--scrolled" : ""}${open ? " navbar--open" : ""}${markHidden ? " navbar--mark-hidden" : ""}`}
       >
         <div className="navbar__inner">
           <Link href="/" className="navbar__index" aria-label="Colvin Haven">

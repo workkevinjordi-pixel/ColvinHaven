@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Swiper from "@/components/ui/Swiper";
+import { useSectionState } from "@/components/ui/useSectionState";
 import type { CollectiveSection, Img } from "./plan";
 
 /**
@@ -63,7 +64,7 @@ function SwiperBlock({
 }
 
 function cls(active: boolean, base: string) {
-  return `hm-sec ${base}${active ? " is-active" : ""}`;
+  return `hm-sec ${base}${active ? " is-seen" : ""}`;
 }
 
 export default function CollectiveMobile({
@@ -72,32 +73,14 @@ export default function CollectiveMobile({
   sections: CollectiveSection[];
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
 
   useEffect(() => {
     rootRef.current?.classList.add("hm--ready");
   }, []);
 
-  // The section under the middle of the screen is the active one.
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-    const els = Array.from(
-      root.querySelectorAll<HTMLElement>("[data-hm-section]"),
-    );
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(Number((entry.target as HTMLElement).dataset.hmSection));
-          }
-        });
-      },
-      { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
-    );
-    els.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+  // Active section (nav tone) and sections seen so far (reveals); the page
+  // scrolls normally.
+  const { active, seen } = useSectionState(rootRef);
 
   useEffect(() => {
     const kind = sections[active]?.kind;
@@ -113,7 +96,7 @@ export default function CollectiveMobile({
   return (
     <div ref={rootRef} className="hm cm">
       {sections.map((s, i) => {
-        const on = active === i;
+        const on = seen.has(i);
         switch (s.kind) {
           case "founder":
             return (

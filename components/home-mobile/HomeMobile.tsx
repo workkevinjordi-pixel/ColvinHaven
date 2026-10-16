@@ -6,6 +6,7 @@ import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import type { Homepage } from "@/lib/sanity/homepage";
 import Swiper from "@/components/ui/Swiper";
+import { useSectionState } from "@/components/ui/useSectionState";
 
 /**
  * Phone homepage (<=560px): one full-screen section per swipe, laid out
@@ -88,7 +89,6 @@ function mobileCopy(text: string): string {
 
 export default function HomeMobile({ homepage }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
   const [slide, setSlide] = useState(0);
   const [focus, setFocus] = useState<number | null>(null);
 
@@ -110,24 +110,9 @@ export default function HomeMobile({ homepage }: Props) {
     rootRef.current?.classList.add("hm--ready");
   }, []);
 
-  // Active section = the one under the middle of the screen.
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-    const sections = Array.from(root.querySelectorAll<HTMLElement>("[data-hm-section]"));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(Number((entry.target as HTMLElement).dataset.hmSection));
-          }
-        });
-      },
-      { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, []);
+  // Section under the middle of the screen (nav tone) and sections seen so
+  // far (reveals) -- the page scrolls normally, no snapping.
+  const { active, seen } = useSectionState(rootRef);
 
   // Tells the shared navbar which tone to use (light over photos, dark
   // brown over the cream sections). Only this page ever sets it.
@@ -155,7 +140,7 @@ export default function HomeMobile({ homepage }: Props) {
   const onSlideChange = useCallback((i: number) => setSlide(i), []);
 
   const sec = (i: number) =>
-    `hm-sec${active === i ? " is-active" : ""}`;
+    `hm-sec${seen.has(i) ? " is-seen" : ""}`;
 
   const editionsHeading = (editions?.heading ?? "TSUKI, THE MOON. SORA, THE SKY").replace(
     /\.\s+/,
@@ -205,7 +190,7 @@ export default function HomeMobile({ homepage }: Props) {
             {slides.map((s, i) => (
               <div
                 key={i}
-                className={`hm-swiper__slide${active === 2 && slide === i ? " is-on" : ""}`}
+                className={`hm-swiper__slide${seen.has(2) && slide === i ? " is-on" : ""}`}
               >
                 <div className="hm-img">
                   <Image

@@ -5458,7 +5458,7 @@ a:where(
 /* ==========================================================================
    Phone homepage (<=560px) -- components/home-mobile/HomeMobile.tsx.
    Layout follows the "Homepage Mobile scroll" design reference: one
-   full-screen section per swipe (scroll-snap), staggered text reveal and
+   full-screen sections that scroll normally (no snapping), staggered text reveal and
    a slow image settle per section, an edition photo swiper with a pager,
    a progress rail, a tap-to-expand gallery and a closing invitation.
    Copy and type styles are the desktop homepage's. Hidden everywhere else.
@@ -5490,18 +5490,11 @@ a:where(
     font-weight: 300;
   }
 
-  /* Document-level scroll-snap, only while this layout is on the page. */
-  html:has(.hm) {
-    scroll-snap-type: y mandatory;
-  }
-
   .hm-sec {
     position: relative;
     min-height: 100svh;
     box-sizing: border-box;
     overflow: hidden;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
   }
 
   /* ---- Reveal / image settle (only once JS has mounted) ---- */
@@ -5516,25 +5509,25 @@ a:where(
       transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
-  .hm--ready .hm-sec.is-active .hm-r {
+  .hm--ready .hm-sec.is-seen .hm-r {
     opacity: 1;
     transform: none;
   }
 
   /* Stagger: each step is 140ms. */
-  .hm--ready .hm-sec.is-active .hm-r--1 {
+  .hm--ready .hm-sec.is-seen .hm-r--1 {
     transition-delay: 140ms;
   }
 
-  .hm--ready .hm-sec.is-active .hm-r--2 {
+  .hm--ready .hm-sec.is-seen .hm-r--2 {
     transition-delay: 280ms;
   }
 
-  .hm--ready .hm-sec.is-active .hm-r--3 {
+  .hm--ready .hm-sec.is-seen .hm-r--3 {
     transition-delay: 420ms;
   }
 
-  .hm--ready .hm-sec.is-active .hm-r--4 {
+  .hm--ready .hm-sec.is-seen .hm-r--4 {
     transition-delay: 560ms;
   }
 
@@ -5548,7 +5541,7 @@ a:where(
     transition: transform 2.4s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
-  .hm--ready .hm-sec.is-active .hm-img,
+  .hm--ready .hm-sec.is-seen .hm-img,
   .hm--ready .hm-swiper__slide.is-on .hm-img {
     transform: scale(1);
   }
@@ -5597,7 +5590,7 @@ a:where(
     transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
-  .hm--ready .hm-sec.is-active .hm-line {
+  .hm--ready .hm-sec.is-seen .hm-line {
     width: 40px;
     transition-delay: 280ms;
   }
@@ -6227,7 +6220,7 @@ a:where(
     opacity: 0;
   }
 
-  .hm--ready .em-title.is-active .em-title__index {
+  .hm--ready .em-title.is-seen .em-title__index {
     opacity: 0.8;
   }
 
@@ -6446,7 +6439,6 @@ a:where(
   .hm-sec.cm-tall {
     min-height: 0;
     overflow: visible;
-    scroll-snap-stop: normal;
   }
 
   .cm-pin {
@@ -6683,5 +6675,31 @@ a:where(
     --t-card-lh: 24px;
     --t-menu: 14.4px; /* megamenu links, was 18 */
     --t-menu-note: 12px; /* "Join the collective", was 15 */
+  }
+}
+
+/* Phones: the wordmark tucks away while scrolling down and fades back on
+   any upward scroll; the red dot always stays. Never while the menu is
+   open. */
+@media (max-width: 560px) {
+  .navbar__index {
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s ease;
+  }
+
+  .navbar--mark-hidden:not(.navbar--open) .navbar__index {
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 560px) and (prefers-reduced-motion: reduce) {
+  .navbar__index {
+    transition: none;
+  }
+
+  .navbar--mark-hidden:not(.navbar--open) .navbar__index {
+    transform: none;
   }
 }

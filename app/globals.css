@@ -7012,12 +7012,17 @@ a:where(
 
   /* Opening photo: full-width, sitting right under the navbar (86.4px of
      cream above it, so the wordmark is never over the picture), 56% of
-     the screen high. */
+     the screen high (20% shorter than before, cropped from the bottom
+     rather than squeezed). */
   .em .hm-photo:first-child {
-    height: calc(56svh + 86.4px);
+    height: calc(45svh + 86.4px);
     min-height: 0;
     padding: 86.4px 0 0;
     background: transparent;
+  }
+
+  .em .hm-photo:first-child .hm-img img {
+    object-position: center top !important;
   }
 
   .em .hm-photo:first-child .hm-img {

@@ -109,7 +109,9 @@ export default function Swiper({
     const target = items[Math.max(0, Math.min(items.length - 1, i))];
     if (!target) return;
     const left =
-      target.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft;
+      target.getBoundingClientRect().left -
+      track.getBoundingClientRect().left +
+      track.scrollLeft;
     track.scrollTo({ left, behavior: "smooth" });
   };
 
@@ -120,7 +122,12 @@ export default function Swiper({
       aria-roledescription="carousel"
       aria-label={label}
     >
-      <div ref={trackRef} id={id} className={trackClassName} onScroll={onScroll}>
+      <div
+        ref={trackRef}
+        id={id}
+        className={trackClassName}
+        onScroll={onScroll}
+      >
         {children}
       </div>
       <div className="swp__controls">
@@ -131,7 +138,17 @@ export default function Swiper({
           disabled={index <= 0}
           onClick={() => goTo(index - 1)}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="M15 5l-7 7 7 7" />
           </svg>
         </button>
@@ -155,7 +172,17 @@ export default function Swiper({
           disabled={index >= count - 1}
           onClick={() => goTo(index + 1)}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="M9 5l7 7-7 7" />
           </svg>
         </button>

@@ -92,7 +92,9 @@ export default function Navbar({ solid = false }: NavbarProps) {
         </div>
       </header>
 
-      <div className={`navbar__overlay${open ? " navbar__overlay--visible" : ""}`}>
+      <div
+        className={`navbar__overlay${open ? " navbar__overlay--visible" : ""}`}
+      >
         <div className="navbar__overlay-panel">
           {/* Every link fades in together (no per-item stagger, no
               slide) -- matches the reference recording, where the whole
@@ -103,7 +105,11 @@ export default function Navbar({ solid = false }: NavbarProps) {
               in the bar above already says it. */}
           <nav className="navbar__overlay-links">
             {PRIMARY_LINKS.map((link) => (
-              <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+              >
                 {link.label}
               </a>
             ))}

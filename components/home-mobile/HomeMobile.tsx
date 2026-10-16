@@ -29,7 +29,7 @@ type Props = {
 };
 
 // Section indexes -- the nav tone is driven by these.
-const DARK_SECTIONS = new Set([0, 2, 4, 8]); // photo sections: light nav
+const DARK_SECTIONS = new Set([0, 4, 8, 9]); // photo sections: light nav
 
 // The Approach gallery shows four photos on phones: the "Stillness" one
 // is left out (latest Figma release of the homepage content).
@@ -211,7 +211,7 @@ export default function HomeMobile({ homepage }: Props) {
           <Swiper
             className="hm-swiper__swp"
             trackClassName="hm-swiper__track"
-            tone="light"
+            tone="dark"
             label="Edition photos"
             onIndexChange={onSlideChange}
           >
@@ -329,6 +329,22 @@ export default function HomeMobile({ homepage }: Props) {
             <figcaption>{s.caption}</figcaption>
           </figure>
         ))}
+      </section>
+
+      {/* Pool photo band (Figma 459:796), below the stories */}
+      <section
+        className={`${sec(9)} hm-photo hm-photo--pool`}
+        data-hm-section={9}
+      >
+        <div className="hm-img">
+          <Image
+            src="/assets/editions/detail/tsuki-closing-pool-deck.jpg"
+            alt="A timber deck with loungers beside a stone-edged pool among tropical foliage"
+            fill
+            sizes="100vw"
+            style={{ objectFit: "cover" }}
+          />
+        </div>
       </section>
 
       {/* 8 COLLECTIVE */}

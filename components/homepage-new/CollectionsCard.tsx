@@ -23,7 +23,9 @@ export default function CollectionsCard() {
           </h2>
         </div>
         <div className="hpn-collections__body">
-          <p className="hpn-collections__lead">Each closes when it’s complete.</p>
+          <p className="hpn-collections__lead">
+            Each closes when it’s complete.
+          </p>
           <div className="hpn-collections__text">
             <p>Some are complete,</p>
             <p>Some are under construction,</p>

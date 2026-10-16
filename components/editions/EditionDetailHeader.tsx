@@ -33,9 +33,15 @@ export default function EditionDetailHeader({
       {!hideMeta && (
         <div className="edition-detail-header__meta">
           <span>{type}</span>
-          <span className="edition-detail-header__meta-divider" aria-hidden="true" />
+          <span
+            className="edition-detail-header__meta-divider"
+            aria-hidden="true"
+          />
           <span>{location}</span>
-          <span className="edition-detail-header__meta-divider" aria-hidden="true" />
+          <span
+            className="edition-detail-header__meta-divider"
+            aria-hidden="true"
+          />
           <span>{year}</span>
         </div>
       )}

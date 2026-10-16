@@ -122,12 +122,18 @@ export default function EditionStorySummary({
   const row4ForPage = {
     main: {
       ...row4.main,
-      text: layout === "sora" ? (editionsRow4MainText ?? row4.main.text) : row4.main.text,
+      text:
+        layout === "sora"
+          ? (editionsRow4MainText ?? row4.main.text)
+          : row4.main.text,
     },
     side: {
       ...row4.side,
       image: editionsRow4SideImage ?? row4.side.image,
-      text: layout === "sora" ? (editionsRow4SideText ?? row4.side.text) : row4.side.text,
+      text:
+        layout === "sora"
+          ? (editionsRow4SideText ?? row4.side.text)
+          : row4.side.text,
     },
   };
 
@@ -167,7 +173,10 @@ export default function EditionStorySummary({
         {editionsStoryACta && (
           <div className="edition-story__cta">
             <p className="edition-story__cta-note">{editionsStoryACta.note}</p>
-            <a href={editionsStoryACta.href} className="edition-story__cta-link">
+            <a
+              href={editionsStoryACta.href}
+              className="edition-story__cta-link"
+            >
               {editionsStoryACta.label} <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -186,7 +195,9 @@ export default function EditionStorySummary({
   );
 
   return (
-    <section className={`edition-spotlight${tightBottom ? " edition-spotlight--tight-bottom" : ""}`}>
+    <section
+      className={`edition-spotlight${tightBottom ? " edition-spotlight--tight-bottom" : ""}`}
+    >
       <div className="edition-spotlight__body">
         <div className="edition-spotlight__hero-image">
           <Image
@@ -287,9 +298,7 @@ export default function EditionStorySummary({
                 />
               </div>
               <div className="edition-story__quote-text">
-                <p className="edition-story__quote-heading">
-                  {quoteHeading}
-                </p>
+                <p className="edition-story__quote-heading">{quoteHeading}</p>
               </div>
             </div>
 

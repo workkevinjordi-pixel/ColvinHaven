@@ -32,7 +32,11 @@ function smoothstep(edge0: number, edge1: number, x: number) {
   return t * t * (3 - 2 * t);
 }
 
-function boxForProgress(t: number, viewportWidth: number, viewportHeight: number) {
+function boxForProgress(
+  t: number,
+  viewportWidth: number,
+  viewportHeight: number,
+) {
   if (t <= 0.5) {
     const e1 = easeInOutCubic(t / 0.5);
     return {
@@ -64,7 +68,15 @@ export default function FeatureSplit() {
     const img3 = img3Ref.current;
     const wordLeft = wordLeftRef.current;
     const wordRight = wordRightRef.current;
-    if (!section || !imageWrap || !img1 || !img2 || !img3 || !wordLeft || !wordRight) {
+    if (
+      !section ||
+      !imageWrap ||
+      !img1 ||
+      !img2 ||
+      !img3 ||
+      !wordLeft ||
+      !wordRight
+    ) {
       return;
     }
 
@@ -72,7 +84,9 @@ export default function FeatureSplit() {
     // ScrollGallery keeps the same sticky-pin scroll-scrub on mobile as
     // desktop, just re-scaled (their box shrinks from 800px to 400px,
     // which happens to match our BASE_WIDTH already).
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (reduceMotion) return;
 
     let targetProgress = 0;

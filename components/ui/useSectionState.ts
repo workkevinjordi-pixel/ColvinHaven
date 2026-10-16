@@ -20,8 +20,11 @@ export function useSectionState(rootRef: RefObject<HTMLElement | null>) {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    const els = Array.from(root.querySelectorAll<HTMLElement>("[data-hm-section]"));
-    const index = (el: Element) => Number((el as HTMLElement).dataset.hmSection);
+    const els = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-hm-section]"),
+    );
+    const index = (el: Element) =>
+      Number((el as HTMLElement).dataset.hmSection);
 
     const middle = new IntersectionObserver(
       (entries) => {
@@ -34,7 +37,9 @@ export function useSectionState(rootRef: RefObject<HTMLElement | null>) {
 
     const reveal = new IntersectionObserver(
       (entries) => {
-        const entered = entries.filter((e) => e.isIntersecting).map((e) => index(e.target));
+        const entered = entries
+          .filter((e) => e.isIntersecting)
+          .map((e) => index(e.target));
         if (entered.length === 0) return;
         setSeen((prev) => {
           if (entered.every((i) => prev.has(i))) return prev;

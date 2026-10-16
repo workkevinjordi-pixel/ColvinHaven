@@ -5822,7 +5822,7 @@ a:where(
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 6px;
     text-align: left;
     font-family: inherit;
     color: var(--ink);
@@ -5831,7 +5831,7 @@ a:where(
   .hm-gallery__img {
     position: relative;
     display: block;
-    width: 100%;
+    width: 80%;
     aspect-ratio: 11 / 15;
     overflow: hidden;
   }
@@ -6714,8 +6714,10 @@ a:where(
    while the wordmark shows (scrolling up), see-through while scrolling
    down. */
 .navbar__index {
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s ease;
+  transition:
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.5s ease;
 }
 
 .navbar--mark-hidden:not(.navbar--open) .navbar__index {
@@ -6975,5 +6977,70 @@ a:where(
 
   .home-stories__image {
     height: 360px;
+  }
+}
+
+/* Phones: photos at 80% inside a cream frame (10% each side, 10svh above
+   and below) for the swipers and the edition title photos, so there is air
+   around them; the opening Editions photo is the same size as Collective's
+   founder collage; and the pool band under the homepage stories. */
+@media (max-width: 560px) {
+  .hm-swiper {
+    background: var(--bg);
+  }
+
+  .hm-swiper__slide {
+    background: transparent;
+  }
+
+  .hm-swiper__slide .hm-img,
+  .em-title .hm-img {
+    inset: 10svh 10%;
+  }
+
+  .hm-swiper__shade,
+  .em-title__shade {
+    left: 10%;
+    right: 10%;
+    bottom: 10svh;
+    height: 260px;
+  }
+
+  .hm-swiper__caption {
+    left: 10%;
+    right: 10%;
+    bottom: 10svh;
+    padding: 0 20px 24px;
+  }
+
+  .em-title {
+    background: var(--bg);
+  }
+
+  .em-title__text {
+    left: 10%;
+    right: 10%;
+    bottom: 10svh;
+    padding: 0 20px 40px;
+  }
+
+  /* Opening Editions photo: same 210px-high frame as the Collective collage. */
+  .em .hm-photo:first-child {
+    height: auto;
+    min-height: 0;
+    padding: 80px 28px 0;
+    background: transparent;
+  }
+
+  .em .hm-photo:first-child .hm-img {
+    position: relative;
+    inset: auto;
+    height: 210px;
+  }
+
+  /* Pool band under the homepage stories. */
+  .hm-photo--pool {
+    min-height: 0;
+    height: 56svh;
   }
 }

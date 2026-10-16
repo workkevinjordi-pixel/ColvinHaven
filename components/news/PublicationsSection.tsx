@@ -36,9 +36,7 @@ export default async function PublicationsSection() {
             <span>WHAT’S NEW ON OUR SIDE</span>
           </div>
           <ArticleCard
-            image={
-              publication.editorialImage ?? { src: "", alt: "" }
-            }
+            image={publication.editorialImage ?? { src: "", alt: "" }}
             date={publication.date}
             title={publication.title}
             description={[publication.paragraphs[0]]}

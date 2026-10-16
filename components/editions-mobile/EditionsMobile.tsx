@@ -16,12 +16,9 @@ import type { Img, MobileSection, Slide } from "./plan";
  * Always in the DOM, hidden above 560px by CSS.
  */
 
-const DARK_KINDS = new Set<MobileSection["kind"]>([
-  "photo",
-  "title",
-  "swiper",
-  "quote",
-]);
+// Sections whose top edge is a full-bleed photo (light wordmark). The
+// title photos and swipers sit inside a cream frame now, so they are not.
+const DARK_KINDS = new Set<MobileSection["kind"]>(["quote"]);
 
 function Photo({ image, priority }: { image: Img; priority?: boolean }) {
   return (
@@ -52,7 +49,7 @@ function SwiperSection({
     <Swiper
       className="hm-swiper__swp"
       trackClassName="hm-swiper__track"
-      tone="light"
+      tone="dark"
       label={label}
       onIndexChange={onIndexChange}
     >
@@ -103,12 +100,11 @@ export default function EditionsMobile({
   useEffect(() => {
     const kind = sections[active]?.kind;
     // "hero" = over the opening banner photo (gold wordmark).
-    document.documentElement.dataset.hm =
-      active === 0 && kind === "photo"
-        ? "hero"
-        : kind && DARK_KINDS.has(kind)
-          ? "dark"
-          : "light";
+    document.documentElement.dataset.hm = false
+      ? "hero"
+      : kind && DARK_KINDS.has(kind)
+        ? "dark"
+        : "light";
   }, [active, sections]);
   useEffect(() => {
     return () => {

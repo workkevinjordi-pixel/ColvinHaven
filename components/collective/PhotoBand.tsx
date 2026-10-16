@@ -5,13 +5,7 @@ import Image from "next/image";
  * node 203:330) -- same 1320px column and treatment as CollectiveIntro's
  * own photo, just used bare with no accompanying text.
  */
-export default function PhotoBand({
-  src,
-  alt,
-}: {
-  src: string;
-  alt: string;
-}) {
+export default function PhotoBand({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="collective-photo-band">
       <Image

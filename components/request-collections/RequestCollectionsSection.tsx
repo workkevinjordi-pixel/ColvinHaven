@@ -73,7 +73,10 @@ export default function RequestCollectionsSection({
             />
           </div>
 
-          <form className="request-collections__form-col" onSubmit={handleSubmit}>
+          <form
+            className="request-collections__form-col"
+            onSubmit={handleSubmit}
+          >
             <div className="request-collections__intro">
               <div className="values__tag">
                 <span className="values__dot" />

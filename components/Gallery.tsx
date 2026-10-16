@@ -49,7 +49,11 @@ function ProjectCard({ card, tall = false }: { card: Card; tall?: boolean }) {
           src={card.src}
           alt={card.alt}
           fill
-          sizes={tall ? "(min-width: 900px) 50vw, 100vw" : "(min-width: 900px) 42vw, 100vw"}
+          sizes={
+            tall
+              ? "(min-width: 900px) 50vw, 100vw"
+              : "(min-width: 900px) 42vw, 100vw"
+          }
           style={{ objectFit: "cover" }}
         />
       </div>
@@ -81,12 +85,12 @@ export default function Gallery() {
           </div>
           <div className="values__text">
             <p>
-              Restraint learned by hand, materials sourced from the ground
-              they sit on, a kitchen at the center because that is where a
-              life actually happens. What changes is the canvas. Two
-              editions exist so far, each written in the same quiet
-              dialect but at a different scale. Two more are already
-              taking form. What comes after that, we are not saying yet.
+              Restraint learned by hand, materials sourced from the ground they
+              sit on, a kitchen at the center because that is where a life
+              actually happens. What changes is the canvas. Two editions exist
+              so far, each written in the same quiet dialect but at a different
+              scale. Two more are already taking form. What comes after that, we
+              are not saying yet.
             </p>
             <a href="#editions" className="gallery__link">
               All editions

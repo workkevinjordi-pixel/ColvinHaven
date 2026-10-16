@@ -5,6 +5,8 @@ import CollectionsCard from "@/components/homepage-new/CollectionsCard";
 import EditionDetailHeader from "@/components/editions/EditionDetailHeader";
 import EditionStorySummary from "@/components/editions/EditionStorySummary";
 import Footer from "@/components/Footer";
+import EditionsMobile from "@/components/editions-mobile/EditionsMobile";
+import { buildEditionsPlan } from "@/components/editions-mobile/plan";
 import { getEditions } from "@/lib/sanity/editions";
 import { getEditionsPage } from "@/lib/sanity/editionsPage";
 
@@ -68,28 +70,37 @@ export const metadata: Metadata = {
 // own opening photo now comes from Sanity too (editionsPage.heroImage),
 // fetched alongside the editions list.
 export default async function EditionsPage() {
-  const [editions, editionsPage] = await Promise.all([getEditions(), getEditionsPage()]);
+  const [editions, editionsPage] = await Promise.all([
+    getEditions(),
+    getEditionsPage(),
+  ]);
   return (
     <>
       <Navbar solid />
-      <EditionsHero image={editionsPage?.heroImage} />
-      {editions.map((edition) => (
-        <div key={edition.slug}>
-          <EditionDetailHeader
-            data={edition}
-            displayName={edition.name.toUpperCase()}
-            hideMeta
-          />
-          <EditionStorySummary
-            data={edition}
-            layout={edition.slug === "umah-sora" ? "sora" : "tsuki"}
-            finalGalleryId={`${edition.slug}-final-gallery`}
-            tightBottom={edition.slug === "umah-sora"}
-          />
-        </div>
-      ))}
-      <CollectionsCard />
-      <Footer />
+      {/* Phone layout: one full-screen section per swipe (<=560px). */}
+      <EditionsMobile
+        sections={buildEditionsPlan(editions, editionsPage?.heroImage)}
+      />
+      <div className="editions-desktop">
+        <EditionsHero image={editionsPage?.heroImage} />
+        {editions.map((edition) => (
+          <div key={edition.slug}>
+            <EditionDetailHeader
+              data={edition}
+              displayName={edition.name.toUpperCase()}
+              hideMeta
+            />
+            <EditionStorySummary
+              data={edition}
+              layout={edition.slug === "umah-sora" ? "sora" : "tsuki"}
+              finalGalleryId={`${edition.slug}-final-gallery`}
+              tightBottom={edition.slug === "umah-sora"}
+            />
+          </div>
+        ))}
+        <CollectionsCard />
+        <Footer />
+      </div>
     </>
   );
 }

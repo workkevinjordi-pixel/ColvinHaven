@@ -6213,3 +6213,265 @@ a:where(
 .edition-story__gallery-swiper .swp__controls {
   margin-top: 8px;
 }
+
+/* ==========================================================================
+   Phone /editions (<=560px) -- components/editions-mobile/EditionsMobile.tsx.
+   Layout and type follow the "Editions Mobile scroll" design; it shares the
+   full-screen/reveal/swiper rules above (.hm-*) and adds the edition-
+   specific sections here. The desktop page gives way to it.
+   ========================================================================== */
+@media (max-width: 560px) {
+  .editions-desktop {
+    display: none;
+  }
+
+  /* Title photo + "I/V" + name, bottom-centred over a scrim. */
+  .em-title {
+    height: 100svh;
+    background: #2b3327;
+  }
+
+  .em-title__shade,
+  .em-quote__shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 380px;
+    background: linear-gradient(to bottom, rgba(29, 25, 15, 0), rgba(29, 25, 15, 0.78));
+  }
+
+  .em-quote__shade {
+    height: 420px;
+  }
+
+  .em-title__text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 0 28px 96px;
+    text-align: center;
+    color: var(--cream);
+  }
+
+  .em-title__index {
+    margin: 0 0 12px;
+    font-family: var(--font-cormorant), serif;
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: 0.15em;
+    opacity: 0.8;
+  }
+
+  .hm--ready .em-title .em-title__index {
+    opacity: 0;
+  }
+
+  .hm--ready .em-title.is-active .em-title__index {
+    opacity: 0.8;
+  }
+
+  .em-title__name {
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 42px;
+  }
+
+  /* Drawing, specs and the poetic title with two paragraphs. */
+  .em-details,
+  .em-story {
+    padding: 92px 28px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .em-details {
+    gap: 28px;
+  }
+
+  .em-details__drawing {
+    position: relative;
+    flex: none;
+    width: 112px;
+    height: 149px;
+    overflow: hidden;
+    background: #cfc7b6;
+  }
+
+  .em-details__specs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .em-details__label {
+    margin: 0 0 4px;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    color: rgba(29, 25, 15, 0.6);
+  }
+
+  .em-details__value {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--ink);
+  }
+
+  .em-details__heading {
+    margin: 4px 0 -16px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--ink);
+  }
+
+  .em-text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .em-text p {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .em-text--ink p {
+    color: var(--ink);
+  }
+
+  /* Photo over text stories (provenance, kitchens, Sora morning). */
+  .em-story {
+    gap: 20px;
+  }
+
+  .em-story__photo {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .em-story__photo[data-height="230"] {
+    height: 230px;
+  }
+
+  .em-story__note {
+    margin: 4px 0 0;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 24px;
+    color: #7d6325;
+  }
+
+  .em-story__link {
+    align-self: flex-start;
+    margin-top: -12px;
+  }
+
+  /* Quote over a full-screen photo. */
+  .em-quote {
+    height: 100svh;
+    background: #26302a;
+  }
+
+  .em-quote__text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 0 32px 92px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 32px;
+    color: var(--cream);
+  }
+
+  /* Edition swipers use a slightly smaller caption than the homepage. */
+  .em .hm-swiper__caption {
+    font-size: 18px;
+    line-height: 29px;
+  }
+
+  /* The Collection. */
+  .em-collection {
+    padding: 72px 28px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    text-align: center;
+  }
+
+  .em-collection__eyebrow {
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: var(--ink);
+  }
+
+  .em-collection__titles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .em-collection__kicker {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 22px;
+    letter-spacing: 0.08em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .em-collection__heading {
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 28px;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+  }
+
+  .em-collection__lead {
+    margin-top: 6px;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.05em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .em-collection__list {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.05em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .em-collection__note {
+    margin-bottom: -20px;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.04em;
+    color: #7d6325;
+  }
+
+  .em-collection__link {
+    font-size: 14px;
+  }
+}

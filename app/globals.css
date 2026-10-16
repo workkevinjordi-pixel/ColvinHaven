@@ -68,7 +68,9 @@ button:focus-visible,
 .scroll-fade {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .scroll-fade--visible {
@@ -347,7 +349,8 @@ button:focus-visible,
   font-size: 16px;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -418,7 +421,8 @@ button:focus-visible,
   font-size: 16px;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -450,7 +454,8 @@ button:focus-visible,
   z-index: 100;
   color: #fff;
   background: transparent;
-  transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -586,14 +591,18 @@ button:focus-visible,
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.5s;
+  transition:
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0.5s;
 }
 
 .navbar__overlay--visible {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
+  transition:
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0s;
 }
 
 .navbar__overlay-panel {
@@ -633,7 +642,8 @@ button:focus-visible,
   /* Same plain-opacity, no-slide, no-stagger fade as .navbar__overlay-
      brand -- every link appears together with it, not one after
      another (see that rule's comment). */
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     background-size 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1215,7 +1225,8 @@ button:focus-visible,
   font-size: 16px;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1294,7 +1305,9 @@ button:focus-visible,
   margin-top: 16px;
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 
 .gallery__card:hover .gallery__caption,
@@ -1434,7 +1447,8 @@ button:focus-visible,
   font-size: 16px;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -2306,7 +2320,9 @@ button:focus-visible,
    first line's top to cap height makes the visible tops line up with
    the portrait. Browsers without text-box-trim just keep the Figma
    box-aligned offset. */
-.edition-story__info-row--titled .edition-story__spec:first-child .edition-story__spec-label,
+.edition-story__info-row--titled
+  .edition-story__spec:first-child
+  .edition-story__spec-label,
 .edition-story__info-row--titled .edition-story__title {
   text-box-trim: trim-start;
   text-box-edge: cap alphabetic;
@@ -2390,7 +2406,9 @@ button:focus-visible,
   margin-bottom: 24px;
 }
 
-.edition-story__side-block--sora .edition-story__side-block-text > p:last-of-type {
+.edition-story__side-block--sora
+  .edition-story__side-block-text
+  > p:last-of-type {
   margin-bottom: 0;
 }
 
@@ -3853,7 +3871,8 @@ button:focus-visible,
   font-weight: 300;
   font-size: 16px;
   cursor: pointer;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -4071,7 +4090,8 @@ button:focus-visible,
   font-weight: 300;
   font-size: 16px;
   cursor: pointer;
-  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -5143,7 +5163,6 @@ button:focus-visible,
   }
 }
 
-
 /* ---------- Editions hero banner (node 325:39451) -- a single
    full-bleed photo (edge-to-edge at the page's own full width, not
    inset to --max-width like most sections), 80px of vertical
@@ -5191,21 +5210,21 @@ button:focus-visible,
    the hover rule is simply a no-op for them. */
 a:where(
     :not(
-        .statement-section__cta,
-        .centered-statement__cta,
-        .cta__button,
-        .gallery__link,
-        .request-collections__submit
-      )
+      .statement-section__cta,
+      .centered-statement__cta,
+      .cta__button,
+      .gallery__link,
+      .request-collections__submit
+    )
   ):hover,
 a:where(
     :not(
-        .statement-section__cta,
-        .centered-statement__cta,
-        .cta__button,
-        .gallery__link,
-        .request-collections__submit
-      )
+      .statement-section__cta,
+      .centered-statement__cta,
+      .cta__button,
+      .gallery__link,
+      .request-collections__submit
+    )
   ):focus-visible {
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -5214,12 +5233,12 @@ a:where(
 
 a:where(
     :not(
-        .statement-section__cta,
-        .centered-statement__cta,
-        .cta__button,
-        .gallery__link,
-        .request-collections__submit
-      )
+      .statement-section__cta,
+      .centered-statement__cta,
+      .cta__button,
+      .gallery__link,
+      .request-collections__submit
+    )
   ):active {
   opacity: 0.6;
 }
@@ -5505,7 +5524,8 @@ a:where(
   .hm--ready .hm-r {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
       transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
@@ -5636,7 +5656,11 @@ a:where(
     right: 0;
     bottom: 0;
     height: 420px;
-    background: linear-gradient(to bottom, rgba(29, 25, 15, 0), rgba(29, 25, 15, 0.78));
+    background: linear-gradient(
+      to bottom,
+      rgba(29, 25, 15, 0),
+      rgba(29, 25, 15, 0.78)
+    );
   }
 
   .hm-swiper__caption {
@@ -5658,7 +5682,8 @@ a:where(
   .hm--ready .hm-swiper__caption {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
       transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
@@ -5901,13 +5926,17 @@ a:where(
     opacity: 0;
     visibility: hidden;
     background: #2c2b25;
-    transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+    transition:
+      opacity 0.45s ease,
+      visibility 0s linear 0.45s;
   }
 
   .hm-focus.is-open {
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.45s ease, visibility 0s linear 0s;
+    transition:
+      opacity 0.45s ease,
+      visibility 0s linear 0s;
   }
 
   .hm-focus__img {
@@ -5921,7 +5950,11 @@ a:where(
     right: 0;
     bottom: 0;
     height: 300px;
-    background: linear-gradient(to bottom, rgba(29, 25, 15, 0), rgba(29, 25, 15, 0.78));
+    background: linear-gradient(
+      to bottom,
+      rgba(29, 25, 15, 0),
+      rgba(29, 25, 15, 0.78)
+    );
   }
 
   .hm-focus__name {
@@ -6075,7 +6108,10 @@ a:where(
   justify-content: center;
   color: var(--swp-ink);
   cursor: pointer;
-  transition: border-color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    opacity 0.3s ease;
 }
 
 .swp__arrow::after {
@@ -6136,7 +6172,9 @@ a:where(
   border-radius: 1px;
   background: var(--swp-ink);
   opacity: 0.4;
-  transition: width 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s ease;
+  transition:
+    width 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.4s ease;
 }
 
 .swp__pips span.is-on {
@@ -6173,7 +6211,11 @@ a:where(
     right: 0;
     bottom: 0;
     height: 380px;
-    background: linear-gradient(to bottom, rgba(29, 25, 15, 0), rgba(29, 25, 15, 0.78));
+    background: linear-gradient(
+      to bottom,
+      rgba(29, 25, 15, 0),
+      rgba(29, 25, 15, 0.78)
+    );
   }
 
   .em-quote__shade {
@@ -6333,7 +6375,6 @@ a:where(
     color: var(--cream);
   }
 
-
   /* The Collection. */
   .em-collection {
     min-height: 0;
@@ -6442,7 +6483,11 @@ a:where(
     right: 0;
     bottom: -16px;
     height: 16px;
-    background: linear-gradient(to bottom, var(--cream), rgba(242, 238, 232, 0));
+    background: linear-gradient(
+      to bottom,
+      var(--cream),
+      rgba(242, 238, 232, 0)
+    );
   }
 
   .cm-pin__photos {
@@ -6667,8 +6712,10 @@ a:where(
    open. */
 @media (max-width: 560px) {
   .navbar__index {
-    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s ease;
+    transition:
+      opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.5s ease;
   }
 
   .navbar--mark-hidden:not(.navbar--open) .navbar__index {
@@ -6702,5 +6749,25 @@ a:where(
 
   html[data-hm] .navbar--bar:not(.navbar--open) .navbar__index {
     color: #7d6325;
+  }
+}
+
+/* Phones, Editions + Collective: same rhythm as the homepage (Norm-style
+   spacing). Plain photo sections are shorter bands rather than full
+   screens, the opening photo and the swipers stay full-screen, and any
+   two photo blocks that touch are separated by an 80px cream gap (text
+   sections already carry their own 80px). */
+@media (max-width: 560px) {
+  .em .hm-photo:not(:first-child),
+  .cm .hm-photo {
+    min-height: 0;
+    height: 56svh;
+  }
+
+  .em
+    :is(.hm-photo, .em-title, .em-quote, .hm-swiper)
+    + :is(.hm-photo, .em-title, .em-quote, .hm-swiper),
+  .cm :is(.hm-photo, .hm-swiper) + :is(.hm-photo, .hm-swiper) {
+    margin-top: 80px;
   }
 }

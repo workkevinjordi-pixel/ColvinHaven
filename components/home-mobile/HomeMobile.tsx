@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import type { Homepage } from "@/lib/sanity/homepage";
+import Swiper from "@/components/ui/Swiper";
 
 /**
  * Phone homepage (<=560px): one full-screen section per swipe, laid out
@@ -26,9 +27,12 @@ type Props = {
   homepage?: Homepage;
 };
 
-// Section indexes -- the progress rail and nav tone are driven by these.
-const SECTION_COUNT = 9;
+// Section indexes -- the nav tone is driven by these.
 const DARK_SECTIONS = new Set([0, 2, 4, 8]); // photo sections: light nav
+
+// The Approach gallery shows four photos on phones: the "Stillness" one
+// is left out (latest Figma release of the homepage content).
+const HIDDEN_GALLERY_CAPTIONS = new Set(["stillness"]);
 
 // The pool and living-room/staircase photos aren't part of the desktop
 // homepage; they come from the Umah Sora / Umah Tsuki stories on
@@ -75,7 +79,6 @@ function r(i: number): CSSProperties {
 
 export default function HomeMobile({ homepage }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const swiperRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [slide, setSlide] = useState(0);
   const [focus, setFocus] = useState<number | null>(null);
@@ -85,7 +88,9 @@ export default function HomeMobile({ homepage }: Props) {
   const statement = homepage?.craftingStatement;
   const slides = homepage?.quoteRow ?? [];
   const editions = homepage?.editionsIntro;
-  const gallery = homepage?.approachGallery ?? [];
+  const gallery = (homepage?.approachGallery ?? []).filter(
+    (g) => !HIDDEN_GALLERY_CAPTIONS.has(g.caption.trim().toLowerCase()),
+  );
   const collective = homepage?.collectiveIntro;
   const cta = homepage?.cta;
 
@@ -135,22 +140,7 @@ export default function HomeMobile({ homepage }: Props) {
     };
   }, [focus]);
 
-  const goToSection = useCallback((i: number) => {
-    const target = rootRef.current?.querySelector<HTMLElement>(`[data-hm-section="${i}"]`);
-    target?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
-
-  const onSwipe = () => {
-    const el = swiperRef.current;
-    if (!el) return;
-    const i = Math.round(el.scrollLeft / el.clientWidth);
-    if (i !== slide) setSlide(i);
-  };
-
-  const goToSlide = (i: number) => {
-    const el = swiperRef.current;
-    if (el) el.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
-  };
+  const onSlideChange = useCallback((i: number) => setSlide(i), []);
 
   const sec = (i: number) =>
     `hm-sec${active === i ? " is-active" : ""}`;
@@ -193,7 +183,13 @@ export default function HomeMobile({ homepage }: Props) {
       {/* 3 EDITION SWIPER */}
       {slides.length > 0 && (
         <section className={`${sec(2)} hm-swiper`} data-hm-section={2}>
-          <div ref={swiperRef} className="hm-swiper__track" onScroll={onSwipe}>
+          <Swiper
+            className="hm-swiper__swp"
+            trackClassName="hm-swiper__track"
+            tone="light"
+            label="Edition photos"
+            onIndexChange={onSlideChange}
+          >
             {slides.map((s, i) => (
               <div
                 key={i}
@@ -212,19 +208,7 @@ export default function HomeMobile({ homepage }: Props) {
                 <p className="hm-swiper__caption">{s.caption}</p>
               </div>
             ))}
-          </div>
-          <div className="hm-swiper__pager">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Go to photo ${i + 1}`}
-                onClick={() => goToSlide(i)}
-              >
-                <span className={slide === i ? "is-on" : ""} />
-              </button>
-            ))}
-          </div>
+          </Swiper>
         </section>
       )}
 
@@ -371,23 +355,6 @@ export default function HomeMobile({ homepage }: Props) {
           </button>
         </div>
       </section>
-
-      {/* PROGRESS RAIL */}
-      <nav
-        aria-label="Sections"
-        className={`hm-rail${DARK_SECTIONS.has(active) && focus === null ? " hm-rail--dark" : ""}`}
-      >
-        {Array.from({ length: SECTION_COUNT }, (_, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={`Go to section ${i + 1}`}
-            onClick={() => goToSection(i)}
-          >
-            <span className={active === i ? "is-on" : ""} />
-          </button>
-        ))}
-      </nav>
 
       {/* GALLERY FOCUS */}
       <div

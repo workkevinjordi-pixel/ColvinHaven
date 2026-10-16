@@ -5410,10 +5410,14 @@ a:where(
     gap: 32px;
   }
 
+  .edition-story__gallery-swiper {
+    margin: 0 -16px;
+  }
+
   .edition-story__gallery {
     flex-direction: row;
     gap: 0;
-    margin: 0 -16px;
+    margin: 0;
     padding: 0;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -5618,6 +5622,19 @@ a:where(
     background: #2c2b25;
   }
 
+  .hm-swiper__swp {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hm-swiper__swp .swp__controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 28px;
+    z-index: 5;
+  }
+
   .hm-swiper__track {
     position: absolute;
     inset: 0;
@@ -5677,44 +5694,6 @@ a:where(
     opacity: 1;
     transform: none;
     transition-delay: 200ms;
-  }
-
-  .hm-swiper__pager {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 44px;
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2px;
-  }
-
-  .hm-swiper__pager button {
-    width: 32px;
-    height: 44px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-
-  .hm-swiper__pager span {
-    display: block;
-    width: 6px;
-    height: 2px;
-    border-radius: 1px;
-    background: rgba(242, 238, 232, 0.4);
-    transition: width 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), background 0.5s ease;
-  }
-
-  .hm-swiper__pager span.is-on {
-    width: 22px;
-    background: rgba(242, 238, 232, 0.95);
   }
 
   /* ---- 4 / 8 Text intros (Editions, Collective) ---- */
@@ -5931,55 +5910,6 @@ a:where(
     color: rgba(255, 255, 255, 0.75);
   }
 
-  /* ---- Progress rail ---- */
-  .hm-rail {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 6px;
-    z-index: 80;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-  }
-
-  .hm-rail button {
-    pointer-events: auto;
-    width: 20px;
-    height: 30px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-
-  .hm-rail span {
-    display: block;
-    width: 2px;
-    height: 6px;
-    border-radius: 1px;
-    background: rgba(29, 25, 15, 0.25);
-    transition: height 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), background 0.5s ease;
-  }
-
-  .hm-rail span.is-on {
-    height: 22px;
-    background: rgba(29, 25, 15, 0.85);
-  }
-
-  .hm-rail--dark span {
-    background: rgba(242, 238, 232, 0.35);
-  }
-
-  .hm-rail--dark span.is-on {
-    background: rgba(242, 238, 232, 0.95);
-  }
-
   /* ---- Gallery focus ---- */
   .hm-focus {
     position: fixed;
@@ -6136,4 +6066,83 @@ a:where(
     line-height: 40px;
     letter-spacing: 0.1em;
   }
+}
+
+/* ---- Shared swiper controls (components/ui/Swiper.tsx): previous/next
+   buttons around a position indicator. Hidden unless the track really
+   scrolls horizontally (.swp--scrollable), so a row that is a plain
+   flex row on desktop/tablet never shows them. ---- */
+.swp__controls {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.swp--scrollable .swp__controls {
+  display: flex;
+}
+
+.swp--dark {
+  --swp-ink: var(--ink);
+}
+
+.swp--light {
+  --swp-ink: var(--bg);
+}
+
+.swp__arrow {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--swp-ink);
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.swp__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.swp__pips {
+  display: flex;
+  align-items: center;
+}
+
+.swp__pips button {
+  width: 32px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.swp__pips span {
+  display: block;
+  width: 6px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--swp-ink);
+  opacity: 0.4;
+  transition: width 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s ease;
+}
+
+.swp__pips span.is-on {
+  width: 22px;
+  opacity: 0.95;
+}
+
+/* Below the photos on the Editions pages. */
+.edition-story__gallery-swiper .swp__controls {
+  margin-top: 8px;
 }

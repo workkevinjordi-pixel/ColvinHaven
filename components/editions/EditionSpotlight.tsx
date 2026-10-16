@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Swiper from "@/components/ui/Swiper";
 import type { EditionData } from "./editions-data";
 
 export function ImageTextRow({
@@ -62,8 +63,17 @@ export function GalleryRow({
   images: EditionData["galleryRow"];
   id?: string;
 }) {
+  // On phones the row is a swiper (photo per screen); the wrapper adds
+  // previous/next buttons and a position indicator only where the row
+  // actually scrolls, so desktop and tablet are the plain row as before.
   return (
-    <div className="edition-story__gallery" id={id}>
+    <Swiper
+      className="edition-story__gallery-swiper"
+      trackClassName="edition-story__gallery"
+      id={id}
+      tone="dark"
+      label="Photos"
+    >
       {images.map((img, i) => (
         <div className="edition-story__gallery-image" key={i}>
           <Image
@@ -75,6 +85,6 @@ export function GalleryRow({
           />
         </div>
       ))}
-    </div>
+    </Swiper>
   );
 }

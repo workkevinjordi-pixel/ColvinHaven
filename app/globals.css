@@ -7106,3 +7106,17 @@ a:where(
     height: auto;
   }
 }
+
+/* Phones: Tsuki's living-room photo in the two-photo row is 520px high
+   (Figma 461:797) and shows the right half of the photo, not the centre. */
+@media (max-width: 560px) {
+  .edition-spotlight__row-image--tall {
+    height: 520px;
+    width: calc(100% + 32px);
+    margin-left: -16px;
+  }
+
+  .edition-spotlight__row-image--tall img {
+    object-position: right center !important;
+  }
+}

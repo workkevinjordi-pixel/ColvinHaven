@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -17,9 +18,9 @@ export default function NotFound() {
         <p className="not-found__text">
           The page you&rsquo;re looking for doesn&rsquo;t exist, or has moved.
         </p>
-        <a href="/" className="not-found__link">
+        <Link href="/" className="not-found__link">
           Back to Discover <span aria-hidden="true">→</span>
-        </a>
+        </Link>
       </main>
       <Footer />
     </>

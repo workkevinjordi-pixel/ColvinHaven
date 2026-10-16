@@ -7067,3 +7067,21 @@ a:where(
     margin-top: 0;
   }
 }
+
+/* Phones, Editions: the page now opens on the first edition's title photo
+   (the palm-trees opener is gone), so that photo starts right under the
+   navbar -- 86.4px of cream above it -- instead of running up behind the
+   wordmark and the dot. */
+@media (max-width: 560px) {
+  .em .em-title:first-child {
+    box-sizing: border-box;
+    padding-top: 86.4px;
+    background: var(--cream);
+  }
+
+  .em .em-title:first-child .hm-img {
+    top: 86.4px;
+    bottom: 0;
+    height: auto;
+  }
+}

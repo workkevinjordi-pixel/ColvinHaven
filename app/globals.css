@@ -731,8 +731,8 @@ button:focus-visible,
   }
 
   .navbar__index {
-    font-size: 14px;
-    letter-spacing: 2.1px;
+    font-size: var(--t-wordmark);
+    letter-spacing: 0.15em;
   }
 
   .navbar__dot-trigger {
@@ -750,7 +750,7 @@ button:focus-visible,
   }
 
   .navbar__overlay-links a {
-    font-size: 18px;
+    font-size: var(--t-menu);
   }
 
   .navbar__overlay-apply {
@@ -760,7 +760,7 @@ button:focus-visible,
 
   .navbar__overlay-apply-label,
   .navbar__overlay-apply a {
-    font-size: 15px;
+    font-size: var(--t-menu-note);
   }
 }
 
@@ -5578,8 +5578,8 @@ a:where(
   .hm-statement__heading {
     font-family: var(--font-cormorant), serif;
     font-weight: 500;
-    font-size: 28px;
-    line-height: 38px;
+    font-size: var(--t-display);
+    line-height: var(--t-display-lh);
     letter-spacing: 0.1em;
     color: var(--ink);
   }
@@ -5604,8 +5604,8 @@ a:where(
 
   .hm-statement__body {
     font-weight: 300;
-    font-size: 17px;
-    line-height: 30px;
+    font-size: var(--t-lede);
+    line-height: var(--t-lede-lh);
     letter-spacing: 0.05em;
     color: rgba(29, 25, 15, 0.7);
   }
@@ -5672,8 +5672,8 @@ a:where(
     text-align: center;
     white-space: pre-line;
     font-weight: 300;
-    font-size: 19px;
-    line-height: 30px;
+    font-size: var(--t-caption);
+    line-height: var(--t-caption-lh);
     letter-spacing: 0.03em;
     color: var(--cream);
   }
@@ -5708,7 +5708,7 @@ a:where(
 
   .hm-intro__eyebrow {
     font-weight: 500;
-    font-size: 12px;
+    font-size: var(--t-label);
     letter-spacing: 0.28em;
     color: var(--ink);
   }
@@ -5722,20 +5722,20 @@ a:where(
   .hm-intro__heading {
     font-family: var(--font-cormorant), serif;
     font-weight: 500;
-    font-size: 26px;
-    line-height: 34px;
+    font-size: var(--t-h2);
+    line-height: var(--t-h2-lh);
     letter-spacing: 0.1em;
     color: var(--ink);
   }
 
   .hm-intro--collective .hm-intro__heading {
-    line-height: 36px;
+    line-height: var(--t-h2-lh-tall);
   }
 
   .hm-intro__subtitle {
     font-weight: 300;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: var(--t-sub);
+    line-height: var(--t-sub-lh);
     letter-spacing: 0.08em;
     color: rgba(29, 25, 15, 0.7);
   }
@@ -5744,8 +5744,8 @@ a:where(
     margin-top: 8px;
     font-style: italic;
     font-weight: 300;
-    font-size: 20px;
-    line-height: 28px;
+    font-size: var(--t-lead);
+    line-height: var(--t-lead-lh);
     letter-spacing: 0.05em;
     color: rgba(29, 25, 15, 0.7);
   }
@@ -5755,8 +5755,8 @@ a:where(
     flex-direction: column;
     gap: 16px;
     font-weight: 300;
-    font-size: 16px;
-    line-height: 28px;
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
     letter-spacing: 0.05em;
     color: rgba(29, 25, 15, 0.7);
   }
@@ -5768,7 +5768,7 @@ a:where(
     min-height: 44px;
     font-style: italic;
     font-weight: 300;
-    font-size: 16px;
+    font-size: var(--t-body);
     letter-spacing: normal;
     color: var(--ink);
     text-decoration: none;
@@ -5825,8 +5825,8 @@ a:where(
   .hm-gallery__name {
     font-style: italic;
     font-weight: 300;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: var(--t-body);
+    line-height: var(--t-name-lh);
     letter-spacing: normal;
   }
 
@@ -5856,8 +5856,8 @@ a:where(
   .hm-stories__item figcaption {
     font-weight: 300;
     letter-spacing: normal;
-    font-size: 15px;
-    line-height: 24px;
+    font-size: var(--t-note);
+    line-height: var(--t-note-lh);
     color: rgba(29, 25, 15, 0.7);
   }
 
@@ -5884,8 +5884,8 @@ a:where(
   .hm-invite__text {
     letter-spacing: normal;
     font-weight: 300;
-    font-size: 30px;
-    line-height: 42px;
+    font-size: var(--t-cta);
+    line-height: var(--t-cta-lh);
     color: #fff;
   }
 
@@ -5897,7 +5897,7 @@ a:where(
     font-style: italic;
     font-weight: 300;
     letter-spacing: normal;
-    font-size: 17px;
+    font-size: var(--t-cta-link);
     color: #fff;
     text-decoration: none;
   }
@@ -5911,7 +5911,7 @@ a:where(
     cursor: pointer;
     font-family: inherit;
     font-weight: 500;
-    font-size: 11px;
+    font-size: var(--t-label);
     letter-spacing: 0.28em;
     color: rgba(255, 255, 255, 0.75);
   }
@@ -5957,8 +5957,8 @@ a:where(
     text-align: center;
     font-style: italic;
     font-weight: 300;
-    font-size: 22px;
-    line-height: 30px;
+    font-size: var(--t-focus);
+    line-height: var(--t-focus-lh);
     color: var(--cream);
   }
 
@@ -5994,7 +5994,7 @@ a:where(
   }
 
   html[data-hm] .navbar__index {
-    font-size: 18px;
+    font-size: var(--t-wordmark);
     letter-spacing: 0.15em;
     transition: color 0.5s ease;
   }
@@ -6218,7 +6218,7 @@ a:where(
     margin: 0 0 12px;
     font-family: var(--font-cormorant), serif;
     font-weight: 300;
-    font-size: 20px;
+    font-size: var(--t-index);
     letter-spacing: 0.15em;
     opacity: 0.8;
   }
@@ -6233,8 +6233,8 @@ a:where(
 
   .em-title__name {
     font-weight: 400;
-    font-size: 34px;
-    line-height: 42px;
+    font-size: var(--t-title);
+    line-height: var(--t-title-lh);
   }
 
   /* Drawing, specs and the poetic title with two paragraphs. */
@@ -6268,24 +6268,24 @@ a:where(
   .em-details__label {
     margin: 0 0 4px;
     font-weight: 300;
-    font-size: 11px;
-    line-height: 16px;
+    font-size: var(--t-label);
+    line-height: var(--t-spec-lh);
     letter-spacing: 0.08em;
     color: rgba(29, 25, 15, 0.6);
   }
 
   .em-details__value {
     font-weight: 300;
-    font-size: 12px;
-    line-height: 18px;
+    font-size: var(--t-label);
+    line-height: var(--t-spec-lh);
     color: var(--ink);
   }
 
   .em-details__heading {
     margin: 4px 0 -16px;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 28px;
+    font-size: var(--t-h3);
+    line-height: var(--t-h3-lh);
     color: var(--ink);
   }
 
@@ -6297,8 +6297,8 @@ a:where(
 
   .em-text p {
     font-weight: 300;
-    font-size: 14px;
-    line-height: 22px;
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
     color: rgba(29, 25, 15, 0.7);
   }
 
@@ -6325,8 +6325,8 @@ a:where(
   .em-story__note {
     margin: 4px 0 0;
     font-weight: 300;
-    font-size: 15px;
-    line-height: 24px;
+    font-size: var(--t-note);
+    line-height: var(--t-note-lh);
     color: #7d6325;
   }
 
@@ -6350,16 +6350,11 @@ a:where(
     padding: 0 32px 92px;
     text-align: center;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 32px;
+    font-size: var(--t-quote);
+    line-height: var(--t-quote-lh);
     color: var(--cream);
   }
 
-  /* Edition swipers use a slightly smaller caption than the homepage. */
-  .em .hm-swiper__caption {
-    font-size: 18px;
-    line-height: 29px;
-  }
 
   /* The Collection. */
   .em-collection {
@@ -6374,7 +6369,7 @@ a:where(
 
   .em-collection__eyebrow {
     font-weight: 500;
-    font-size: 11px;
+    font-size: var(--t-label);
     letter-spacing: 0.28em;
     color: var(--ink);
   }
@@ -6387,8 +6382,8 @@ a:where(
 
   .em-collection__kicker {
     font-weight: 300;
-    font-size: 12px;
-    line-height: 22px;
+    font-size: var(--t-sub);
+    line-height: var(--t-sub-lh);
     letter-spacing: 0.08em;
     color: rgba(29, 25, 15, 0.7);
   }
@@ -6396,8 +6391,8 @@ a:where(
   .em-collection__heading {
     font-family: var(--font-cormorant), serif;
     font-weight: 500;
-    font-size: 21px;
-    line-height: 28px;
+    font-size: var(--t-h2);
+    line-height: var(--t-h2-lh);
     letter-spacing: 0.1em;
     color: var(--ink);
   }
@@ -6406,16 +6401,16 @@ a:where(
     margin-top: 6px;
     font-style: italic;
     font-weight: 300;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: var(--t-lead);
+    line-height: var(--t-lead-lh);
     letter-spacing: 0.05em;
     color: rgba(29, 25, 15, 0.7);
   }
 
   .em-collection__list {
     font-weight: 300;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
     letter-spacing: 0.05em;
     color: rgba(29, 25, 15, 0.7);
   }
@@ -6423,14 +6418,14 @@ a:where(
   .em-collection__note {
     margin-bottom: -20px;
     font-weight: 300;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
     letter-spacing: 0.04em;
     color: #7d6325;
   }
 
   .em-collection__link {
-    font-size: 14px;
+    font-size: var(--t-body);
   }
 }
 
@@ -6505,8 +6500,8 @@ a:where(
   .cm-heading {
     font-family: var(--font-cormorant), serif;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 28px;
+    font-size: var(--t-h2);
+    line-height: var(--t-h2-lh);
     letter-spacing: 0.1em;
     color: var(--ink);
   }
@@ -6524,8 +6519,8 @@ a:where(
   .cm-text p,
   .cm-team__text p {
     font-weight: 300;
-    font-size: 14px;
-    line-height: 22px;
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
     color: var(--ink);
   }
 
@@ -6584,8 +6579,8 @@ a:where(
     text-align: center;
     font-family: var(--font-cormorant), serif;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 28px;
+    font-size: var(--t-h2);
+    line-height: var(--t-h2-lh);
     letter-spacing: 0.1em;
     color: var(--ink);
   }
@@ -6614,15 +6609,15 @@ a:where(
 
   .cm-pub__date {
     font-weight: 300;
-    font-size: 12px;
-    line-height: 18px;
+    font-size: var(--t-label);
+    line-height: var(--t-spec-lh);
     color: var(--ink);
   }
 
   .cm-pub__name {
     font-weight: 400;
-    font-size: 24px;
-    line-height: 30px;
+    font-size: var(--t-card);
+    line-height: var(--t-card-lh);
     color: var(--ink);
   }
 
@@ -6636,8 +6631,57 @@ a:where(
     align-items: center;
     min-height: 44px;
     font-weight: 300;
-    font-size: 14px;
+    font-size: var(--t-body);
     color: var(--ink);
     text-decoration: none;
+  }
+}
+
+/* ==========================================================================
+   Phone type scale -- ONE set of sizes for every phone layout (homepage,
+   /editions, /collective, the navbar wordmark and the menu), so the same
+   role is the same size on every page. Each is 20% below the size the
+   homepage layout used (the reference); labels are floored at 10px so the
+   smallest text stays readable.
+   ========================================================================== */
+@media (max-width: 560px) {
+  :root {
+    --t-wordmark: 14.4px; /* was 18 */
+    --t-display: 22.4px; /* statement heading, was 28 */
+    --t-display-lh: 30.4px;
+    --t-lede: 13.6px; /* statement body, was 17 */
+    --t-lede-lh: 24px;
+    --t-caption: 15.2px; /* captions over photos, was 19 */
+    --t-caption-lh: 24px;
+    --t-label: 10px; /* eyebrows, spec labels, small caps (floor) */
+    --t-h2: 20.8px; /* section headings, was 26 */
+    --t-h2-lh: 27.2px;
+    --t-h2-lh-tall: 28.8px;
+    --t-h3: 16px; /* edition poetic title, was 20 */
+    --t-h3-lh: 22.4px;
+    --t-sub: 11.2px; /* subtitles, was 14 */
+    --t-sub-lh: 19.2px;
+    --t-lead: 16px; /* italic lead, was 20 */
+    --t-lead-lh: 22.4px;
+    --t-body: 12.8px; /* paragraphs, links, lists, was 16 (14 on Editions/Collective) */
+    --t-body-lh: 22.4px;
+    --t-name-lh: 16px;
+    --t-note: 12px; /* story captions and notes, was 15 */
+    --t-note-lh: 19.2px;
+    --t-spec-lh: 14.4px;
+    --t-cta: 24px; /* closing invitation, was 30 */
+    --t-cta-lh: 33.6px;
+    --t-cta-link: 13.6px; /* was 17 */
+    --t-focus: 17.6px; /* expanded gallery photo name, was 22 */
+    --t-focus-lh: 24px;
+    --t-index: 16px; /* edition index, was 20 */
+    --t-title: 27.2px; /* edition title, was 34 */
+    --t-title-lh: 33.6px;
+    --t-quote: 16px; /* edition quote, was 20 */
+    --t-quote-lh: 25.6px;
+    --t-card: 19.2px; /* publication name, was 24 */
+    --t-card-lh: 24px;
+    --t-menu: 14.4px; /* megamenu links, was 18 */
+    --t-menu-note: 12px; /* "Join the collective", was 15 */
   }
 }

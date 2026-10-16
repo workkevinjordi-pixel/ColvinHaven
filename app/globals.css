@@ -6797,3 +6797,20 @@ a:where(
     padding-top: 0;
   }
 }
+
+/* Phones, Collective: publications sit closer together (about 80px
+   between one article's "Read more" and the next cover, down from 160px);
+   the last one keeps the full 80px below. */
+@media (max-width: 560px) {
+  .cm-pub .cm-body {
+    padding-bottom: 40px;
+  }
+
+  .cm-pub:last-child .cm-body {
+    padding-bottom: 80px;
+  }
+
+  .cm-pub + .cm-pub .cm-pin {
+    padding-top: 40px;
+  }
+}

@@ -352,26 +352,24 @@ export default function HomeMobile({ homepage }: Props) {
       )}
 
       {/* 7 STORIES */}
-      <section
-        className={`${sec(6)} hm-stories`}
-        data-hm-section={6}
-        hidden={!SHOW_STORIES}
-      >
-        {STORIES.map((s, i) => (
-          <figure key={i} className={`hm-stories__item hm-r hm-r--${i}`}>
-            <div className="hm-stories__img">
-              <Image
-                src={s.image.src}
-                alt={s.image.alt}
-                fill
-                sizes="100vw"
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-            <figcaption>{s.caption}</figcaption>
-          </figure>
-        ))}
-      </section>
+      {SHOW_STORIES && (
+        <section className={`${sec(6)} hm-stories`} data-hm-section={6}>
+          {STORIES.map((s, i) => (
+            <figure key={i} className={`hm-stories__item hm-r hm-r--${i}`}>
+              <div className="hm-stories__img">
+                <Image
+                  src={s.image.src}
+                  alt={s.image.alt}
+                  fill
+                  sizes="100vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <figcaption>{s.caption}</figcaption>
+            </figure>
+          ))}
+        </section>
+      )}
 
       {/* Pool photo band (Figma 459:796), below the stories */}
       <section

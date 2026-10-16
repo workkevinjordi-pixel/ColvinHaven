@@ -742,7 +742,7 @@ button:focus-visible,
 
   .navbar__index {
     font-size: var(--t-wordmark);
-    letter-spacing: 0.15em;
+    letter-spacing: var(--t-wordmark-ls);
   }
 
   .navbar__dot-trigger {
@@ -6005,7 +6005,7 @@ a:where(
 
   html[data-hm] .navbar__index {
     font-size: var(--t-wordmark);
-    letter-spacing: 0.15em;
+    letter-spacing: var(--t-wordmark-ls);
     transition: color 0.5s ease;
   }
 
@@ -6666,7 +6666,8 @@ a:where(
    ========================================================================== */
 @media (max-width: 560px) {
   :root {
-    --t-wordmark: 10.5px; /* navbar wordmark (Norm nav: 11) */
+    --t-wordmark: 17px; /* navbar wordmark: ~185px wide like Norm's logo (12px caps, wide tracking) */
+    --t-wordmark-ls: 0.3em;
     --t-display: 16px; /* statement heading */
     --t-display-lh: 24px;
     --t-lede: 11px; /* statement body */

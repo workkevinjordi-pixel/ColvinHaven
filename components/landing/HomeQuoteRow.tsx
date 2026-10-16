@@ -51,7 +51,23 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
  * to node 385:1262). Content now comes
  * from Sanity's homepage.quoteRow.
  */
+// TEMPORARY: pads the row out to seven photos (reusing the real ones, with
+// "Placeholder" captions) so the swiper can be tried out before the real
+// extra photos exist. Set to 0 to show only the photos from Sanity.
+const PLACEHOLDER_TOTAL = 7;
+
+function withPlaceholders(real: NonNullable<QuoteRowProps["items"]>) {
+  if (PLACEHOLDER_TOTAL <= real.length || real.length === 0) return real;
+  const out = [...real];
+  for (let i = real.length; i < PLACEHOLDER_TOTAL; i++) {
+    const src = real[i % real.length];
+    out.push({ image: src.image, caption: `Placeholder photo ${i + 1}` });
+  }
+  return out;
+}
+
 export default function HomeQuoteRow({ items = DEFAULT_ITEMS }: QuoteRowProps) {
+  const rowItems = withPlaceholders(items!);
   return (
     <section className="landing-quote-row">
       <ScrollFade>
@@ -64,7 +80,7 @@ export default function HomeQuoteRow({ items = DEFAULT_ITEMS }: QuoteRowProps) {
           tone="dark"
           label="Photos"
         >
-          {items!.map((item, i) => (
+          {rowItems.map((item, i) => (
             <div
               className="landing-quote-row__item"
               key={i}

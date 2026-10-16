@@ -30,7 +30,7 @@ export type CollectiveSection =
   | { kind: "swiper"; label: string; slides: Img[] }
   | {
       kind: "publication";
-      /** "PUBLICATIONS" -- only on the first one. */
+      /** "NEWS" -- only on the first one. */
       heading?: string;
       cover?: Img;
       date: string;
@@ -104,7 +104,7 @@ export function buildCollectivePlan(
   publications.forEach((p, i) => {
     sections.push({
       kind: "publication",
-      heading: i === 0 ? "PUBLICATIONS" : undefined,
+      heading: i === 0 ? "NEWS" : undefined,
       cover: p.coverImage,
       date: p.date,
       title: p.title,

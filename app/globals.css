@@ -7120,3 +7120,12 @@ a:where(
     object-position: right center !important;
   }
 }
+
+/* Phone homepage: the photo swiper without buttons or indicator. */
+.hm-swiper__swp--bare .swp__controls {
+  display: none !important;
+}
+
+.hm-stories[hidden] {
+  display: none !important;
+}

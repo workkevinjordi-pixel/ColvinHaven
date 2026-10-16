@@ -23,7 +23,11 @@ const STORIES = [
 
 /** Two-photo story row between the Approach gallery and the Collective
  * intro (Figma 385:14, node 427:707). */
+// Hidden for now (waiting on the copy). Set to true to show the row again.
+const SHOW_STORIES = false;
+
 export default function HomeStories() {
+  if (!SHOW_STORIES) return null;
   return (
     <section className="home-stories">
       <ScrollFade className="home-stories__row">

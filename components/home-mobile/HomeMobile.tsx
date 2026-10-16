@@ -44,6 +44,8 @@ const POOL_IMAGE: Img = {
   src: "/assets/home-corridor-bedroom.jpg",
   alt: "A dark timber-slatted corridor beside a warm teak bedroom with shoji screens",
 };
+// Hidden for now (waiting on the copy), like the desktop row.
+const SHOW_STORIES = false;
 const STORIES: { image: Img; caption: string }[] = [
   {
     image: {
@@ -131,8 +133,14 @@ function mobileCopy(text: string): string {
   );
 }
 
+// Off for now: just the three main photos, without the swiper buttons and
+// indicator (swiping still works). Set to true for photos 4-7 and controls.
+const SHOW_EXTRA_SLIDES = false;
+
 function withExtras<T extends { image: Img; caption: string }>(real: T[]) {
-  return real.length === 0 ? real : [...real, ...EXTRA_SLIDES];
+  return real.length === 0 || !SHOW_EXTRA_SLIDES
+    ? real
+    : [...real, ...EXTRA_SLIDES];
 }
 
 export default function HomeMobile({ homepage }: Props) {
@@ -233,7 +241,7 @@ export default function HomeMobile({ homepage }: Props) {
       {slides.length > 0 && (
         <section className={`${sec(2)} hm-swiper`} data-hm-section={2}>
           <Swiper
-            className="hm-swiper__swp"
+            className={`hm-swiper__swp${SHOW_EXTRA_SLIDES ? "" : " hm-swiper__swp--bare"}`}
             trackClassName="hm-swiper__track"
             tone="light"
             label="Edition photos"
@@ -344,7 +352,11 @@ export default function HomeMobile({ homepage }: Props) {
       )}
 
       {/* 7 STORIES */}
-      <section className={`${sec(6)} hm-stories`} data-hm-section={6}>
+      <section
+        className={`${sec(6)} hm-stories`}
+        data-hm-section={6}
+        hidden={!SHOW_STORIES}
+      >
         {STORIES.map((s, i) => (
           <figure key={i} className={`hm-stories__item hm-r hm-r--${i}`}>
             <div className="hm-stories__img">

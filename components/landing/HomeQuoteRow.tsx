@@ -85,8 +85,15 @@ const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
   },
 ];
 
+// Off for now: the row shows just the three main photos, as a plain row
+// (no swiper buttons/indicator, nothing to scroll). Set to true to bring
+// photos 4-7 and the swiper back.
+const SHOW_EXTRA_ITEMS = false;
+
 function withExtras(real: NonNullable<QuoteRowProps["items"]>) {
-  return real.length === 0 ? real : [...real, ...EXTRA_ITEMS];
+  return real.length === 0 || !SHOW_EXTRA_ITEMS
+    ? real
+    : [...real, ...EXTRA_ITEMS];
 }
 
 export default function HomeQuoteRow({ items = DEFAULT_ITEMS }: QuoteRowProps) {

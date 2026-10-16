@@ -82,30 +82,32 @@ export default async function CollectivePage() {
   return (
     <>
       <Navbar solid />
-      {/* Phone layout: full-screen sections with pinned photos (<=560px). */}
-      <CollectiveMobile sections={buildCollectivePlan(page, publications)} />
-      <div className="collective-desktop">
-        <Foundation
-          heading={page?.foundation.heading}
-          collageImageA={page?.foundation.collageImageA}
-          collageImageB={page?.foundation.collageImageB}
-          paragraphs={page?.foundation.paragraphs}
-        />
-        <Craft heading={page?.craft.heading} row={page?.craft.row} />
-        <div className="collective-band-section collective-mountain-band">
-          <PhotoBand
-            src={page?.photoBand?.src ?? DEFAULT_PHOTO_BAND.src}
-            alt={page?.photoBand?.alt ?? DEFAULT_PHOTO_BAND.alt}
+      <main className="page-main">
+        {/* Phone layout: full-screen sections with pinned photos (<=560px). */}
+        <CollectiveMobile sections={buildCollectivePlan(page, publications)} />
+        <div className="collective-desktop">
+          <Foundation
+            heading={page?.foundation.heading}
+            collageImageA={page?.foundation.collageImageA}
+            collageImageB={page?.foundation.collageImageB}
+            paragraphs={page?.foundation.paragraphs}
           />
+          <Craft heading={page?.craft.heading} row={page?.craft.row} />
+          <div className="collective-band-section collective-mountain-band">
+            <PhotoBand
+              src={page?.photoBand?.src ?? DEFAULT_PHOTO_BAND.src}
+              alt={page?.photoBand?.alt ?? DEFAULT_PHOTO_BAND.alt}
+            />
+          </div>
+          <Inspiration
+            heading={page?.inspiration.heading}
+            paragraphs={page?.inspiration.paragraphs}
+            images={page?.inspirationGallery}
+          />
+          <Publications />
+          <Footer />
         </div>
-        <Inspiration
-          heading={page?.inspiration.heading}
-          paragraphs={page?.inspiration.paragraphs}
-          images={page?.inspirationGallery}
-        />
-        <Publications />
-        <Footer />
-      </div>
+      </main>
     </>
   );
 }

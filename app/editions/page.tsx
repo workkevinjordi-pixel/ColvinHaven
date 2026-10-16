@@ -77,30 +77,32 @@ export default async function EditionsPage() {
   return (
     <>
       <Navbar solid />
-      {/* Phone layout: one full-screen section per swipe (<=560px). It
+      <main className="page-main">
+        {/* Phone layout: one full-screen section per swipe (<=560px). It
           starts straight at the first edition: the palm-trees opening photo
           is desktop-only. */}
-      <EditionsMobile sections={buildEditionsPlan(editions)} />
-      <div className="editions-desktop">
-        <EditionsHero image={editionsPage?.heroImage} />
-        {editions.map((edition) => (
-          <div key={edition.slug}>
-            <EditionDetailHeader
-              data={edition}
-              displayName={edition.name.toUpperCase()}
-              hideMeta
-            />
-            <EditionStorySummary
-              data={edition}
-              layout={edition.slug === "umah-sora" ? "sora" : "tsuki"}
-              finalGalleryId={`${edition.slug}-final-gallery`}
-              tightBottom={edition.slug === "umah-sora"}
-            />
-          </div>
-        ))}
-        <CollectionsCard />
-        <Footer />
-      </div>
+        <EditionsMobile sections={buildEditionsPlan(editions)} />
+        <div className="editions-desktop">
+          <EditionsHero image={editionsPage?.heroImage} />
+          {editions.map((edition) => (
+            <div key={edition.slug}>
+              <EditionDetailHeader
+                data={edition}
+                displayName={edition.name.toUpperCase()}
+                hideMeta
+              />
+              <EditionStorySummary
+                data={edition}
+                layout={edition.slug === "umah-sora" ? "sora" : "tsuki"}
+                finalGalleryId={`${edition.slug}-final-gallery`}
+                tightBottom={edition.slug === "umah-sora"}
+              />
+            </div>
+          ))}
+          <CollectionsCard />
+          <Footer />
+        </div>
+      </main>
     </>
   );
 }

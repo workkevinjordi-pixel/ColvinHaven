@@ -7129,3 +7129,9 @@ a:where(
 .hm-stories[hidden] {
   display: none !important;
 }
+
+/* <main> landmark for /editions and /collective: no box of its own, so the
+   layout is exactly what it was before the landmark was added. */
+.page-main {
+  display: contents;
+}

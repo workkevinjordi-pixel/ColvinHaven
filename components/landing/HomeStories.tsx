@@ -17,7 +17,8 @@ const STORIES = [
       src: "/assets/home-stories-sora-stairs.jpg",
       alt: "A charred timber house on stilts with a round window, a staircase descending to the garden",
     },
-    caption: "We need text here",
+    caption:
+      "One round window, and the whole garden looks back. Charred timber, warm teak, and a stair that barely touches the ground.",
   },
 ];
 

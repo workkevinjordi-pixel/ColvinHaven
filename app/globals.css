@@ -6708,25 +6708,30 @@ a:where(
   }
 }
 
-/* Phones: the wordmark tucks away while scrolling down and fades back on
-   any upward scroll; the red dot always stays. Never while the menu is
-   open. */
-@media (max-width: 560px) {
-  .navbar__index {
-    transition:
-      opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-      color 0.5s ease;
-  }
-
-  .navbar--mark-hidden:not(.navbar--open) .navbar__index {
-    opacity: 0;
-    transform: translateY(-6px);
-    pointer-events: none;
-  }
+/* All widths: the wordmark tucks away while scrolling down and fades back
+   on any upward scroll; the red dot always stays. Never while the menu is
+   open. The cream bar background follows the same rhythm: it is up only
+   while the wordmark shows (scrolling up), see-through while scrolling
+   down. */
+.navbar__index {
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s ease;
 }
 
-@media (max-width: 560px) and (prefers-reduced-motion: reduce) {
+.navbar--mark-hidden:not(.navbar--open) .navbar__index {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
+
+.navbar--mark-hidden.navbar--scrolled:not(.navbar--open) {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
   .navbar__index {
     transition: none;
   }

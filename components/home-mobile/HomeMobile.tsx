@@ -63,6 +63,26 @@ const STORIES: { image: Img; caption: string }[] = [
   },
 ];
 
+// TEMPORARY: pads the photo swiper out to seven slides (reusing the real
+// photos, "Placeholder" captions) to try the swiper before the real extra
+// photos exist. Mirrors PLACEHOLDER_TOTAL in components/landing/
+// HomeQuoteRow.tsx; set both to 0 to show only the photos from Sanity.
+const PLACEHOLDER_TOTAL = 7;
+
+function withPlaceholders<T extends { image?: Img; caption?: string }>(
+  real: T[],
+): T[] {
+  if (PLACEHOLDER_TOTAL <= real.length || real.length === 0) return real;
+  const out = [...real];
+  for (let i = real.length; i < PLACEHOLDER_TOTAL; i++) {
+    out.push({
+      ...real[i % real.length],
+      caption: `Placeholder photo ${i + 1}`,
+    });
+  }
+  return out;
+}
+
 const FALLBACK_HERO: Img = { src: "/assets/hero-bg.jpg", alt: "" };
 
 function lines(text: string): ReactNode {
@@ -98,7 +118,7 @@ export default function HomeMobile({ homepage }: Props) {
 
   const hero = homepage?.hero.backgroundImage ?? FALLBACK_HERO;
   const statement = homepage?.craftingStatement;
-  const slides = homepage?.quoteRow ?? [];
+  const slides = withPlaceholders(homepage?.quoteRow ?? []);
   const editions = homepage?.editionsIntro;
   const gallery = (homepage?.approachGallery ?? []).filter(
     (g) => !HIDDEN_GALLERY_CAPTIONS.has(g.caption.trim().toLowerCase()),

@@ -31,6 +31,13 @@ type SwiperProps = {
  *  - the controls only appear while the track actually overflows, so the
  *    same markup is a plain row (no controls) wherever it doesn't scroll
  */
+function readEdge(track: HTMLElement) {
+  return {
+    start: track.scrollLeft <= 1,
+    end: track.scrollLeft + track.clientWidth >= track.scrollWidth - 2,
+  };
+}
+
 export default function Swiper({
   children,
   className = "",
@@ -42,6 +49,7 @@ export default function Swiper({
 }: SwiperProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
+  const [edge, setEdge] = useState({ start: true, end: false });
   const [scrollable, setScrollable] = useState(false);
   const count = Children.count(children);
   const frame = useRef<number | null>(null);
@@ -72,6 +80,7 @@ export default function Swiper({
     if (!track) return;
     setScrollable(track.scrollWidth > track.clientWidth + 1);
     setIndex(currentIndex());
+    setEdge(readEdge(track));
   }, [currentIndex]);
 
   useEffect(() => {
@@ -92,6 +101,8 @@ export default function Swiper({
     frame.current = requestAnimationFrame(() => {
       frame.current = null;
       setIndex(currentIndex());
+      const track = trackRef.current;
+      if (track) setEdge(readEdge(track));
     });
   };
 
@@ -114,6 +125,28 @@ export default function Swiper({
       track.scrollLeft;
     track.scrollTo({ left, behavior: "smooth" });
   };
+  // Previous/next move by what is actually scrollable: the nearest slide
+  // whose left edge is before/after the current scroll position. (Moving
+  // by slide number gets stuck near the end, where the track cannot
+  // scroll far enough to put the second-to-last slide at the left edge.)
+  const step = (dir: -1 | 1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const items = Array.from(track.children) as HTMLElement[];
+    const base = track.getBoundingClientRect().left;
+    const lefts = items.map(
+      (el) => el.getBoundingClientRect().left - base + track.scrollLeft,
+    );
+    const here = track.scrollLeft;
+    const target =
+      dir > 0
+        ? lefts.find((l) => l > here + 2)
+        : [...lefts].reverse().find((l) => l < here - 2);
+    track.scrollTo({
+      left: target ?? (dir > 0 ? track.scrollWidth : 0),
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div
@@ -135,8 +168,8 @@ export default function Swiper({
           type="button"
           className="swp__arrow"
           aria-label="Previous photo"
-          disabled={index <= 0}
-          onClick={() => goTo(index - 1)}
+          disabled={edge.start}
+          onClick={() => step(-1)}
         >
           <svg
             width="14"
@@ -169,8 +202,8 @@ export default function Swiper({
           type="button"
           className="swp__arrow"
           aria-label="Next photo"
-          disabled={index >= count - 1}
-          onClick={() => goTo(index + 1)}
+          disabled={edge.end}
+          onClick={() => step(1)}
         >
           <svg
             width="14"

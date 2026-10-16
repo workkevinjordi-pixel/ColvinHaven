@@ -7058,3 +7058,33 @@ a:where(
 .home-photo-band + .landing-approach {
   padding-top: 224px;
 }
+
+/* Phones, edition detail pages: the photo swiper is the same size as the
+   swipers on the homepage, /editions and /collective (.hm-swiper): one
+   full-screen photo per swipe, edge to edge, cream controls over the photo. */
+@media (max-width: 560px) {
+  .edition-story__gallery-swiper {
+    --swp-ink: var(--cream);
+    position: relative;
+    height: 100svh;
+    background: #2c2b25;
+  }
+
+  .edition-story__gallery-swiper .edition-story__gallery {
+    height: 100%;
+  }
+
+  .edition-story__gallery-swiper .edition-story__gallery-image {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .edition-story__gallery-swiper .swp__controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 28px;
+    z-index: 5;
+    margin-top: 0;
+  }
+}

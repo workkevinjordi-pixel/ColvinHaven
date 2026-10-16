@@ -7041,3 +7041,10 @@ a:where(
 .home-photo-band + .landing-intro {
   margin-top: 60px;
 }
+
+/* Homepage desktop: the gap from the corridor band to the Approach photos
+   matches the gap from those photos to the stories below (224px photo to
+   photo): the gallery gets 104px more on top of its own 120px. */
+.home-photo-band + .landing-approach {
+  padding-top: 224px;
+}

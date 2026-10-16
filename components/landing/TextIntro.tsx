@@ -75,7 +75,9 @@ export default function TextIntro({
 
   return (
     <section className="landing-intro">
-      <ScrollFade className={`landing-intro__inner${modifier}${compactModifier}`}>
+      <ScrollFade
+        className={`landing-intro__inner${modifier}${compactModifier}`}
+      >
         {eyebrow && <p className="landing-intro__eyebrow">{eyebrow}</p>}
         <div className="landing-intro__heading-group">
           <h2 className="landing-intro__heading">

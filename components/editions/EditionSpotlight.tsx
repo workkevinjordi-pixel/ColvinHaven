@@ -5,8 +5,12 @@ import type { EditionData } from "./editions-data";
 export function ImageTextRow({
   row,
   id,
+  tallMain = false,
 }: {
   row: EditionData["row1"];
+  /** Phones: the first photo is 520px high showing the right half of the
+   * picture (Figma 461:797, Tsuki's living room). */
+  tallMain?: boolean;
   /** Same role as GalleryRow's own `id` -- lets a layout mark whichever
    * block happens to be its last piece of edition content, which is
    * what EditionStickyBanner watches to know when to hide itself. In
@@ -23,7 +27,9 @@ export function ImageTextRow({
       id={id}
     >
       <div className="edition-spotlight__row-main">
-        <div className="edition-spotlight__row-image">
+        <div
+          className={`edition-spotlight__row-image${tallMain ? " edition-spotlight__row-image--tall" : ""}`}
+        >
           <Image
             src={row.main.image.src}
             alt={row.main.image.alt}

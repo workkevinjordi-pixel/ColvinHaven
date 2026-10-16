@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ScrollFade from "../ScrollFade";
+import Swiper from "../ui/Swiper";
 
 type QuoteRowProps = {
   items?: { image: { src: string; alt: string }; caption: string }[];
@@ -39,7 +40,8 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
       src: "/assets/homequoterow-shoji-bedroom.jpg",
       alt: "A shoji-screened bedroom corner with a low bed and two wall sconces",
     },
-    caption: "A door left open, and the room is already warm.\nA place to settle in.",
+    caption:
+      "A door left open, and the room is already warm.\nA place to settle in.",
   },
 ];
 
@@ -49,28 +51,88 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
  * to node 385:1262). Content now comes
  * from Sanity's homepage.quoteRow.
  */
+// Photos 4-7 of the row (Figma nodes 461:803, 461:807, 385:1272, 385:1264).
+// No captions yet ("We need caption here" for the copywriter). Appended after the photos from
+// Sanity; they go away if the editors add their own photos instead.
+const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
+  {
+    image: {
+      src: "/assets/home-quote-4-pavilion.jpg",
+      alt: "A dark timber pavilion on a raised deck, a boardwalk crossing a pond in a tropical garden",
+    },
+    caption: "We need caption here",
+  },
+  {
+    image: {
+      src: "/assets/home-quote-5-koi-pond.jpg",
+      alt: "Koi swimming in a dark pond beneath tree ferns and river stones",
+    },
+    caption: "We need caption here",
+  },
+  {
+    image: {
+      src: "/assets/home-quote-6-kitchen.jpg",
+      alt: "A teak kitchen with a black stone island, a tall gridded window opening onto tropical foliage",
+    },
+    caption: "We need caption here",
+  },
+  {
+    image: {
+      src: "/assets/home-quote-7-garden-gate.jpg",
+      alt: "A black timber garden gate framed by a stone wall, lawn and stone steps",
+    },
+    caption: "We need caption here",
+  },
+];
+
+// Off for now: the row shows just the three main photos, as a plain row
+// (no swiper buttons/indicator, nothing to scroll). Set to true to bring
+// photos 4-7 and the swiper back.
+const SHOW_EXTRA_ITEMS = false;
+
+function withExtras(real: NonNullable<QuoteRowProps["items"]>) {
+  return real.length === 0 || !SHOW_EXTRA_ITEMS
+    ? real
+    : [...real, ...EXTRA_ITEMS];
+}
+
 export default function HomeQuoteRow({ items = DEFAULT_ITEMS }: QuoteRowProps) {
+  const rowItems = withExtras(items!);
   return (
     <section className="landing-quote-row">
-      <ScrollFade className="landing-quote-row__inner">
-        {items!.map((item, i) => (
-          <div
-            className="landing-quote-row__item"
-            key={i}
-            style={{ flexBasis: `${(WIDTHS[i] / 1432) * 100}%` }}
-          >
-            <div className="landing-quote-row__image">
-              <Image
-                src={item.image.src}
-                alt={item.image.alt}
-                fill
-                sizes="(min-width: 900px) 45vw, 100vw"
-                style={{ objectFit: "cover" }}
-              />
+      <ScrollFade>
+        {/* Swiper: shows up to three photos at once at their Figma widths
+            (638/345/449, repeating for any further photos) and scrolls in
+            steps; the arrows only appear when there are more than three. */}
+        <Swiper
+          className="landing-quote-row__swiper"
+          trackClassName="landing-quote-row__inner"
+          tone="dark"
+          label="Photos"
+        >
+          {rowItems.map((item, i) => (
+            <div
+              className="landing-quote-row__item"
+              key={i}
+              style={{
+                flexBasis: `calc(${(WIDTHS[i % WIDTHS.length] / 1432) * 100}% - 2.67px)`,
+              }}
+            >
+              <div className="landing-quote-row__image">
+                <Image
+                  src={item.image.src}
+                  alt={item.image.alt}
+                  fill
+                  sizes="(min-width: 900px) 45vw, 100vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              {item.caption && (
+                <p className="landing-quote-row__caption">{item.caption}</p>
+              )}
             </div>
-            <p className="landing-quote-row__caption">{item.caption}</p>
-          </div>
-        ))}
+          ))}
+        </Swiper>
       </ScrollFade>
     </section>
   );

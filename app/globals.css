@@ -5457,22 +5457,20 @@ a:where(
     min-height: 0;
   }
 
-  /* Mobile Figma (node 426:703) places the 3018x1416 photo at 151.56%
-     of the screen width and the full height, flush with the left edge
-     (0.01%) -- so it is deliberately squeezed horizontally, not
-     cover-cropped, and the left two-thirds of the photo shows (the
-     pale sand wisp), with the wave entering at the lower right.
-     No parallax drift/zoom here, so the photo sits exactly as framed.
-     !important: ParallaxImage sets its geometry and transform inline. */
+  /* Mobile Figma (node 426:703): the 3018x1416 photo fills the 390x844
+     frame as a plain centered cover crop (the middle strip of the photo,
+     wave entering at the lower right). No parallax drift/zoom here, so
+     the photo sits exactly as framed. !important: ParallaxImage sets its
+     geometry and transform inline. */
   .landing-page .hero__bg {
-    width: 151.56% !important;
-    max-width: none;
-    left: 0.01% !important;
-    right: auto !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
     top: 0 !important;
     height: 100% !important;
     transform: none !important;
-    object-fit: fill;
+    object-fit: cover;
+    object-position: center;
   }
 }
 
@@ -6891,6 +6889,29 @@ a:where(
   }
 }
 
+/* Home quote row as a swiper (desktop/tablet): the three photos keep their
+   Figma widths and fit exactly; extra photos scroll in steps of one. */
+@media (min-width: 901px) {
+  .landing-quote-row__inner {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .landing-quote-row__inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .landing-quote-row__item {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .landing-quote-row__swiper .swp__controls {
+    margin-top: 16px;
+  }
+}
+
 /* Homepage desktop/tablet additions (Figma 385:14): the wide photo band and
    the two-photo story row. Phones use components/home-mobile instead. */
 .home-photo-band {
@@ -7084,4 +7105,27 @@ a:where(
     bottom: 0;
     height: auto;
   }
+}
+
+/* Phones: Tsuki's living-room photo in the two-photo row is 520px high
+   (Figma 461:797) and shows the right half of the photo, not the centre. */
+@media (max-width: 560px) {
+  .edition-spotlight__row-image--tall {
+    height: 520px;
+    width: calc(100% + 32px);
+    margin-left: -16px;
+  }
+
+  .edition-spotlight__row-image--tall img {
+    object-position: right center !important;
+  }
+}
+
+/* Phone homepage: the photo swiper without buttons or indicator. */
+.hm-swiper__swp--bare .swp__controls {
+  display: none !important;
+}
+
+.hm-stories[hidden] {
+  display: none !important;
 }

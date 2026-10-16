@@ -7,8 +7,11 @@ import CraftingStatement from "@/components/landing/CraftingStatement";
 import HomeQuoteRow from "@/components/landing/HomeQuoteRow";
 import TextIntro from "@/components/landing/TextIntro";
 import ApproachGallery from "@/components/landing/ApproachGallery";
+import HomePhotoBand from "@/components/landing/HomePhotoBand";
+import HomeStories from "@/components/landing/HomeStories";
 import Cta from "@/components/Cta";
 import Footer from "@/components/Footer";
+import HomeMobile from "@/components/home-mobile/HomeMobile";
 import { getHomepage } from "@/lib/sanity/homepage";
 
 // Fallback only -- used when the Sanity fetch comes back empty (or a
@@ -130,62 +133,87 @@ export default async function Home() {
   return (
     <div className="landing-page">
       <Navbar />
-      <Hero
-        title={homepage?.hero.title}
-        tagline={homepage?.hero.tagline}
-        backgroundImage={homepage?.hero.backgroundImage}
-      />
-      {SHOW_HOME_DRAWING && (
-        <>
-          <div className="home-drawing home-drawing--desktop">
-            <Drawing />
-          </div>
-          <div className="home-drawing home-drawing--mobile">
-            <StaticDrawing />
-          </div>
-        </>
-      )}
-      <CraftingStatement
-        heading={homepage?.craftingStatement.heading}
-        body={homepage?.craftingStatement.body}
-      />
-      <HomeQuoteRow items={homepage?.quoteRow} />
-      <TextIntro
-        eyebrow={homepage?.editionsIntro.eyebrow ?? "EDITIONS"}
-        heading={homepage?.editionsIntro.heading ?? "TSUKI, THE MOON. SORA, THE SKY"}
-        subtitle={homepage?.editionsIntro.subtitle ?? "Cut form the same cloth, different in size"}
-        lead={homepage?.editionsIntro.lead ?? "Stillness and wellness, built into every room."}
-        linkLabel={homepage?.editionsIntro.linkLabel ?? "Dive deeper"}
-        linkHref={homepage?.editionsIntro.linkHref ?? "/editions"}
-        centered
-      >
-        {(homepage?.editionsIntro.paragraphs ?? EDITIONS_FALLBACK_BODY).map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </TextIntro>
-      <ApproachGallery items={homepage?.approachGallery} />
-      <TextIntro
-        eyebrow={homepage?.collectiveIntro.eyebrow ?? "COLLECTIVE"}
-        heading={
-          homepage?.collectiveIntro.heading ??
-          "UMAH TSUKI IS WHERE OUR FOUNDER LIVES,\nSORA WAS BUILT FOR OUR FIRST CLIENT."
-        }
-        linkLabel={homepage?.collectiveIntro.linkLabel ?? "Meet the collective"}
-        linkHref={homepage?.collectiveIntro.linkHref ?? "/collective"}
-        centered
-        compact
-      >
-        {(homepage?.collectiveIntro.paragraphs ?? COLLECTIVE_FALLBACK_BODY).map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </TextIntro>
-      <Cta
-        variant="link"
-        text={homepage?.cta.text}
-        buttonLabel={homepage?.cta.buttonLabel}
-        buttonHref={homepage?.cta.buttonHref}
-      />
-      <Footer />
+      {/* Phone layout: one full-screen section per swipe (<=560px). */}
+      <HomeMobile homepage={homepage} />
+      <div className="home-desktop">
+        <Hero
+          title={homepage?.hero.title}
+          tagline={homepage?.hero.tagline}
+          backgroundImage={homepage?.hero.backgroundImage}
+        />
+        {SHOW_HOME_DRAWING && (
+          <>
+            <div className="home-drawing home-drawing--desktop">
+              <Drawing />
+            </div>
+            <div className="home-drawing home-drawing--mobile">
+              <StaticDrawing />
+            </div>
+          </>
+        )}
+        <CraftingStatement
+          heading={homepage?.craftingStatement.heading}
+          body={homepage?.craftingStatement.body}
+        />
+        <HomeQuoteRow items={homepage?.quoteRow} />
+        <TextIntro
+          eyebrow={homepage?.editionsIntro.eyebrow ?? "EDITIONS"}
+          heading={
+            homepage?.editionsIntro.heading ?? "TSUKI, THE MOON. SORA, THE SKY"
+          }
+          subtitle={
+            homepage?.editionsIntro.subtitle ??
+            "Cut form the same cloth, different in size"
+          }
+          lead={
+            homepage?.editionsIntro.lead ??
+            "Stillness and wellness, built into every room."
+          }
+          linkLabel={homepage?.editionsIntro.linkLabel ?? "Dive deeper"}
+          linkHref={homepage?.editionsIntro.linkHref ?? "/editions"}
+          centered
+        >
+          {(homepage?.editionsIntro.paragraphs ?? EDITIONS_FALLBACK_BODY).map(
+            (p, i) => (
+              <p key={i}>{p}</p>
+            ),
+          )}
+        </TextIntro>
+        <HomePhotoBand />
+        <ApproachGallery items={homepage?.approachGallery} />
+        <HomeStories />
+        <HomePhotoBand
+          src="/assets/editions/detail/tsuki-closing-pool-deck.jpg"
+          alt="A timber deck with loungers beside a stone-edged pool among tropical foliage"
+          height={611}
+        />
+        <TextIntro
+          eyebrow={homepage?.collectiveIntro.eyebrow ?? "COLLECTIVE"}
+          heading={
+            homepage?.collectiveIntro.heading ??
+            "UMAH TSUKI IS WHERE OUR FOUNDER LIVES,\nSORA WAS BUILT FOR OUR FIRST CLIENT."
+          }
+          linkLabel={
+            homepage?.collectiveIntro.linkLabel ?? "Meet the collective"
+          }
+          linkHref={homepage?.collectiveIntro.linkHref ?? "/collective"}
+          centered
+          compact
+        >
+          {(
+            homepage?.collectiveIntro.paragraphs ?? COLLECTIVE_FALLBACK_BODY
+          ).map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </TextIntro>
+        <Cta
+          variant="link"
+          text={homepage?.cta.text}
+          buttonLabel={homepage?.cta.buttonLabel}
+          buttonHref={homepage?.cta.buttonHref}
+        />
+        <Footer />
+      </div>
     </div>
   );
 }

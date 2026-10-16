@@ -19,10 +19,7 @@ import path from "path";
  * directly in CSS, not by ScrollDrawing's own scroll-position logic.
  */
 export default function StaticDrawing() {
-  const svgPath = path.join(
-    process.cwd(),
-    "public/assets/section-drawing.svg",
-  );
+  const svgPath = path.join(process.cwd(), "public/assets/section-drawing.svg");
   const svgMarkup = fs.readFileSync(svgPath, "utf-8");
 
   return (

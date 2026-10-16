@@ -283,7 +283,7 @@ export default function EditionStorySummary({
           </>
         ) : (
           <>
-            <ImageTextRow row={row4Tsuki} />
+            <ImageTextRow row={row4Tsuki} tallMain />
             {banner1Block}
             {storyABlock}
 

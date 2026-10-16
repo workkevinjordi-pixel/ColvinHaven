@@ -77,10 +77,10 @@ export default async function EditionsPage() {
   return (
     <>
       <Navbar solid />
-      {/* Phone layout: one full-screen section per swipe (<=560px). */}
-      <EditionsMobile
-        sections={buildEditionsPlan(editions, editionsPage?.heroImage)}
-      />
+      {/* Phone layout: one full-screen section per swipe (<=560px). It
+          starts straight at the first edition: the palm-trees opening photo
+          is desktop-only. */}
+      <EditionsMobile sections={buildEditionsPlan(editions)} />
       <div className="editions-desktop">
         <EditionsHero image={editionsPage?.heroImage} />
         {editions.map((edition) => (

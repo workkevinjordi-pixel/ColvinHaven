@@ -5760,6 +5760,7 @@ a:where(
 
   /* The homepage's own wide photo band: shorter than a full screen. */
   .hm-photo--band {
+    min-height: 0;
     height: 56svh;
   }
 

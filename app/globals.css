@@ -6982,45 +6982,46 @@ a:where(
   }
 }
 
-/* Phones: the edition title photos sit at 80% inside a cream frame (10%
-   each side, 10svh above and below); the opening Editions photo is the
-   same size as Collective's founder collage; and the pool band under the
-   homepage stories. The swipers stay full-screen on a dark ground. */
+/* Phones, Editions: the opening photo and the edition title photos are
+   full-width (edge to edge) but not full-screen -- a fixed-height band --
+   and the pool band under the homepage stories. */
 @media (max-width: 560px) {
-  .em-title .hm-img {
-    inset: 10svh 10%;
-  }
-
-  .em-title__shade {
-    left: 10%;
-    right: 10%;
-    bottom: 10svh;
-    height: 260px;
-  }
-
   .em-title {
+    min-height: 0;
+    height: 72svh;
     background: var(--bg);
   }
 
+  .em-title .hm-img {
+    inset: 0;
+  }
+
+  .em-title__shade {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 260px;
+  }
+
   .em-title__text {
-    left: 10%;
-    right: 10%;
-    bottom: 10svh;
+    left: 0;
+    right: 0;
+    bottom: 0;
     padding: 0 20px 40px;
   }
 
-  /* Opening Editions photo: same 210px-high frame as the Collective collage. */
+  /* Opening photo: full-width, 56% of the screen high. */
   .em .hm-photo:first-child {
-    height: auto;
+    height: 56svh;
     min-height: 0;
-    padding: 80px 28px 0;
+    padding: 0;
     background: transparent;
   }
 
   .em .hm-photo:first-child .hm-img {
-    position: relative;
-    inset: auto;
-    height: 210px;
+    position: absolute;
+    inset: 0;
+    height: auto;
   }
 
   /* Pool band under the homepage stories. */

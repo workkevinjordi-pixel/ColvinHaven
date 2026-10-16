@@ -44,8 +44,8 @@ const POOL_IMAGE: Img = {
   src: "/assets/home-corridor-bedroom.jpg",
   alt: "A dark timber-slatted corridor beside a warm teak bedroom with shoji screens",
 };
-// Hidden for now (waiting on the copy), like the desktop row.
-const SHOW_STORIES = false;
+// Shown again, like the desktop row. Set to false to hide it.
+const SHOW_STORIES = true;
 const STORIES: { image: Img; caption: string }[] = [
   {
     image: {

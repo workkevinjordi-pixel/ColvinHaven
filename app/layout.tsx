@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
-import {
-  Cormorant_Garamond,
-  Fraunces,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
+import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 // The site's one sans-serif face -- used everywhere `var(--font-plus-
@@ -27,16 +23,6 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-cormorant",
-  display: "swap",
-});
-
-// Used only by the /option3 layout variant (see the "Option 3" block in
-// globals.css) as its editorial display face.
-const fraunces = Fraunces({
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -118,7 +104,7 @@ export default function RootLayout({
       // behavior, confirmed against its own source
       // (disable-smooth-scroll.ts) and 16 upgrade docs, not guessed.
       data-scroll-behavior="smooth"
-      className={`${plusJakartaSans.variable} ${cormorant.variable} ${fraunces.variable}`}
+      className={`${plusJakartaSans.variable} ${cormorant.variable}`}
     >
       <body>
         <script

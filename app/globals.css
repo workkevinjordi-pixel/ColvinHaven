@@ -7044,3 +7044,14 @@ a:where(
     height: 56svh;
   }
 }
+
+/* Homepage desktop/tablet: more air around the pool band -- 120px between
+   the story captions and the band, and a further 60px (on top of the
+   Collective intro's own 120px) between the band and "Collective". */
+.home-stories {
+  padding-bottom: 120px;
+}
+
+.home-photo-band + .landing-intro {
+  margin-top: 60px;
+}

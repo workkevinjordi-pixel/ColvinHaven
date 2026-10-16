@@ -182,6 +182,11 @@ export default async function Home() {
         <HomePhotoBand />
         <ApproachGallery items={homepage?.approachGallery} />
         <HomeStories />
+        <HomePhotoBand
+          src="/assets/editions/detail/tsuki-closing-pool-deck.jpg"
+          alt="A timber deck with loungers beside a stone-edged pool among tropical foliage"
+          height={611}
+        />
         <TextIntro
           eyebrow={homepage?.collectiveIntro.eyebrow ?? "COLLECTIVE"}
           heading={

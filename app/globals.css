@@ -6910,11 +6910,15 @@ a:where(
 }
 
 .home-photo-band__inner {
-  position: relative;
   width: 100%;
   max-width: 1440px;
-  height: 583px;
   margin: 0 auto;
+}
+
+.home-photo-band__frame {
+  position: relative;
+  width: 100%;
+  height: var(--band-h, 583px);
 }
 
 .home-stories {
@@ -6951,7 +6955,7 @@ a:where(
 }
 
 @media (max-width: 900px) {
-  .home-photo-band__inner {
+  .home-photo-band__frame {
     height: 360px;
   }
 

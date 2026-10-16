@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   // hydration) when opening http://<laptop-ip>:3000 -- without it Next
   // answers 403 and the page renders as plain, non-interactive HTML.
   // Dev only; no effect on production builds.
-  allowedDevOrigins: ["192.168.*.*", "10.*.*.*", "172.16.*.*", "*.local"],
+  allowedDevOrigins: ["192.168.*.*", "10.*.*.*", "172.*.*.*", "*.local"],
   // Pin the workspace root explicitly -- the parent directory has an
   // unrelated package-lock.json that would otherwise confuse Turbopack's
   // automatic root inference.

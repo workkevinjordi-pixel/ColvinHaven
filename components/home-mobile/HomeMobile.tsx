@@ -51,37 +51,51 @@ const STORIES: { image: Img; caption: string }[] = [
       alt: "Umah Sora's living room opening onto the garden and pool",
     },
     caption:
-      "Welcome to the living room: the place to go gather with friends and family. When the day warms up, the natural salt pool is just beyond the sofa.",
+      "Seven steps down come up and the day gets quieter. Welcome to Sora.",
   },
   {
     image: {
-      src: "/assets/homequoterow-corridor-steps.jpg",
-      alt: "A covered timber walkway leading down a staircase toward a garden gate",
+      src: "/assets/home-stories-sora-stairs.jpg",
+      alt: "A charred timber house on stilts with a round window, a staircase descending to the garden",
     },
     caption:
-      "Seven steps down come up and the day gets quieter. Welcome to Sora.",
+      "Welcome to the living room: the place to go gather with friends and family. When the day warms up, the natural salt pool is just beyond the sofa.",
   },
 ];
 
-// TEMPORARY: pads the photo swiper out to seven slides (reusing the real
-// photos, "Placeholder" captions) to try the swiper before the real extra
-// photos exist. Mirrors PLACEHOLDER_TOTAL in components/landing/
-// HomeQuoteRow.tsx; set both to 0 to show only the photos from Sanity.
-const PLACEHOLDER_TOTAL = 7;
-
-function withPlaceholders<T extends { image?: Img; caption?: string }>(
-  real: T[],
-): T[] {
-  if (PLACEHOLDER_TOTAL <= real.length || real.length === 0) return real;
-  const out = [...real];
-  for (let i = real.length; i < PLACEHOLDER_TOTAL; i++) {
-    out.push({
-      ...real[i % real.length],
-      caption: `Placeholder photo ${i + 1}`,
-    });
-  }
-  return out;
-}
+// Photos 4-7 of the swiper (same Figma nodes as the desktop row: 461:803,
+// 461:807, 385:1272, 385:1264); no captions in the design. Mirrors
+// EXTRA_ITEMS in components/landing/HomeQuoteRow.tsx.
+const EXTRA_SLIDES: { image: Img; caption: string }[] = [
+  {
+    image: {
+      src: "/assets/home-quote-4-pavilion.jpg",
+      alt: "A dark timber pavilion on a raised deck, a boardwalk crossing a pond in a tropical garden",
+    },
+    caption: "",
+  },
+  {
+    image: {
+      src: "/assets/home-quote-5-koi-pond.jpg",
+      alt: "Koi swimming in a dark pond beneath tree ferns and river stones",
+    },
+    caption: "",
+  },
+  {
+    image: {
+      src: "/assets/home-quote-6-artwork.jpg",
+      alt: "A framed dark seascape painting on a grey wall beside a timber panel",
+    },
+    caption: "",
+  },
+  {
+    image: {
+      src: "/assets/home-quote-7-garden-gate.jpg",
+      alt: "A black timber garden gate framed by a stone wall, lawn and stone steps",
+    },
+    caption: "",
+  },
+];
 
 // Phone-only portrait crop of the Tsuki exterior for the swiper's first
 // slide (the desktop row keeps the Sanity photo).
@@ -118,6 +132,10 @@ function mobileCopy(text: string): string {
   );
 }
 
+function withExtras<T extends { image: Img; caption: string }>(real: T[]) {
+  return real.length === 0 ? real : [...real, ...EXTRA_SLIDES];
+}
+
 export default function HomeMobile({ homepage }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [slide, setSlide] = useState(0);
@@ -125,7 +143,7 @@ export default function HomeMobile({ homepage }: Props) {
 
   const hero = homepage?.hero.backgroundImage ?? FALLBACK_HERO;
   const statement = homepage?.craftingStatement;
-  const slides = withPlaceholders(homepage?.quoteRow ?? []);
+  const slides = withExtras(homepage?.quoteRow ?? []);
   const editions = homepage?.editionsIntro;
   const gallery = (homepage?.approachGallery ?? []).filter(
     (g) => !HIDDEN_GALLERY_CAPTIONS.has(g.caption.trim().toLowerCase()),
@@ -236,8 +254,14 @@ export default function HomeMobile({ homepage }: Props) {
                     style={{ objectFit: "cover" }}
                   />
                 </div>
-                <div className="hm-swiper__shade" />
-                <p className="hm-swiper__caption">{mobileCopy(s.caption)}</p>
+                {s.caption && (
+                  <>
+                    <div className="hm-swiper__shade" />
+                    <p className="hm-swiper__caption">
+                      {mobileCopy(s.caption)}
+                    </p>
+                  </>
+                )}
               </div>
             ))}
           </Swiper>

@@ -52,7 +52,7 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
  * from Sanity's homepage.quoteRow.
  */
 // Photos 4-7 of the row (Figma nodes 461:803, 461:807, 385:1272, 385:1264).
-// No captions yet ("We need caption here" for the copywriter). Appended after the photos from
+// Captions from the copywriter. Appended after the photos from
 // Sanity; they go away if the editors add their own photos instead.
 const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
   {
@@ -60,35 +60,38 @@ const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
       src: "/assets/home-quote-4-pavilion.jpg",
       alt: "A dark timber pavilion on a raised deck, a boardwalk crossing a pond in a tropical garden",
     },
-    caption: "We need caption here",
+    caption:
+      "Cross the floating walkway, with the garden on either side and the koi drifting beneath. This is how you arrive at the main cabin.",
   },
   {
     image: {
       src: "/assets/home-quote-5-koi-pond.jpg",
       alt: "Koi swimming in a dark pond beneath tree ferns and river stones",
     },
-    caption: "We need caption here",
+    caption:
+      "Every koi here is chosen with care, for its colour, its pattern, and the way it moves. Watch them for a while, and the day slows down",
   },
   {
     image: {
       src: "/assets/home-quote-6-kitchen.jpg",
       alt: "A teak kitchen with a black stone island, a tall gridded window opening onto tropical foliage",
     },
-    caption: "We need caption here",
+    caption:
+      "A chef designs a kitchen the way he’d want to cook in one. Simple, like the best Japanese counters, with nothing here that doesn’t need to be.",
   },
   {
     image: {
       src: "/assets/home-quote-7-garden-gate.jpg",
       alt: "A black timber garden gate framed by a stone wall, lawn and stone steps",
     },
-    caption: "We need caption here",
+    caption:
+      "A black timber gate, set in river stone. Calm begins here, a few steps before the door. Let the garden do the first of the welcoming.",
   },
 ];
 
-// Off for now: the row shows just the three main photos, as a plain row
-// (no swiper buttons/indicator, nothing to scroll). Set to true to bring
-// photos 4-7 and the swiper back.
-const SHOW_EXTRA_ITEMS = false;
+// Photos 4-7 and the swiper are on again now that their captions are in.
+// Set to false to show just the three main photos as a plain row.
+const SHOW_EXTRA_ITEMS = true;
 
 function withExtras(real: NonNullable<QuoteRowProps["items"]>) {
   return real.length === 0 || !SHOW_EXTRA_ITEMS

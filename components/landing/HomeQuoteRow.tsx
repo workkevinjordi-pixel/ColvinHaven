@@ -69,7 +69,7 @@ const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
       alt: "Koi swimming in a dark pond beneath tree ferns and river stones",
     },
     caption:
-      "Every koi here is chosen with care, for its colour, its pattern, and the way it moves. Watch them for a while, and the day slows down",
+      "Every koi here is chosen with care, for its colour, its pattern, and the way it moves.",
   },
   {
     image: {
@@ -77,7 +77,7 @@ const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
       alt: "A teak kitchen with a black stone island, a tall gridded window opening onto tropical foliage",
     },
     caption:
-      "A chef designs a kitchen the way he’d want to cook in one. Simple, like the best Japanese counters, with nothing here that doesn’t need to be.",
+      "A chef designs a kitchen the way he’d want to cook in one. Simple, with nothing here that doesn’t need to be.",
   },
   {
     image: {

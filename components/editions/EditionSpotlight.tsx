@@ -2,14 +2,21 @@ import Image from "next/image";
 import Swiper from "@/components/ui/Swiper";
 import type { EditionData } from "./editions-data";
 
+// Phones swap the row's first photo for this one (Figma 461:797, Tsuki's
+// terrace living room); the Sanity photo stays on desktop and tablet.
+const TALL_MAIN_PHONE_IMAGE = {
+  src: "/assets/editions/detail/row4-main.jpg",
+  alt: "Tsuki's living room under a teak ceiling, a lamp and sofa on the terrace above the jungle",
+};
+
 export function ImageTextRow({
   row,
   id,
   tallMain = false,
 }: {
   row: EditionData["row1"];
-  /** Phones: the first photo is 520px high showing the right half of the
-   * picture (Figma 461:797, Tsuki's living room). */
+  /** Phones: the first photo is the Figma 461:797 one, 520px high, full
+   * width (see TALL_MAIN_PHONE_IMAGE). */
   tallMain?: boolean;
   /** Same role as GalleryRow's own `id` -- lets a layout mark whichever
    * block happens to be its last piece of edition content, which is
@@ -31,12 +38,25 @@ export function ImageTextRow({
           className={`edition-spotlight__row-image${tallMain ? " edition-spotlight__row-image--tall" : ""}`}
         >
           <Image
+            className={
+              tallMain ? "edition-spotlight__photo-desktop" : undefined
+            }
             src={row.main.image.src}
             alt={row.main.image.alt}
             fill
             sizes="(min-width: 900px) 790px, 100vw"
             style={{ objectFit: "cover" }}
           />
+          {tallMain && (
+            <Image
+              className="edition-spotlight__photo-phone"
+              src={TALL_MAIN_PHONE_IMAGE.src}
+              alt={TALL_MAIN_PHONE_IMAGE.alt}
+              fill
+              sizes="100vw"
+              style={{ objectFit: "cover" }}
+            />
+          )}
         </div>
         {row.main.text.length > 0 && (
           <div className="edition-spotlight__row-text">

@@ -5854,18 +5854,17 @@ a:where(
   }
 
   /* ---- 9 Invitation ---- */
+  /* Closing invitation: compact, content height with 80px above and
+     below, the photo filling the band behind it. */
   .hm-invite {
-    height: 100svh;
+    min-height: 0;
     background: #2e2a1f;
   }
 
   .hm-invite__content {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: relative;
     box-sizing: border-box;
-    padding: 0 28px 96px;
+    padding: 80px 28px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

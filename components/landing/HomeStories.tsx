@@ -10,15 +10,14 @@ const STORIES = [
       alt: "Umah Sora's living room opening onto the garden and pool",
     },
     caption:
-      "Seven steps down come up and the day gets quitter. Welcome to Sora.",
+      "Welcome to the living room: the place to go gather with friends and family. When the day warms up, the natural salt pool is just beyond the sofa.",
   },
   {
     image: {
       src: "/assets/home-stories-sora-stairs.jpg",
       alt: "A charred timber house on stilts with a round window, a staircase descending to the garden",
     },
-    caption:
-      "Welcome to the living room: the place to go gather with friends and family. When the day warms up, the natural salt pool is just beyond the sofa.",
+    caption: "We need text here",
   },
 ];
 

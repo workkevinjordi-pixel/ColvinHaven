@@ -51,20 +51,19 @@ const STORIES: { image: Img; caption: string }[] = [
       alt: "Umah Sora's living room opening onto the garden and pool",
     },
     caption:
-      "Seven steps down come up and the day gets quieter. Welcome to Sora.",
+      "Welcome to the living room: the place to go gather with friends and family. When the day warms up, the natural salt pool is just beyond the sofa.",
   },
   {
     image: {
       src: "/assets/home-stories-sora-stairs.jpg",
       alt: "A charred timber house on stilts with a round window, a staircase descending to the garden",
     },
-    caption:
-      "Welcome to the living room: the place to go gather with friends and family. When the day warms up, the natural salt pool is just beyond the sofa.",
+    caption: "We need text here",
   },
 ];
 
 // Photos 4-7 of the swiper (same Figma nodes as the desktop row: 461:803,
-// 461:807, 385:1272, 385:1264); no captions in the design. Mirrors
+// 461:807, 385:1272, 385:1264); no captions yet. Mirrors
 // EXTRA_ITEMS in components/landing/HomeQuoteRow.tsx.
 const EXTRA_SLIDES: { image: Img; caption: string }[] = [
   {
@@ -72,28 +71,28 @@ const EXTRA_SLIDES: { image: Img; caption: string }[] = [
       src: "/assets/home-quote-4-pavilion.jpg",
       alt: "A dark timber pavilion on a raised deck, a boardwalk crossing a pond in a tropical garden",
     },
-    caption: "",
+    caption: "We need caption here",
   },
   {
     image: {
       src: "/assets/home-quote-5-koi-pond.jpg",
       alt: "Koi swimming in a dark pond beneath tree ferns and river stones",
     },
-    caption: "",
+    caption: "We need caption here",
   },
   {
     image: {
       src: "/assets/home-quote-6-kitchen.jpg",
       alt: "A teak kitchen with a black stone island, a tall gridded window opening onto tropical foliage",
     },
-    caption: "",
+    caption: "We need caption here",
   },
   {
     image: {
       src: "/assets/home-quote-7-garden-gate.jpg",
       alt: "A black timber garden gate framed by a stone wall, lawn and stone steps",
     },
-    caption: "",
+    caption: "We need caption here",
   },
 ];
 

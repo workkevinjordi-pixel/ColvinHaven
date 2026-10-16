@@ -52,7 +52,7 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
  * from Sanity's homepage.quoteRow.
  */
 // Photos 4-7 of the row (Figma nodes 461:803, 461:807, 385:1272, 385:1264).
-// They have no captions in the design. Appended after the photos from
+// No captions yet ("We need caption here" for the copywriter). Appended after the photos from
 // Sanity; they go away if the editors add their own photos instead.
 const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
   {
@@ -60,28 +60,28 @@ const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
       src: "/assets/home-quote-4-pavilion.jpg",
       alt: "A dark timber pavilion on a raised deck, a boardwalk crossing a pond in a tropical garden",
     },
-    caption: "",
+    caption: "We need caption here",
   },
   {
     image: {
       src: "/assets/home-quote-5-koi-pond.jpg",
       alt: "Koi swimming in a dark pond beneath tree ferns and river stones",
     },
-    caption: "",
+    caption: "We need caption here",
   },
   {
     image: {
       src: "/assets/home-quote-6-kitchen.jpg",
       alt: "A teak kitchen with a black stone island, a tall gridded window opening onto tropical foliage",
     },
-    caption: "",
+    caption: "We need caption here",
   },
   {
     image: {
       src: "/assets/home-quote-7-garden-gate.jpg",
       alt: "A black timber garden gate framed by a stone wall, lawn and stone steps",
     },
-    caption: "",
+    caption: "We need caption here",
   },
 ];
 

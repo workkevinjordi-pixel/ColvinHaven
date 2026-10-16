@@ -6779,3 +6779,21 @@ a:where(
     margin-top: 160px;
   }
 }
+
+/* Phones, Collective: no sticky/pinned photos -- the founder photos and
+   publication covers scroll with the page like everything else. */
+@media (max-width: 560px) {
+  .cm-pin {
+    position: static;
+    padding: 80px 28px 0;
+    background: transparent;
+  }
+
+  .cm-pin__fade {
+    display: none;
+  }
+
+  .cm-pub__title-top + .cm-pin {
+    padding-top: 0;
+  }
+}

@@ -5472,3 +5472,668 @@ a:where(
     object-position: center;
   }
 }
+
+/* ==========================================================================
+   Phone homepage (<=560px) -- components/home-mobile/HomeMobile.tsx.
+   Layout follows the "Homepage Mobile scroll" design reference: one
+   full-screen section per swipe (scroll-snap), staggered text reveal and
+   a slow image settle per section, an edition photo swiper with a pager,
+   a progress rail, a tap-to-expand gallery and a closing invitation.
+   Copy and type styles are the desktop homepage's. Hidden everywhere else.
+   ========================================================================== */
+.hm {
+  display: none;
+}
+
+.hm-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  /* The desktop flow gives way to the phone layout. */
+  .home-desktop {
+    display: none;
+  }
+
+  .hm {
+    display: block;
+    background: var(--bg);
+    color: var(--ink);
+    font-weight: 300;
+  }
+
+  /* Document-level scroll-snap, only while this layout is on the page. */
+  html:has(.hm) {
+    scroll-snap-type: y mandatory;
+  }
+
+  .hm-sec {
+    position: relative;
+    min-height: 100svh;
+    box-sizing: border-box;
+    overflow: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* ---- Reveal / image settle (only once JS has mounted) ---- */
+  .hm-r {
+    transition: none;
+  }
+
+  .hm--ready .hm-r {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .hm--ready .hm-sec.is-active .hm-r {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--i, 0) * 140ms);
+  }
+
+  .hm-img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hm--ready .hm-img {
+    transform: scale(1.14);
+    transition: transform 2.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .hm--ready .hm-sec.is-active .hm-img,
+  .hm--ready .hm-swiper__slide.is-on .hm-img {
+    transform: scale(1);
+  }
+
+  /* ---- 1 Hero ---- */
+  .hm-hero {
+    background: #2e2a1f;
+  }
+
+  .hm-hero__shade,
+  .hm-invite__shade {
+    position: absolute;
+    inset: 0;
+    background: rgba(29, 25, 15, 0.5);
+  }
+
+  /* ---- 2 Statement ---- */
+  .hm-statement {
+    padding: 0 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hm-statement__heading {
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: 25.6px;
+    line-height: 1.3;
+    letter-spacing: 2.56px;
+    color: var(--ink);
+  }
+
+  .hm-line {
+    display: block;
+    height: 1px;
+    width: 40px;
+    margin: 32px 0;
+    background: rgba(29, 25, 15, 0.4);
+  }
+
+  .hm--ready .hm-line {
+    width: 0;
+    transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .hm--ready .hm-sec.is-active .hm-line {
+    width: 40px;
+    transition-delay: 280ms;
+  }
+
+  .hm-statement__body {
+    font-weight: 300;
+    font-size: 19.2px;
+    line-height: 32px;
+    letter-spacing: 1.92px;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  /* ---- 3 Edition swiper ---- */
+  .hm-swiper {
+    height: 100svh;
+    background: #2c2b25;
+  }
+
+  .hm-swiper__track {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .hm-swiper__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hm-swiper__slide {
+    position: relative;
+    flex: 0 0 100%;
+    height: 100%;
+    overflow: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .hm-swiper__shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 420px;
+    background: linear-gradient(to bottom, rgba(29, 25, 15, 0), rgba(29, 25, 15, 0.78));
+  }
+
+  .hm-swiper__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 0 32px 104px;
+    text-align: center;
+    white-space: pre-line;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--bg);
+  }
+
+  .hm--ready .hm-swiper__caption {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .hm--ready .hm-swiper__slide.is-on .hm-swiper__caption {
+    opacity: 1;
+    transform: none;
+    transition-delay: 200ms;
+  }
+
+  .hm-swiper__pager {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 44px;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .hm-swiper__pager button {
+    width: 32px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .hm-swiper__pager span {
+    display: block;
+    width: 6px;
+    height: 2px;
+    border-radius: 1px;
+    background: rgba(242, 238, 232, 0.4);
+    transition: width 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), background 0.5s ease;
+  }
+
+  .hm-swiper__pager span.is-on {
+    width: 22px;
+    background: rgba(242, 238, 232, 0.95);
+  }
+
+  /* ---- 4 / 8 Text intros (Editions, Collective) ---- */
+  .hm-intro {
+    padding: 72px 28px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .hm-intro--collective {
+    gap: 28px;
+  }
+
+  .hm-intro__eyebrow {
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--ink);
+  }
+
+  .hm-intro__titles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .hm-intro__heading {
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.4;
+    letter-spacing: 2.4px;
+    color: var(--ink);
+  }
+
+  .hm-intro__subtitle {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 1.4px;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .hm-intro__lead {
+    margin-top: 8px;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 2px;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .hm-intro__text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: 1.6px;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .hm-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  /* ---- 5 Pool photo ---- */
+  .hm-photo {
+    height: 100svh;
+    background: #26302a;
+  }
+
+  /* ---- 6 Gallery ---- */
+  .hm-gallery {
+    padding: 96px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hm-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 4px;
+    row-gap: 24px;
+  }
+
+  /* An odd last photo spans the full row rather than hanging alone. */
+  .hm-gallery__tile:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .hm-gallery__tile {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink);
+  }
+
+  .hm-gallery__img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 270px;
+    overflow: hidden;
+  }
+
+  .hm-gallery__name {
+    font-style: italic;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  /* ---- 7 Stories ---- */
+  .hm-stories {
+    padding: 92px 24px 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .hm-stories__item {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .hm-stories__img {
+    position: relative;
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+  }
+
+  .hm-stories__item figcaption {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  /* ---- 9 Invitation ---- */
+  .hm-invite {
+    height: 100svh;
+    background: #2e2a1f;
+  }
+
+  .hm-invite__content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 0 28px 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    color: #fff;
+  }
+
+  .hm-invite__text {
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 36px;
+    color: #fff;
+  }
+
+  .hm-invite__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .hm-invite__top {
+    margin: 8px 0 0;
+    padding: 0;
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  /* ---- Progress rail ---- */
+  .hm-rail {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 6px;
+    z-index: 80;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .hm-rail button {
+    pointer-events: auto;
+    width: 20px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .hm-rail span {
+    display: block;
+    width: 2px;
+    height: 6px;
+    border-radius: 1px;
+    background: rgba(29, 25, 15, 0.25);
+    transition: height 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), background 0.5s ease;
+  }
+
+  .hm-rail span.is-on {
+    height: 22px;
+    background: rgba(29, 25, 15, 0.85);
+  }
+
+  .hm-rail--dark span {
+    background: rgba(242, 238, 232, 0.35);
+  }
+
+  .hm-rail--dark span.is-on {
+    background: rgba(242, 238, 232, 0.95);
+  }
+
+  /* ---- Gallery focus ---- */
+  .hm-focus {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    opacity: 0;
+    visibility: hidden;
+    background: #2c2b25;
+    transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+  }
+
+  .hm-focus.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.45s ease, visibility 0s linear 0s;
+  }
+
+  .hm-focus__img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hm-focus__shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 300px;
+    background: linear-gradient(to bottom, rgba(29, 25, 15, 0), rgba(29, 25, 15, 0.78));
+  }
+
+  .hm-focus__name {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 0 28px 92px;
+    text-align: center;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 30px;
+    color: var(--bg);
+  }
+
+  .hm-focus__close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---- Navbar on this page: transparent over every section, tone by
+     section (set on <html data-hm> by HomeMobile), wordmark 18px/0.15em,
+     breathing dot ---- */
+  html[data-hm] .navbar,
+  html[data-hm] .navbar--scrolled {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  html[data-hm] .navbar__inner,
+  html[data-hm] .navbar--scrolled .navbar__inner {
+    padding: 0 24px;
+    height: 72px;
+  }
+
+  html[data-hm] .navbar__index {
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    transition: color 0.5s ease;
+  }
+
+  html[data-hm="dark"] .navbar__index {
+    color: var(--bg);
+  }
+
+  html[data-hm="light"] .navbar__index,
+  html[data-hm] .navbar--open .navbar__index {
+    color: #8a6d26;
+  }
+
+  html[data-hm] .navbar__dot-trigger-img {
+    animation: hm-pulse 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes hm-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.14);
+  }
+}
+
+@media (max-width: 560px) and (prefers-reduced-motion: reduce) {
+  .hm--ready .hm-r,
+  .hm--ready .hm-img,
+  .hm--ready .hm-line,
+  .hm--ready .hm-swiper__caption {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hm--ready .hm-line {
+    width: 40px;
+  }
+
+  html[data-hm] .navbar__dot-trigger-img {
+    animation: none;
+  }
+}
+
+/* ---- Menu overlay on phones (every page): the design's full-screen cream
+   panel with large Cormorant items; the oversized brand label and the
+   side photo are dropped (the wordmark above already says it). ---- */
+@media (max-width: 560px) {
+  .navbar__overlay-panel {
+    padding: 0 28px;
+  }
+
+  .navbar__overlay-brand {
+    display: none;
+  }
+
+  .navbar__overlay-apply {
+    left: 28px;
+  }
+
+  .navbar__overlay-links {
+    gap: 8px;
+  }
+
+  .navbar__overlay-links a {
+    display: flex;
+    align-items: center;
+    min-height: 64px;
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: 0.1em;
+  }
+}

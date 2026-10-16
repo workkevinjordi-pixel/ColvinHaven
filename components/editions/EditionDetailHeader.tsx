@@ -28,7 +28,6 @@ export default function EditionDetailHeader({
   const { type, location, year } = data.meta;
   return (
     <header className="edition-detail-header">
-      <p className="edition-detail-header__eyebrow">{data.index}</p>
       <p className="edition-detail-header__name">{displayName ?? data.name}</p>
       {!hideMeta && (
         <div className="edition-detail-header__meta">

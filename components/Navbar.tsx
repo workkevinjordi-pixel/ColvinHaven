@@ -82,12 +82,13 @@ export default function Navbar({ solid = false }: NavbarProps) {
 
       <div className={`navbar__overlay${open ? " navbar__overlay--visible" : ""}`}>
         <div className="navbar__overlay-panel">
-          {/* Brand and every link fade in together (no per-item stagger,
-              no slide) -- matches the reference recording, where the
-              whole text block settles in one plain opacity fade before
-              the photo crossfades in after it (see .navbar__overlay-
-              media's own delay in globals.css). */}
-          <p className="navbar__overlay-brand">Colvin Haven</p>
+          {/* Every link fades in together (no per-item stagger, no
+              slide) -- matches the reference recording, where the whole
+              text block settles in one plain opacity fade before the
+              photo crossfades in after it (see .navbar__overlay-media's
+              own delay in globals.css). The big "Colvin Haven" label
+              that used to sit above the list is gone; the gold wordmark
+              in the bar above already says it. */}
           <nav className="navbar__overlay-links">
             {PRIMARY_LINKS.map((link) => (
               <a key={link.href} href={link.href} onClick={() => setOpen(false)}>

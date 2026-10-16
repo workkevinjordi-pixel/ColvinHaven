@@ -607,24 +607,6 @@ button:focus-visible,
   padding: 80px 48px;
 }
 
-.navbar__overlay-brand {
-  font-family: var(--font-plus-jakarta-sans), sans-serif;
-  font-weight: 300;
-  font-size: 32px;
-  text-transform: uppercase;
-  margin-bottom: 48px;
-  opacity: 0;
-  /* Plain opacity, no slide -- matches the reference recording, where
-     the panel's text settles in place with no vertical motion, all of
-     it (brand + every link) fading together rather than cascading in
-     one item at a time. */
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.navbar__overlay--visible .navbar__overlay-brand {
-  opacity: 1;
-}
-
 .navbar__overlay-links {
   display: flex;
   flex-direction: column;
@@ -767,16 +749,12 @@ button:focus-visible,
     padding: 40px 16px;
   }
 
-  .navbar__overlay-brand {
-    font-size: 26px;
-    margin-bottom: 32px;
-  }
-
   .navbar__overlay-links a {
     font-size: 18px;
   }
 
   .navbar__overlay-apply {
+    left: 16px;
     bottom: 40px;
   }
 
@@ -791,14 +769,12 @@ button:focus-visible,
   .navbar__inner,
   .navbar__dot-trigger,
   .navbar__overlay,
-  .navbar__overlay-brand,
   .navbar__overlay-links a,
   .navbar__overlay-media,
   .navbar__overlay-apply {
     transition: none;
   }
 
-  .navbar__overlay-brand,
   .navbar__overlay-links a,
   .navbar__overlay-media,
   .navbar__overlay-apply {
@@ -6029,9 +6005,23 @@ a:where(
 
   /* #7d6325 on cream is 4.9:1 (the design's #8a6d26 is 4.2:1, under the
      4.5:1 minimum for text this size). */
-  html[data-hm="light"] .navbar__index,
-  html[data-hm] .navbar--open .navbar__index {
+  html[data-hm="light"] .navbar__index {
     color: #7d6325;
+  }
+
+  /* Menu open: the plain gold wordmark, as on every other page. */
+  html[data-hm] .navbar--open .navbar__index {
+    color: #c7a95f;
+  }
+
+  /* These layouts pad the bar 24px, so the menu text lines up with it. */
+  html[data-hm] .navbar__overlay-panel {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  html[data-hm] .navbar__overlay-apply {
+    left: 24px;
   }
 
   html[data-hm] .navbar__dot-trigger-img {
@@ -6373,7 +6363,7 @@ a:where(
 
   /* The Collection. */
   .em-collection {
-    padding: 72px 28px 40px;
+    padding: 72px 28px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6441,5 +6431,213 @@ a:where(
 
   .em-collection__link {
     font-size: 14px;
+  }
+}
+
+/* ==========================================================================
+   Phone /collective (<=560px) -- components/collective-mobile/
+   CollectiveMobile.tsx, after the "Collective Mobile scroll" design.
+   Shares the full-screen/reveal/swiper rules (.hm-*) and adds the sticky
+   founder and publication patterns plus the text sections here.
+   ========================================================================== */
+@media (max-width: 560px) {
+  .collective-desktop {
+    display: none;
+  }
+
+  /* Taller-than-a-screen sections scroll normally (the snap area is
+     larger than the viewport) and must not clip, or their pinned blocks
+     would stop sticking. */
+  .hm-sec.cm-tall {
+    min-height: 0;
+    overflow: visible;
+    scroll-snap-stop: normal;
+  }
+
+  .cm-pin {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    box-sizing: border-box;
+    padding: 76px 28px 14px;
+    background: var(--cream);
+  }
+
+  .cm-pin__fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -16px;
+    height: 16px;
+    background: linear-gradient(to bottom, var(--cream), rgba(242, 238, 232, 0));
+  }
+
+  .cm-pin__photos {
+    display: flex;
+    gap: 4px;
+  }
+
+  .cm-pin__photo {
+    position: relative;
+    height: 210px;
+    overflow: hidden;
+    background: #2b2a26;
+  }
+
+  .cm-pin__photo--a {
+    flex: none;
+    width: 190px;
+  }
+
+  .cm-pin__photo--b {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .cm-body {
+    box-sizing: border-box;
+    padding: 28px 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cm-heading {
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+  }
+
+  .cm-heading--upper {
+    text-transform: uppercase;
+  }
+
+  .cm-text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .cm-text p,
+  .cm-team__text p {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--ink);
+  }
+
+  /* Team */
+  .cm-team,
+  .cm-inspirations {
+    padding: 92px 28px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cm-team {
+    gap: 16px;
+  }
+
+  .cm-team__photo {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background: #55524b;
+  }
+
+  .cm-team__text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .cm-team__people {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cm-team__people strong {
+    font-weight: 500;
+  }
+
+  .cm-team__people em {
+    font-style: italic;
+  }
+
+  .cm-inspirations {
+    gap: 24px;
+  }
+
+  /* Publications */
+  .cm-pub {
+    padding-bottom: 40px;
+  }
+
+  .cm-pub__title-top {
+    padding: 92px 28px 20px;
+    text-align: center;
+    font-family: var(--font-cormorant), serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+  }
+
+  .cm-pin__pub {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .cm-pub__cover {
+    position: relative;
+    flex: none;
+    width: 170px;
+    height: 240px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .cm-pub__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 4px;
+  }
+
+  .cm-pub__date {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--ink);
+  }
+
+  .cm-pub__name {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 30px;
+    color: var(--ink);
+  }
+
+  .cm-body .cm-text {
+    gap: 14px;
+  }
+
+  .cm-pub__link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
   }
 }

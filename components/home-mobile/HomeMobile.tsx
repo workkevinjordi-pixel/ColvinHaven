@@ -83,6 +83,13 @@ function withPlaceholders<T extends { image?: Img; caption?: string }>(
   return out;
 }
 
+// Phone-only portrait crop of the Tsuki exterior for the swiper's first
+// slide (the desktop row keeps the Sanity photo).
+const FIRST_SLIDE_IMAGE: Img = {
+  src: "/assets/home-tsuki-exterior-portrait.jpg",
+  alt: "A dark timber facade under a teak ceiling, a monstera framed in the wooden window",
+};
+
 const FALLBACK_HERO: Img = { src: "/assets/hero-bg.jpg", alt: "" };
 
 function lines(text: string): ReactNode {
@@ -222,8 +229,8 @@ export default function HomeMobile({ homepage }: Props) {
               >
                 <div className="hm-img">
                   <Image
-                    src={s.image.src}
-                    alt={s.image.alt}
+                    src={i === 0 ? FIRST_SLIDE_IMAGE.src : s.image.src}
+                    alt={i === 0 ? FIRST_SLIDE_IMAGE.alt : s.image.alt}
                     fill
                     sizes="100vw"
                     style={{ objectFit: "cover" }}

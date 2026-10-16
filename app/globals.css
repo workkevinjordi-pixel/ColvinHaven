@@ -5805,7 +5805,7 @@ a:where(
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 14px;
-    row-gap: 40px;
+    row-gap: 32px;
   }
 
   /* An odd last photo spans the full row rather than hanging alone. */
@@ -5822,7 +5822,7 @@ a:where(
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 28px;
+    gap: 12px;
     text-align: left;
     font-family: inherit;
     color: var(--ink);
@@ -5849,7 +5849,7 @@ a:where(
   /* ---- 7 Stories ---- */
   .hm-stories {
     min-height: 0;
-    padding: 80px 24px;
+    padding: 0 24px 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;

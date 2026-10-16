@@ -6771,3 +6771,11 @@ a:where(
     margin-top: 80px;
   }
 }
+
+/* Phones, Editions: a larger break between the end of Umah Tsuki (its last
+   swiper) and the start of Umah Sora. */
+@media (max-width: 560px) {
+  .em .hm-swiper + .em-title {
+    margin-top: 160px;
+  }
+}

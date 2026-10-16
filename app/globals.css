@@ -6814,3 +6814,67 @@ a:where(
     padding-top: 40px;
   }
 }
+
+/* /write-to-us restyled to the current design system (desktop + phone):
+   a centered Cormorant title with no divider rule, a plain letter-spaced
+   eyebrow instead of the square-dot tag, and the site's lighter body
+   type. */
+.write-to-us__heading {
+  margin-bottom: 72px;
+  text-align: center;
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 32px;
+  letter-spacing: 3.2px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.write-to-us .write-to-us__eyebrow {
+  font-weight: 300;
+  font-size: 12px;
+  line-height: normal;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+
+.write-to-us .write-to-us__intro p:not(.write-to-us__eyebrow) {
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+.write-to-us__field label {
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+@media (max-width: 560px) {
+  .write-to-us {
+    padding: 112px 20px 80px;
+  }
+
+  .write-to-us__heading {
+    margin-bottom: 48px;
+    font-size: var(--t-h2);
+    line-height: var(--t-h2-lh);
+    letter-spacing: 0.1em;
+  }
+
+  .write-to-us .write-to-us__eyebrow {
+    font-size: var(--t-label);
+  }
+
+  .write-to-us .write-to-us__intro p:not(.write-to-us__eyebrow) {
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
+    letter-spacing: 0.05em;
+  }
+
+  .write-to-us__field label {
+    font-size: var(--t-label);
+  }
+}

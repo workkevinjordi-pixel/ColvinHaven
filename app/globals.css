@@ -5774,8 +5774,11 @@ a:where(
   }
 
   /* ---- 6 Gallery ---- */
+  /* Editorial two-column grid (client reference: Norm's mobile project
+     list): side margins, a narrow gutter, portrait photos, and a spaced
+     serif title set well below each photo, flush left. */
   .hm-gallery {
-    padding: 96px 0;
+    padding: 96px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -5784,8 +5787,8 @@ a:where(
   .hm-gallery__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 4px;
-    row-gap: 24px;
+    column-gap: 14px;
+    row-gap: 40px;
   }
 
   /* An odd last photo spans the full row rather than hanging alone. */
@@ -5801,8 +5804,9 @@ a:where(
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 12px;
+    align-items: flex-start;
+    gap: 28px;
+    text-align: left;
     font-family: inherit;
     color: var(--ink);
   }
@@ -5811,16 +5815,18 @@ a:where(
     position: relative;
     display: block;
     width: 100%;
-    height: 270px;
+    aspect-ratio: 11 / 15;
     overflow: hidden;
   }
 
   .hm-gallery__name {
-    font-style: italic;
-    font-weight: 300;
-    font-size: var(--t-body);
-    line-height: var(--t-name-lh);
-    letter-spacing: normal;
+    font-family: var(--font-cormorant), serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: var(--t-tile);
+    line-height: var(--t-tile-lh);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
   /* ---- 7 Stories ---- */
@@ -6657,7 +6663,8 @@ a:where(
     --t-lead-lh: 22.4px;
     --t-body: 12.8px; /* paragraphs, links, lists, was 16 (14 on Editions/Collective) */
     --t-body-lh: 22.4px;
-    --t-name-lh: 16px;
+    --t-tile: 14.4px; /* gallery tile titles */
+    --t-tile-lh: 18px;
     --t-note: 12px; /* story captions and notes, was 15 */
     --t-note-lh: 19.2px;
     --t-spec-lh: 14.4px;

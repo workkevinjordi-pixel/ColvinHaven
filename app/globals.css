@@ -6982,37 +6982,20 @@ a:where(
   }
 }
 
-/* Phones: photos at 80% inside a cream frame (10% each side, 10svh above
-   and below) for the swipers and the edition title photos, so there is air
-   around them; the opening Editions photo is the same size as Collective's
-   founder collage; and the pool band under the homepage stories. */
+/* Phones: the edition title photos sit at 80% inside a cream frame (10%
+   each side, 10svh above and below); the opening Editions photo is the
+   same size as Collective's founder collage; and the pool band under the
+   homepage stories. The swipers stay full-screen on a dark ground. */
 @media (max-width: 560px) {
-  .hm-swiper {
-    background: var(--bg);
-  }
-
-  .hm-swiper__slide {
-    background: transparent;
-  }
-
-  .hm-swiper__slide .hm-img,
   .em-title .hm-img {
     inset: 10svh 10%;
   }
 
-  .hm-swiper__shade,
   .em-title__shade {
     left: 10%;
     right: 10%;
     bottom: 10svh;
     height: 260px;
-  }
-
-  .hm-swiper__caption {
-    left: 10%;
-    right: 10%;
-    bottom: 10svh;
-    padding: 0 20px 24px;
   }
 
   .em-title {

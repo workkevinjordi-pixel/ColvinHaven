@@ -16,7 +16,7 @@ import type { CollectiveSection, Img } from "./plan";
  * it shares the .hm-* full-screen/reveal/swiper rules.
  */
 
-const DARK_KINDS = new Set<CollectiveSection["kind"]>(["photo"]);
+const DARK_KINDS = new Set<CollectiveSection["kind"]>(["photo", "swiper"]);
 
 function Photo({ image }: { image: Img }) {
   return (
@@ -45,7 +45,7 @@ function SwiperBlock({
     <Swiper
       className="hm-swiper__swp"
       trackClassName="hm-swiper__track"
-      tone="dark"
+      tone="light"
       label={label}
       onIndexChange={onIndexChange}
     >

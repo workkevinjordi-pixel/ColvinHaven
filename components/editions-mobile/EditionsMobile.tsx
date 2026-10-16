@@ -18,7 +18,7 @@ import type { Img, MobileSection, Slide } from "./plan";
 
 // Sections whose top edge is a full-bleed photo (light wordmark). The
 // title photos and swipers sit inside a cream frame now, so they are not.
-const DARK_KINDS = new Set<MobileSection["kind"]>(["quote"]);
+const DARK_KINDS = new Set<MobileSection["kind"]>(["quote", "swiper"]);
 
 function Photo({ image, priority }: { image: Img; priority?: boolean }) {
   return (
@@ -49,7 +49,7 @@ function SwiperSection({
     <Swiper
       className="hm-swiper__swp"
       trackClassName="hm-swiper__track"
-      tone="dark"
+      tone="light"
       label={label}
       onIndexChange={onIndexChange}
     >

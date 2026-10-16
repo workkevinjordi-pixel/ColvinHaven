@@ -29,7 +29,7 @@ type Props = {
 };
 
 // Section indexes -- the nav tone is driven by these.
-const DARK_SECTIONS = new Set([0, 4, 8, 9]); // photo sections: light nav
+const DARK_SECTIONS = new Set([0, 2, 4, 8, 9]); // photo sections: light nav
 
 // The Approach gallery shows four photos on phones: the "Stillness" one
 // is left out (latest Figma release of the homepage content).
@@ -218,7 +218,7 @@ export default function HomeMobile({ homepage }: Props) {
           <Swiper
             className="hm-swiper__swp"
             trackClassName="hm-swiper__track"
-            tone="dark"
+            tone="light"
             label="Edition photos"
             onIndexChange={onSlideChange}
           >

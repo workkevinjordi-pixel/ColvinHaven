@@ -7055,3 +7055,11 @@ a:where(
 .home-photo-band + .landing-intro {
   margin-top: 60px;
 }
+
+/* Phone homepage swiper: the first photo (Tsuki exterior, Figma 385:1263)
+   is cropped from its left edge (x = 0) rather than from the center. */
+@media (max-width: 560px) {
+  .hm-swiper__slide:first-child .hm-img img {
+    object-position: left center !important;
+  }
+}

@@ -7037,7 +7037,7 @@ a:where(
   /* Pool band under the homepage stories. */
   .hm-photo--pool {
     min-height: 0;
-    height: 56svh;
+    height: 47.6svh; /* 15% shorter than the 56svh band; width unchanged */
   }
 }
 

@@ -7010,17 +7010,22 @@ a:where(
     padding: 0 20px 40px;
   }
 
-  /* Opening photo: full-width, 56% of the screen high. */
+  /* Opening photo: full-width, sitting right under the navbar (72px of
+     cream above it, so the wordmark is never over the picture), 56% of
+     the screen high. */
   .em .hm-photo:first-child {
-    height: 56svh;
+    height: calc(56svh + 72px);
     min-height: 0;
-    padding: 0;
+    padding: 72px 0 0;
     background: transparent;
   }
 
   .em .hm-photo:first-child .hm-img {
     position: absolute;
-    inset: 0;
+    top: 72px;
+    right: 0;
+    bottom: 0;
+    left: 0;
     height: auto;
   }
 

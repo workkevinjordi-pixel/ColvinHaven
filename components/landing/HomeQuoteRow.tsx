@@ -51,23 +51,46 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
  * to node 385:1262). Content now comes
  * from Sanity's homepage.quoteRow.
  */
-// TEMPORARY: pads the row out to seven photos (reusing the real ones, with
-// "Placeholder" captions) so the swiper can be tried out before the real
-// extra photos exist. Set to 0 to show only the photos from Sanity.
-const PLACEHOLDER_TOTAL = 7;
+// Photos 4-7 of the row (Figma nodes 461:803, 461:807, 385:1272, 385:1264).
+// They have no captions in the design. Appended after the photos from
+// Sanity; they go away if the editors add their own photos instead.
+const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
+  {
+    image: {
+      src: "/assets/home-quote-4-pavilion.jpg",
+      alt: "A dark timber pavilion on a raised deck, a boardwalk crossing a pond in a tropical garden",
+    },
+    caption: "",
+  },
+  {
+    image: {
+      src: "/assets/home-quote-5-koi-pond.jpg",
+      alt: "Koi swimming in a dark pond beneath tree ferns and river stones",
+    },
+    caption: "",
+  },
+  {
+    image: {
+      src: "/assets/home-quote-6-artwork.jpg",
+      alt: "A framed dark seascape painting on a grey wall beside a timber panel",
+    },
+    caption: "",
+  },
+  {
+    image: {
+      src: "/assets/home-quote-7-garden-gate.jpg",
+      alt: "A black timber garden gate framed by a stone wall, lawn and stone steps",
+    },
+    caption: "",
+  },
+];
 
-function withPlaceholders(real: NonNullable<QuoteRowProps["items"]>) {
-  if (PLACEHOLDER_TOTAL <= real.length || real.length === 0) return real;
-  const out = [...real];
-  for (let i = real.length; i < PLACEHOLDER_TOTAL; i++) {
-    const src = real[i % real.length];
-    out.push({ image: src.image, caption: `Placeholder photo ${i + 1}` });
-  }
-  return out;
+function withExtras(real: NonNullable<QuoteRowProps["items"]>) {
+  return real.length === 0 ? real : [...real, ...EXTRA_ITEMS];
 }
 
 export default function HomeQuoteRow({ items = DEFAULT_ITEMS }: QuoteRowProps) {
-  const rowItems = withPlaceholders(items!);
+  const rowItems = withExtras(items!);
   return (
     <section className="landing-quote-row">
       <ScrollFade>
@@ -97,7 +120,9 @@ export default function HomeQuoteRow({ items = DEFAULT_ITEMS }: QuoteRowProps) {
                   style={{ objectFit: "cover" }}
                 />
               </div>
-              <p className="landing-quote-row__caption">{item.caption}</p>
+              {item.caption && (
+                <p className="landing-quote-row__caption">{item.caption}</p>
+              )}
             </div>
           ))}
         </Swiper>

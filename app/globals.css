@@ -7150,3 +7150,10 @@ a:where(
 .page-main {
   display: contents;
 }
+
+/* The "COLVIN HAVEN" wordmark in the navbar has no hover effect (the
+   sitewide link underline on hover is switched off for it). Keyboard focus
+   keeps its underline. */
+.navbar__index:hover {
+  text-decoration: none;
+}

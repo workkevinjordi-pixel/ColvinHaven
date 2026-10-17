@@ -82,6 +82,13 @@ export async function POST(req: Request) {
   }
 
   const client = getLeadsClient();
+  // Staging only (FORM_DRY_RUN=1 is set on the staging project, never on
+  // production): the form passes every check above and answers "sent", but
+  // nothing is stored, so the success state can be tested without touching
+  // the real leads dataset.
+  if (!client && process.env.FORM_DRY_RUN === "1") {
+    return NextResponse.json({ ok: true });
+  }
   if (!client) {
     console.error("write-to-us: leads dataset/token not configured");
     return fail(503, "unavailable");

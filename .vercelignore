@@ -1,0 +1,5 @@
+# Not part of the website build -- keeps CLI deployments (staging) small.
+studio
+*.log
+tsconfig.tsbuildinfo
+README.md

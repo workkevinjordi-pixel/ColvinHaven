@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+const INSTAGRAM_URL = "https://www.instagram.com/colvinhaven/";
+
 const PRIMARY_LINKS = [
   { href: "/editions", label: "Editions" },
   { href: "/collective", label: "Collective" },
@@ -113,6 +115,16 @@ export default function Navbar({ solid = false }: NavbarProps) {
                 {link.label}
               </a>
             ))}
+            {/* Last item: the brand's Instagram. Opens in a new tab so the
+                visitor keeps this page (and the menu) open. */}
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow on Instagram (opens in a new tab)"
+            >
+              Follow
+            </a>
           </nav>
 
           {/* Pinned near the panel's own bottom-left corner (position:

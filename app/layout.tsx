@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 // The site's one sans-serif face -- used everywhere `var(--font-plus-
@@ -112,6 +113,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   );

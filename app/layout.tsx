@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
@@ -112,6 +113,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
         />
         {children}
+        {/* Vercel Web Analytics: cookieless page views. Served from this
+            site's own /_vercel/insights path, so the CSP needs nothing
+            extra. Does nothing until Web Analytics is switched on for the
+            project in the Vercel dashboard. */}
+        <Analytics />
       </body>
     </html>
   );

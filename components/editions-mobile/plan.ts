@@ -8,7 +8,13 @@ import type { EditionData } from "../editions/editions-data";
  * compact, serialisable plan is sent to the client component.
  */
 export type Img = { src: string; alt: string };
-export type Slide = { image: Img; caption?: string };
+export type Slide = {
+  image: Img;
+  caption?: string;
+  /** CSS object-position for the photo (default centre) -- lets a portrait
+   * picture be framed on the part that matters in the full-screen slide. */
+  position?: string;
+};
 
 export type MobileSection =
   | { kind: "photo"; image: Img; priority?: boolean }
@@ -54,6 +60,11 @@ function fix(text: string): string {
     text,
   );
 }
+
+const TSUKI_LIVING_ROOM_PORTRAIT: Img = {
+  src: "/assets/editions/tsuki-living-room-portrait.webp",
+  alt: "Tsuki's terrace living room under a teak ceiling: a low timber table and grey sofa facing the jungle, a paper lamp by the glass",
+};
 
 const fixAll = (items: string[]) => items.map(fix);
 
@@ -101,7 +112,6 @@ export function buildEditionsPlan(
     if (!isSora) {
       // Tsuki: two captioned photos -> pool banner -> provenance/kitchen
       // -> pool + quote -> three photos and the closing pool.
-      const main = e.row4.main;
       const side = {
         ...e.row4.side,
         image: e.editionsRow4SideImage ?? e.row4.side.image,
@@ -110,7 +120,14 @@ export function buildEditionsPlan(
         kind: "swiper",
         label: "Umah Tsuki photos",
         slides: [
-          { image: main.image, caption: caption(e.editionsRow4MainText) },
+          {
+            // Phone only (this plan feeds the phone layout): a portrait
+            // version of the living-room photo, framed for the tall slide,
+            // instead of the Sanity landscape one.
+            image: TSUKI_LIVING_ROOM_PORTRAIT,
+            caption: caption(e.editionsRow4MainText),
+            position: "45% 50%",
+          },
           { image: side.image, caption: caption(e.editionsRow4SideText) },
         ],
       });

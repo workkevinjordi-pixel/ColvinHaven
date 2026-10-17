@@ -20,7 +20,15 @@ import type { Img, MobileSection, Slide } from "./plan";
 // title photos and swipers sit inside a cream frame now, so they are not.
 const DARK_KINDS = new Set<MobileSection["kind"]>(["quote", "swiper"]);
 
-function Photo({ image, priority }: { image: Img; priority?: boolean }) {
+function Photo({
+  image,
+  priority,
+  position,
+}: {
+  image: Img;
+  priority?: boolean;
+  position?: string;
+}) {
   return (
     <Image
       src={image.src}
@@ -28,7 +36,7 @@ function Photo({ image, priority }: { image: Img; priority?: boolean }) {
       fill
       sizes="100vw"
       priority={priority}
-      style={{ objectFit: "cover" }}
+      style={{ objectFit: "cover", objectPosition: position }}
     />
   );
 }
@@ -59,7 +67,7 @@ function SwiperSection({
           className={`hm-swiper__slide${active && slide === i ? " is-on" : ""}`}
         >
           <div className="hm-img">
-            <Photo image={s.image} />
+            <Photo image={s.image} position={s.position} />
           </div>
           {s.caption && (
             <>

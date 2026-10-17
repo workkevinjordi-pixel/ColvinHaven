@@ -22,7 +22,7 @@ export default function HomePhotoBand({
 }: HomePhotoBandProps) {
   return (
     <section className="home-photo-band">
-      <ScrollFade className="home-photo-band__inner">
+      <ScrollFade className="home-photo-band__inner" once>
         <div
           className="home-photo-band__frame"
           style={{ ["--band-h" as string]: `${height}px` }}

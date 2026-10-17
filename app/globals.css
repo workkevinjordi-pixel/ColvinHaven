@@ -7280,3 +7280,98 @@ a:where(
 .navbar__index:hover {
   text-decoration: none;
 }
+
+/* Write to Us: confirmation shown in place of the form after a successful
+   send -- same column and height as the form, a quiet "thank you" with the
+   address the reply will go to, and a text link to write another message. */
+.write-to-us__sent {
+  justify-content: center;
+  gap: 24px;
+  outline: none;
+  animation: write-to-us-sent-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.write-to-us__sent-title {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.write-to-us__sent-text {
+  max-width: 480px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+.write-to-us__sent-text strong {
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+
+.write-to-us__again {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 8px 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(29, 25, 15, 0.14);
+  font: inherit;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.write-to-us__again span {
+  display: inline-block;
+  margin-left: 4px;
+  transition: transform 0.3s ease;
+}
+
+.write-to-us__again:hover span {
+  transform: translateX(4px);
+}
+
+@keyframes write-to-us-sent-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .write-to-us__sent {
+    animation: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .write-to-us__sent {
+    justify-content: flex-start;
+    min-height: 0 !important;
+    padding-top: 16px;
+  }
+
+  .write-to-us__sent-title {
+    font-size: 30px;
+  }
+
+  .write-to-us__sent-text {
+    font-size: var(--t-body);
+    line-height: var(--t-body-lh);
+    letter-spacing: 0.05em;
+  }
+}

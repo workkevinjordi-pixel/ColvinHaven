@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import ScrollFade from "../ScrollFade";
 
@@ -44,6 +44,13 @@ export default function WriteToUsSection({
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
   );
+  // After a successful send the form is replaced by a confirmation panel
+  // (same height, so the page doesn't jump); `sentTo` is the address the
+  // visitor used, so the panel can say where the reply will go.
+  const [sentTo, setSentTo] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [panelHeight, setPanelHeight] = useState<number | undefined>();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -63,11 +70,22 @@ export default function WriteToUsSection({
         }),
       });
       if (!res.ok) throw new Error(String(res.status));
-      form.reset();
+      setPanelHeight(formRef.current?.offsetHeight);
+      setSentTo(String(data.get("email") ?? ""));
       setStatus("sent");
+      // Let the panel mount, then move focus to it for screen readers.
+      requestAnimationFrame(() => panelRef.current?.focus());
     } catch {
       setStatus("error");
     }
+  }
+
+  function writeAnother() {
+    setStatus("idle");
+    // Fresh, empty form: focus the first field once it is back.
+    requestAnimationFrame(() =>
+      document.getElementById("write-to-us-name")?.focus(),
+    );
   }
 
   return (
@@ -85,83 +103,114 @@ export default function WriteToUsSection({
             />
           </div>
 
-          <form className="write-to-us__form-col" onSubmit={handleSubmit}>
-            <div className="write-to-us__intro">
-              <p className="write-to-us__eyebrow">{tag}</p>
-              <p>{intro}</p>
-            </div>
-
-            <div className="write-to-us__fields">
-              <div className="write-to-us__field">
-                <label htmlFor="write-to-us-name">Name</label>
-                <input
-                  id="write-to-us-name"
-                  name="name"
-                  type="text"
-                  placeholder="Your name here"
-                  autoComplete="name"
-                  required
-                />
-              </div>
-
-              <div className="write-to-us__field">
-                <label htmlFor="write-to-us-email">Email</label>
-                <input
-                  id="write-to-us-email"
-                  name="email"
-                  type="email"
-                  placeholder="Your email here"
-                  autoComplete="email"
-                  required
-                />
-              </div>
-
-              <div className="write-to-us__field">
-                <label htmlFor="write-to-us-message">Message</label>
-                <textarea
-                  id="write-to-us-message"
-                  name="message"
-                  placeholder="Tell us what your thoughts"
-                  rows={4}
-                  required
-                />
-              </div>
-
-              {/* Honeypot -- hidden from people and assistive tech; bots that
-                fill every field give themselves away. */}
-              <div className="write-to-us__hp" aria-hidden="true">
-                <label htmlFor="write-to-us-website">Website</label>
-                <input
-                  id="write-to-us-website"
-                  name="website"
-                  type="text"
-                  tabIndex={-1}
-                  autoComplete="off"
-                />
-              </div>
-            </div>
-
-            <div className="write-to-us__actions">
-              <button
-                type="submit"
-                className="write-to-us__submit"
-                disabled={status === "sending"}
-              >
-                {status === "sending" ? "Sending…" : submitLabel}
-              </button>
-
-              <p
-                className="write-to-us__status"
-                role="status"
-                aria-live="polite"
-              >
-                {status === "sent" &&
-                  "Thank you. Your message has been received, and we'll be in touch."}
-                {status === "error" &&
-                  "Something went wrong. Please try again, or write to info@colvinhaven.com."}
+          {status === "sent" ? (
+            <div
+              ref={panelRef}
+              className="write-to-us__form-col write-to-us__sent"
+              style={{ minHeight: panelHeight }}
+              role="status"
+              tabIndex={-1}
+            >
+              <p className="write-to-us__eyebrow">MESSAGE SENT</p>
+              <h2 className="write-to-us__sent-title">THANK YOU</h2>
+              <p className="write-to-us__sent-text">
+                Your message has been received, and we&rsquo;ll be in touch.
+                {sentTo && (
+                  <>
+                    {" "}
+                    Our reply will go to <strong>{sentTo}</strong>.
+                  </>
+                )}
               </p>
+              <button
+                type="button"
+                className="write-to-us__again"
+                onClick={writeAnother}
+              >
+                Send another message <span aria-hidden="true">→</span>
+              </button>
             </div>
-          </form>
+          ) : (
+            <form
+              ref={formRef}
+              className="write-to-us__form-col"
+              onSubmit={handleSubmit}
+            >
+              <div className="write-to-us__intro">
+                <p className="write-to-us__eyebrow">{tag}</p>
+                <p>{intro}</p>
+              </div>
+
+              <div className="write-to-us__fields">
+                <div className="write-to-us__field">
+                  <label htmlFor="write-to-us-name">Name</label>
+                  <input
+                    id="write-to-us-name"
+                    name="name"
+                    type="text"
+                    placeholder="Your name here"
+                    autoComplete="name"
+                    required
+                  />
+                </div>
+
+                <div className="write-to-us__field">
+                  <label htmlFor="write-to-us-email">Email</label>
+                  <input
+                    id="write-to-us-email"
+                    name="email"
+                    type="email"
+                    placeholder="Your email here"
+                    autoComplete="email"
+                    required
+                  />
+                </div>
+
+                <div className="write-to-us__field">
+                  <label htmlFor="write-to-us-message">Message</label>
+                  <textarea
+                    id="write-to-us-message"
+                    name="message"
+                    placeholder="Tell us what your thoughts"
+                    rows={4}
+                    required
+                  />
+                </div>
+
+                {/* Honeypot -- hidden from people and assistive tech; bots that
+                fill every field give themselves away. */}
+                <div className="write-to-us__hp" aria-hidden="true">
+                  <label htmlFor="write-to-us-website">Website</label>
+                  <input
+                    id="write-to-us-website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+              </div>
+
+              <div className="write-to-us__actions">
+                <button
+                  type="submit"
+                  className="write-to-us__submit"
+                  disabled={status === "sending"}
+                >
+                  {status === "sending" ? "Sending…" : submitLabel}
+                </button>
+
+                <p
+                  className="write-to-us__status"
+                  role="status"
+                  aria-live="polite"
+                >
+                  {status === "error" &&
+                    "Something went wrong. Please try again, or write to info@colvinhaven.com."}
+                </p>
+              </div>
+            </form>
+          )}
         </div>
       </ScrollFade>
     </section>

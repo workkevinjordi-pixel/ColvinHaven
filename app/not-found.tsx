@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import ErrorPage from "@/components/ErrorPage";
 
 export const metadata: Metadata = {
   title: "Colvin Haven — Page not found",
@@ -12,17 +12,18 @@ export default function NotFound() {
   return (
     <>
       <Navbar solid />
-      <main className="not-found">
-        <p className="not-found__eyebrow">404</p>
-        <h1 className="not-found__heading">PAGE NOT FOUND</h1>
-        <p className="not-found__text">
-          The page you&rsquo;re looking for doesn&rsquo;t exist, or has moved.
-        </p>
-        <Link href="/" className="not-found__link">
+      <ErrorPage
+        code="404"
+        title="PAGE NOT FOUND"
+        text="The page you’re looking for doesn’t exist, or has moved."
+      >
+        <Link href="/" className="error-page__link">
           Back to Discover <span aria-hidden="true">→</span>
         </Link>
-      </main>
-      <Footer />
+        <Link href="/editions" className="error-page__link">
+          See the editions <span aria-hidden="true">→</span>
+        </Link>
+      </ErrorPage>
     </>
   );
 }

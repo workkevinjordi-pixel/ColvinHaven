@@ -5243,61 +5243,184 @@ a:where(
   opacity: 0.6;
 }
 
-/* ---------- 404 page (app/not-found.tsx): the same centered text-block
-   language as the home page's intro sections. ---------- */
+/* ---------- Error pages (404, 500 -- components/ErrorPage.tsx) ----------
+   Calm cream page, content left-aligned on the page gutter with a lot of
+   air (Norm's restraint: tiny label, big type, quiet links), Colvin
+   Haven's own voice (Cormorant title, gold, italic links), and the status
+   code set huge and faint in gold in the bottom corner. ---------- */
 
-.not-found {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  min-height: 70vh;
-  padding: 200px var(--gutter) 120px;
+.error-page {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 32px;
-  text-align: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 160px var(--gutter) 120px;
+  overflow: hidden;
 }
 
-.not-found__eyebrow {
+.error-page__body {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+}
+
+.error-page__label {
+  margin-bottom: 28px;
   font-weight: 300;
   font-size: 12px;
-  color: var(--ink);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(29, 25, 15, 0.6);
 }
 
-.not-found__heading {
+.error-page__title {
+  margin-bottom: 28px;
   font-family: var(--font-cormorant), serif;
   font-weight: 500;
-  font-size: 24px;
-  letter-spacing: 2.4px;
+  font-size: clamp(36px, 5.6vw, 80px);
+  line-height: 1.05;
+  letter-spacing: 0.06em;
   color: var(--ink);
 }
 
-.not-found__text {
-  max-width: 520px;
+.error-page__text {
+  max-width: 480px;
+  margin-bottom: 44px;
   font-weight: 300;
   font-size: 16px;
   line-height: 28px;
-  letter-spacing: 1.6px;
+  letter-spacing: 0.1em;
   color: rgba(29, 25, 15, 0.7);
 }
 
-.not-found__link {
-  padding: 12px 0;
+.error-page__actions {
+  max-width: 720px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(29, 25, 15, 0.14);
+}
+
+.error-page__link {
+  padding: 8px 0;
+  background: none;
+  border: 0;
+  font: inherit;
   font-weight: 300;
   font-style: italic;
   font-size: 16px;
   color: var(--ink);
+  text-align: left;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.not-found__link span {
+.error-page__link span {
   display: inline-block;
   margin-left: 4px;
+  transition: transform 0.3s ease;
+}
+
+.error-page__link:hover span {
+  transform: translateX(4px);
+}
+
+.error-page__ref {
+  margin-top: 40px;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: rgba(29, 25, 15, 0.45);
+}
+
+.error-page__numeral {
+  position: absolute;
+  right: -0.02em;
+  bottom: -0.1em;
+  margin: 0;
+  font-family: var(--font-cormorant), serif;
+  font-weight: 300;
+  font-size: clamp(180px, 34vw, 500px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgba(199, 169, 95, 0.2);
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes error-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.error-page__body > * {
+  animation: error-page-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.error-page__body > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.error-page__body > :nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.error-page__body > :nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.error-page__numeral {
+  animation: error-page-in 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error-page__body > *,
+  .error-page__numeral {
+    animation: none;
+  }
 }
 
 @media (max-width: 900px) {
-  .not-found {
-    padding-top: 140px;
+  .error-page {
+    padding: 140px 56px 100px;
+  }
+}
+
+@media (max-width: 560px) {
+  .error-page {
+    padding: 120px 28px 96px;
+    justify-content: flex-start;
+  }
+
+  .error-page__title {
+    font-size: 34px;
+    letter-spacing: 0.05em;
+  }
+
+  .error-page__text {
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 36px;
+  }
+
+  .error-page__actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .error-page__numeral {
+    font-size: 58vw;
+    right: -0.04em;
+    bottom: -0.08em;
   }
 }
 

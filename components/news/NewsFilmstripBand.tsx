@@ -14,27 +14,27 @@ type NewsFilmstripBandProps = {
 // (node 334:39906's own image row).
 const DEFAULT_IMAGES: FilmstripImage[] = [
   {
-    src: "/assets/collective/filmstrip-lounge-chair.jpg",
+    src: "/assets/collective/filmstrip-lounge-chair.webp",
     alt: "A dark timber lounge chair on a deck backed by bamboo",
     wide: false,
   },
   {
-    src: "/assets/collective/filmstrip-bonsai-wall.jpg",
+    src: "/assets/collective/filmstrip-bonsai-wall.webp",
     alt: "A cloud-pruned pine beside a stone wall and dark timber house",
     wide: true,
   },
   {
-    src: "/assets/collective/filmstrip-timber-edge.jpg",
+    src: "/assets/collective/filmstrip-timber-edge.webp",
     alt: "A pale timber batten set into a dark board-and-batten wall",
     wide: false,
   },
   {
-    src: "/assets/collective/filmstrip-shrine-umbrellas.jpg",
+    src: "/assets/collective/filmstrip-shrine-umbrellas.webp",
     alt: "Balinese ceremonial umbrellas atop a stone shrine, seen through palms",
     wide: true,
   },
   {
-    src: "/assets/collective/filmstrip-bench-pond.jpg",
+    src: "/assets/collective/filmstrip-bench-pond.webp",
     alt: "A timber bench on a deck overlooking a stone-edged pond",
     wide: false,
   },

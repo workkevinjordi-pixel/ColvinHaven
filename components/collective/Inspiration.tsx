@@ -18,23 +18,23 @@ const DEFAULT_PARAGRAPHS = [
 ];
 const DEFAULT_IMAGES: { src: string; alt: string }[] = [
   {
-    src: "/assets/collective/inspiration-bamboo-lounge-chair.jpg",
+    src: "/assets/collective/inspiration-bamboo-lounge-chair.webp",
     alt: "A dark timber lounge chair against a bamboo grove",
   },
   {
-    src: "/assets/collective/inspiration-stone-wall-pine.jpg",
+    src: "/assets/collective/inspiration-stone-wall-pine.webp",
     alt: "A cloud-pruned pine beside a concrete wall and dark timber house",
   },
   {
-    src: "/assets/collective/inspiration-timber-batten-detail.jpg",
+    src: "/assets/collective/inspiration-timber-batten-detail.webp",
     alt: "A pale timber batten set into a dark board-and-batten wall",
   },
   {
-    src: "/assets/collective/inspiration-temple-umbrellas-stairs.jpg",
+    src: "/assets/collective/inspiration-temple-umbrellas-stairs.webp",
     alt: "Balinese ceremonial umbrellas atop a stone shrine, seen through palms",
   },
   {
-    src: "/assets/collective/inspiration-timber-bench-pond.jpg",
+    src: "/assets/collective/inspiration-timber-bench-pond.webp",
     alt: "A timber bench on a deck overlooking a stone-edged pond",
   },
 ];

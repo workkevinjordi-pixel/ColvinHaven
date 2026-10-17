@@ -6,7 +6,7 @@ import ScrollFade from "../ScrollFade";
 const STORIES = [
   {
     image: {
-      src: "/assets/editions/detail/sora-row4-main.jpg",
+      src: "/assets/editions/detail/sora-row4-main.webp",
       alt: "Umah Sora's living room opening onto the garden and pool",
     },
     caption:
@@ -14,7 +14,7 @@ const STORIES = [
   },
   {
     image: {
-      src: "/assets/home-stories-sora-stairs.jpg",
+      src: "/assets/home-stories-sora-stairs.webp",
       alt: "A charred timber house on stilts with a round window, a staircase descending to the garden",
     },
     caption:

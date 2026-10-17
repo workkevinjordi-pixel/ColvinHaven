@@ -17,7 +17,7 @@ const DEFAULT_PARAGRAPHS = [
   "It supports cultural and community initiatives in and around Tumbak Bayuh village, in the same quiet, unpublicized way the homes themselves get made — craftsman by craftsman, one commitment at a time.",
 ];
 const DEFAULT_BAND_IMAGE = {
-  src: "/assets/collective/palm-trees-2.jpg",
+  src: "/assets/collective/palm-trees-2.webp",
   alt: "Silhouetted palm trees against a golden dusk sky",
 };
 

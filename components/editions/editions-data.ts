@@ -216,15 +216,15 @@ export type EditionData = {
 export const EDITIONS_PAGE_OVERRIDES: Record<string, Partial<EditionData>> = {
   "umah-tsuki": {
     editionsBanner1: {
-      src: "/assets/editions/detail/tsuki-banner-kitchen-dining.jpg",
+      src: "/assets/editions/detail/tsuki-banner-kitchen-dining.webp",
       alt: "Umah Tsuki's wood-panelled kitchen and dining area beneath a woven pendant light",
     },
     editionsStoryAImage: {
-      src: "/assets/editions/detail/tsuki-storyA-hallway.jpg",
+      src: "/assets/editions/detail/tsuki-storyA-hallway.webp",
       alt: "A dark timber-slatted hallway opening onto a garden path and bench",
     },
     editionsClosingBanner: {
-      src: "/assets/editions/detail/tsuki-closing-pool-deck.jpg",
+      src: "/assets/editions/detail/tsuki-closing-pool-deck.webp",
       alt: "Umah Tsuki's timber pool deck beneath a dark roof overhang, opening onto the jungle",
     },
     // Copy from Tsuki's own frame (node 325:39482), body paragraphs
@@ -258,7 +258,7 @@ export const EDITIONS_PAGE_OVERRIDES: Record<string, Partial<EditionData>> = {
       href: "/write-to-us",
     },
     editionsHeroImage: {
-      src: "/assets/editions/detail/sora-hero-slats.jpg",
+      src: "/assets/editions/detail/sora-hero-slats.webp",
       alt: "Charred timber slats beside a covered walkway, with a shingled pavilion roof among tropical foliage",
     },
     editionsRow1MainText: [
@@ -277,7 +277,7 @@ export const EDITIONS_PAGE_OVERRIDES: Record<string, Partial<EditionData>> = {
     ],
     // Info-row copy and portrait from Sora's own frame, node 325:39582.
     editionsPortraitImage: {
-      src: "/assets/editions/detail/gallery-1.jpg",
+      src: "/assets/editions/detail/gallery-1.webp",
       alt: "Ferns arching over a still koi pond edged with river stones",
     },
     editionsCraftText: [
@@ -285,15 +285,15 @@ export const EDITIONS_PAGE_OVERRIDES: Record<string, Partial<EditionData>> = {
       "Recycled ulin timber, charred in the yakisugi tradition, turns the cladding a deep, quiet black, a Colvin Haven signature, set against warm local teak and river stone from Bali. Restraint does the work: nothing more is needed, and nothing can be taken away. A wellness centre and a koi pond settle into gardens planted long before the house was finished. The office stands apart, so the working day can end when you close its door.",
     ],
     editionsRow1SideImage: {
-      src: "/assets/editions/detail/sora-row1-side-bench.jpg",
+      src: "/assets/editions/detail/sora-row1-side-bench.webp",
       alt: "A built-in wooden bench against Umah Sora's dark timber-slatted wall",
     },
     editionsStoryBImage: {
-      src: "/assets/editions/detail/sora-storyB-kitchen-lantern.jpg",
+      src: "/assets/editions/detail/sora-storyB-kitchen-lantern.webp",
       alt: "A round paper pendant light above Umah Sora's kitchen counter",
     },
     editionsRow4SideImage: {
-      src: "/assets/editions/detail/sora-row4-side-artwork.jpg",
+      src: "/assets/editions/detail/sora-row4-side-artwork.webp",
       alt: "A framed artwork of scattered blue dots beside Umah Sora's kitchen counter",
     },
   },

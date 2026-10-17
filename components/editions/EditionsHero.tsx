@@ -9,7 +9,7 @@ type EditionsHeroProps = {
 // as a fallback here in case the fetch ever comes back empty, not the
 // source of truth.
 const DEFAULT_IMAGE = {
-  src: "/assets/editions/editions-hero-palms-sunset.jpg",
+  src: "/assets/editions/editions-hero-palms-sunset.webp",
   alt: "Silhouetted palm trees against an amber sunset sky",
 };
 

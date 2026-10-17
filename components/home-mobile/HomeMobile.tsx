@@ -41,7 +41,7 @@ const HIDDEN_GALLERY_CAPTIONS = new Set(["stillness"]);
 // the tall, high-resolution Sora pool-deck shot: the wide Tsuki pool
 // banner is only 611px tall and goes soft at full-screen height.)
 const POOL_IMAGE: Img = {
-  src: "/assets/home-corridor-bedroom.jpg",
+  src: "/assets/home-corridor-bedroom.webp",
   alt: "A dark timber-slatted corridor beside a warm teak bedroom with shoji screens",
 };
 // Shown again, like the desktop row. Set to false to hide it.
@@ -49,7 +49,7 @@ const SHOW_STORIES = true;
 const STORIES: { image: Img; caption: string }[] = [
   {
     image: {
-      src: "/assets/editions/detail/sora-row4-main.jpg",
+      src: "/assets/editions/detail/sora-row4-main.webp",
       alt: "Umah Sora's living room opening onto the garden and pool",
     },
     caption:
@@ -57,7 +57,7 @@ const STORIES: { image: Img; caption: string }[] = [
   },
   {
     image: {
-      src: "/assets/home-stories-sora-stairs.jpg",
+      src: "/assets/home-stories-sora-stairs.webp",
       alt: "A charred timber house on stilts with a round window, a staircase descending to the garden",
     },
     caption:
@@ -71,7 +71,7 @@ const STORIES: { image: Img; caption: string }[] = [
 const EXTRA_SLIDES: { image: Img; caption: string }[] = [
   {
     image: {
-      src: "/assets/home-quote-4-pavilion.jpg",
+      src: "/assets/home-quote-4-pavilion.webp",
       alt: "A dark timber pavilion on a raised deck, a boardwalk crossing a pond in a tropical garden",
     },
     caption:
@@ -79,7 +79,7 @@ const EXTRA_SLIDES: { image: Img; caption: string }[] = [
   },
   {
     image: {
-      src: "/assets/home-quote-5-koi-pond.jpg",
+      src: "/assets/home-quote-5-koi-pond.webp",
       alt: "Koi swimming in a dark pond beneath tree ferns and river stones",
     },
     caption:
@@ -87,7 +87,7 @@ const EXTRA_SLIDES: { image: Img; caption: string }[] = [
   },
   {
     image: {
-      src: "/assets/home-quote-6-kitchen.jpg",
+      src: "/assets/home-quote-6-kitchen.webp",
       alt: "A teak kitchen with a black stone island, a tall gridded window opening onto tropical foliage",
     },
     caption:
@@ -95,7 +95,7 @@ const EXTRA_SLIDES: { image: Img; caption: string }[] = [
   },
   {
     image: {
-      src: "/assets/home-quote-7-garden-gate.jpg",
+      src: "/assets/home-quote-7-garden-gate.webp",
       alt: "A black timber garden gate framed by a stone wall, lawn and stone steps",
     },
     caption:
@@ -106,11 +106,11 @@ const EXTRA_SLIDES: { image: Img; caption: string }[] = [
 // Phone-only portrait crop of the Tsuki exterior for the swiper's first
 // slide (the desktop row keeps the Sanity photo).
 const FIRST_SLIDE_IMAGE: Img = {
-  src: "/assets/home-tsuki-exterior-portrait.jpg",
+  src: "/assets/home-tsuki-exterior-portrait.webp",
   alt: "A dark timber facade under a teak ceiling, a monstera framed in the wooden window",
 };
 
-const FALLBACK_HERO: Img = { src: "/assets/hero-bg.jpg", alt: "" };
+const FALLBACK_HERO: Img = { src: "/assets/hero-bg.webp", alt: "" };
 
 function lines(text: string): ReactNode {
   return text.split("\n").map((part, i) => (
@@ -383,7 +383,7 @@ export default function HomeMobile({ homepage }: Props) {
       >
         <div className="hm-img">
           <Image
-            src="/assets/editions/detail/tsuki-closing-pool-deck.jpg"
+            src="/assets/editions/detail/tsuki-closing-pool-deck.webp"
             alt="A timber deck with loungers beside a stone-edged pool among tropical foliage"
             fill
             sizes="100vw"
@@ -424,7 +424,7 @@ export default function HomeMobile({ homepage }: Props) {
       <section className={`${sec(8)} hm-invite`} data-hm-section={8}>
         <div className="hm-img">
           <Image
-            src="/assets/hero-bg.jpg"
+            src="/assets/hero-bg.webp"
             alt=""
             fill
             sizes="100vw"

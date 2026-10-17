@@ -22,7 +22,7 @@ type HeroProps = {
 export default function Hero({
   title = "Colvin Haven",
   tagline = "Architectural Editions",
-  backgroundImage = { src: "/assets/hero-bg.jpg", alt: "" },
+  backgroundImage = { src: "/assets/hero-bg.webp", alt: "" },
 }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
 

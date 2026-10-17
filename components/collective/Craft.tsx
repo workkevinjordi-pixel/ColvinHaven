@@ -23,7 +23,7 @@ const DEFAULT_HEADING = "Behind every home is the same local team";
 const DEFAULT_ROW: Required<CraftProps>["row"] = {
   main: {
     image: {
-      src: "/assets/collective/craft-detail.png",
+      src: "/assets/collective/craft-detail.webp",
       alt: "A timber A-frame hoist unloading materials from a delivery truck on site",
     },
     text: [
@@ -36,7 +36,7 @@ const DEFAULT_ROW: Required<CraftProps>["row"] = {
   },
   side: {
     image: {
-      src: "/assets/collective/craft-tall.png",
+      src: "/assets/collective/craft-tall.webp",
       alt: "An Indonesian craftsman assembling a wooden lattice panel in a workshop",
     },
   },

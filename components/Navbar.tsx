@@ -84,7 +84,7 @@ export default function Navbar({ solid = false }: NavbarProps) {
             >
               <Image
                 className="navbar__dot-trigger-img"
-                src="/assets/dot-nav.png"
+                src="/assets/dot-nav.webp"
                 alt=""
                 width={40}
                 height={40}
@@ -145,7 +145,7 @@ export default function Navbar({ solid = false }: NavbarProps) {
         </div>
         <div className="navbar__overlay-media">
           <Image
-            src="/assets/navbar/mega-menu.jpg"
+            src="/assets/navbar/mega-menu.webp"
             alt=""
             fill
             sizes="(min-width: 900px) 40vw, 0px"

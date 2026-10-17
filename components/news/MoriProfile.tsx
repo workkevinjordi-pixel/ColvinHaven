@@ -15,7 +15,7 @@ type MoriProfileProps = {
 // here in case the fetch ever comes back empty, not the source of
 // truth.
 const DEFAULT_HERO_IMAGE = {
-  src: "/assets/news/news-craftsman-timber.jpg",
+  src: "/assets/news/news-craftsman-timber.webp",
   alt: "A craftsman measuring timber against a dark board-and-batten wall",
 };
 const DEFAULT_PARAGRAPHS = [

@@ -19,7 +19,7 @@ type WriteToUsSectionProps = {
 // Message) stay hardcoded below -- structural form chrome, not
 // editorial content.
 const DEFAULT_IMAGE = {
-  src: "/assets/write-to-us-water.jpg",
+  src: "/assets/write-to-us-water.webp",
   alt: "Dark, textured ocean water seen from above",
 };
 

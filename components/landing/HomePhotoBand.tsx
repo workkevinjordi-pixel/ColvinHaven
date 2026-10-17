@@ -16,7 +16,7 @@ type HomePhotoBandProps = {
  * (node 459:796).
  */
 export default function HomePhotoBand({
-  src = "/assets/home-corridor-bedroom.jpg",
+  src = "/assets/home-corridor-bedroom.webp",
   alt = "A dark timber-slatted corridor beside a warm teak bedroom with shoji screens",
   height = 583,
 }: HomePhotoBandProps) {

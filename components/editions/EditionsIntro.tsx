@@ -10,23 +10,23 @@ import EditionsFilmstrip, {
 // already on the site.
 const REEL: EditionsFilmstripImage[] = [
   {
-    src: "/assets/editions/editions-filmstrip-shrine.jpg",
+    src: "/assets/editions/editions-filmstrip-shrine.webp",
     alt: "Balinese ceremonial umbrellas atop a stone shrine, seen through palm fronds",
   },
   {
-    src: "/assets/editions/editions-filmstrip-living-room.jpg",
+    src: "/assets/editions/editions-filmstrip-living-room.webp",
     alt: "A corner living room opening onto a jungle canopy through floor-to-ceiling glass",
   },
   {
-    src: "/assets/editions/editions-filmstrip-timber-wall.jpg",
+    src: "/assets/editions/editions-filmstrip-timber-wall.webp",
     alt: "Dark timber cladding above an outdoor daybed, seen against the surrounding jungle",
   },
   {
-    src: "/assets/editions/editions-filmstrip-lounge.jpg",
+    src: "/assets/editions/editions-filmstrip-lounge.webp",
     alt: "A grey sofa with an orange throw pillow beside a window looking onto banana leaves",
   },
   {
-    src: "/assets/editions/editions-filmstrip-koi-pond.jpg",
+    src: "/assets/editions/editions-filmstrip-koi-pond.webp",
     alt: "A stone-edged koi pond beneath a dark timber deck",
   },
 ];

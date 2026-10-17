@@ -25,11 +25,11 @@ type FoundationProps = {
 // 391:1394) -- removed, along with their styles.
 const DEFAULT_HEADING = "A chef who learned to design and build homes.";
 const DEFAULT_COLLAGE_A = {
-  src: "/assets/collective/foundation-stair-landing.jpg",
+  src: "/assets/collective/foundation-stair-landing.webp",
   alt: "A dark timber house with a round window above a garden path and timber stair",
 };
 const DEFAULT_COLLAGE_B = {
-  src: "/assets/collective/foundation-man-doorway.jpg",
+  src: "/assets/collective/foundation-man-doorway.webp",
   alt: "A man standing in the doorway of a dark timber-clad building",
 };
 const DEFAULT_PARAGRAPHS = [

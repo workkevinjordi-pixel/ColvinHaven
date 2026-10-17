@@ -5,7 +5,7 @@ import type { EditionData } from "./editions-data";
 // Phones swap the row's first photo for this one (Figma 461:797, Tsuki's
 // terrace living room); the Sanity photo stays on desktop and tablet.
 const TALL_MAIN_PHONE_IMAGE = {
-  src: "/assets/editions/detail/row4-main.jpg",
+  src: "/assets/editions/detail/row4-main.webp",
   alt: "Tsuki's living room under a teak ceiling, a lamp and sofa on the terrace above the jungle",
 };
 

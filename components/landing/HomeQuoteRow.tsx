@@ -21,7 +21,7 @@ const WIDTHS = [638, 345, 449];
 const DEFAULT_ITEMS: QuoteRowProps["items"] = [
   {
     image: {
-      src: "/assets/news/pullquote-ceiling-detail.jpg",
+      src: "/assets/news/pullquote-ceiling-detail.webp",
       alt: "A warm timber ceiling and roofline overhang above a dark board-and-batten facade",
     },
     caption:
@@ -29,7 +29,7 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
   },
   {
     image: {
-      src: "/assets/homequoterow-corridor-steps.jpg",
+      src: "/assets/homequoterow-corridor-steps.webp",
       alt: "A covered timber walkway leading down a staircase toward a garden gate",
     },
     caption:
@@ -37,7 +37,7 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
   },
   {
     image: {
-      src: "/assets/homequoterow-shoji-bedroom.jpg",
+      src: "/assets/homequoterow-shoji-bedroom.webp",
       alt: "A shoji-screened bedroom corner with a low bed and two wall sconces",
     },
     caption:
@@ -57,7 +57,7 @@ const DEFAULT_ITEMS: QuoteRowProps["items"] = [
 const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
   {
     image: {
-      src: "/assets/home-quote-4-pavilion.jpg",
+      src: "/assets/home-quote-4-pavilion.webp",
       alt: "A dark timber pavilion on a raised deck, a boardwalk crossing a pond in a tropical garden",
     },
     caption:
@@ -65,7 +65,7 @@ const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
   },
   {
     image: {
-      src: "/assets/home-quote-5-koi-pond.jpg",
+      src: "/assets/home-quote-5-koi-pond.webp",
       alt: "Koi swimming in a dark pond beneath tree ferns and river stones",
     },
     caption:
@@ -73,7 +73,7 @@ const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
   },
   {
     image: {
-      src: "/assets/home-quote-6-kitchen.jpg",
+      src: "/assets/home-quote-6-kitchen.webp",
       alt: "A teak kitchen with a black stone island, a tall gridded window opening onto tropical foliage",
     },
     caption:
@@ -81,7 +81,7 @@ const EXTRA_ITEMS: NonNullable<QuoteRowProps["items"]> = [
   },
   {
     image: {
-      src: "/assets/home-quote-7-garden-gate.jpg",
+      src: "/assets/home-quote-7-garden-gate.webp",
       alt: "A black timber garden gate framed by a stone wall, lawn and stone steps",
     },
     caption:

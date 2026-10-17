@@ -183,7 +183,7 @@ export default async function Home() {
         <ApproachGallery items={homepage?.approachGallery} />
         <HomeStories />
         <HomePhotoBand
-          src="/assets/editions/detail/tsuki-closing-pool-deck.jpg"
+          src="/assets/editions/detail/tsuki-closing-pool-deck.webp"
           alt="A timber deck with loungers beside a stone-edged pool among tropical foliage"
           height={611}
         />

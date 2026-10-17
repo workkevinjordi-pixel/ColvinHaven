@@ -12,11 +12,11 @@ type PullQuoteProps = {
 // here in case the fetch ever comes back empty, not the source of
 // truth.
 const DEFAULT_COLLAGE_A = {
-  src: "/assets/news/pullquote-ceiling-detail.jpg",
+  src: "/assets/news/pullquote-ceiling-detail.webp",
   alt: "A warm timber ceiling and roofline overhang above a dark board-and-batten facade",
 };
 const DEFAULT_COLLAGE_B = {
-  src: "/assets/news/pullquote-walkway-pond.jpg",
+  src: "/assets/news/pullquote-walkway-pond.webp",
   alt: "A timber walkway over a koi pond leading toward a dark timber pavilion",
 };
 const DEFAULT_QUOTE =

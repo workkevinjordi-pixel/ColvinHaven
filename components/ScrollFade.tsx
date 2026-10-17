@@ -8,6 +8,11 @@ type ScrollFadeProps = {
   className?: string;
   /** Fraction of the element that must be visible to count as "in view". */
   threshold?: number;
+  /** Fade in the first time it is seen and then stay put. Without this the
+   * fade also runs backwards when the element leaves the view, which makes
+   * a big photo flicker in and out while it hovers around the threshold
+   * at the edge of the screen. */
+  once?: boolean;
 };
 
 /**
@@ -22,6 +27,7 @@ export default function ScrollFade({
   children,
   className,
   threshold = 0.15,
+  once = false,
 }: ScrollFadeProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -32,13 +38,22 @@ export default function ScrollFade({
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => setVisible(entry.isIntersecting));
+        entries.forEach((entry) => {
+          if (once) {
+            if (entry.isIntersecting) {
+              setVisible(true);
+              observer.disconnect();
+            }
+          } else {
+            setVisible(entry.isIntersecting);
+          }
+        });
       },
       { threshold, rootMargin: "0px 0px -8% 0px" },
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [threshold, once]);
 
   return (
     <div

@@ -2862,7 +2862,7 @@ button:focus-visible,
 .collective-publications__inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 120px var(--gutter);
+  padding: 160px var(--gutter) 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7504,7 +7504,7 @@ a:where(
      segmented progress bar. Phone type tokens throughout. */
   .cm-news {
     min-height: 0;
-    padding: 64px 0;
+    padding: 80px 0 64px;
     display: flex;
     flex-direction: column;
     align-items: stretch;

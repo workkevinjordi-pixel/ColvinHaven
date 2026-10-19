@@ -66,7 +66,9 @@ export default function Publications() {
     if (next === from) return;
 
     const grid = gridRef.current;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (!grid || reduce || typeof grid.animate !== "function") {
       commit(next);
       return;

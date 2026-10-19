@@ -7499,16 +7499,25 @@ a:where(
     color: rgba(29, 25, 15, 0.7);
   }
 
-  /* News: a centred heading, then each mention as a small A4 cover with its
-     name and tags beside it, the description under the pair, and a hairline
-     between mentions. Plain text -- nothing to tap. */
+  /* In The Press: a centred heading with the ALL / TSUKI / SORA filter, then
+     a swipe row of covers (one centred card at a time) with a count and a
+     segmented progress bar. Phone type tokens throughout. */
   .cm-news {
     min-height: 0;
-    padding: 80px 28px;
+    padding: 64px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cm-news__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
 
   .cm-news__heading {
-    margin-bottom: 40px;
     text-align: center;
     font-family: var(--font-cormorant), serif;
     font-weight: 500;
@@ -7518,36 +7527,100 @@ a:where(
     color: var(--ink);
   }
 
-  .cm-news__list {
+  .cm-news__filters {
     display: flex;
-    flex-direction: column;
-    gap: 40px;
   }
 
-  .cm-news__item {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  .cm-news__filter {
+    min-height: 44px;
+    padding: 14px 16px;
+    background: none;
+    border: 0;
+    font: inherit;
+    font-weight: 500;
+    font-size: var(--t-label);
+    line-height: 16px;
+    letter-spacing: 0.28em;
+    color: rgba(29, 25, 15, 0.7);
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.25s ease;
   }
 
-  .cm-news__item + .cm-news__item {
-    padding-top: 40px;
-    border-top: 1px solid #d9d9d9;
+  .cm-news__filter span {
+    display: inline-block;
+    padding-bottom: 6px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
   }
 
-  .cm-news__top {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
+  .cm-news__filter[aria-pressed="true"] {
+    color: var(--ink);
   }
 
-  .cm-news__meta {
-    flex: 1 1 0;
-    min-width: 0;
+  .cm-news__filter[aria-pressed="true"] span {
+    border-bottom-color: currentColor;
+  }
+
+  .cm-news__filter:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: -2px;
+  }
+
+  .cm-news__track {
     display: flex;
-    flex-direction: column;
     gap: 12px;
-    padding-top: 4px;
+    margin-top: 40px;
+    padding: 0 calc(50% - 120px) 32px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    transition:
+      opacity 0.17s ease,
+      transform 0.17s ease;
+  }
+
+  .cm-news__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cm-news__track.is-swapping {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .cm-news__card {
+    flex: 0 0 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    scroll-snap-align: center;
+  }
+
+  /* The A4 cover is built at 169.6 x 240; shown at 220 x 311 (x1.297). */
+  .cm-news__cover {
+    width: 220px;
+    height: 311px;
+    box-shadow:
+      0 1px 2px rgba(29, 25, 15, 0.1),
+      0 16px 28px -10px rgba(29, 25, 15, 0.2);
+  }
+
+  .cm-news__cover-scale {
+    width: 169.6px;
+    height: 240px;
+    transform: scale(1.2972);
+    transform-origin: top left;
+  }
+
+  .cm-news__caption {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
 
   .cm-news__title {
@@ -7556,33 +7629,112 @@ a:where(
     font-size: var(--t-h2);
     line-height: var(--t-h2-lh);
     letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--ink);
   }
 
-  .cm-news__tags {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    list-style: none;
-    font-weight: 300;
-    font-size: var(--t-label);
-    line-height: var(--t-spec-lh);
-    letter-spacing: 0.05em;
-    color: rgba(29, 25, 15, 0.8);
-  }
-
-  .cm-news__text {
+  .cm-news__blurb {
     font-weight: 300;
     font-size: var(--t-body);
     line-height: var(--t-body-lh);
     letter-spacing: 0.05em;
-    color: var(--ink);
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .cm-news__tags {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-weight: 500;
+    font-size: var(--t-label);
+    line-height: 16px;
+    letter-spacing: 0.28em;
+    color: #7d6325;
+  }
+
+  .cm-news__tags i {
+    display: block;
+    width: 1px;
+    height: 12px;
+    background: rgba(29, 25, 15, 0.3);
+  }
+
+  /* The link keeps a 44px tap target without adding space around it. */
+  .cm-news__read {
+    margin: -14px -16px;
+    padding: 14px 16px;
+    font-weight: 500;
+    font-size: var(--t-label);
+    line-height: 16px;
+    letter-spacing: 0.28em;
+    color: #7d6325;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+
+  .cm-news__progress {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cm-news__count {
+    font-weight: 500;
+    font-size: var(--t-label);
+    line-height: 16px;
+    letter-spacing: 0.28em;
+    color: rgba(29, 25, 15, 0.7);
+  }
+
+  .cm-news__bars {
+    display: flex;
+    align-items: center;
+  }
+
+  /* 2px bars, each in a taller button so they are easy to tap. */
+  .cm-news__bar {
+    position: relative;
+    width: 20px; /* 12px bar + 8px gap */
+    height: 24px;
+    padding: 0;
+    background: none;
+    border: 0;
+    -webkit-tap-highlight-color: transparent;
+    transition: width 0.35s ease;
+  }
+
+  .cm-news__bar::after {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 0;
+    width: 12px;
+    height: 2px;
+    background: rgba(29, 25, 15, 0.25);
+    transition:
+      width 0.35s ease,
+      background-color 0.35s ease;
+  }
+
+  .cm-news__bar.is-on {
+    width: 36px;
+  }
+
+  .cm-news__bar.is-on::after {
+    width: 28px;
+    background: var(--ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cm-news__track,
+    .cm-news__bar,
+    .cm-news__bar::after,
+    .cm-news__filter,
+    .cm-news__filter span {
+      transition: none;
+    }
   }
 }
 
-/* Very narrow phones: the cover goes above its name so neither is squeezed. */
-@media (max-width: 359px) {
-  .cm-news__top {
-    flex-direction: column;
-  }
-}

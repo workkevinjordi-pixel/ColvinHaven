@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Swiper from "@/components/ui/Swiper";
 import { useSectionState } from "@/components/ui/useSectionState";
 import PublicationCover from "@/components/collective/PublicationCover";
+import type { PublicationItem } from "@/components/collective/publications-data";
 import type { CollectiveSection, Img } from "./plan";
 
 /**
@@ -66,6 +67,169 @@ function SwiperBlock({
 
 function cls(active: boolean, base: string) {
   return `hm-sec ${base}${active ? " is-seen" : ""}`;
+}
+
+type NewsFilter = "ALL" | "TSUKI" | "SORA";
+const NEWS_FILTERS: NewsFilter[] = ["ALL", "TSUKI", "SORA"];
+const NEWS_SWAP_MS = 170;
+const pad2 = (n: number) => String(n).padStart(2, "0");
+
+/**
+ * In The Press, phone: ALL / TSUKI / SORA filter above a swipe row of
+ * covers (one centred card at a time, snap), with "01 / 03" and a segmented
+ * progress bar under it. Changing the filter fades the row out, swaps the
+ * cards, returns to the first one and fades back in (instant with reduced
+ * motion).
+ */
+function NewsCarousel({
+  heading,
+  items,
+}: {
+  heading: string;
+  items: PublicationItem[];
+}) {
+  const [active, setActive] = useState<NewsFilter>("ALL");
+  const [applied, setApplied] = useState<NewsFilter>("ALL");
+  const [swapping, setSwapping] = useState(false);
+  const [index, setIndex] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<number | null>(null);
+
+  const shown = items.filter((p) => applied === "ALL" || p.tags[1] === applied);
+
+  useEffect(
+    () => () => {
+      if (timerRef.current !== null) window.clearTimeout(timerRef.current);
+    },
+    [],
+  );
+
+  const select = (next: NewsFilter) => {
+    if (next === active) return;
+    setActive(next);
+    if (timerRef.current !== null) window.clearTimeout(timerRef.current);
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const apply = () => {
+      setApplied(next);
+      setIndex(0);
+      trackRef.current?.scrollTo({ left: 0 });
+      setSwapping(false);
+      timerRef.current = null;
+    };
+    if (reduce) {
+      apply();
+      return;
+    }
+    setSwapping(true);
+    timerRef.current = window.setTimeout(apply, NEWS_SWAP_MS);
+  };
+
+  const onScroll = () => {
+    const el = trackRef.current;
+    const card = el?.querySelector<HTMLElement>(".cm-news__card");
+    if (!el || !card) return;
+    const step = card.offsetWidth + 12;
+    const next = Math.min(
+      shown.length - 1,
+      Math.max(0, Math.round(el.scrollLeft / step)),
+    );
+    setIndex((cur) => (cur === next ? cur : next));
+  };
+
+  const goTo = (k: number) => {
+    const el = trackRef.current;
+    const card = el?.querySelector<HTMLElement>(".cm-news__card");
+    if (!el || !card) return;
+    el.scrollTo({ left: k * (card.offsetWidth + 12), behavior: "smooth" });
+  };
+
+  return (
+    <>
+      <div className="cm-news__head hm-r">
+        <h2 className="cm-news__heading">{heading}</h2>
+        <div
+          className="cm-news__filters"
+          role="group"
+          aria-label="Filter publications"
+        >
+          {NEWS_FILTERS.map((f) => (
+            <button
+              key={f}
+              type="button"
+              className="cm-news__filter"
+              aria-pressed={active === f}
+              onClick={() => select(f)}
+            >
+              <span>{f}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div
+        ref={trackRef}
+        className={`cm-news__track hm-r hm-r--1${swapping ? " is-swapping" : ""}`}
+        onScroll={onScroll}
+      >
+        {shown.map((item, k) => {
+          const [, edition, year] = item.tags;
+          return (
+            <article
+              className="cm-news__card"
+              key={`${item.title}-${edition}-${k}`}
+              aria-label={`${item.title}, ${edition}, ${year}`}
+            >
+              <div className="cm-news__cover">
+                <div className="cm-news__cover-scale">
+                  <PublicationCover title={item.title} cover={item.cover} />
+                </div>
+              </div>
+              <div className="cm-news__caption">
+                <h3 className="cm-news__title">{item.title}</h3>
+                <p className="cm-news__blurb">{item.blurb}</p>
+                <p className="cm-news__tags">
+                  <span>{edition}</span>
+                  <i aria-hidden="true" />
+                  <span>{year}</span>
+                </p>
+                {item.href ? (
+                  <a
+                    className="cm-news__read"
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Read ${item.title} (opens in a new tab)`}
+                  >
+                    READ
+                  </a>
+                ) : null}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <div className="cm-news__progress hm-r hm-r--2">
+        <span className="cm-news__count" aria-live="polite">
+          {`${pad2(shown.length ? index + 1 : 0)} / ${pad2(shown.length)}`}
+        </span>
+        <div className="cm-news__bars">
+          {shown.map((item, k) => (
+            <button
+              key={`${item.title}-${k}`}
+              type="button"
+              className={`cm-news__bar${k === index ? " is-on" : ""}`}
+              aria-label={`Show ${item.title}, ${k + 1} of ${shown.length}`}
+              aria-current={k === index}
+              onClick={() => goTo(k)}
+            />
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default function CollectiveMobile({
@@ -232,31 +396,7 @@ export default function CollectiveMobile({
                 className={cls(on, "cm-news")}
                 data-hm-section={i}
               >
-                <h2 className="cm-news__heading hm-r">{s.heading}</h2>
-                <div className="cm-news__list">
-                  {s.items.map((item, k) => (
-                    <article
-                      key={`${item.title}-${k}`}
-                      className={`cm-news__item hm-r hm-r--${Math.min(k + 1, 3)}`}
-                    >
-                      <div className="cm-news__top">
-                        <PublicationCover
-                          title={item.title}
-                          cover={item.cover}
-                        />
-                        <div className="cm-news__meta">
-                          <h3 className="cm-news__title">{item.title}</h3>
-                          <ul className="cm-news__tags">
-                            {item.tags.map((tag) => (
-                              <li key={tag}>{tag}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                      <p className="cm-news__text">{item.description}</p>
-                    </article>
-                  ))}
-                </div>
+                <NewsCarousel heading={s.heading} items={s.items} />
               </section>
             );
         }

@@ -7375,3 +7375,27 @@ a:where(
     letter-spacing: 0.05em;
   }
 }
+
+/* /collective, top of page (Figma 391:1394, node 492:2591): the small
+   "THE COLLECTIVE" title and, right under it, the house sketch (1094px
+   wide, centred) that draws itself as you scroll (ScrollDrawing, pinned). */
+.collective-sketch .drawing-scroll__frame {
+  max-width: 1094px;
+  padding: 0;
+}
+
+.collective-sketch__heading {
+  margin-bottom: 0;
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 2.4px;
+  text-align: center;
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .collective-sketch .drawing-scroll__frame {
+    padding: 0 var(--gutter);
+  }
+}

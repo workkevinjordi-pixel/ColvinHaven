@@ -5,6 +5,7 @@ import Craft from "@/components/collective/Craft";
 import PhotoBand from "@/components/collective/PhotoBand";
 import Inspiration from "@/components/collective/Inspiration";
 import Publications from "@/components/collective/Publications";
+import ScrollDrawing from "@/components/ScrollDrawing";
 import Footer from "@/components/Footer";
 import CollectiveMobile from "@/components/collective-mobile/CollectiveMobile";
 import { buildCollectivePlan } from "@/components/collective-mobile/plan";
@@ -87,6 +88,17 @@ export default async function CollectivePage() {
         {/* Phone layout: full-screen sections with pinned photos (<=560px). */}
         <CollectiveMobile sections={buildCollectivePlan(page, publications)} />
         <div className="collective-desktop">
+          {/* The house sketch with its scroll-scrubbed drawing effect
+              (Figma 391:1394, node 492:2591), back at the top of the page.
+              The SVG is fetched from the static file after load rather
+              than inlined, so it adds nothing to the page's HTML. */}
+          <ScrollDrawing
+            className="collective-sketch"
+            src="/assets/section-drawing.svg"
+            heading={
+              <h2 className="collective-sketch__heading">THE COLLECTIVE</h2>
+            }
+          />
           <Foundation
             heading={page?.foundation.heading}
             collageImageA={page?.foundation.collageImageA}

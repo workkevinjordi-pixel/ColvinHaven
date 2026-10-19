@@ -13,6 +13,8 @@ type ScrollFadeProps = {
    * a big photo flicker in and out while it hovers around the threshold
    * at the edge of the screen. */
   once?: boolean;
+  /** No reveal at all: the content is simply there (no fade, no slide). */
+  disabled?: boolean;
 };
 
 /**
@@ -28,13 +30,14 @@ export default function ScrollFade({
   className,
   threshold = 0.15,
   once = false,
+  disabled = false,
 }: ScrollFadeProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || disabled) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -53,12 +56,12 @@ export default function ScrollFade({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold, once]);
+  }, [threshold, once, disabled]);
 
   return (
     <div
       ref={ref}
-      className={`scroll-fade${visible ? " scroll-fade--visible" : ""}${className ? ` ${className}` : ""}`}
+      className={`scroll-fade${disabled ? " scroll-fade--static" : visible ? " scroll-fade--visible" : ""}${className ? ` ${className}` : ""}`}
     >
       {children}
     </div>

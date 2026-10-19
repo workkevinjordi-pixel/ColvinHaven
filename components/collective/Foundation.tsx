@@ -72,7 +72,7 @@ export default function Foundation({
   return (
     <section className="foundation">
       <div className="foundation__body">
-        <ScrollFade className="foundation__collage">
+        <ScrollFade className="foundation__collage" disabled>
           <div className="foundation__collage-img">
             <Image
               src={collageImageA.src}
@@ -93,7 +93,7 @@ export default function Foundation({
           </div>
         </ScrollFade>
 
-        <ScrollFade className="foundation__text">
+        <ScrollFade className="foundation__text" disabled>
           <h2 className="foundation__heading">{heading}</h2>
           <div className="foundation__copy">
             {paragraphs.map((p, i) => (

@@ -78,6 +78,13 @@ button:focus-visible,
   transform: translateY(0);
 }
 
+/* No reveal: shown as is, in place (ScrollFade's `disabled`). */
+.scroll-fade--static {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-fade {
     opacity: 1;
@@ -7408,7 +7415,7 @@ a:where(
 .drawing-scroll--static .drawing-scroll__pin {
   position: static;
   height: auto;
-  padding: 140px 0 96px; /* with the 60px + 24px the next section already adds: 180px under the caption */
+  padding: 140px 0 120px; /* + the 60px the next section adds: 180px under the caption */
   overflow: visible;
 }
 
@@ -7466,13 +7473,5 @@ a:where(
 @media (max-width: 900px) {
   .collective-sketch__caption {
     padding: 0 var(--gutter);
-  }
-}
-
-/* Tablet widths: the section under the sketch starts 24px closer, so give
-   the caption 24px more room to keep the 180px between it and that section. */
-@media (max-width: 900px) {
-  .drawing-scroll--static .drawing-scroll__pin {
-    padding-bottom: 120px;
   }
 }

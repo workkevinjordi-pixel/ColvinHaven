@@ -2858,8 +2858,8 @@ button:focus-visible,
   background: var(--bg);
 }
 
-/* Figma 492:1251: 120px above and below, 47px from the heading to the
-   list, a 931px column. */
+/* "Shelf" layout (design canvas, Publications D): 120px around, 64px from
+   the heading to the shelf. */
 .collective-publications__inner {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -2867,7 +2867,7 @@ button:focus-visible,
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 47px;
+  gap: 64px;
 }
 
 .collective-publications__heading {
@@ -2880,23 +2880,115 @@ button:focus-visible,
   color: var(--ink);
 }
 
-.collective-publications__list {
-  width: min(931px, 100%);
+/* Three covers stand on one shelf line; each one's edition | year and name
+   sit under the line, centred. A grid keeps the covers' bottoms on the line
+   and the captions in one row. */
+.collective-publications__shelf {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 48px;
+  row-gap: 24px;
+}
+
+.collective-publications__shelf-line {
+  grid-row: 1;
+  grid-column: 1 / -1;
+  align-self: end;
+  border-bottom: 2px solid rgba(29, 25, 15, 0.2);
+  pointer-events: none;
+}
+
+/* The article itself has no box: its cover goes in row 1, its caption in
+   row 2, in its own column. Hovering either one counts as hovering it. */
+.collective-publications__slot {
+  display: contents;
+}
+
+.collective-publications__slot:nth-of-type(1) > * {
+  grid-column: 1;
+}
+
+.collective-publications__slot:nth-of-type(2) > * {
+  grid-column: 2;
+}
+
+.collective-publications__slot:nth-of-type(3) > * {
+  grid-column: 3;
+}
+
+.collective-publications__cover-link {
+  grid-row: 1;
+  justify-self: center;
+  align-self: end;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The A4 covers are built at 169.6 x 240; on the shelf they are shown 1.2x
+   (204 x 288). */
+.collective-publications__shelf-cover {
+  width: 204px;
+  height: 288px;
+}
+
+.collective-publications__shelf-scale {
+  width: 169.6px;
+  height: 240px;
+  transform: scale(1.2);
+  transform-origin: top left;
+}
+
+.collective-publications__caption {
+  grid-row: 2;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
 }
 
-/* A hairline between rows, 32px either side. */
-.collective-publications__item {
+/* SORA | 2026 */
+.collective-publications__tags {
   display: flex;
   align-items: center;
-  gap: 84px;
+  gap: 16px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.28em;
+  color: #7d6325;
 }
 
-.collective-publications__item + .collective-publications__item {
-  padding-top: 32px;
-  border-top: 1px solid #d9d9d9;
+.collective-publications__tags i {
+  display: block;
+  width: 1px;
+  height: 12px;
+  background: rgba(29, 25, 15, 0.3);
+}
+
+.collective-publications__title {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: 2.4px;
+  color: var(--ink);
+}
+
+/* Linked covers: the name underlines on hover/focus, and the cover shows
+   keyboard focus. */
+.collective-publications__slot--link:hover .collective-publications__title,
+.collective-publications__slot--link:focus-within
+  .collective-publications__title {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
+a.collective-publications__cover-link:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
 }
 
 /* The A4 cover: 169.6 x 240, white. */
@@ -2962,72 +3054,32 @@ button:focus-visible,
   font-weight: 400;
 }
 
-.collective-publications__body {
-  flex: 1 1 0%;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.collective-publications__title {
-  font-family: var(--font-cormorant), serif;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: normal;
-  letter-spacing: 2.4px;
-  color: var(--ink);
-}
-
-.collective-publications__text {
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 24px;
-  letter-spacing: 1.2px;
-  color: var(--ink);
-}
-
-/* PUBLICATIONS | TSUKI | 2024 -- 12px, 80% ink, 1px dividers. */
-.collective-publications__tags {
-  display: flex;
-  align-items: stretch;
-  gap: 16px;
-  list-style: none;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 24px;
-  color: rgba(29, 25, 15, 0.8);
-}
-
-.collective-publications__tags li + li {
-  position: relative;
-  padding-left: 17px;
-}
-
-.collective-publications__tags li + li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: #d9d9d9;
-}
-
-/* Tablet / phone-width desktop: the cover goes above its text. */
-@media (max-width: 900px) {
+/* Narrow desktop windows: one column, each cover above its caption. */
+@media (max-width: 720px) {
   .collective-publications__inner {
     padding: 80px 28px;
   }
 
-  .collective-publications__item {
+  .collective-publications__shelf {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .collective-publications__shelf-line {
+    display: none;
+  }
+
+  .collective-publications__slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 24px;
   }
 
-  .collective-publications__cover {
-    flex: 0 0 auto;
+  .collective-publications__cover-link {
+    align-self: center;
   }
 }
 

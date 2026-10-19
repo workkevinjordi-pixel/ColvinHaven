@@ -12,6 +12,8 @@ export type PublicationItem = {
   description: string;
   tags: [string, string, string];
   cover: Cover;
+  /** The article this publication links to (none known yet for Sora). */
+  href?: string;
 };
 
 // Content and layout from the Figma publications frame (node 492:1251).
@@ -42,6 +44,7 @@ export const PUBLICATIONS: PublicationItem[] = [
       kind: "image",
       src: "/assets/collective/publications/design-anthology-39-cover.webp",
     },
+    href: "https://design-anthology.com/story/issue-39/home/bali",
   },
   {
     title: "WALLPAPER*",
@@ -57,5 +60,6 @@ export const PUBLICATIONS: PublicationItem[] = [
       ],
       sub: "Umah Tsuki by Colvin Haven is an idyllic family",
     },
+    href: "https://www.wallpaper.com/architecture/residential/umah-tsuki-colvin-haven-bali-indonesia",
   },
 ];

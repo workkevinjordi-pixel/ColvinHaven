@@ -7432,3 +7432,39 @@ a:where(
 .collective-sketch + .foundation {
   padding-top: 60px;
 }
+
+/* Text under the sketch (Figma 495:2633): a Cormorant title and one line
+   in the site's light body type, centred, 8px apart. It sits 32px under the
+   hill -- the SVG has about 60px of empty space under the drawing, which
+   the negative top margin takes up. */
+.collective-sketch__caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: -28px;
+  text-align: center;
+}
+
+.collective-sketch__title {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: normal;
+  letter-spacing: 2.4px;
+  color: var(--ink);
+}
+
+.collective-sketch__text {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 1.6px;
+  color: rgba(29, 25, 15, 0.7);
+}
+
+@media (max-width: 900px) {
+  .collective-sketch__caption {
+    padding: 0 var(--gutter);
+  }
+}

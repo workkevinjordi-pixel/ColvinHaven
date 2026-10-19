@@ -34,6 +34,7 @@ export default function ScrollDrawing({
   svgMarkup,
   src,
   heading,
+  after,
   className,
   scroll = true,
 }: {
@@ -44,6 +45,8 @@ export default function ScrollDrawing({
   src?: string;
   /** Optional heading shown above the drawing, inside the pinned frame. */
   heading?: ReactNode;
+  /** Optional content shown right below the drawing, inside the frame. */
+  after?: ReactNode;
   className?: string;
   /** false = no scroll effect: the finished drawing is simply shown (no
    * pinned runway, no scroll listener). */
@@ -184,6 +187,7 @@ export default function ScrollDrawing({
             // Static, build-time-read local SVG asset, not user input.
             dangerouslySetInnerHTML={{ __html: markup }}
           />
+          {after}
         </div>
       </div>
     </section>

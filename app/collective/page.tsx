@@ -96,6 +96,16 @@ export default async function CollectivePage() {
             className="collective-sketch"
             src="/assets/section-drawing.svg"
             scroll={false}
+            after={
+              <div className="collective-sketch__caption">
+                <h2 className="collective-sketch__title">
+                  TSUKI BEGIN AS A LINE ON PAPER
+                </h2>
+                <p className="collective-sketch__text">
+                  Every CH home starts by hand, long before it starts on site.
+                </p>
+              </div>
+            }
           />
           <Foundation
             heading={page?.foundation.heading}

@@ -96,9 +96,6 @@ export default async function CollectivePage() {
             className="collective-sketch"
             src="/assets/section-drawing.svg"
             scroll={false}
-            heading={
-              <h2 className="collective-sketch__heading">THE COLLECTIVE</h2>
-            }
           />
           <Foundation
             heading={page?.foundation.heading}

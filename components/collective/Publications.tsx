@@ -1,74 +1,153 @@
 import Image from "next/image";
-import { getPublications, type Publication } from "@/lib/sanity/publications";
 
-function PublicationSlide({ pub }: { pub: Publication }) {
-  const cover = pub.coverImage ?? { src: "", alt: "" };
-  return (
-    <div className="collective-publications__slide">
+type Cover =
+  | {
+      kind: "wallpaper";
+      photo: string;
+      headline: [string, string];
+      sub: string;
+    }
+  | { kind: "image"; src: string };
+
+type PublicationItem = {
+  title: string;
+  description: string;
+  tags: [string, string, string];
+  cover: Cover;
+};
+
+// Content and layout from the Figma publications frame (node 492:1251).
+// Copy is verbatim, including the stray "d a past, similarly thoughtful
+// family home" fragment in the second description.
+const PUBLICATIONS: PublicationItem[] = [
+  {
+    title: "WALLPAPER*",
+    description:
+      "Titled Sora, this is the brainchild of locally based creative Andrew Swallow and his studio, Colvin Haven – the minds also behind a past, similarly thoughtful family home, Umah Tsuki.",
+    tags: ["PUBLICATIONS", "SORA", "2026"],
+    cover: {
+      kind: "wallpaper",
+      photo: "/assets/collective/publications/wallpaper-sora-photo.webp",
+      headline: [
+        "Step inside this Bali villa, an intimate, ",
+        "yet conceptually expansive home",
+      ],
+      sub: "Sora, a new Bali villa by Colvin Haven.",
+    },
+  },
+  {
+    title: "WALLPAPER*",
+    description:
+      "We are so pleased for our flagship home, Umah Tsuki, to be featured on Wallpaper.com. Wallpaper* is the global design authority, leading the way in architecture, design, art, entertaining, beauty & grooming, transport, technology, fashion, and watches & jewellery. d a past, similarly thoughtful family home, Umah Tsuki.",
+    tags: ["PUBLICATIONS", "TSUKI", "2024"],
+    cover: {
+      kind: "wallpaper",
+      photo: "/assets/collective/publications/wallpaper-tsuki-photo.webp",
+      headline: [
+        "Discover a nature-conscious take on ",
+        "Balinese architecture",
+      ],
+      sub: "Umah Tsuki by Colvin Haven is an idyllic family",
+    },
+  },
+  {
+    title: "Design Anthology 39",
+    description:
+      "The issue, helmed by editors-in-chief Simone Schultz and Jeremy Smart, delivers a global tour of the most interesting new design, style, travel, art and architecture stories from Asia Pacific and beyond.",
+    tags: ["PUBLICATIONS", "TSUKI", "2024"],
+    cover: {
+      kind: "image",
+      src: "/assets/collective/publications/design-anthology-39-cover.webp",
+    },
+  },
+];
+
+function PublicationCover({ title, cover }: { title: string; cover: Cover }) {
+  if (cover.kind === "image") {
+    return (
       <div className="collective-publications__cover">
         <Image
           src={cover.src}
-          alt={cover.alt}
-          width={452}
-          height={640}
-          sizes="(min-width: 900px) 350px, 55vw"
-          className="collective-publications__cover-img"
+          alt={`${title} cover`}
+          fill
+          sizes="170px"
+          style={{ objectFit: "cover" }}
         />
       </div>
-      <div className="collective-publications__body">
-        <p className="collective-publications__date">{pub.date}</p>
-        <h3 className="collective-publications__title">{pub.title}</h3>
-        <div className="collective-publications__text">
-          {pub.paragraphs.map((p, j) => (
-            <p key={j}>{p}</p>
-          ))}
-        </div>
-        <a
-          href={pub.readMoreHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="collective-publications__link"
-        >
-          Read more
-          <span className="hm-sr">: {pub.title}</span>
-        </a>
+    );
+  }
+  // The Wallpaper* covers are built from the magazine's logo and the issue
+  // photo, laid out like the A4 front page in the design.
+  return (
+    <div
+      className="collective-publications__cover collective-publications__cover--wallpaper"
+      role="img"
+      aria-label={`${title} cover: ${cover.headline.join("").trim()}`}
+    >
+      <Image
+        className="collective-publications__wp-logo"
+        src="/assets/collective/publications/wallpaper-logo.webp"
+        alt=""
+        width={93}
+        height={23}
+        sizes="93px"
+      />
+      <p className="collective-publications__wp-tagline" aria-hidden="true">
+        Your Daily Digest of Latest News
+      </p>
+      <div className="collective-publications__wp-photo" aria-hidden="true">
+        <Image
+          src={cover.photo}
+          alt=""
+          fill
+          sizes="170px"
+          style={{ objectFit: "cover" }}
+        />
       </div>
+      <p className="collective-publications__wp-headline" aria-hidden="true">
+        {cover.headline[0]}
+        <br />
+        {cover.headline[1]}
+      </p>
+      <p className="collective-publications__wp-sub" aria-hidden="true">
+        {cover.sub}
+      </p>
     </div>
   );
 }
 
 /**
- * Two publication mentions. Re-synced against the current Figma frame
- * (node 391:1394, replacing node 222:4394's own sizing): the whole
- * block (heading + both slides) now sits inside the page's standard
- * 1216px content column rather than running full max-width, the
- * centered "PUBLICATIONS" heading drops its divider line (matching
- * this site's established pattern for every other recently-redesigned
- * section heading), each slide's own cover photo shrinks from 542x767
- * to 452x640 (same ~0.707 aspect ratio, just smaller), and each slide
- * is no longer pinned to a full 100vh of space -- a compact
- * pl-120/pr-80/py-60 card row instead of the previous dramatic
- * one-viewport-per-mention pacing.
- *
- * Publications come from Sanity (getPublications(), ordered by the
- * Studio's own `order` field) rather than a hardcoded array -- a plain
- * async Server Component so it can fetch directly, same pattern as
- * News' own PublicationsSection. Still shared with /news' own separate
- * PublicationsSection component (a different, narrower treatment) --
- * only this file's own sizing changed here.
+ * Press mentions (Figma 492:1251): a centred heading, then a column of
+ * rows -- a small A4 cover on the left; the publication's name, a short
+ * description and a PUBLICATIONS | EDITION | YEAR line on the right --
+ * separated by hairlines. The heading stays "NEWS" (renamed on request).
  */
-export default async function Publications() {
-  const publications = await getPublications();
-
+export default function Publications() {
   return (
     <section className="collective-publications">
       <div className="collective-publications__inner">
-        <div className="collective-publications__intro">
-          <h2 className="collective-publications__heading">NEWS</h2>
+        <h2 className="collective-publications__heading">NEWS</h2>
+        <div className="collective-publications__list">
+          {PUBLICATIONS.map((pub, i) => (
+            <article
+              className="collective-publications__item"
+              key={`${pub.title}-${i}`}
+            >
+              <PublicationCover title={pub.title} cover={pub.cover} />
+              <div className="collective-publications__body">
+                <h3 className="collective-publications__title">{pub.title}</h3>
+                <p className="collective-publications__text">
+                  {pub.description}
+                </p>
+                <ul className="collective-publications__tags">
+                  {pub.tags.map((tag) => (
+                    <li key={tag}>{tag}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
         </div>
-        {publications.map((pub) => (
-          <PublicationSlide key={pub.title} pub={pub} />
-        ))}
       </div>
     </section>
   );

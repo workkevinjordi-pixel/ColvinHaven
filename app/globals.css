@@ -2851,23 +2851,21 @@ button:focus-visible,
   background: var(--bg);
 }
 
+/* Figma 492:1251: 120px above and below, 47px from the heading to the
+   list, a 931px column. */
 .collective-publications__inner {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 120px var(--gutter);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  align-items: center;
+  gap: 47px;
 }
 
-.collective-publications__intro {
-  text-align: center;
-}
-
-/* Cormorant 24px with 2.4px tracking, centered (node 391:1458) -- the
-   same heading treatment as Foundation/Craft/Inspiration, not the
-   shared 32px .section-heading. */
 .collective-publications__heading {
+  width: 100%;
+  text-align: center;
   font-family: var(--font-cormorant), serif;
   font-weight: 500;
   font-size: 24px;
@@ -2875,41 +2873,86 @@ button:focus-visible,
   color: var(--ink);
 }
 
-/* Current frame (node 391:1394): the slides' own 120px side padding is
-   measured from the page edge, not from the 1216px column. */
-@media (min-width: 901px) {
-  .collective-publications__inner {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-.collective-publications__slide {
+.collective-publications__list {
+  width: min(931px, 100%);
   display: flex;
-  align-items: flex-start;
-  gap: 120px;
-  /* Current frame (node 391:1394): 60px above and below each slide,
-     120px in from each side of the page (the page's own edge, not the
-     1216px column). */
-  padding: 60px 120px;
+  flex-direction: column;
+  gap: 32px;
 }
 
+/* A hairline between rows, 32px either side. */
+.collective-publications__item {
+  display: flex;
+  align-items: center;
+  gap: 84px;
+}
+
+.collective-publications__item + .collective-publications__item {
+  padding-top: 32px;
+  border-top: 1px solid #d9d9d9;
+}
+
+/* The A4 cover: 169.6 x 240, white. */
 .collective-publications__cover {
   position: relative;
-  /* Capped at 452px -- the source covers are 542x767 (same ~0.707
-     aspect ratio as this frame's own 452.257x640 spec), so this still
-     never upscales them. */
-  flex: 0 0 clamp(200px, 31.4vw, 452px);
-  width: clamp(200px, 31.4vw, 452px);
-  aspect-ratio: 452 / 640;
+  flex: 0 0 169.6px;
+  width: 169.6px;
+  height: 240px;
   overflow: hidden;
+  background: #fff;
 }
 
-.collective-publications__cover-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* Wallpaper* front page, laid out like the design (all in px of the
+   169.6 x 240 card). */
+.collective-publications__cover--wallpaper {
+  font-family: "Times New Roman", Times, serif;
+  color: var(--ink);
+  text-align: center;
+}
+
+.collective-publications__wp-logo {
+  position: absolute;
+  top: 12.6px;
+  left: calc(50% + 0.13px);
+  width: 92.6px;
+  height: 22.5px;
+  transform: translateX(-50%);
+}
+
+.collective-publications__wp-tagline,
+.collective-publications__wp-headline,
+.collective-publications__wp-sub {
+  position: absolute;
+  left: calc(50% - 0.1px);
+  width: 166.4px;
+  transform: translateX(-50%);
+  margin: 0;
+}
+
+.collective-publications__wp-tagline {
+  top: 42px;
+  font-size: 6.75px;
+  font-weight: 700;
+}
+
+.collective-publications__wp-photo {
+  position: absolute;
+  top: 63.4px;
+  left: 0;
+  width: 169.9px;
+  height: 113.25px;
+}
+
+.collective-publications__wp-headline {
+  top: 187.5px;
+  font-size: 6.75px;
+  font-weight: 700;
+}
+
+.collective-publications__wp-sub {
+  top: 214.1px;
+  font-size: 6px;
+  font-weight: 400;
 }
 
 .collective-publications__body {
@@ -2917,48 +2960,68 @@ button:focus-visible,
   min-width: 0;
   display: flex;
   flex-direction: column;
-}
-
-.collective-publications__date {
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 24px;
+  gap: 16px;
 }
 
 .collective-publications__title {
-  font-family: var(--font-plus-jakarta-sans), sans-serif;
-  font-weight: 400;
-  font-size: 32px;
-  color: #1d190f;
-  margin: 8px 0 16px;
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: normal;
+  letter-spacing: 2.4px;
+  color: var(--ink);
 }
 
-.collective-publications__text p {
+.collective-publications__text {
   font-weight: 300;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 24px;
-  margin-bottom: 16px;
+  letter-spacing: 1.2px;
+  color: var(--ink);
 }
 
-.collective-publications__text p:last-child {
-  margin-bottom: 0;
-}
-
-.collective-publications__link {
-  margin-top: 32px;
-  align-self: flex-start;
+/* PUBLICATIONS | TSUKI | 2024 -- 12px, 80% ink, 1px dividers. */
+.collective-publications__tags {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  list-style: none;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 24px;
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgba(29, 25, 15, 0.8);
 }
 
-.collective-publications__link:hover,
-.collective-publications__link:active {
-  opacity: 0.6;
+.collective-publications__tags li + li {
+  position: relative;
+  padding-left: 17px;
+}
+
+.collective-publications__tags li + li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #d9d9d9;
+}
+
+/* Tablet / phone-width desktop: the cover goes above its text. */
+@media (max-width: 900px) {
+  .collective-publications__inner {
+    padding: 80px 28px;
+  }
+
+  .collective-publications__item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .collective-publications__cover {
+    flex: 0 0 auto;
+  }
 }
 
 /* ---------- Foundation ---------- */
@@ -3154,22 +3217,6 @@ button:focus-visible,
   .craft__row-side {
     height: 500px;
   }
-
-  /* Below 900px there isn't room for a side-by-side cover + text
-     column, so each slide stacks its cover above its text instead --
-     __inner's own gutter already supplies horizontal spacing here, so
-     this just needs vertical breathing room, not the old 100vh-layout's
-     own 110px top clearance. */
-  .collective-publications__slide {
-    flex-direction: column;
-    gap: 24px;
-    padding: 24px 0;
-  }
-
-  .collective-publications__cover {
-    flex: 0 0 auto;
-    width: min(280px, 55vw);
-  }
 }
 
 @media (max-width: 560px) {
@@ -3202,44 +3249,6 @@ button:focus-visible,
 
   .craft__row-side {
     height: 429px;
-  }
-
-  .collective-publications__inner {
-    padding: 64px 16px;
-    gap: 16px;
-  }
-
-  /* Figma's mobile frame gives the whole publications block one 24px
-     gap after the heading, then 48px between the two entries -- not
-     each slide's own desktop-derived top/bottom padding (__inner's own
-     padding above already supplies the page-edge gutter). */
-  .collective-publications__slide {
-    padding: 16px 0;
-  }
-
-  .collective-publications__slide + .collective-publications__slide {
-    padding-top: 48px;
-  }
-
-  /* Keeps the cover's own 452x640 ratio (source art is 542x767) so the
-     whole thumbnail shows -- a fixed 420px height cropped both. */
-  .collective-publications__cover {
-    width: 100%;
-    flex: 0 0 auto;
-    aspect-ratio: 452 / 640;
-    height: auto;
-  }
-
-  .collective-publications__title {
-    font-size: 24px;
-  }
-
-  .collective-publications__text p {
-    font-size: 14px;
-  }
-
-  .collective-publications__link {
-    font-size: 14px;
   }
 }
 
@@ -7376,22 +7385,11 @@ a:where(
   }
 }
 
-/* /collective, top of page (Figma 391:1394, node 492:2591): the small
-   "THE COLLECTIVE" title and, right under it, the house sketch (1094px
-   wide, centred) that draws itself as you scroll (ScrollDrawing, pinned). */
+/* /collective, top of page (Figma 391:1394, node 492:2591): the house
+   sketch, 1094px wide and centred, shown finished (no title above it). */
 .collective-sketch .drawing-scroll__frame {
   max-width: 1094px;
   padding: 0;
-}
-
-.collective-sketch__heading {
-  margin-bottom: 0;
-  font-family: var(--font-cormorant), serif;
-  font-weight: 500;
-  font-size: 24px;
-  letter-spacing: 2.4px;
-  text-align: center;
-  color: var(--ink);
 }
 
 @media (max-width: 900px) {

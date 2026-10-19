@@ -36,6 +36,16 @@ const PUBLICATIONS: PublicationItem[] = [
     },
   },
   {
+    title: "Design Anthology 39",
+    description:
+      "The issue, helmed by editors-in-chief Simone Schultz and Jeremy Smart, delivers a global tour of the most interesting new design, style, travel, art and architecture stories from Asia Pacific and beyond.",
+    tags: ["PUBLICATIONS", "TSUKI", "2024"],
+    cover: {
+      kind: "image",
+      src: "/assets/collective/publications/design-anthology-39-cover.webp",
+    },
+  },
+  {
     title: "WALLPAPER*",
     description:
       "We are so pleased for our flagship home, Umah Tsuki, to be featured on Wallpaper.com. Wallpaper* is the global design authority, leading the way in architecture, design, art, entertaining, beauty & grooming, transport, technology, fashion, and watches & jewellery. d a past, similarly thoughtful family home, Umah Tsuki.",
@@ -48,16 +58,6 @@ const PUBLICATIONS: PublicationItem[] = [
         "Balinese architecture",
       ],
       sub: "Umah Tsuki by Colvin Haven is an idyllic family",
-    },
-  },
-  {
-    title: "Design Anthology 39",
-    description:
-      "The issue, helmed by editors-in-chief Simone Schultz and Jeremy Smart, delivers a global tour of the most interesting new design, style, travel, art and architecture stories from Asia Pacific and beyond.",
-    tags: ["PUBLICATIONS", "TSUKI", "2024"],
-    cover: {
-      kind: "image",
-      src: "/assets/collective/publications/design-anthology-39-cover.webp",
     },
   },
 ];

@@ -7408,7 +7408,7 @@ a:where(
 .drawing-scroll--static .drawing-scroll__pin {
   position: static;
   height: auto;
-  padding: 140px 0 0;
+  padding: 140px 0 80px; /* 80px of air under the caption, before the next section */
   overflow: visible;
 }
 

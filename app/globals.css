@@ -7408,7 +7408,7 @@ a:where(
 .drawing-scroll--static .drawing-scroll__pin {
   position: static;
   height: auto;
-  padding: 140px 0 120px;
+  padding: 140px 0 0;
   overflow: visible;
 }
 
@@ -7425,4 +7425,10 @@ a:where(
   display: flex;
   flex-direction: column;
   gap: 0;
+}
+
+/* Collective: the photos under the sketch sit close to it (the sketch's own
+   bottom padding is gone, and Foundation starts 60px lower, not 120px). */
+.collective-sketch + .foundation {
+  padding-top: 60px;
 }

@@ -1,5 +1,8 @@
 import type { CollectivePage } from "@/lib/sanity/collective";
-import type { Publication } from "@/lib/sanity/publications";
+import {
+  PUBLICATIONS,
+  type PublicationItem,
+} from "@/components/collective/publications-data";
 
 /**
  * Phone /collective as a flat list of sections ("Collective Mobile scroll"
@@ -10,6 +13,7 @@ import type { Publication } from "@/lib/sanity/publications";
 export type Img = { src: string; alt: string };
 
 export type CollectiveSection =
+  | { kind: "sketch"; src: string; alt: string; title: string; text: string }
   | {
       kind: "founder";
       imageA?: Img;
@@ -28,16 +32,7 @@ export type CollectiveSection =
   | { kind: "photo"; image: Img }
   | { kind: "inspirations"; heading: string; paragraphs: string[] }
   | { kind: "swiper"; label: string; slides: Img[] }
-  | {
-      kind: "publication";
-      /** "NEWS" -- only on the first one. */
-      heading?: string;
-      cover?: Img;
-      date: string;
-      title: string;
-      paragraphs: string[];
-      href: string;
-    };
+  | { kind: "news"; heading: string; items: PublicationItem[] };
 
 // "Astrid leads the architecture." -> name + role. Anything that isn't one
 // of those short lines is a plain paragraph.
@@ -45,10 +40,18 @@ const PERSON_LINE = /^(\S+) ((?:leads|is|master) .*)$/;
 
 export function buildCollectivePlan(
   page: CollectivePage | undefined,
-  publications: Publication[],
 ): CollectiveSection[] {
   const sections: CollectiveSection[] = [];
   if (!page) return sections;
+
+  // The house sketch and its caption open the page (same as desktop).
+  sections.push({
+    kind: "sketch",
+    src: "/assets/collective/sketch-static.svg",
+    alt: "Sketch of the three Colvin Haven hillside villas on their slope",
+    title: "TSUKI BEGIN AS A LINE ON PAPER",
+    text: "Every CH home starts by hand, long before it starts on site.",
+  });
 
   const { foundation, craft, photoBand, inspiration, inspirationGallery } =
     page;
@@ -101,17 +104,8 @@ export function buildCollectivePlan(
     });
   }
 
-  publications.forEach((p, i) => {
-    sections.push({
-      kind: "publication",
-      heading: i === 0 ? "NEWS" : undefined,
-      cover: p.coverImage,
-      date: p.date,
-      title: p.title,
-      paragraphs: p.paragraphs,
-      href: p.readMoreHref,
-    });
-  });
+  // The press mentions: the same three items as the desktop list.
+  sections.push({ kind: "news", heading: "NEWS", items: PUBLICATIONS });
 
   return sections;
 }

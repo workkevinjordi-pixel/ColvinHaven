@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import { useEffect, useRef } from "react";
 
 // Matches the CSS draw-stroke keyframe this replaces: each path spends
 // the first 65% of its own local window tracing its outline
@@ -30,50 +29,14 @@ const DURATION = 1200;
  * exactly when the user finishes scrolling through the section, not on
  * its own timer, and reverses cleanly if they scroll back up.
  */
-export default function ScrollDrawing({
-  svgMarkup,
-  src,
-  heading,
-  after,
-  className,
-  scroll = true,
-}: {
-  /** The SVG source inlined by the server (what the homepage did). */
-  svgMarkup?: string;
-  /** Or a URL to fetch it from after the page loads -- keeps the ~490 KB
-   * of markup out of the page's HTML (and its RSC payload). */
-  src?: string;
-  /** Optional heading shown above the drawing, inside the pinned frame. */
-  heading?: ReactNode;
-  /** Optional content shown right below the drawing, inside the frame. */
-  after?: ReactNode;
-  className?: string;
-  /** false = no scroll effect: the finished drawing is simply shown (no
-   * pinned runway, no scroll listener). */
-  scroll?: boolean;
-}) {
+export default function ScrollDrawing({ svgMarkup }: { svgMarkup: string }) {
   const sectionRef = useRef<HTMLElement>(null);
   const svgContainerRef = useRef<HTMLDivElement>(null);
-  const [markup, setMarkup] = useState(svgMarkup ?? "");
-
-  useEffect(() => {
-    if (svgMarkup || !src) return;
-    let cancelled = false;
-    fetch(src)
-      .then((res) => (res.ok ? res.text() : ""))
-      .then((text) => {
-        if (!cancelled) setMarkup(text);
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, [svgMarkup, src]);
 
   useEffect(() => {
     const section = sectionRef.current;
     const svgContainer = svgContainerRef.current;
-    if (!scroll || !section || !svgContainer || !markup) return;
+    if (!section || !svgContainer) return;
 
     const paths = Array.from(
       svgContainer.querySelectorAll<SVGPathElement>(".draw-path"),
@@ -171,23 +134,18 @@ export default function ScrollDrawing({
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(rafId);
     };
-  }, [markup, scroll]);
+  }, []);
 
   return (
-    <section
-      className={`drawing-scroll${scroll ? "" : " drawing-scroll--static"}${className ? ` ${className}` : ""}`}
-      ref={sectionRef}
-    >
+    <section className="drawing-scroll" ref={sectionRef}>
       <div className="drawing-scroll__pin">
         <div className="drawing-scroll__frame">
-          {heading}
           <div
             ref={svgContainerRef}
             className="drawing-scroll__svg"
             // Static, build-time-read local SVG asset, not user input.
-            dangerouslySetInnerHTML={{ __html: markup }}
+            dangerouslySetInnerHTML={{ __html: svgMarkup }}
           />
-          {after}
         </div>
       </div>
     </section>

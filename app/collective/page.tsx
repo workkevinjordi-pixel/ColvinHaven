@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Foundation from "@/components/collective/Foundation";
 import Craft from "@/components/collective/Craft";
 import PhotoBand from "@/components/collective/PhotoBand";
 import Inspiration from "@/components/collective/Inspiration";
 import Publications from "@/components/collective/Publications";
-import ScrollDrawing from "@/components/ScrollDrawing";
 import Footer from "@/components/Footer";
 import CollectiveMobile from "@/components/collective-mobile/CollectiveMobile";
 import { buildCollectivePlan } from "@/components/collective-mobile/plan";
-import { getPublications } from "@/lib/sanity/publications";
 import { getCollectivePage } from "@/lib/sanity/collective";
 
 export const metadata: Metadata = {
@@ -75,10 +74,7 @@ const DEFAULT_PHOTO_BAND = {
 // props -- same pattern as app/page.tsx. Publications stays its own
 // self-fetching Server Component (it's shared with /news).
 export default async function CollectivePage() {
-  const [page, publications] = await Promise.all([
-    getCollectivePage(),
-    getPublications(),
-  ]);
+  const page = await getCollectivePage();
 
   return (
     <>
@@ -86,27 +82,29 @@ export default async function CollectivePage() {
       <main className="page-main">
         <h1 className="hm-sr">Collective</h1>
         {/* Phone layout: full-screen sections with pinned photos (<=560px). */}
-        <CollectiveMobile sections={buildCollectivePlan(page, publications)} />
+        <CollectiveMobile sections={buildCollectivePlan(page)} />
         <div className="collective-desktop">
-          {/* The house sketch (Figma 391:1394, node 492:2591), back at the
-              top of the page, shown finished -- no scroll effect. The SVG
-              is fetched from the static file after load rather than
-              inlined, so it adds nothing to the page's HTML. */}
-          <ScrollDrawing
-            className="collective-sketch"
-            src="/assets/section-drawing.svg"
-            scroll={false}
-            after={
-              <div className="collective-sketch__caption">
-                <h2 className="collective-sketch__title">
-                  TSUKI BEGIN AS A LINE ON PAPER
-                </h2>
-                <p className="collective-sketch__text">
-                  Every CH home starts by hand, long before it starts on site.
-                </p>
-              </div>
-            }
-          />
+          {/* The house sketch (Figma 391:1394, node 492:2591), shown finished --
+              no scroll effect -- with its caption (Figma 495:2633). A static
+              SVG file, so it is a plain image: nothing to fetch or draw. */}
+          <section className="collective-sketch">
+            <Image
+              src="/assets/collective/sketch-static.svg"
+              alt="Sketch of the three Colvin Haven hillside villas on their slope"
+              width={1095}
+              height={589}
+              unoptimized
+              priority
+            />
+            <div className="collective-sketch__caption">
+              <h2 className="collective-sketch__title">
+                TSUKI BEGIN AS A LINE ON PAPER
+              </h2>
+              <p className="collective-sketch__text">
+                Every CH home starts by hand, long before it starts on site.
+              </p>
+            </div>
+          </section>
           <Foundation
             heading={page?.foundation.heading}
             collageImageA={page?.foundation.collageImageA}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Swiper from "@/components/ui/Swiper";
 import { useSectionState } from "@/components/ui/useSectionState";
+import PublicationCover from "@/components/collective/PublicationCover";
 import type { CollectiveSection, Img } from "./plan";
 
 /**
@@ -201,45 +202,60 @@ export default function CollectiveMobile({
               </section>
             );
 
-          case "publication":
+          case "sketch":
             return (
               <section
                 key={i}
-                className={cls(on, "cm-tall cm-pub")}
+                className={cls(on, "cm-sketch")}
                 data-hm-section={i}
               >
-                {s.heading && (
-                  <h2 className="cm-pub__title-top hm-r">{s.heading}</h2>
-                )}
-                <div className="cm-pin">
-                  <div className="cm-pin__pub hm-r hm-r--1">
-                    <div className="cm-pub__cover">
-                      {s.cover && <Photo image={s.cover} />}
-                    </div>
-                    <div className="cm-pub__meta">
-                      <span className="cm-pub__date">{s.date}</span>
-                      <span className="cm-pub__name">{s.title}</span>
-                    </div>
-                  </div>
-                  <div className="cm-pin__fade" />
+                <Image
+                  className="cm-sketch__art hm-r"
+                  src={s.src}
+                  alt={s.alt}
+                  width={1095}
+                  height={589}
+                  unoptimized
+                  priority
+                />
+                <div className="cm-sketch__caption hm-r hm-r--1">
+                  <h2 className="cm-sketch__title">{s.title}</h2>
+                  <p className="cm-sketch__text">{s.text}</p>
                 </div>
-                <div className="cm-body hm-r hm-r--2">
-                  <div className="cm-text">
-                    {s.paragraphs.map((p, k) => (
-                      <p key={k}>{p}</p>
-                    ))}
-                  </div>
-                  {s.href && (
-                    <a
-                      href={s.href}
-                      className="cm-pub__link"
-                      target="_blank"
-                      rel="noopener noreferrer"
+              </section>
+            );
+
+          case "news":
+            return (
+              <section
+                key={i}
+                className={cls(on, "cm-news")}
+                data-hm-section={i}
+              >
+                <h2 className="cm-news__heading hm-r">{s.heading}</h2>
+                <div className="cm-news__list">
+                  {s.items.map((item, k) => (
+                    <article
+                      key={`${item.title}-${k}`}
+                      className={`cm-news__item hm-r hm-r--${Math.min(k + 1, 3)}`}
                     >
-                      Read more
-                      <span className="hm-sr">: {s.title}</span>
-                    </a>
-                  )}
+                      <div className="cm-news__top">
+                        <PublicationCover
+                          title={item.title}
+                          cover={item.cover}
+                        />
+                        <div className="cm-news__meta">
+                          <h3 className="cm-news__title">{item.title}</h3>
+                          <ul className="cm-news__tags">
+                            {item.tags.map((tag) => (
+                              <li key={tag}>{tag}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                      <p className="cm-news__text">{item.description}</p>
+                    </article>
+                  ))}
                 </div>
               </section>
             );

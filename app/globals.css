@@ -7408,7 +7408,7 @@ a:where(
 .drawing-scroll--static .drawing-scroll__pin {
   position: static;
   height: auto;
-  padding: 140px 0 80px; /* 80px of air under the caption, before the next section */
+  padding: 140px 0 36px; /* with the 60px + 24px the next section already adds: 120px under the caption */
   overflow: visible;
 }
 
@@ -7449,9 +7449,9 @@ a:where(
 .collective-sketch__title {
   font-family: var(--font-cormorant), serif;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 20px; /* one step down from the 24px section headings (h2 -> h3) */
   line-height: normal;
-  letter-spacing: 2.4px;
+  letter-spacing: 2px;
   color: var(--ink);
 }
 
@@ -7466,5 +7466,13 @@ a:where(
 @media (max-width: 900px) {
   .collective-sketch__caption {
     padding: 0 var(--gutter);
+  }
+}
+
+/* Tablet widths: the section under the sketch starts 24px closer, so give
+   the caption 24px more room to keep the 120px between it and that section. */
+@media (max-width: 900px) {
+  .drawing-scroll--static .drawing-scroll__pin {
+    padding-bottom: 60px;
   }
 }

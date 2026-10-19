@@ -7399,3 +7399,32 @@ a:where(
     padding: 0 var(--gutter);
   }
 }
+
+/* Static variant of the sketch (no scroll effect): a normal block showing
+   the finished drawing. The box is reserved up front (the SVG's own
+   1095x589 ratio) so nothing jumps when the file arrives. */
+.drawing-scroll--static {
+  height: auto;
+}
+
+.drawing-scroll--static .drawing-scroll__pin {
+  position: static;
+  height: auto;
+  padding: 140px 0 120px;
+  overflow: visible;
+}
+
+.drawing-scroll--static .drawing-scroll__svg {
+  aspect-ratio: 1095 / 589;
+}
+
+.drawing-scroll--static .drawing-scroll__svg .draw-path {
+  stroke-dashoffset: 0;
+  fill-opacity: 1;
+}
+
+.drawing-scroll--static .drawing-scroll__frame {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}

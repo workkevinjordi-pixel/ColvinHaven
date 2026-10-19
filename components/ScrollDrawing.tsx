@@ -35,6 +35,7 @@ export default function ScrollDrawing({
   src,
   heading,
   className,
+  scroll = true,
 }: {
   /** The SVG source inlined by the server (what the homepage did). */
   svgMarkup?: string;
@@ -44,6 +45,9 @@ export default function ScrollDrawing({
   /** Optional heading shown above the drawing, inside the pinned frame. */
   heading?: ReactNode;
   className?: string;
+  /** false = no scroll effect: the finished drawing is simply shown (no
+   * pinned runway, no scroll listener). */
+  scroll?: boolean;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const svgContainerRef = useRef<HTMLDivElement>(null);
@@ -66,7 +70,7 @@ export default function ScrollDrawing({
   useEffect(() => {
     const section = sectionRef.current;
     const svgContainer = svgContainerRef.current;
-    if (!section || !svgContainer || !markup) return;
+    if (!scroll || !section || !svgContainer || !markup) return;
 
     const paths = Array.from(
       svgContainer.querySelectorAll<SVGPathElement>(".draw-path"),
@@ -164,11 +168,11 @@ export default function ScrollDrawing({
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(rafId);
     };
-  }, [markup]);
+  }, [markup, scroll]);
 
   return (
     <section
-      className={`drawing-scroll${className ? ` ${className}` : ""}`}
+      className={`drawing-scroll${scroll ? "" : " drawing-scroll--static"}${className ? ` ${className}` : ""}`}
       ref={sectionRef}
     >
       <div className="drawing-scroll__pin">

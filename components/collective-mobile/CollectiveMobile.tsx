@@ -71,15 +71,13 @@ function cls(active: boolean, base: string) {
 
 type NewsFilter = "ALL" | "TSUKI" | "SORA";
 const NEWS_FILTERS: NewsFilter[] = ["ALL", "TSUKI", "SORA"];
-const NEWS_SWAP_MS = 170;
 const pad2 = (n: number) => String(n).padStart(2, "0");
 
 /**
  * In The Press, phone: ALL / TSUKI / SORA filter above a swipe row of
  * covers (one centred card at a time, snap), with "01 / 03" and a segmented
- * progress bar under it. Changing the filter fades the row out, swaps the
- * cards, returns to the first one and fades back in (instant with reduced
- * motion).
+ * progress bar under it. The filter applies at once; the row is re-created
+ * for the new list (so it starts on the first card) and its cards fade in.
  */
 function NewsCarousel({
   heading,
@@ -88,42 +86,16 @@ function NewsCarousel({
   heading: string;
   items: PublicationItem[];
 }) {
-  const [active, setActive] = useState<NewsFilter>("ALL");
-  const [applied, setApplied] = useState<NewsFilter>("ALL");
-  const [swapping, setSwapping] = useState(false);
+  const [filter, setFilter] = useState<NewsFilter>("ALL");
   const [index, setIndex] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
-  const timerRef = useRef<number | null>(null);
 
-  const shown = items.filter((p) => applied === "ALL" || p.tags[1] === applied);
-
-  useEffect(
-    () => () => {
-      if (timerRef.current !== null) window.clearTimeout(timerRef.current);
-    },
-    [],
-  );
+  const shown = items.filter((p) => filter === "ALL" || p.tags[1] === filter);
 
   const select = (next: NewsFilter) => {
-    if (next === active) return;
-    setActive(next);
-    if (timerRef.current !== null) window.clearTimeout(timerRef.current);
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const apply = () => {
-      setApplied(next);
-      setIndex(0);
-      trackRef.current?.scrollTo({ left: 0 });
-      setSwapping(false);
-      timerRef.current = null;
-    };
-    if (reduce) {
-      apply();
-      return;
-    }
-    setSwapping(true);
-    timerRef.current = window.setTimeout(apply, NEWS_SWAP_MS);
+    if (next === filter) return;
+    setFilter(next);
+    setIndex(0);
   };
 
   const onScroll = () => {
@@ -159,7 +131,7 @@ function NewsCarousel({
               key={f}
               type="button"
               className="cm-news__filter"
-              aria-pressed={active === f}
+              aria-pressed={filter === f}
               onClick={() => select(f)}
             >
               <span>{f}</span>
@@ -169,8 +141,9 @@ function NewsCarousel({
       </div>
 
       <div
+        key={filter}
         ref={trackRef}
-        className={`cm-news__track hm-r hm-r--1${swapping ? " is-swapping" : ""}`}
+        className="cm-news__track hm-r hm-r--1"
         onScroll={onScroll}
       >
         {shown.map((item, k) => {
@@ -178,6 +151,7 @@ function NewsCarousel({
           return (
             <article
               className="cm-news__card"
+              style={{ animationDelay: `${k * 70}ms` }}
               key={`${item.title}-${edition}-${k}`}
               aria-label={`${item.title}, ${edition}, ${year}`}
             >

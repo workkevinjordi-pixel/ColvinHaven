@@ -7575,18 +7575,10 @@ a:where(
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    transition:
-      opacity 0.17s ease,
-      transform 0.17s ease;
   }
 
   .cm-news__track::-webkit-scrollbar {
     display: none;
-  }
-
-  .cm-news__track.is-swapping {
-    opacity: 0;
-    transform: translateY(8px);
   }
 
   .cm-news__card {
@@ -7597,6 +7589,7 @@ a:where(
     gap: 24px;
     text-align: center;
     scroll-snap-align: center;
+    animation: cm-news-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
   }
 
   /* The A4 cover is built at 169.6 x 240; shown at 220 x 311 (x1.297). */
@@ -7728,7 +7721,10 @@ a:where(
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .cm-news__track,
+    .cm-news__card {
+      animation: none;
+    }
+
     .cm-news__bar,
     .cm-news__bar::after,
     .cm-news__filter,
@@ -7738,3 +7734,9 @@ a:where(
   }
 }
 
+@keyframes cm-news-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}

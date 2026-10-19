@@ -10,6 +10,8 @@ export type Cover =
 export type PublicationItem = {
   title: string;
   description: string;
+  /** One-line teaser shown on the desktop card (the full text is `description`). */
+  blurb: string;
   tags: [string, string, string];
   cover: Cover;
   /** The article this publication links to (none known yet for Sora). */
@@ -24,6 +26,8 @@ export const PUBLICATIONS: PublicationItem[] = [
     title: "WALLPAPER*",
     description:
       "Titled Sora, this is the brainchild of locally based creative Andrew Swallow and his studio, Colvin Haven – the minds also behind a past, similarly thoughtful family home, Umah Tsuki.",
+    blurb:
+      "Step inside this Bali villa, an intimate, yet conceptually expansive home.",
     tags: ["PUBLICATIONS", "SORA", "2026"],
     cover: {
       kind: "wallpaper",
@@ -39,6 +43,8 @@ export const PUBLICATIONS: PublicationItem[] = [
     title: "Design Anthology 39",
     description:
       "The issue, helmed by editors-in-chief Simone Schultz and Jeremy Smart, delivers a global tour of the most interesting new design, style, travel, art and architecture stories from Asia Pacific and beyond.",
+    blurb:
+      "A global tour of the most interesting new design from Asia Pacific.",
     tags: ["PUBLICATIONS", "TSUKI", "2024"],
     cover: {
       kind: "image",
@@ -50,6 +56,7 @@ export const PUBLICATIONS: PublicationItem[] = [
     title: "WALLPAPER*",
     description:
       "We are so pleased for our flagship home, Umah Tsuki, to be featured on Wallpaper.com. Wallpaper* is the global design authority, leading the way in architecture, design, art, entertaining, beauty & grooming, transport, technology, fashion, and watches & jewellery. d a past, similarly thoughtful family home, Umah Tsuki.",
+    blurb: "Discover a nature-conscious take on Balinese architecture.",
     tags: ["PUBLICATIONS", "TSUKI", "2024"],
     cover: {
       kind: "wallpaper",

@@ -2858,8 +2858,7 @@ button:focus-visible,
   background: var(--bg);
 }
 
-/* "Shelf" layout (design canvas, Publications D): 120px around, 64px from
-   the heading to the shelf. */
+/* Heading + filter, then the cards: 120px around, 64px before the cards. */
 .collective-publications__inner {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -2870,67 +2869,104 @@ button:focus-visible,
   gap: 64px;
 }
 
+.collective-publications__head {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
 .collective-publications__heading {
   width: 100%;
   text-align: center;
   font-family: var(--font-cormorant), serif;
   font-weight: 500;
   font-size: 24px;
+  line-height: 29px;
   letter-spacing: 2.4px;
   color: var(--ink);
 }
 
-/* Three covers stand on one shelf line; each one's edition | year and name
-   sit under the line, centred. A grid keeps the covers' bottoms on the line
-   and the captions in one row. */
-.collective-publications__shelf {
+.collective-publications__filters {
+  display: flex;
+  gap: 8px;
+}
+
+.collective-publications__filter {
+  min-height: 44px;
+  padding: 14px 16px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.28em;
+  text-align: center;
+  color: rgba(29, 25, 15, 0.7);
+  transition: color 0.25s ease;
+}
+
+.collective-publications__filter span {
+  display: inline-block;
+  padding-bottom: 6px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.collective-publications__filter:hover,
+.collective-publications__filter[aria-pressed="true"] {
+  color: var(--ink);
+}
+
+.collective-publications__filter[aria-pressed="true"] span {
+  border-bottom-color: currentColor;
+}
+
+.collective-publications__filter:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+
+.collective-publications__grid {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: 48px;
-  row-gap: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 64px 48px;
 }
 
-.collective-publications__shelf-line {
-  grid-row: 1;
-  grid-column: 1 / -1;
-  align-self: end;
-  border-bottom: 2px solid rgba(29, 25, 15, 0.2);
-  pointer-events: none;
+.collective-publications__card {
+  flex: 0 0 368px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+  will-change: transform, opacity;
 }
 
-/* The article itself has no box: its cover goes in row 1, its caption in
-   row 2, in its own column. Hovering either one counts as hovering it. */
-.collective-publications__slot {
-  display: contents;
-}
-
-.collective-publications__slot:nth-of-type(1) > * {
-  grid-column: 1;
-}
-
-.collective-publications__slot:nth-of-type(2) > * {
-  grid-column: 2;
-}
-
-.collective-publications__slot:nth-of-type(3) > * {
-  grid-column: 3;
+.collective-publications__card[hidden] {
+  display: none;
 }
 
 .collective-publications__cover-link {
-  grid-row: 1;
-  justify-self: center;
-  align-self: end;
   display: block;
   color: inherit;
   text-decoration: none;
 }
 
-/* The A4 covers are built at 169.6 x 240; on the shelf they are shown 1.2x
-   (204 x 288). */
+/* The A4 covers are built at 169.6 x 240; shown 1.2x (204 x 288). */
 .collective-publications__shelf-cover {
   width: 204px;
   height: 288px;
+  box-shadow:
+    0 1px 2px rgba(29, 25, 15, 0.1),
+    0 16px 28px -10px rgba(29, 25, 15, 0.2);
 }
 
 .collective-publications__shelf-scale {
@@ -2941,12 +2977,36 @@ button:focus-visible,
 }
 
 .collective-publications__caption {
-  grid-row: 2;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  text-align: center;
+}
+
+.collective-publications__title {
+  font-family: var(--font-cormorant), serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 2.16px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.collective-publications__blurb {
+  width: 100%;
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  color: rgba(29, 25, 15, 0.7);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
 }
 
 /* SORA | 2026 */
@@ -2968,24 +3028,21 @@ button:focus-visible,
   background: rgba(29, 25, 15, 0.3);
 }
 
-.collective-publications__title {
-  font-family: var(--font-cormorant), serif;
+.collective-publications__read {
   font-weight: 500;
-  font-size: 24px;
-  line-height: 29px;
-  letter-spacing: 2.4px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.28em;
+  color: #7d6325;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.collective-publications__read:hover {
   color: var(--ink);
 }
 
-/* Linked covers: the name underlines on hover/focus, and the cover shows
-   keyboard focus. */
-.collective-publications__slot--link:hover .collective-publications__title,
-.collective-publications__slot--link:focus-within
-  .collective-publications__title {
-  text-decoration: underline;
-  text-underline-offset: 8px;
-}
-
+.collective-publications__read:focus-visible,
 a.collective-publications__cover-link:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 4px;
@@ -3054,32 +3111,10 @@ a.collective-publications__cover-link:focus-visible {
   font-weight: 400;
 }
 
-/* Narrow desktop windows: one column, each cover above its caption. */
+/* Narrow desktop windows: the cards simply wrap to one column. */
 @media (max-width: 720px) {
   .collective-publications__inner {
     padding: 80px 28px;
-  }
-
-  .collective-publications__shelf {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
-  }
-
-  .collective-publications__shelf-line {
-    display: none;
-  }
-
-  .collective-publications__slot {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .collective-publications__cover-link {
-    align-self: center;
   }
 }
 

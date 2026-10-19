@@ -154,7 +154,7 @@ export default function Publications() {
     <section className="collective-publications">
       <div className="collective-publications__inner">
         <div className="collective-publications__head">
-          <h2 className="collective-publications__heading">PUBLICATIONS</h2>
+          <h2 className="collective-publications__heading">In The Press</h2>
           <div
             className="collective-publications__filters"
             role="group"

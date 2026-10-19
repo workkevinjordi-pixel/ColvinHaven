@@ -105,7 +105,7 @@ export function buildCollectivePlan(
   }
 
   // The press mentions: the same three items as the desktop list.
-  sections.push({ kind: "news", heading: "NEWS", items: PUBLICATIONS });
+  sections.push({ kind: "news", heading: "In The Press", items: PUBLICATIONS });
 
   return sections;
 }

@@ -14,7 +14,7 @@ export type PublicationItem = {
   blurb: string;
   tags: [string, string, string];
   cover: Cover;
-  /** The article this publication links to (none known yet for Sora). */
+  /** The article this publication links to . */
   href?: string;
 };
 
@@ -38,6 +38,7 @@ export const PUBLICATIONS: PublicationItem[] = [
       ],
       sub: "Sora, a new Bali villa by Colvin Haven.",
     },
+    href: "https://www.wallpaper.com/architecture/residential/sora-bali-villa-colvin-haven-indonesia",
   },
   {
     title: "Design Anthology 39",

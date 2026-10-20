@@ -67,7 +67,7 @@ export default function Craft({
 
   return (
     <section className="craft">
-      <ScrollFade className="craft__body">
+      <ScrollFade className="craft__body" once>
         <h2 className="craft__heading">{heading}</h2>
 
         <div className="craft__row">

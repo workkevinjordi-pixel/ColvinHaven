@@ -72,7 +72,7 @@ export default function Inspiration({
 }: InspirationProps) {
   return (
     <section className="collective-inspiration-v2">
-      <ScrollFade className="collective-inspiration-v2__intro">
+      <ScrollFade className="collective-inspiration-v2__intro" once>
         <h2 className="collective-inspiration-v2__heading">{heading}</h2>
         <div className="collective-inspiration-v2__text">
           {paragraphs.map((p, i) => (
@@ -80,7 +80,7 @@ export default function Inspiration({
           ))}
         </div>
       </ScrollFade>
-      <ScrollFade className="collective-inspiration-v2__gallery">
+      <ScrollFade className="collective-inspiration-v2__gallery" once>
         {images.map((img, i) => (
           <div
             key={i}

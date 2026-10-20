@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { track } from "@vercel/analytics";
 
 const INSTAGRAM_URL = "https://www.instagram.com/colvinhaven/";
 
@@ -137,7 +138,11 @@ export default function Navbar({ solid = false }: NavbarProps) {
             <p className="navbar__overlay-apply-label">Join the collective.</p>
             <a
               href="mailto:info@colvinhaven.com"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                // Counted in Vercel Analytics > Events as "apply_click".
+                track("apply_click");
+                setOpen(false);
+              }}
             >
               Apply <span aria-hidden="true">→</span>
             </a>

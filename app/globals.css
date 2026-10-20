@@ -5345,8 +5345,10 @@ a.collective-publications__cover-link:focus-visible {
    full-bleed photo (edge-to-edge at the page's own full width, not
    inset to --max-width like most sections), 80px of vertical
    breathing room above/below it, nothing else on top. ---------- */
+/* The fixed navbar is 88px tall: start the photo below it (88px + 16px) so
+   no part of the picture sits behind the bar when the page first loads. */
 .editions-hero {
-  padding: 80px 0;
+  padding: 104px 0 80px;
 }
 
 .editions-hero__image {
@@ -5357,7 +5359,7 @@ a.collective-publications__cover-link:focus-visible {
 
 @media (max-width: 900px) {
   .editions-hero {
-    padding: 48px 0;
+    padding: 104px 0 48px;
   }
 
   .editions-hero__image {

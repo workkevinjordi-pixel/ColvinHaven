@@ -5,6 +5,9 @@ type InspirationProps = {
   heading?: string;
   paragraphs?: string[];
   images?: { src: string; alt: string }[];
+  /** The invitation line + link under the copy (same text as the homepage
+   * banner, from Sanity homepage.cta). */
+  invite?: { text?: string; buttonLabel?: string; buttonHref?: string };
 };
 
 // Matches the content migrated into Sanity's collectivePage.inspiration
@@ -69,6 +72,7 @@ export default function Inspiration({
   heading = "INSPIRATIONS",
   paragraphs = DEFAULT_PARAGRAPHS,
   images = DEFAULT_IMAGES,
+  invite,
 }: InspirationProps) {
   return (
     <section className="collective-inspiration-v2">
@@ -78,6 +82,18 @@ export default function Inspiration({
           {paragraphs.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
+          {/* Figma 401:81: after the copy, a line inviting a visit and a
+              "Write to Us ->" link. */}
+          <div className="collective-inspiration-v2__invite">
+            <p>{invite?.text ?? "Visit one of our projects by invitation"}</p>
+            <a
+              className="collective-inspiration-v2__invite-link"
+              href={invite?.buttonHref ?? "/write-to-us"}
+            >
+              {invite?.buttonLabel ?? "Write to Us"}{" "}
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </ScrollFade>
       <ScrollFade className="collective-inspiration-v2__gallery" once>

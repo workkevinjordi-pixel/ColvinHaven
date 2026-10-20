@@ -1524,6 +1524,41 @@ button:focus-visible,
   }
 }
 
+/* Wave footer (Figma 510:3935): 237px, the photo under a 50% ink shade,
+   "CH" 24px and the year 16px in gold, 60px / 40px of padding. */
+.footer--wave {
+  position: relative;
+  min-height: 237px;
+  padding: 40px 60px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  background: #2e2a1f;
+}
+
+.footer__shade {
+  position: absolute;
+  inset: 0;
+  background: rgba(29, 25, 15, 0.5);
+}
+
+.footer--wave .footer__mark,
+.footer--wave .footer__year {
+  position: relative;
+}
+
+.footer__year {
+  font-weight: 300;
+  font-size: 16px;
+  color: #c7a95f;
+}
+
+@media (max-width: 560px) {
+  .footer--wave {
+    min-height: 160px;
+    padding: 32px 28px;
+  }
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
@@ -2744,6 +2779,45 @@ button:focus-visible,
 
 .collective-inspiration-v2__text p:last-child {
   margin-bottom: 0;
+}
+
+/* Invitation under the copy (Figma 401:81): 32px below the last
+   paragraph (margins collapse: the larger one wins); the line and the link 8px apart, the link italic with 8px
+   of room under it. */
+.collective-inspiration-v2__text .collective-inspiration-v2__invite {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.collective-inspiration-v2__invite p {
+  margin: 0;
+}
+
+.collective-inspiration-v2__invite-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-bottom: 8px;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: normal;
+  color: var(--ink);
+  text-decoration: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.collective-inspiration-v2__invite-link:hover,
+.collective-inspiration-v2__invite-link:active {
+  opacity: 0.6;
+}
+
+.collective-inspiration-v2__invite-link:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
 }
 
 /* Edge to edge of the actual browser viewport -- explicit instruction,

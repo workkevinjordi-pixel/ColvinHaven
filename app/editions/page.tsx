@@ -9,8 +9,6 @@ import EditionsMobile from "@/components/editions-mobile/EditionsMobile";
 import { buildEditionsPlan } from "@/components/editions-mobile/plan";
 import { getEditions } from "@/lib/sanity/editions";
 import { getEditionsPage } from "@/lib/sanity/editionsPage";
-import { getHomepage } from "@/lib/sanity/homepage";
-import Cta from "@/components/Cta";
 
 export const metadata: Metadata = {
   title: "Colvin Haven — Editions",
@@ -72,10 +70,9 @@ export const metadata: Metadata = {
 // own opening photo now comes from Sanity too (editionsPage.heroImage),
 // fetched alongside the editions list.
 export default async function EditionsPage() {
-  const [editions, editionsPage, homepage] = await Promise.all([
+  const [editions, editionsPage] = await Promise.all([
     getEditions(),
     getEditionsPage(),
-    getHomepage(),
   ]);
   return (
     <>
@@ -85,9 +82,7 @@ export default async function EditionsPage() {
         {/* Phone layout: one full-screen section per swipe (<=560px). It
           starts straight at the first edition: the palm-trees opening photo
           is desktop-only. */}
-        <EditionsMobile
-          sections={buildEditionsPlan(editions, undefined, homepage?.cta)}
-        />
+        <EditionsMobile sections={buildEditionsPlan(editions)} />
         <div className="editions-desktop">
           <EditionsHero image={editionsPage?.heroImage} />
           {editions.map((edition) => (
@@ -106,15 +101,9 @@ export default async function EditionsPage() {
             </div>
           ))}
           <CollectionsCard />
-          {/* Closes like the homepage: the same inquiry banner. */}
-          <Cta
-            variant="link"
-            text={homepage?.cta.text}
-            buttonLabel={homepage?.cta.buttonLabel}
-            buttonHref={homepage?.cta.buttonHref}
-          />
-          <Footer />
         </div>
+        {/* Wave footer (Figma 510:3935), on every screen size. */}
+        <Footer variant="wave" />
       </main>
     </>
   );

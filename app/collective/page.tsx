@@ -11,7 +11,6 @@ import CollectiveMobile from "@/components/collective-mobile/CollectiveMobile";
 import { buildCollectivePlan } from "@/components/collective-mobile/plan";
 import { getCollectivePage } from "@/lib/sanity/collective";
 import { getHomepage } from "@/lib/sanity/homepage";
-import Cta from "@/components/Cta";
 
 export const metadata: Metadata = {
   title: "Colvin Haven — Collective",
@@ -87,7 +86,7 @@ export default async function CollectivePage() {
       <main className="page-main">
         <h1 className="hm-sr">Collective</h1>
         {/* Phone layout: full-screen sections with pinned photos (<=560px). */}
-        <CollectiveMobile sections={buildCollectivePlan(page, homepage?.cta)} />
+        <CollectiveMobile sections={buildCollectivePlan(page)} />
         <div className="collective-desktop">
           {/* The house sketch (Figma 391:1394, node 492:2591), shown finished --
               no scroll effect -- with its caption (Figma 495:2633). A static
@@ -127,17 +126,12 @@ export default async function CollectivePage() {
             heading={page?.inspiration.heading}
             paragraphs={page?.inspiration.paragraphs}
             images={page?.inspirationGallery}
+            invite={homepage?.cta}
           />
           <Publications />
-          {/* Closes like the homepage: the same inquiry banner. */}
-          <Cta
-            variant="link"
-            text={homepage?.cta.text}
-            buttonLabel={homepage?.cta.buttonLabel}
-            buttonHref={homepage?.cta.buttonHref}
-          />
-          <Footer />
         </div>
+        {/* Wave footer (Figma 510:3935), on every screen size. */}
+        <Footer variant="wave" />
       </main>
     </>
   );

@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Swiper from "@/components/ui/Swiper";
-import InviteBand from "@/components/ui/InviteBand";
 import { useSectionState } from "@/components/ui/useSectionState";
 import type { Img, MobileSection, Slide } from "./plan";
 
@@ -19,11 +18,7 @@ import type { Img, MobileSection, Slide } from "./plan";
 
 // Sections whose top edge is a full-bleed photo (light wordmark). The
 // title photos and swipers sit inside a cream frame now, so they are not.
-const DARK_KINDS = new Set<MobileSection["kind"]>([
-  "quote",
-  "swiper",
-  "invite",
-]);
+const DARK_KINDS = new Set<MobileSection["kind"]>(["quote", "swiper"]);
 
 function Photo({
   image,
@@ -255,16 +250,6 @@ export default function EditionsMobile({
                 <div className="em-quote__shade" />
                 <p className="em-quote__text hm-r">{s.text}</p>
               </section>
-            );
-
-          case "invite":
-            return (
-              <InviteBand
-                key={i}
-                className={cls(i, "")}
-                index={i}
-                cta={s.cta}
-              />
             );
 
           case "collection":

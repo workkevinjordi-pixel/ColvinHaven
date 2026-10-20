@@ -1,4 +1,3 @@
-import type { Invite } from "@/components/ui/InviteBand";
 import type { EditionData } from "../editions/editions-data";
 
 /**
@@ -18,7 +17,6 @@ export type Slide = {
 };
 
 export type MobileSection =
-  | { kind: "invite"; cta?: Invite }
   | { kind: "photo"; image: Img; priority?: boolean }
   | { kind: "title"; image: Img; index: string; title: string }
   | {
@@ -81,7 +79,6 @@ const caption = (text: string | string[] | undefined): string | undefined => {
 export function buildEditionsPlan(
   editions: EditionData[],
   openingPhoto?: Img,
-  cta?: Invite,
 ): MobileSection[] {
   const sections: MobileSection[] = [];
 
@@ -221,6 +218,5 @@ export function buildEditionsPlan(
   }
 
   sections.push({ kind: "collection" });
-  sections.push({ kind: "invite", cta });
   return sections;
 }

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 // The footer's own nav is a fixed pair on every page (Figma node
@@ -14,7 +15,32 @@ const FOOTER_LINKS = [
 // <Footer />, it just returns nothing while this is false.
 const FOOTER_ENABLED = false;
 
-export default function Footer() {
+/**
+ * `variant="wave"` (Figma 510:3935, Collective + Editions): a 237px band of
+ * the dark wave photo, "CH" at the left and the year at the right, both in
+ * gold. It is always on, regardless of FOOTER_ENABLED (that switch is for
+ * the plain footer).
+ */
+export default function Footer({ variant }: { variant?: "wave" } = {}) {
+  if (variant === "wave") {
+    return (
+      <footer className="footer footer--wave">
+        <Image
+          className="footer__bg"
+          src="/assets/hero-bg.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          style={{ objectFit: "cover" }}
+        />
+        <div className="footer__shade" />
+        <p className="footer__mark" aria-label="Colvin Haven">
+          CH
+        </p>
+        <p className="footer__year">{new Date().getFullYear()}</p>
+      </footer>
+    );
+  }
   if (!FOOTER_ENABLED) return null;
 
   return (

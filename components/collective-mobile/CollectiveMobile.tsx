@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Swiper from "@/components/ui/Swiper";
 import { useSectionState } from "@/components/ui/useSectionState";
 import PublicationCover from "@/components/collective/PublicationCover";
+import InviteBand from "@/components/ui/InviteBand";
 import type { PublicationItem } from "@/components/collective/publications-data";
 import type { CollectiveSection, Img } from "./plan";
 
@@ -18,7 +19,11 @@ import type { CollectiveSection, Img } from "./plan";
  * it shares the .hm-* full-screen/reveal/swiper rules.
  */
 
-const DARK_KINDS = new Set<CollectiveSection["kind"]>(["photo", "swiper"]);
+const DARK_KINDS = new Set<CollectiveSection["kind"]>([
+  "photo",
+  "swiper",
+  "invite",
+]);
 
 function Photo({ image }: { image: Img }) {
   return (
@@ -361,6 +366,16 @@ export default function CollectiveMobile({
                   <p className="cm-sketch__text">{s.text}</p>
                 </div>
               </section>
+            );
+
+          case "invite":
+            return (
+              <InviteBand
+                key={i}
+                className={cls(on, "")}
+                index={i}
+                cta={s.cta}
+              />
             );
 
           case "news":

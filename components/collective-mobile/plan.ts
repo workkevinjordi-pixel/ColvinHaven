@@ -1,3 +1,4 @@
+import type { Invite } from "@/components/ui/InviteBand";
 import type { CollectivePage } from "@/lib/sanity/collective";
 import {
   PUBLICATIONS,
@@ -32,7 +33,8 @@ export type CollectiveSection =
   | { kind: "photo"; image: Img }
   | { kind: "inspirations"; heading: string; paragraphs: string[] }
   | { kind: "swiper"; label: string; slides: Img[] }
-  | { kind: "news"; heading: string; items: PublicationItem[] };
+  | { kind: "news"; heading: string; items: PublicationItem[] }
+  | { kind: "invite"; cta?: Invite };
 
 // "Astrid leads the architecture." -> name + role. Anything that isn't one
 // of those short lines is a plain paragraph.
@@ -40,6 +42,7 @@ const PERSON_LINE = /^(\S+) ((?:leads|is|master) .*)$/;
 
 export function buildCollectivePlan(
   page: CollectivePage | undefined,
+  cta?: Invite,
 ): CollectiveSection[] {
   const sections: CollectiveSection[] = [];
   if (!page) return sections;
@@ -106,6 +109,9 @@ export function buildCollectivePlan(
 
   // The press mentions: the same three items as the desktop list.
   sections.push({ kind: "news", heading: "In The Press", items: PUBLICATIONS });
+
+  // The page closes like the homepage: the invitation band.
+  sections.push({ kind: "invite", cta });
 
   return sections;
 }

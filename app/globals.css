@@ -1495,16 +1495,6 @@ button:focus-visible,
   color: #c7a95f;
 }
 
-/* "TM" next to the CH mark: small, raised, same gold. */
-.footer__tm {
-  margin-left: 2px;
-  font-size: 0.4em;
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  vertical-align: super;
-  line-height: 0;
-}
-
 .footer__nav {
   display: flex;
   gap: 40px;

@@ -34,11 +34,8 @@ export default function Footer({ variant }: { variant?: "wave" } = {}) {
           style={{ objectFit: "cover" }}
         />
         <div className="footer__shade" />
-        <p className="footer__mark" aria-label="Colvin Haven trademark">
+        <p className="footer__mark" aria-label="Colvin Haven">
           CH
-          <sup className="footer__tm" aria-hidden="true">
-            TM
-          </sup>
         </p>
         <p className="footer__year">{new Date().getFullYear()}</p>
       </footer>
@@ -48,11 +45,8 @@ export default function Footer({ variant }: { variant?: "wave" } = {}) {
 
   return (
     <footer className="footer">
-      <p className="footer__mark" aria-label="Colvin Haven trademark">
+      <p className="footer__mark" aria-label="Colvin Haven">
         CH
-        <sup className="footer__tm" aria-hidden="true">
-          TM
-        </sup>
       </p>
       <nav className="footer__nav">
         {FOOTER_LINKS.map((link) => (
